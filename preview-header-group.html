@@ -4975,6 +4975,198 @@ details-disclosure > details {
   }
 }
 
+/* ==========================================================================
+   RJ ARTS - header polish (v3)
+   Chhote-chhote chaar bug jo sirf live header par dikhte the:
+
+   1. Mega column headings (BEDS / BEDROOM STORAGE) 15px ink dikh rahe the,
+      kyunki generic `.mega-menu__link` rule ki specificity barabar thi aur wo
+      baad me aati hai - `.mega-menu__link--level-2` ko override kar deti thi.
+   2. Parent menu ka caret label ke neeche chala jata tha: Dawn ka `<summary>`
+      flex row hai, aur link + caret do flex items ban jate hain (wrap ho kar
+      doosri line par). Ab inline-flex + nowrap + CSS chevron.
+   3. Header ke icons bahut door the: Dawn ka `.header__icon` 4.4rem (44px) ka
+      hit box hai, uske upar 24px gap = ~68px doori. Design me 19px glyph +
+      24px gap hai.
+   4. Search modal: form 74.2rem par cap tha (full width nahi) aur close
+      (x) button ka glyph render nahi ho raha tha.
+   ========================================================================== */
+
+/* ---- 1. mega column headings ---- */
+.section-header .mega-menu__link.mega-menu__link--level-2 {
+  display: block;
+  font-family: var(--rj-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--rj-grey);
+  padding: 0;
+  margin: 0 0 14px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.section-header .mega-menu__link.mega-menu__link--level-2:hover {
+  color: var(--rj-ink);
+  padding-left: 0;
+  text-decoration: none;
+}
+
+/* ---- 2. parent menu caret (design .chev: 8x8, 1.4px border, rotate 45) ---- */
+.section-header .header__inline-menu summary.header__menu-item {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+/* Dawn ka filled triangle hata kar design ka patla chevron */
+.section-header .header__inline-menu .header__menu-item > .icon-caret {
+  display: none;
+}
+
+.section-header .header__inline-menu summary.header__menu-item::after {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-top: -3px;
+  border-right: 1.4px solid currentColor;
+  border-bottom: 1.4px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.3s var(--rj-ease), margin-top 0.3s var(--rj-ease);
+}
+
+.section-header .header__inline-menu summary.header__menu-item:hover::after,
+.section-header .header__inline-menu details[open] > summary.header__menu-item::after {
+  transform: rotate(-135deg);
+  margin-top: 2px;
+}
+
+/* ---- 3. header icon row: 19px glyphs, 24px gaps ---- */
+.section-header .header__icons {
+  gap: 24px;
+  align-items: center;
+  padding-right: 0;
+}
+
+.section-header .header__icons .header__icon,
+.section-header .header__icons summary.header__icon,
+.section-header .header__icons shopify-account {
+  width: 19px;
+  min-width: 19px;
+  height: 19px;
+  min-height: 19px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header .header__icons .header__icon span {
+  height: auto;
+}
+
+/* cart = bag + 17px count, so it may be wider than 19px */
+.section-header .header__icons .header__icon--cart {
+  width: auto;
+  gap: 7px;
+  margin-right: 0;
+}
+
+/* ---- 4. search modal: full width + visible close ---- */
+.section-header .header__search .search-modal__content {
+  justify-content: flex-start;
+  padding: 0 40px;
+  gap: 16px;
+}
+
+.section-header .search-modal__close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  flex: none;
+  color: rgb(var(--color-foreground));
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.section-header .search-modal__close-button .svg-wrapper {
+  display: block;
+  width: 19px;
+  height: 19px;
+  background-color: currentColor;
+  -webkit-mask-image: var(--rj-icon-close);
+  mask-image: var(--rj-icon-close);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.section-header .search-modal__close-button .svg-wrapper > svg {
+  display: none;
+}
+
+/* close glyph in the icon row must beat the search mask (higher specificity) */
+.section-header .header__icons .header__icon--search span.svg-wrapper.header__icon-close {
+  -webkit-mask-image: var(--rj-icon-close);
+  mask-image: var(--rj-icon-close);
+}
+
+@media screen and (min-width: 990px) {
+  .section-header .search-modal__form {
+    max-width: none;
+  }
+
+  .section-header .search-modal__close-button {
+    position: static;
+    margin-left: 16px;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .section-header .header__search .search-modal__content {
+    padding: 0 20px;
+  }
+}
+
+/* desktop gap 24px, mobile usa hi tight spacing jo pehle tha */
+@media screen and (max-width: 990px) {
+  .section-header .header__icons {
+    gap: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .section-header .header__icons {
+    gap: 14px;
+  }
+}
+
+/* new customer-accounts web component apna 44px box banata hai - shrink it */
+.section-header .header__icons shopify-account button,
+.section-header .header__icons shopify-account summary,
+.section-header .header__icons shopify-account a {
+  width: 19px;
+  height: 19px;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .header__icon--menu { display: none; }
 @media screen and (max-width: 989px) {
   .header__icon--menu { display: flex; }

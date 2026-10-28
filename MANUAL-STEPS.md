@@ -49,7 +49,7 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 |
 | 2 | `config/settings_data.json` | REPLACE | 382 |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 1293 |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 1485 |
 | 4 | `assets/rj-arts.js` | **NAYI FILE** | 112 |
 | 5 | `layout/theme.liquid` | REPLACE | 538 |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 |
