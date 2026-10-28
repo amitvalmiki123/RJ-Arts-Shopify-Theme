@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platform Cot Bed with Upholstered Headboard — RJ Arts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f7f4ef;--cream-2:#efe9e1;--white:#ffffff;--ink:#211c17;--ink-soft:#4a433b;
+  --grey:#8a8178;--line:#e2dbd0;--brass:#a9865b;--brass-deep:#8a6a43;--sale:#9a5b46;
+  --shadow:0 24px 60px -30px rgba(40,30,18,.35);--shadow-sm:0 12px 34px -22px rgba(40,30,18,.4);
+  --ease:cubic-bezier(.22,.61,.36,1);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif;--container:1850px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 40px}
+.eyebrow{font-family:var(--sans);font-weight:500;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--brass)}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;letter-spacing:.01em}
+.h-section{font-size:clamp(30px,3.4vw,48px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.7em;font-family:var(--sans);font-weight:400;font-size:13px;letter-spacing:.18em;text-transform:uppercase;padding:17px 34px;border:1px solid var(--ink);color:var(--ink);background:transparent;border-radius:2px;cursor:pointer;transition:.5s var(--ease);position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:.5s var(--ease);z-index:-1}
+.btn:hover{color:var(--cream)}
+.btn:hover::after{transform:translateY(0)}
+.btn--solid{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.btn--solid::after{background:var(--brass-deep)}
+.btn--solid:hover{color:#fff}
+.btn--brass{background:var(--brass);border-color:var(--brass);color:#fff}
+.btn--brass::after{background:var(--brass-deep)}
+.btn--brass:hover{color:#fff}
+.reveal{opacity:0;transform:translateY(30px);transition:.9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* announce + header */
+.announce{background:var(--ink);color:var(--cream);font-size:12px;letter-spacing:.16em;text-transform:uppercase;overflow:hidden}
+.announce .track{display:flex;gap:70px;padding:11px 0;white-space:nowrap;animation:marq 34s linear infinite;width:max-content}
+.announce span{display:inline-flex;align-items:center;gap:70px;opacity:.9}
+.announce b{font-weight:400;color:var(--brass)}
+.star{width:6px;height:6px;background:var(--brass);border-radius:50%;display:inline-block}
+@keyframes marq{to{transform:translateX(-50%)}}
+.header{position:sticky;top:0;z-index:60;background:rgba(247,244,239,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:82px}
+.nav__logo img{height:26px;width:auto;display:block}
+.nav__menu{display:flex;gap:38px;align-items:center}
+.nav__menu a{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);transition:.3s}
+.nav__menu a:hover{color:var(--brass)}
+.nav__actions{display:flex;gap:24px;align-items:center}
+.icon-btn{background:none;border:none;cursor:pointer;color:var(--ink);display:flex;align-items:center;gap:6px}
+.icon-btn svg{width:19px;height:19px;stroke:var(--ink);stroke-width:1.4;fill:none}
+.cart-count{background:var(--ink);color:var(--cream);border-radius:50%;width:17px;height:17px;font-size:10px;display:grid;place-items:center}
+
+/* breadcrumb */
+.crumb{padding:22px 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.crumb a:hover{color:var(--brass)}
+
+/* PDP layout */
+.pdp{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;padding:14px 0 90px;align-items:start}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:88px 1fr;gap:18px;position:sticky;top:104px}
+.thumbs{display:flex;flex-direction:column;gap:12px}
+.thumb{aspect-ratio:1/1;border:1px solid var(--line);border-radius:4px;overflow:hidden;cursor:pointer;background:var(--cream-2);transition:.3s;opacity:.6}
+.thumb.active{opacity:1;border-color:var(--brass)}
+.thumb:hover{opacity:1}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.stage{position:relative;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--cream-2);aspect-ratio:1/1}
+.stage img{width:100%;height:100%;object-fit:cover;transition:.5s var(--ease)}
+.stage .zoom-hint{position:absolute;bottom:16px;right:16px;background:rgba(255,255,255,.85);border-radius:40px;padding:8px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.stage .badge{position:absolute;top:16px;left:16px;background:var(--sale);color:#fff;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:6px 13px;border-radius:2px}
+
+/* info */
+.sku-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-bottom:14px}
+.sku-row .sku{color:var(--ink-soft)}
+.stock{display:inline-flex;align-items:center;gap:8px;color:var(--ink-soft)}
+.stock i{width:9px;height:9px;border-radius:50%;background:#2fae8f;box-shadow:0 0 0 3px rgba(47,174,143,.2)}
+.pinfo h1{font-size:clamp(28px,2.6vw,40px);margin:2px 0 14px;line-height:1.15}
+.pinfo .rating{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--grey)}
+.pinfo .rating .s{color:var(--ink);letter-spacing:2px;font-size:15px}
+.pinfo .rating a:hover{color:var(--brass)}
+.price{display:flex;align-items:baseline;gap:14px;margin:20px 0 8px}
+.price .now{font-weight:500;font-size:30px;color:var(--ink)}
+.price .was{font-size:19px;color:var(--grey);text-decoration:line-through}
+.meta-line{display:flex;align-items:center;gap:11px;font-size:14.5px;color:var(--ink-soft);margin-top:22px}
+.meta-line svg{width:28px;height:20px;stroke:var(--ink-soft);fill:none;stroke-width:1.3;flex-shrink:0}
+.meta-line b{font-weight:400;color:var(--ink)}
+.dim-line{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin-top:12px}
+.buynow{width:100%;margin-top:14px;padding:18px}
+.trust-bar{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-top:22px;font-size:14px}
+.trust-bar .tb-score{display:inline-flex;align-items:center;gap:7px;font-weight:600;color:#1f9e80;font-size:17px}
+.trust-bar .tb-score svg{width:19px;height:19px}
+.trust-bar .tb-stars{color:#2fae8f;letter-spacing:1px;font-size:15px}
+.trust-bar .tb-text{color:var(--ink-soft)}
+.trust-bar .tb-sep{color:var(--line)}
+.trust-bar .tb-verified{display:inline-flex;align-items:center;gap:6px;color:var(--ink-soft)}
+.trust-bar .tb-verified svg{width:16px;height:16px}
+.divider{height:1px;background:var(--line);margin:26px 0}
+.opt-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-weight:500;margin-bottom:12px;display:flex;justify-content:space-between}
+.opt-label span{color:var(--grey);font-weight:300;letter-spacing:.02em;text-transform:none}
+.sizes{display:flex;gap:12px;flex-wrap:wrap}
+.size{border:1px solid var(--line);background:var(--white);border-radius:4px;padding:14px 22px;cursor:pointer;transition:.3s;text-align:center;min-width:120px}
+.size.active{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+.size b{display:block;font-family:var(--sans);font-weight:500;font-size:14px}
+.size small{font-size:12px;color:inherit;opacity:.7}
+.buyrow{display:flex;gap:14px;margin-top:26px}
+.qty{display:flex;align-items:center;border:1px solid var(--ink);border-radius:2px;overflow:hidden}
+.qty button{width:48px;height:100%;background:transparent;border:none;font-size:20px;cursor:pointer;color:var(--ink)}
+.qty button:hover{background:var(--cream-2)}
+.qty input{width:48px;text-align:center;border:none;background:transparent;font-family:var(--sans);font-size:16px;outline:none}
+.buyrow .btn{flex:1}
+.wishline{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:13px;letter-spacing:.05em;color:var(--ink-soft);cursor:pointer;background:none;border:none;font-family:var(--sans)}
+.wishline svg{width:19px;height:19px;stroke:var(--ink);fill:none;stroke-width:1.5}
+.wishline.on svg{fill:var(--sale);stroke:var(--sale)}
+
+/* usp row */
+.usprow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.uspi{display:flex;gap:12px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:4px;padding:20px 12px;transition:.3s}
+.uspi:hover{border-color:var(--brass);background:var(--cream)}
+.uspi svg{width:30px;height:30px;stroke:var(--ink-soft);fill:none;stroke-width:1.3;flex-shrink:0}
+.uspi b{display:block;font-size:14px;font-weight:400;color:var(--ink-soft)}
+
+/* accordion */
+.acc{margin-top:8px}
+.acc__item{border-bottom:1px solid var(--line)}
+.acc__h{display:flex;justify-content:space-between;align-items:center;padding:22px 0;cursor:pointer;font-family:var(--sans);font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--ink)}
+.acc__h .pm{width:13px;height:13px;position:relative;flex-shrink:0}
+.acc__h .pm::before,.acc__h .pm::after{content:'';position:absolute;background:var(--ink);transition:.3s}
+.acc__h .pm::before{top:6px;left:0;width:13px;height:1.5px}
+.acc__h .pm::after{left:6px;top:0;width:1.5px;height:13px}
+.acc__item.open .pm::after{transform:rotate(90deg);opacity:0}
+.acc__c{max-height:0;overflow:hidden;transition:.45s var(--ease);color:var(--ink-soft);font-size:14.5px;line-height:1.8}
+.acc__item.open .acc__c{max-height:1400px;padding-bottom:24px}
+.acc__c ul{list-style:none;margin:6px 0 14px}
+.acc__c li{padding:6px 0 6px 22px;position:relative}
+.acc__c li::before{content:'';position:absolute;left:0;top:14px;width:7px;height:7px;border:1px solid var(--brass);transform:rotate(45deg)}
+.acc__c strong{display:block;font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.02em;color:var(--ink);text-transform:none;margin:14px 0 2px}
+.acc__c>strong:first-child{margin-top:0}
+.acc__c p{margin:0 0 6px}
+.spec{display:grid;grid-template-columns:180px 1fr;gap:2px 20px;font-size:14px}
+.spec dt{color:var(--grey);padding:7px 0}
+.spec dd{color:var(--ink);padding:7px 0}
+
+/* section */
+.section{padding:80px 0}
+.section--alt{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sec-head{text-align:center;max-width:620px;margin:0 auto 46px}
+.sec-head h2{margin-top:12px}
+
+/* cross-sell cards reuse */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.pcard{background:var(--white);border:1px solid var(--line);border-radius:4px;overflow:hidden;transition:.55s var(--ease)}
+.pcard:hover{box-shadow:var(--shadow-sm);transform:translateY(-6px)}
+.pcard__media{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--cream-2);display:block}
+.pcard__media img{width:100%;height:100%;object-fit:cover;transition:1s var(--ease)}
+.pcard:hover .pcard__media img{transform:scale(1.06)}
+.pcard__body{padding:18px}
+.pcard__cat{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)}
+.pcard__title{font-family:var(--serif);font-size:19px;margin:7px 0 10px;color:var(--ink);line-height:1.2}
+.pcard__title a:hover{color:var(--brass)}
+.pcard__price .now{font-weight:500;font-size:16px}
+.pcard__price .was{font-size:13px;color:var(--grey);text-decoration:line-through;margin-left:8px}
+
+/* reviews — Judge.me style */
+.reviews{background:var(--white);border-top:1px solid var(--line)}
+.reviews__title{text-align:center;font-family:var(--serif);font-size:clamp(30px,3.4vw,46px);letter-spacing:.1em;text-transform:uppercase;font-weight:500;margin-bottom:46px}
+.rev-summary{display:grid;grid-template-columns:1fr 1.1fr 1fr;align-items:center;gap:0;padding-bottom:30px}
+.rev-summary>div{padding:6px 44px}
+.rev-summary .rs-mid{border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.rs-avg{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.rs-avg .stars{color:var(--ink);font-size:22px;letter-spacing:3px}
+.rs-avg .num{font-size:15px;color:var(--ink-soft)}
+.rs-avg .num b{font-weight:500}
+.rs-avg .based{font-size:13px;color:var(--grey);display:flex;align-items:center;gap:6px}
+.rs-avg .based svg{width:15px;height:15px}
+.rs-bars{display:flex;flex-direction:column;gap:6px}
+.rs-brow{display:flex;align-items:center;gap:12px;font-size:12px}
+.rs-brow .stars{color:var(--ink);font-size:12px;letter-spacing:1px;white-space:nowrap}
+.rs-brow .track{flex:1;height:15px;background:#ececec;border-radius:2px;overflow:hidden}
+.rs-brow .track i{display:block;height:100%;background:var(--ink)}
+.rs-brow .n{width:22px;text-align:left;color:var(--grey)}
+.rs-write{display:flex;justify-content:flex-end}
+.rev-toolbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.rev-sort{position:relative}
+.rev-sort select{appearance:none;border:none;background:transparent;font-family:var(--sans);font-size:13px;color:var(--ink);cursor:pointer;padding-right:24px;outline:none;letter-spacing:.02em}
+.rev-sort::after{content:'';position:absolute;right:6px;top:50%;width:7px;height:7px;border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.rev-list{margin-top:4px}
+.rev-item{padding:30px 0;border-bottom:1px solid var(--line);position:relative}
+.rev-item .rdate{position:absolute;top:30px;right:0;font-size:12.5px;color:var(--grey)}
+.rev-item .stars{color:var(--ink);letter-spacing:2px;font-size:14px}
+.rev-who{display:flex;align-items:center;gap:11px;margin:12px 0 6px}
+.rev-who .av{width:34px;height:34px;border-radius:50%;background:var(--cream-2);display:grid;place-items:center;flex-shrink:0}
+.rev-who .av svg{width:20px;height:20px;stroke:var(--grey);fill:none;stroke-width:1.5}
+.rev-who .name{font-size:14px;color:var(--ink-soft)}
+.rev-who .verified{background:var(--ink);color:#fff;font-size:10px;letter-spacing:.05em;padding:3px 8px;border-radius:2px;text-transform:capitalize}
+.rev-item h4{font-family:var(--sans);font-weight:600;font-size:14.5px;color:var(--ink);margin:10px 0 6px}
+.rev-item p{color:var(--ink-soft);font-size:15px;line-height:1.7;max-width:900px}
+.rev-pager{display:flex;align-items:center;justify-content:center;gap:14px;padding:34px 0 0;font-size:14px}
+.rev-pager a{color:var(--grey);cursor:pointer;transition:.3s}
+.rev-pager a.active{color:var(--ink);font-weight:600}
+.rev-pager a:hover{color:var(--ink)}
+@media(max-width:900px){.rev-summary{grid-template-columns:1fr;gap:26px}.rev-summary>div{padding:0}.rev-summary .rs-mid{border:none;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0}.rs-write{justify-content:center}}
+
+/* sticky add bar */
+.stickybar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(100%);transition:.5s var(--ease);box-shadow:0 -12px 34px -24px rgba(40,30,18,.5)}
+.stickybar.show{transform:none}
+.stickybar__in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:14px 0}
+.sb-left{display:flex;align-items:center;gap:16px}
+.sb-left img{width:56px;height:56px;object-fit:cover;border-radius:4px}
+.sb-left b{font-family:var(--serif);font-size:19px;display:block}
+.sb-left .p{font-weight:500;font-size:15px}
+.sb-left .p s{color:var(--grey);font-weight:300;margin-left:8px}
+.sb-right{display:flex;align-items:center;gap:12px}
+.sb-right .btn{padding:15px 40px}
+
+/* footer (compact shared) */
+.footer{position:relative;background:var(--ink);color:rgba(255,255,255,.65);overflow:hidden}
+.footer__grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1.2fr;gap:48px;padding:64px 0 52px}
+.footer__logo img{height:30px;filter:brightness(0) invert(1)}
+.footer__brand p{font-size:14px;margin-top:20px;max-width:300px;line-height:1.7}
+.footer h5{color:#fff;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;font-weight:600}
+.footer ul{list-style:none}
+.footer ul li{margin-bottom:13px}
+.footer ul a{font-size:14px;transition:.3s}
+.footer ul a:hover{color:var(--brass)}
+.footer__socials{display:flex;gap:12px;margin-top:22px}
+.footer__socials a{width:40px;height:40px;border:1px solid rgba(255,255,255,.18);border-radius:50%;display:grid;place-items:center;transition:.4s}
+.footer__socials a:hover{background:var(--brass);border-color:var(--brass);color:var(--ink)}
+.footer__socials svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.4}
+.footer__bottom{display:flex;justify-content:space-between;padding:24px 0 30px;font-size:12.5px;border-top:1px solid rgba(255,255,255,.1);flex-wrap:wrap;gap:12px}
+
+@media(max-width:1100px){
+  .pdp{grid-template-columns:1fr;gap:40px}
+  .gallery{position:static}
+  .rev-grid{grid-template-columns:1fr}
+  .pgrid{grid-template-columns:repeat(2,1fr)}
+  .footer__grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .wrap{padding:0 20px}
+  .nav__menu{display:none}
+  .gallery{grid-template-columns:1fr}
+  .thumbs{flex-direction:row;order:2;overflow-x:auto}
+  .thumb{width:74px;flex-shrink:0}
+  .usprow{grid-template-columns:1fr}
+  .rev-top{grid-template-columns:1fr;gap:26px}
+  .sb-left b,.sb-left img{display:none}
+  .footer__grid{grid-template-columns:1fr}
+  .section{padding:56px 0}
+}
+
+/* ===== SHARED HEADER + FOOTER (match home page) ===== */
+.header{position:sticky;top:0;z-index:60;background:rgba(247,244,239,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:.4s var(--ease)}
+.nav__logo{display:flex;align-items:center}
+.nav__logo img{height:26px;width:auto}
+.nav__menu{display:flex;gap:38px;align-items:center;height:100%}
+.nav__item{height:100%;display:flex;align-items:center;position:relative}
+.nav__item>a{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:400;display:flex;align-items:center;gap:6px;color:var(--ink-soft);transition:.3s}
+.nav__item>a.current{color:var(--brass)}
+.nav__item:hover>a{color:var(--ink)}
+.nav__item>a .chev{width:8px;height:8px;border-right:1.4px solid currentColor;border-bottom:1.4px solid currentColor;transform:rotate(45deg);margin-top:-3px;transition:.3s}
+.nav__item:hover>a .chev{transform:rotate(-135deg);margin-top:2px}
+.mega{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(14px);width:min(1180px,94vw);background:var(--white);border:1px solid var(--line);border-radius:4px;box-shadow:var(--shadow);padding:38px;display:grid;grid-template-columns:1.1fr 1.1fr 1.4fr;gap:40px;opacity:0;visibility:hidden;transition:.45s var(--ease);z-index:70}
+.nav__item:hover .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.mega h4{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-bottom:18px;font-weight:600}
+.mega ul{list-style:none}
+.mega li a{display:block;padding:8px 0;font-size:15px;color:var(--ink-soft);transition:.3s}
+.mega li a:hover{color:var(--brass);padding-left:8px}
+.mega__feature{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mega__card{position:relative;border-radius:3px;overflow:hidden;aspect-ratio:3/4;background:var(--cream-2)}
+.mega__card img{width:100%;height:100%;object-fit:cover;transition:.7s var(--ease)}
+.mega__card:hover img{transform:scale(1.06)}
+.mega__card span{position:absolute;left:14px;bottom:12px;color:#fff;font-family:var(--serif);font-size:20px;text-shadow:0 2px 14px rgba(0,0,0,.5);z-index:2}
+.mega__card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,14,8,.55),transparent 60%)}
+.footer{position:relative;background:var(--ink);color:rgba(255,255,255,.65);padding:0;overflow:hidden}
+.footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--brass),transparent);opacity:.5}
+.footer__news{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:58px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer__news h3{font-family:var(--serif);font-size:clamp(28px,3vw,44px);color:#fff;line-height:1.04;margin-top:10px}
+.footer__news p{font-size:14px;margin-top:14px;color:rgba(255,255,255,.65)}
+.footer__news form{display:flex;border:1px solid rgba(255,255,255,.3);border-radius:2px;overflow:hidden;max-width:460px;margin-left:auto;width:100%}
+.footer__news input{flex:1;border:none;background:transparent;padding:17px 20px;color:#fff;font-family:var(--sans);font-size:14px;outline:none}
+.footer__news input::placeholder{color:rgba(255,255,255,.5)}
+.footer__news button{border:none;background:var(--brass);color:var(--ink);padding:0 30px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:.4s;font-weight:500}
+.footer__news button:hover{background:#fff}
+.footer__grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1.2fr;gap:48px;padding:64px 0 52px}
+.footer__logo img{height:30px;width:auto;filter:brightness(0) invert(1)}
+.footer__brand p{font-size:14px;margin-top:20px;max-width:300px;line-height:1.7}
+.footer__contact{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+.footer__contact a{display:flex;align-items:center;gap:12px;font-size:14px;color:rgba(255,255,255,.75);transition:.3s}
+.footer__contact a:hover{color:var(--brass)}
+.footer__contact svg{width:17px;height:17px;stroke:var(--brass);fill:none;stroke-width:1.5;flex-shrink:0}
+.footer h5{color:#fff;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;font-weight:600}
+.footer ul{list-style:none}
+.footer ul li{margin-bottom:13px}
+.footer ul a{font-size:14px;transition:.3s var(--ease);display:inline-block}
+.footer ul a:hover{color:var(--brass);transform:translateX(6px)}
+.footer__socials{display:flex;gap:12px;margin-top:22px}
+.footer__socials a{width:40px;height:40px;border:1px solid rgba(255,255,255,.18);border-radius:50%;display:grid;place-items:center;transition:.4s var(--ease)}
+.footer__socials a:hover{background:var(--brass);border-color:var(--brass);color:var(--ink);transform:translateY(-3px)}
+.footer__socials svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.4}
+.footer__pay{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px}
+.footer__pay span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-right:4px}
+.footer__pay .chip{border:1px solid rgba(255,255,255,.16);border-radius:4px;padding:6px 11px;font-size:11px;letter-spacing:.05em;color:rgba(255,255,255,.7);background:rgba(255,255,255,.03)}
+.footer__bottom{display:flex;justify-content:space-between;align-items:center;padding:24px 0 30px;font-size:12.5px;flex-wrap:wrap;gap:14px;border-top:1px solid rgba(255,255,255,.1)}
+.footer__bottom a{color:rgba(255,255,255,.75)}
+.footer__ghost{font-family:var(--serif);font-size:clamp(84px,19vw,290px);line-height:.8;color:rgba(255,255,255,.035);text-align:center;letter-spacing:.04em;padding-bottom:24px;pointer-events:none;user-select:none;white-space:nowrap}
+@media(max-width:1024px){.mega{grid-template-columns:1fr 1fr}}
+@media(max-width:1100px){.footer__grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.nav__menu{display:none}.footer__grid{grid-template-columns:1fr}.footer__news{grid-template-columns:1fr;padding:44px 0}.footer__news form{margin-left:0}}
+</style>
+</head>
+<body>
+
+<!-- ===== ANNOUNCEMENT BAR ===== -->
+<div class="announce">
+  <div class="track">
+    <span><i class="star"></i> <b>10%</b> off for registered members <i class="star"></i> Over <b>10,000</b> happy customers <i class="star"></i> <b>1,000+</b> five-star reviews <i class="star"></i> <b>0%</b> finance available <i class="star"></i> Free delivery on solid-wood beds</span>
+    <span><i class="star"></i> <b>10%</b> off for registered members <i class="star"></i> Over <b>10,000</b> happy customers <i class="star"></i> <b>1,000+</b> five-star reviews <i class="star"></i> <b>0%</b> finance available <i class="star"></i> Free delivery on solid-wood beds</span>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+  <div class="wrap">
+    <nav class="nav">
+      <a href="THE-RJ-ARTS.html" class="nav__logo"><img src="Images/logo.svg" alt="RJ Arts"></a>
+      <div class="nav__menu">
+        <div class="nav__item">
+          <a href="collection.html" class="current">Bedroom <i class="chev"></i></a>
+          <div class="mega">
+            <div><h4>Beds</h4><ul><li><a href="collection.html">King Size Beds</a></li><li><a href="collection.html">Queen Size Beds</a></li><li><a href="collection.html">Single Beds</a></li><li><a href="collection.html">Double Beds</a></li><li><a href="collection.html">Beds with Storage</a></li></ul></div>
+            <div><h4>Bedroom Storage</h4><ul><li><a href="collection.html">Chest of Drawers</a></li><li><a href="collection.html">Sideboard Cabinets</a></li><li><a href="collection.html">Bedside Tables</a></li><li><a href="collection.html">Wardrobes</a></li></ul></div>
+            <div class="mega__feature">
+              <div class="mega__card"><img src="https://therjart.com/cdn/shop/files/81dP0WMJ1zL._SL1500.jpg?width=800" alt="Beds"><span>Sheesham Beds</span></div>
+              <div class="mega__card"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=800" alt="Heritage"><span>Brass Heritage</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="nav__item">
+          <a href="THE-RJ-ARTS.html">Living <i class="chev"></i></a>
+          <div class="mega">
+            <div><h4>Seating</h4><ul><li><a href="THE-RJ-ARTS.html">1 Seater Sofa</a></li><li><a href="THE-RJ-ARTS.html">2 Seater Sofa</a></li><li><a href="THE-RJ-ARTS.html">3 Seater Sofa</a></li><li><a href="THE-RJ-ARTS.html">Accent Chairs</a></li></ul></div>
+            <div><h4>Storage</h4><ul><li><a href="THE-RJ-ARTS.html">Book Shelves</a></li><li><a href="THE-RJ-ARTS.html">Cabinets &amp; Sideboards</a></li><li><a href="THE-RJ-ARTS.html">Bar Cabinets</a></li><li><a href="THE-RJ-ARTS.html">Coffee Tables</a></li></ul></div>
+            <div class="mega__feature">
+              <div class="mega__card"><img src="https://therjart.com/cdn/shop/files/Rjart_Sheesham_Regular_Brass_Design_Home_Bar_Cabinet.png?width=800" alt="Living"><span>Bar Cabinets</span></div>
+              <div class="mega__card"><img src="https://therjart.com/cdn/shop/files/Rjart_Nirvana_Sheesham_Single_Seater_Sofa.png?width=800" alt="Sofa"><span>Signature Sofas</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="nav__item">
+          <a href="THE-RJ-ARTS.html">Dining <i class="chev"></i></a>
+          <div class="mega">
+            <div><h4>Dining Sets</h4><ul><li><a href="THE-RJ-ARTS.html">2 Seat Dining</a></li><li><a href="THE-RJ-ARTS.html">4 Seat Dining</a></li><li><a href="THE-RJ-ARTS.html">6 Seat Dining</a></li><li><a href="THE-RJ-ARTS.html">Dining Benches</a></li></ul></div>
+            <div><h4>Finishes</h4><ul><li><a href="THE-RJ-ARTS.html">Honey Finish</a></li><li><a href="THE-RJ-ARTS.html">Walnut Finish</a></li><li><a href="THE-RJ-ARTS.html">Natural Sheesham</a></li><li><a href="THE-RJ-ARTS.html">Teak Finish</a></li></ul></div>
+            <div class="mega__feature">
+              <div class="mega__card"><img src="https://therjart.com/cdn/shop/files/Arvyn_Sheesham_6_Seater_Dining_Set_-_3_Years_Warranty.png?width=800" alt="Dining"><span>6-Seater Sets</span></div>
+              <div class="mega__card"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Rjart_Solid_Wood_Dining_Set_With_Bench_Dining_Chairs.png?width=800" alt="Bench Dining"><span>Bench Dining</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="nav__item"><a href="collection.html">New Arrivals</a></div>
+        <div class="nav__item"><a href="collection.html">Best Sellers</a></div>
+      </div>
+      <div class="nav__actions">
+        <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></button>
+        <button class="icon-btn" aria-label="Account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></button>
+        <button class="icon-btn" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count">0</span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="THE-RJ-ARTS.html">Home</a> / <a href="collection.html">Beds &amp; Bedroom</a> / Platform Cot Bed</div>
+
+  <!-- PDP -->
+  <div class="pdp">
+    <!-- GALLERY -->
+    <div class="gallery">
+      <div class="thumbs" id="thumbs">
+        <div class="thumb active"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=200" alt=""></div>
+        <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/61V6A_vqILL._SL1500.jpg?width=200" alt=""></div>
+        <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/617kVRk4kgL._SL1500.jpg?width=200" alt=""></div>
+        <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/619Po-ovFZL._SL1500.jpg?width=200" alt=""></div>
+        <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/51sAvLWD43L._SL1500.jpg?width=200" alt=""></div>
+        <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/51szxPQ3ERL._SL1500.jpg?width=200" alt=""></div>
+      </div>
+      <div class="stage">
+        <span class="badge">Save 46%</span>
+        <img id="stageImg" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=1100" alt="Platform Cot Bed">
+        <span class="zoom-hint">Hover to zoom</span>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="pinfo">
+      <div class="sku-row">
+        <span class="sku">SKU: RJWBK001</span>
+        <span class="stock"><i></i> In Stock</span>
+      </div>
+      <h1>Wood Bed For Bedroom | Platform Cot Bed With Upholstered Cushioned Headboard | Sheesham Solid Wood King Size</h1>
+      <div class="rating"><span class="s">★★★★★</span> <a href="#reviews">19 reviews</a></div>
+
+      <div class="price">
+        <span class="now" id="priceNow">₹15,566</span>
+        <span class="was" id="priceWas">₹28,798</span>
+      </div>
+
+      <div class="opt-label">Size: <span id="sizeName">King</span></div>
+      <div class="sizes" id="sizes">
+        <div class="size active" data-now="₹15,566" data-was="₹28,798" data-name="King"><b>King</b></div>
+        <div class="size" data-now="₹15,956" data-was="₹27,898" data-name="Queen"><b>Queen</b></div>
+      </div>
+
+      <div class="meta-line"><svg viewBox="0 0 24 24"><rect x="1" y="5" width="14" height="11" rx="1"/><path d="M15 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.2"/><circle cx="18.5" cy="18.5" r="2.2"/></svg> Ships in: <b>7-10 Days</b></div>
+      <div class="dim-line">Dimension: 2.11L x 1.89W x 0.91H Meters</div>
+
+      <div class="divider"></div>
+
+      <div class="buyrow">
+        <div class="qty"><button data-q="-1">−</button><input type="text" value="1" id="qty" readonly><button data-q="1">+</button></div>
+        <button class="btn btn--solid" id="addBtn">Add to Cart</button>
+      </div>
+      <button class="btn btn--solid buynow">Buy It Now</button>
+
+      <div class="trust-bar">
+        <span class="tb-score"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2fae8f"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 4.7</span>
+        <span class="tb-stars">★★★★★</span>
+        <span class="tb-text">4.7 out of 5 stars based on 830 reviews</span>
+        <span class="tb-sep">|</span>
+        <span class="tb-verified">Verified <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2fae8f"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+
+      <button class="wishline" id="wish"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-8.5C.5 9 2 5.5 5.5 5.5c2 0 3.5 1.5 6.5 4 3-2.5 4.5-4 6.5-4C22 5.5 23.5 9 21.5 12.5 19 16.5 12 21 12 21z"/></svg> Add to Wishlist</button>
+
+      <div class="usprow">
+        <div class="uspi"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="15" height="12" rx="1"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><b>Free Shipping</b></div>
+        <div class="uspi"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><b>Secure Payments</b></div>
+        <div class="uspi"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4"/><path d="M8 15l-2-2 2-2"/><path d="M6 13h5"/></svg><b>7-Days Returns</b></div>
+      </div>
+
+      <!-- ACCORDION (live-site content) -->
+      <div class="acc" style="margin-top:20px">
+        <div class="acc__item open">
+          <div class="acc__h">Details <span class="pm"></span></div>
+          <div class="acc__c">
+            <ul>
+              <li>Product Dimensions (in inch): Length 83 × Width 74.5 × Height 36 | Recommended Mattress (in inch): 78 × 72, mattress not included, thickness up to 6 in.</li>
+              <li>Premium Sheesham wood construction — made from high-quality solid Sheesham for exceptional durability and a natural, timeless finish.</li>
+              <li>Comfortable upholstered headboard — a cushioned headboard for added comfort and style, ideal for leaning back while reading or relaxing.</li>
+              <li>DIY assembly required — easy-to-follow instructions included, with a 12 mm MDF mattress base ensuring solid support and stability.</li>
+              <li>Spacious King size — generously sized at 6.5 × 6 ft for a restful sleep experience in any bedroom.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="acc__item">
+          <div class="acc__h">Delivery <span class="pm"></span></div>
+          <div class="acc__c">
+            <p>Your order will be delivered within <strong style="display:inline">7–10 days.</strong></p>
+          </div>
+        </div>
+        <div class="acc__item">
+          <div class="acc__h">Return &amp; Cancellation <span class="pm"></span></div>
+          <div class="acc__c">
+            <strong>Returns</strong>
+            <p>We take great care to ensure your order is delivered safely. In the unlikely event you receive a damaged or defective product:</p>
+            <ul>
+              <li>Inform the delivery personnel immediately.</li>
+              <li>Report the issue to our Customer Support team right away.</li>
+            </ul>
+            <p>All complaints are reviewed within 72 hours. If confirmed, we will arrange a replacement, return, or other suitable resolution. If any assembly parts are missing, please notify Customer Support so we can ship the required components promptly.</p>
+            <strong>Cancellations</strong>
+            <p>Orders may be cancelled within 24 hours of placement.</p>
+          </div>
+        </div>
+        <div class="acc__item">
+          <div class="acc__h">Care Instructions <span class="pm"></span></div>
+          <div class="acc__c">
+            <strong>Cleaning</strong>
+            <ul>
+              <li>Wipe dust with a soft cotton cloth.</li>
+              <li>Use a slightly moistened cloth, avoiding excess water.</li>
+              <li>Clean only with water — avoid chemicals or harsh cleaners.</li>
+            </ul>
+            <strong>Avoid Chemicals</strong>
+            <ul>
+              <li>Do not use chemical-based cleaners or polyurethane paints.</li>
+              <li>Chemicals can damage the natural finish and reduce durability.</li>
+            </ul>
+            <strong>Surface Care</strong>
+            <ul>
+              <li>Use coasters or mats for hot, cold, or wet items to protect the polish.</li>
+              <li>Wipe spills immediately with a soft, dry cloth to prevent stains.</li>
+              <li>For scratches, burns, or residue, use fine-grit sandpaper, then reapply mineral oil.</li>
+            </ul>
+            <strong>Additional Tips</strong>
+            <ul>
+              <li>Avoid prolonged exposure to direct sunlight as it may fade the polish/colour.</li>
+              <li>Do not drag furniture (especially beds) while repositioning, as it may weaken joints.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="acc__item">
+          <div class="acc__h">Quality Promise &amp; Disclaimer <span class="pm"></span></div>
+          <div class="acc__c">
+            <strong>Quality Promise</strong>
+            <ul>
+              <li>All wooden products undergo a 3-step treatment for protection against termites, borers, and pests.</li>
+              <li>Wood is seasoned for optimum moisture content to minimise seasonal expansion or contraction.</li>
+              <li>Every product is tested through a 3-stage quality check with over 50+ checkpoints before dispatch.</li>
+            </ul>
+            <strong>Disclaimer</strong>
+            <ul>
+              <li>Accessories shown in images are for display purposes only and are not included, unless specified.</li>
+              <li>Natural wood grains may vary slightly from piece to piece, reflecting the uniqueness of solid wood.</li>
+              <li>Handcrafted details or hand-painted designs may show minor variations from images.</li>
+              <li>Due to differences in screen settings, slight variations in fabric colour or wood finish may occur.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPLETE THE SET -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Complete the Set</span>
+      <h2 class="h-section">Pairs beautifully with</h2>
+    </div>
+    <div class="pgrid reveal">
+      <article class="pcard">
+        <a href="product.html" class="pcard__media"><img src="https://therjart.com/cdn/shop/files/Rjart_Sheesham_Regular_Brass_Design_Home_Bar_Cabinet.png?width=600" alt=""></a>
+        <div class="pcard__body"><span class="pcard__cat">Storage</span><h3 class="pcard__title"><a href="product.html">Sheesham Bedside Table</a></h3><div class="pcard__price"><span class="now">₹8,499</span><span class="was">₹13,998</span></div></div>
+      </article>
+      <article class="pcard">
+        <a href="product.html" class="pcard__media"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=600" alt=""></a>
+        <div class="pcard__body"><span class="pcard__cat">Storage</span><h3 class="pcard__title"><a href="product.html">Chest of Drawers · Sheesham</a></h3><div class="pcard__price"><span class="now">₹19,999</span><span class="was">₹32,000</span></div></div>
+      </article>
+      <article class="pcard">
+        <a href="product.html" class="pcard__media"><img src="https://therjart.com/cdn/shop/files/Rjart_Nirvana_Sheesham_Single_Seater_Sofa.png?width=600" alt=""></a>
+        <div class="pcard__body"><span class="pcard__cat">Living</span><h3 class="pcard__title"><a href="product.html">Nirvana Accent Chair</a></h3><div class="pcard__price"><span class="now">₹15,622</span></div></div>
+      </article>
+      <article class="pcard">
+        <a href="product.html" class="pcard__media"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=600" alt=""></a>
+        <div class="pcard__body"><span class="pcard__cat">Bedroom</span><h3 class="pcard__title"><a href="product.html">Sideboard Cabinet</a></h3><div class="pcard__price"><span class="now">₹24,499</span><span class="was">₹39,000</span></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS (Judge.me style) -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <h2 class="reviews__title reveal">Customer Reviews</h2>
+
+    <div class="rev-summary reveal">
+      <div class="rs-avg">
+        <div class="stars">★★★★½</div>
+        <div class="num"><b>4.68</b> out of 5</div>
+        <div class="based">Based on 19 reviews <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2fae8f"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="rs-mid rs-bars">
+        <div class="rs-brow"><span class="stars">★★★★★</span><span class="track"><i style="width:74%"></i></span><span class="n">14</span></div>
+        <div class="rs-brow"><span class="stars">★★★★☆</span><span class="track"><i style="width:21%"></i></span><span class="n">4</span></div>
+        <div class="rs-brow"><span class="stars">★★★☆☆</span><span class="track"><i style="width:5%"></i></span><span class="n">1</span></div>
+        <div class="rs-brow"><span class="stars">★★☆☆☆</span><span class="track"><i style="width:0"></i></span><span class="n">0</span></div>
+        <div class="rs-brow"><span class="stars">★☆☆☆☆</span><span class="track"><i style="width:0"></i></span><span class="n">0</span></div>
+      </div>
+      <div class="rs-write">
+        <button class="btn btn--solid">Write a Review</button>
+      </div>
+    </div>
+
+    <div class="rev-toolbar reveal">
+      <div class="rev-sort">
+        <select>
+          <option>Most Recent</option>
+          <option>Highest Rating</option>
+          <option>Lowest Rating</option>
+          <option>Only Pictures</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="rev-list reveal">
+      <div class="rev-item">
+        <span class="rdate">01/09/2026</span>
+        <div class="stars">★★★★★</div>
+        <div class="rev-who"><span class="av"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><span class="name">Arjun Reddy</span><span class="verified">Verified</span></div>
+        <p>The Sheesham wood feels very strong. The cushioned headboard adds comfort and looks classy.</p>
+      </div>
+      <div class="rev-item">
+        <span class="rdate">06/30/2025</span>
+        <div class="stars">★★★★★</div>
+        <div class="rev-who"><span class="av"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><span class="name">Meena Rao</span></div>
+        <h4>Must buy</h4>
+        <p>Probably the best bed I've purchased online. Totally worth the money.</p>
+      </div>
+      <div class="rev-item">
+        <span class="rdate">05/19/2025</span>
+        <div class="stars">★★★★★</div>
+        <div class="rev-who"><span class="av"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><span class="name">Rohan Chatterjee</span></div>
+        <h4>Great buy</h4>
+        <p>Came safely packed. The wood smell and finish both feel fresh and natural.</p>
+      </div>
+      <div class="rev-item">
+        <span class="rdate">04/04/2025</span>
+        <div class="stars">★★★☆☆</div>
+        <div class="rev-who"><span class="av"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><span class="name">Anita Mishra</span></div>
+        <h4>It's okay</h4>
+        <p>The bed is fine but had a small scratch on one side. Not a big issue though.</p>
+      </div>
+      <div class="rev-item">
+        <span class="rdate">03/01/2025</span>
+        <div class="stars">★★★★★</div>
+        <div class="rev-who"><span class="av"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><span class="name">Vikas Yadav</span></div>
+        <h4>Really happy</h4>
+        <p>The bed looks so premium in the room. Very happy with the purchase.</p>
+      </div>
+    </div>
+
+    <div class="rev-pager reveal">
+      <a class="active">1</a><a>2</a><a>3</a><a>›</a><a>»</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__news">
+      <div>
+        <span class="eyebrow" style="color:var(--brass)">The Inner Circle</span>
+        <h3>Join the list. Get 10% off your first order.</h3>
+        <p>Early access to new editions, private design events and members-only offers.</p>
+      </div>
+      <form onsubmit="return false">
+        <input type="email" placeholder="Your email address" aria-label="Email">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <div class="footer__logo"><img src="Images/logo.svg" alt="RJ Arts"></div>
+        <p>Handcrafted solid Sheesham furniture for the modern Indian home — loved by over 10,000 happy homes and 1,000+ five-star reviews.</p>
+        <div class="footer__contact">
+          <a href="mailto:care@therjart.com"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> care@therjart.com</a>
+          <a href="https://wa.me/917014483250"><svg viewBox="0 0 24 24"><path d="M4 20l1.5-4A8 8 0 1 1 9 19z"/><path d="M9 10c0 3 2 5 5 5"/></svg> +91 70144 83250</a>
+        </div>
+        <div class="footer__socials">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M15 3h-3a4 4 0 0 0-4 4v3H5v4h3v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7c-2 0-3.5 1.4-3.5 3.3 0 .9.5 1.8 1.2 2M12 7c2 0 3.5 1.4 3.5 3.5S14 14 12.5 14c-1 0-1.7-.7-1.5-1.6l.6-3M10 17l1-4"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M4 20l1.5-4A8 8 0 1 1 9 19z"/><path d="M9 10c0 3 2 5 5 5"/></svg></a>
+        </div>
+      </div>
+      <div><h5>Shop</h5><ul><li><a href="collection.html">Bedroom</a></li><li><a href="THE-RJ-ARTS.html">Living Room</a></li><li><a href="THE-RJ-ARTS.html">Dining</a></li><li><a href="collection.html">New Arrivals</a></li><li><a href="collection.html">Best Sellers</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a href="About.html">About Us</a></li><li><a href="#">FAQs</a></li><li><a href="#">Help &amp; Contact</a></li><li><a href="#">Order Tracking</a></li></ul></div>
+      <div>
+        <h5>Support</h5>
+        <ul><li><a href="#">Delivery Information</a></li><li><a href="#">Returns &amp; Refunds</a></li><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Privacy Policy</a></li></ul>
+        <div class="footer__pay"><span>We accept</span><div class="chip">UPI</div><div class="chip">Visa</div><div class="chip">Mastercard</div><div class="chip">EMI</div></div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 RJ Arts. All rights reserved.</span>
+      <span>Crafted with care · Designed by AWA</span>
+    </div>
+  </div>
+  <div class="footer__ghost">RJ ARTS</div>
+</footer>
+
+<!-- STICKY ADD BAR -->
+<div class="stickybar" id="stickybar">
+  <div class="wrap stickybar__in">
+    <div class="sb-left">
+      <img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=150" alt="">
+      <div>
+        <b>Platform Cot Bed</b>
+        <span class="p" id="sbPrice">₹15,566 <s>₹28,798</s></span>
+      </div>
+    </div>
+    <div class="sb-right">
+      <div class="qty"><button data-q="-1">−</button><input type="text" value="1" id="qty2" readonly><button data-q="1">+</button></div>
+      <button class="btn btn--brass">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* gallery thumb swap */
+const stage=document.getElementById('stageImg');
+document.getElementById('thumbs').addEventListener('click',e=>{
+  const t=e.target.closest('.thumb');if(!t)return;
+  document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  stage.src=t.querySelector('img').src.replace('width=200','width=1100');
+});
+/* hover zoom */
+const stageWrap=document.querySelector('.stage');
+stageWrap.addEventListener('mousemove',e=>{const r=stageWrap.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*100,y=(e.clientY-r.top)/r.height*100;stage.style.transformOrigin=x+'% '+y+'%';stage.style.transform='scale(1.8)';});
+stageWrap.addEventListener('mouseleave',()=>{stage.style.transform='scale(1)';});
+
+/* size selector */
+document.getElementById('sizes').addEventListener('click',e=>{
+  const s=e.target.closest('.size');if(!s)return;
+  document.querySelectorAll('.size').forEach(x=>x.classList.remove('active'));
+  s.classList.add('active');
+  document.getElementById('priceNow').textContent=s.dataset.now;
+  document.getElementById('priceWas').textContent=s.dataset.was;
+  document.getElementById('sizeName').textContent=s.dataset.name;
+  document.getElementById('sbPrice').innerHTML=s.dataset.now+' <s>'+s.dataset.was+'</s>';
+});
+
+/* qty steppers */
+document.querySelectorAll('.qty').forEach(q=>{
+  const inp=q.querySelector('input');
+  q.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    let v=Math.max(1,(parseInt(inp.value)||1)+parseInt(b.dataset.q));inp.value=v;
+  }));
+});
+
+/* accordion */
+document.querySelectorAll('.acc__h').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
+
+/* wishlist */
+document.getElementById('wish').addEventListener('click',function(){this.classList.toggle('on');this.childNodes[this.childNodes.length-1].textContent=this.classList.contains('on')?' In Wishlist':' Add to Wishlist';});
+
+/* add to cart -> bump count */
+document.getElementById('addBtn').addEventListener('click',()=>{const c=document.querySelector('.cart-count');c.textContent=(parseInt(c.textContent)||0)+ (parseInt(document.getElementById('qty').value)||1);});
+
+/* sticky bar on scroll past buy row */
+const buyrow=document.querySelector('.buyrow'),sb=document.getElementById('stickybar');
+addEventListener('scroll',()=>{const r=buyrow.getBoundingClientRect();sb.classList.toggle('show',r.bottom<0);},{passive:true});
+</script>
+</body>
+</html>

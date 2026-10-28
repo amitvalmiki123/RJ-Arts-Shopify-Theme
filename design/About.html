@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — RJ Arts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f7f4ef;--cream-2:#efe9e1;--white:#ffffff;--ink:#211c17;--ink-soft:#4a433b;
+  --grey:#8a8178;--line:#e2dbd0;--brass:#a9865b;--brass-deep:#8a6a43;--sale:#9a5b46;
+  --shadow:0 24px 60px -30px rgba(40,30,18,.35);--shadow-sm:0 12px 34px -22px rgba(40,30,18,.4);
+  --ease:cubic-bezier(.22,.61,.36,1);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif;--container:1850px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 40px}
+.eyebrow{font-family:var(--sans);font-weight:500;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--brass)}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05;letter-spacing:.01em}
+.h-section{font-size:clamp(32px,4vw,54px)}
+.btn{display:inline-flex;align-items:center;gap:.7em;font-family:var(--sans);font-weight:400;font-size:13px;letter-spacing:.18em;text-transform:uppercase;padding:16px 34px;border:1px solid var(--ink);color:var(--ink);background:transparent;border-radius:2px;cursor:pointer;transition:.5s var(--ease);position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:.5s var(--ease);z-index:-1}
+.btn:hover{color:var(--cream)}
+.btn:hover::after{transform:translateY(0)}
+.btn--light{border-color:rgba(255,255,255,.7);color:#fff}
+.btn--light::after{background:#fff}
+.btn--light:hover{color:var(--ink)}
+.btn--solid{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.btn--solid::after{background:var(--brass-deep)}
+.btn--solid:hover{color:#fff}
+.reveal{opacity:0;transform:translateY(38px);transition:1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+
+/* announce */
+.announce{background:var(--ink);color:var(--cream);font-size:12px;letter-spacing:.16em;text-transform:uppercase;overflow:hidden}
+.announce .track{display:flex;gap:70px;padding:11px 0;white-space:nowrap;animation:marq 34s linear infinite;width:max-content}
+.announce span{display:inline-flex;align-items:center;gap:70px;opacity:.9}
+.announce b{font-weight:400;color:var(--brass)}
+.star{width:6px;height:6px;background:var(--brass);border-radius:50%;display:inline-block}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* header */
+.header{position:sticky;top:0;z-index:60;background:rgba(247,244,239,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:.4s var(--ease)}
+.header.scrolled{background:rgba(247,244,239,.98)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:82px}
+.nav__logo{display:flex;align-items:center}
+.nav__logo img{height:26px;width:auto}
+.nav__menu{display:flex;gap:38px;align-items:center;height:100%}
+.nav__item{height:100%;display:flex;align-items:center;position:relative}
+.nav__item>a{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:400;display:flex;align-items:center;gap:6px;color:var(--ink-soft);transition:.3s}
+.nav__item>a.current{color:var(--brass)}
+.nav__item:hover>a{color:var(--ink)}
+.nav__actions{display:flex;gap:24px;align-items:center}
+.icon-btn{background:none;border:none;cursor:pointer;color:var(--ink);display:flex;align-items:center;gap:7px}
+.icon-btn svg{width:19px;height:19px;stroke:var(--ink);stroke-width:1.4;fill:none}
+.cart-count{background:var(--ink);color:var(--cream);border-radius:50%;width:17px;height:17px;font-size:10px;display:grid;place-items:center}
+.nav__item>a .chev{width:8px;height:8px;border-right:1.4px solid currentColor;border-bottom:1.4px solid currentColor;transform:rotate(45deg);margin-top:-3px;transition:.3s}
+.nav__item:hover>a .chev{transform:rotate(-135deg);margin-top:2px}
+.mega{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(14px);width:min(1180px,94vw);background:var(--white);border:1px solid var(--line);border-radius:4px;box-shadow:var(--shadow);padding:38px;display:grid;grid-template-columns:1.1fr 1.1fr 1.4fr;gap:40px;opacity:0;visibility:hidden;transition:.45s var(--ease);z-index:70}
+.nav__item:hover .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.mega h4{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-bottom:18px;font-weight:600}
+.mega ul{list-style:none}
+.mega li a{display:block;padding:8px 0;font-size:15px;color:var(--ink-soft);transition:.3s}
+.mega li a:hover{color:var(--brass);padding-left:8px}
+.mega__feature{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mega__card{position:relative;border-radius:3px;overflow:hidden;aspect-ratio:3/4;background:var(--cream-2)}
+.mega__card img{width:100%;height:100%;object-fit:cover;transition:.7s var(--ease)}
+.mega__card:hover img{transform:scale(1.06)}
+.mega__card span{position:absolute;left:14px;bottom:12px;color:#fff;font-family:var(--serif);font-size:20px;text-shadow:0 2px 14px rgba(0,0,0,.5);z-index:2}
+.mega__card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,14,8,.55),transparent 60%)}
+@media(max-width:1024px){.mega{grid-template-columns:1fr 1fr}}
+
+/* ABOUT HERO */
+.ahero{position:relative;height:74vh;min-height:520px;display:flex;align-items:flex-end;overflow:hidden}
+.ahero__bg{position:absolute;inset:0;z-index:-2}
+.ahero__bg img{width:100%;height:110%;object-fit:cover;animation:heroZoom 12s var(--ease) forwards}
+@keyframes heroZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+.ahero::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(20,14,8,.78),rgba(20,14,8,.15) 55%,rgba(20,14,8,.35))}
+.ahero__inner{padding-bottom:8vh;color:#fff;text-align:left;width:100%}
+.ahero .crumb{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:18px}
+.ahero .crumb a:hover{color:#fff}
+.ahero h1{color:#fff;font-size:clamp(48px,7vw,104px);line-height:.98}
+.ahero p{color:rgba(255,255,255,.9);font-size:19px;max-width:560px;margin-top:20px}
+
+/* STORY SPLIT */
+.section{padding:100px 0}
+.split{display:grid;grid-template-columns:1fr 1.05fr;gap:70px;align-items:center}
+.split.rev{grid-template-columns:1.05fr 1fr}
+.split__media{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:4/5;background:var(--cream-2)}
+.split__media img{width:100%;height:100%;object-fit:cover;transition:1.3s var(--ease)}
+.split:hover .split__media img{transform:scale(1.05)}
+.split__media .tag{position:absolute;left:24px;bottom:24px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-radius:4px;padding:16px 22px;box-shadow:var(--shadow-sm)}
+.split__media .tag b{font-family:var(--serif);font-size:30px;color:var(--ink);display:block;line-height:1}
+.split__media .tag small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
+.split__body h2{margin:14px 0 22px}
+.split__body p{color:var(--ink-soft);margin-bottom:18px;max-width:580px;line-height:1.85}
+.split__body .btn{margin-top:14px}
+
+/* STATS */
+.stats{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;padding:64px 0}
+.stat{text-align:center;position:relative}
+.stat:not(:last-child)::after{content:'';position:absolute;right:-15px;top:10%;height:80%;width:1px;background:var(--line)}
+.stat b{font-family:var(--serif);font-size:clamp(44px,4.5vw,64px);color:var(--brass);display:block;line-height:1}
+.stat small{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-top:10px;display:block}
+
+/* WORKSHOP BAND */
+.wsband{position:relative;height:66vh;min-height:460px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.wsband__bg{position:absolute;inset:0;z-index:-2}
+.wsband__bg img{width:100%;height:100%;object-fit:cover}
+.wsband::before{content:'';position:absolute;inset:0;z-index:-1;background:rgba(20,14,8,.6)}
+.wsband__inner{color:#fff;max-width:760px;padding:0 30px}
+.wsband .eyebrow{color:#e7cfa8}
+.wsband h2{color:#fff;margin:16px 0 20px;font-size:clamp(34px,4.4vw,60px)}
+.wsband p{color:rgba(255,255,255,.9);font-size:18px;max-width:600px;margin:0 auto}
+
+/* PROCESS */
+.proc{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.pstep{background:var(--white);border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:.5s var(--ease)}
+.pstep:hover{transform:translateY(-6px);box-shadow:var(--shadow-sm)}
+.pstep__media{aspect-ratio:4/3;overflow:hidden;background:var(--cream-2)}
+.pstep__media img{width:100%;height:100%;object-fit:cover;transition:1s var(--ease)}
+.pstep:hover .pstep__media img{transform:scale(1.07)}
+.pstep__body{padding:28px}
+.pstep__n{font-family:var(--serif);font-size:15px;color:var(--brass);letter-spacing:.1em}
+.pstep h3{font-size:24px;margin:8px 0 12px}
+.pstep p{color:var(--ink-soft);font-size:14.5px;line-height:1.7}
+
+/* WHY CHOOSE */
+.why{background:var(--white);border-top:1px solid var(--line)}
+.why__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.wcard{background:var(--white);padding:40px 34px;transition:.4s var(--ease)}
+.wcard:hover{background:var(--cream)}
+.wcard svg{width:34px;height:34px;stroke:var(--brass);stroke-width:1.2;fill:none;margin-bottom:20px}
+.wcard h3{font-size:23px;margin-bottom:12px}
+.wcard p{color:var(--ink-soft);font-size:14.5px;line-height:1.7}
+
+/* GALLERY */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:16px}
+.gal a{position:relative;overflow:hidden;border-radius:5px;background:var(--cream-2);cursor:pointer}
+.gal a img{width:100%;height:100%;object-fit:cover;transition:1.1s var(--ease)}
+.gal a:hover img{transform:scale(1.08)}
+.gal a::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,14,8,.4),transparent 50%);opacity:0;transition:.4s}
+.gal a:hover::after{opacity:1}
+.gal .big{grid-column:span 2;grid-row:span 2}
+.gal .wide{grid-column:span 2}
+
+/* CTA */
+.cta{position:relative;text-align:center;background:var(--ink);color:#fff;padding:96px 0;overflow:hidden}
+.cta::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--brass),transparent);opacity:.5}
+.cta .eyebrow{color:var(--brass)}
+.cta h2{color:#fff;margin:14px 0 24px;font-size:clamp(32px,4vw,52px)}
+.cta p{color:rgba(255,255,255,.7);max-width:520px;margin:0 auto 32px}
+
+/* FOOTER */
+.footer{position:relative;background:var(--ink);color:rgba(255,255,255,.65);overflow:hidden}
+.footer__news{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:58px 0;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.footer__news h3{font-family:var(--serif);font-size:clamp(28px,3vw,44px);color:#fff;line-height:1.04;margin-top:10px}
+.footer__news p{font-size:14px;margin-top:14px;color:rgba(255,255,255,.65)}
+.footer__news form{display:flex;border:1px solid rgba(255,255,255,.3);border-radius:2px;overflow:hidden;max-width:460px;margin-left:auto;width:100%}
+.footer__news input{flex:1;border:none;background:transparent;padding:17px 20px;color:#fff;font-family:var(--sans);font-size:14px;outline:none}
+.footer__news input::placeholder{color:rgba(255,255,255,.5)}
+.footer__news button{border:none;background:var(--brass);color:var(--ink);padding:0 30px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:.4s;font-weight:500}
+.footer__news button:hover{background:#fff}
+.footer__grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1.2fr;gap:48px;padding:64px 0 52px}
+.footer__logo img{height:30px;width:auto;filter:brightness(0) invert(1)}
+.footer__brand p{font-size:14px;margin-top:20px;max-width:300px;line-height:1.7}
+.footer__contact{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+.footer__contact a{display:flex;align-items:center;gap:12px;font-size:14px;color:rgba(255,255,255,.75);transition:.3s}
+.footer__contact a:hover{color:var(--brass)}
+.footer__contact svg{width:17px;height:17px;stroke:var(--brass);fill:none;stroke-width:1.5;flex-shrink:0}
+.footer h5{color:#fff;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;font-weight:600}
+.footer ul{list-style:none}
+.footer ul li{margin-bottom:13px}
+.footer ul a{font-size:14px;transition:.3s var(--ease);display:inline-block}
+.footer ul a:hover{color:var(--brass);transform:translateX(6px)}
+.footer__socials{display:flex;gap:12px;margin-top:22px}
+.footer__socials a{width:40px;height:40px;border:1px solid rgba(255,255,255,.18);border-radius:50%;display:grid;place-items:center;transition:.4s var(--ease)}
+.footer__socials a:hover{background:var(--brass);border-color:var(--brass);color:var(--ink);transform:translateY(-3px)}
+.footer__socials svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.4}
+.footer__pay{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px}
+.footer__pay span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-right:4px}
+.footer__pay .chip{border:1px solid rgba(255,255,255,.16);border-radius:4px;padding:6px 11px;font-size:11px;letter-spacing:.05em;color:rgba(255,255,255,.7);background:rgba(255,255,255,.03)}
+.footer__bottom{display:flex;justify-content:space-between;align-items:center;padding:24px 0 30px;font-size:12.5px;flex-wrap:wrap;gap:14px;border-top:1px solid rgba(255,255,255,.1)}
+.footer__ghost{font-family:var(--serif);font-size:clamp(84px,19vw,290px);line-height:.8;color:rgba(255,255,255,.035);text-align:center;letter-spacing:.04em;padding-bottom:24px;pointer-events:none;user-select:none;white-space:nowrap}
+
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(15,10,6,.94);z-index:200;display:none;align-items:center;justify-content:center;padding:40px}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:88vh;border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lb__close{position:absolute;top:26px;right:34px;color:#fff;font-size:34px;cursor:pointer;line-height:1;opacity:.8}
+.lb__close:hover{opacity:1}
+
+@media(max-width:1024px){
+  .split,.split.rev{grid-template-columns:1fr;gap:38px}
+  .proc,.why__grid{grid-template-columns:1fr 1fr}
+  .footer__grid{grid-template-columns:1fr 1fr}
+  .gal{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .wrap{padding:0 20px}
+  .nav__menu{display:none}
+  .stats__grid{grid-template-columns:1fr 1fr;gap:40px 20px}
+  .stat::after{display:none}
+  .proc,.why__grid{grid-template-columns:1fr}
+  .footer__grid{grid-template-columns:1fr}
+  .footer__news{grid-template-columns:1fr;padding:44px 0}
+  .footer__news form{margin-left:0}
+  .section{padding:64px 0}
+  .gal .big{grid-column:span 2;grid-row:span 1}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== ANNOUNCEMENT BAR ===== -->
+<div class="announce">
+  <div class="track">
+    <span><i class="star"></i> <b>10%</b> off for registered members <i class="star"></i> Over <b>10,000</b> happy customers <i class="star"></i> <b>1,000+</b> five-star reviews <i class="star"></i> <b>0%</b> finance available <i class="star"></i> Free delivery on solid-wood beds</span>
+    <span><i class="star"></i> <b>10%</b> off for registered members <i class="star"></i> Over <b>10,000</b> happy customers <i class="star"></i> <b>1,000+</b> five-star reviews <i class="star"></i> <b>0%</b> finance available <i class="star"></i> Free delivery on solid-wood beds</span>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+  <div class="wrap">
+    <nav class="nav">
+      <a href="THE-RJ-ARTS.html" class="nav__logo"><img src="Images/logo.svg" alt="RJ Arts"></a>
+      <div class="nav__menu">
+        <div class="nav__item">
+          <a href="collection.html">Bedroom <i class="chev"></i></a>
+          <div class="mega">
+            <div><h4>Beds</h4><ul><li><a href="collection.html">King Size Beds</a></li><li><a href="collection.html">Queen Size Beds</a></li><li><a href="collection.html">Single Beds</a></li><li><a href="collection.html">Double Beds</a></li><li><a href="collection.html">Beds with Storage</a></li></ul></div>
+            <div><h4>Bedroom Storage</h4><ul><li><a href="collection.html">Chest of Drawers</a></li><li><a href="collection.html">Sideboard Cabinets</a></li><li><a href="collection.html">Bedside Tables</a></li><li><a href="collection.html">Wardrobes</a></li></ul></div>
+            <div class="mega__feature">
+              <div class="mega__card"><img src="https://therjart.com/cdn/shop/files/81dP0WMJ1zL._SL1500.jpg?width=800" alt="Beds"><span>Sheesham Beds</span></div>
+              <div class="mega__card"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=800" alt="Heritage"><span>Brass Heritage</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="nav__item">
+          <a href="THE-RJ-ARTS.html">Living <i class="chev"></i></a>
+          <div class="mega">
+            <div><h4>Seating</h4><ul><li><a href="THE-RJ-ARTS.html">1 Seater Sofa</a></li><li><a href="THE-RJ-ARTS.html">2 Seater Sofa</a></li><li><a href="THE-RJ-ARTS.html">3 Seater Sofa</a></li><li><a href="THE-RJ-ARTS.html">Accent Chairs</a></li></ul></div>
+            <div><h4>Storage</h4><ul><li><a href="THE-RJ-ARTS.html">Book Shelves</a></li><li><a href="THE-RJ-ARTS.html">Cabinets &amp; Sideboards</a></li><li><a href="THE-RJ-ARTS.html">Bar Cabinets</a></li><li><a href="THE-RJ-ARTS.html">Coffee Tables</a></li></ul></div>
+            <div class="mega__feature">
+              <div class="mega__card"><img src="https://therjart.com/cdn/shop/files/Rjart_Sheesham_Regular_Brass_Design_Home_Bar_Cabinet.png?width=800" alt="Living"><span>Bar Cabinets</span></div>
+              <div class="mega__card"><img src="https://therjart.com/cdn/shop/files/Rjart_Nirvana_Sheesham_Single_Seater_Sofa.png?width=800" alt="Sofa"><span>Signature Sofas</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="nav__item">
+          <a href="THE-RJ-ARTS.html">Dining <i class="chev"></i></a>
+          <div class="mega">
+            <div><h4>Dining Sets</h4><ul><li><a href="THE-RJ-ARTS.html">2 Seat Dining</a></li><li><a href="THE-RJ-ARTS.html">4 Seat Dining</a></li><li><a href="THE-RJ-ARTS.html">6 Seat Dining</a></li><li><a href="THE-RJ-ARTS.html">Dining Benches</a></li></ul></div>
+            <div><h4>Finishes</h4><ul><li><a href="THE-RJ-ARTS.html">Honey Finish</a></li><li><a href="THE-RJ-ARTS.html">Walnut Finish</a></li><li><a href="THE-RJ-ARTS.html">Natural Sheesham</a></li><li><a href="THE-RJ-ARTS.html">Teak Finish</a></li></ul></div>
+            <div class="mega__feature">
+              <div class="mega__card"><img src="https://therjart.com/cdn/shop/files/Arvyn_Sheesham_6_Seater_Dining_Set_-_3_Years_Warranty.png?width=800" alt="Dining"><span>6-Seater Sets</span></div>
+              <div class="mega__card"><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Rjart_Solid_Wood_Dining_Set_With_Bench_Dining_Chairs.png?width=800" alt="Bench Dining"><span>Bench Dining</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="nav__item"><a href="collection.html">New Arrivals</a></div>
+        <div class="nav__item"><a href="collection.html">Best Sellers</a></div>
+      </div>
+      <div class="nav__actions">
+        <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></button>
+        <button class="icon-btn" aria-label="Account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></button>
+        <button class="icon-btn" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count">0</span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ABOUT HERO -->
+<section class="ahero">
+  <div class="ahero__bg"><img src="Images/About/Banner-about.png" alt="RJ Arts showroom"></div>
+  <div class="wrap ahero__inner">
+    <div class="crumb"><a href="THE-RJ-ARTS.html">Home</a> &nbsp;/&nbsp; About Us</div>
+    <h1>Our story is<br>carved in wood.</h1>
+    <p>Three generations of woodcraft, one belief — furniture should be built to be handed down, not replaced.</p>
+  </div>
+</section>
+
+<!-- OUR STORY -->
+<section class="section">
+  <div class="wrap">
+    <div class="split reveal">
+      <div class="split__media">
+        <img src="Images/About/Our Story.png" alt="The RJ Arts showroom">
+        <div class="tag"><b>Est. Craft</b><small>Rajasthan, India</small></div>
+      </div>
+      <div class="split__body">
+        <span class="eyebrow">Our Story</span>
+        <h2 class="h-section">Where furniture<br>becomes heirloom.</h2>
+        <p>At RJ Arts, we started with a clear vision — to make buying premium furniture online simple, affordable and reliable for everyone. Rooted in generations of skilled artisans who mastered the craft with carefully chosen Sheesham wood, we bring together style, comfort and lasting quality in every piece.</p>
+        <p>From sleek modern designs for apartments to timeless pieces for family homes, our collection spans sofas, beds, dining sets, cabinets and more — making us a one-stop destination for a home that feels truly yours.</p>
+        <a href="THE-RJ-ARTS.html" class="btn btn--solid">Explore the Collection</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stats__grid reveal">
+      <div class="stat"><b>25+</b><small>Years of Craft</small></div>
+      <div class="stat"><b>10,000+</b><small>Happy Homes</small></div>
+      <div class="stat"><b>830+</b><small>5-Star Reviews</small></div>
+      <div class="stat"><b>3 Yr</b><small>Warranty</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKSHOP BAND -->
+<section class="wsband">
+  <div class="wsband__bg"><img src="Images/About/2b2a3f74-ba83-4b8f-bc9b-782e3c925a3e.png" alt="RJ Arts workshop"></div>
+  <div class="wsband__inner reveal">
+    <span class="eyebrow">Inside Our Workshop</span>
+    <h2>Handcrafted luxury,<br>timeless living.</h2>
+    <p>Every piece begins on our own factory floor in Rajasthan — where seasoned wood, precision machines and the hands of master artisans come together under one roof.</p>
+  </div>
+</section>
+
+<!-- PROCESS / CRAFTSMANSHIP -->
+<section class="section">
+  <div class="wrap">
+    <div class="split rev reveal" style="margin-bottom:70px">
+      <div class="split__body">
+        <span class="eyebrow">The Craft</span>
+        <h2 class="h-section">Made by hand,<br>meant to last.</h2>
+        <p>We craft using high-quality, responsibly sourced Sheesham — kiln-dried for stability, hand-joined for strength, and finished by artisans who have spent a lifetime perfecting their trade.</p>
+        <p>It is this blend of traditional joinery and modern precision that lets every RJ Arts piece look stunning today and stay solid for decades.</p>
+      </div>
+      <div class="split__media" style="aspect-ratio:1/1">
+        <img src="Images/About/images05.jpg" alt="Artisan at work">
+      </div>
+    </div>
+
+    <div class="proc reveal">
+      <article class="pstep">
+        <div class="pstep__media"><img src="Images/About/db5e9cad-2339-4212-a3f9-86f963dcd462.png" alt="Precision carving"></div>
+        <div class="pstep__body"><div class="pstep__n">01 — Shaping</div><h3>Precision &amp; Design</h3><p>Seasoned Sheesham is cut and carved with precision machinery, translating each design into clean, accurate joinery.</p></div>
+      </article>
+      <article class="pstep">
+        <div class="pstep__media"><img src="Images/About/Hand Assembly.png" alt="Hand assembly"></div>
+        <div class="pstep__body"><div class="pstep__n">02 — Building</div><h3>Hand Assembly</h3><p>Master craftsmen join every frame by hand — mortise, tenon and dowel — for furniture that stays rock-steady for generations.</p></div>
+      </article>
+      <article class="pstep">
+        <div class="pstep__media"><img src="Images/About/Sanding-&-Polish.png" alt="Finishing"></div>
+        <div class="pstep__body"><div class="pstep__n">03 — Finishing</div><h3>Sanding &amp; Polish</h3><p>Each surface is sanded smooth and hand-polished to bring out the natural grain, then quality-checked before it ships.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section why">
+  <div class="wrap">
+    <div style="text-align:center;max-width:640px;margin:0 auto 50px" class="reveal">
+      <span class="eyebrow">Why Choose Us</span>
+      <h2 class="h-section" style="margin-top:12px">A promise in every piece.</h2>
+    </div>
+    <div class="why__grid reveal">
+      <div class="wcard"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4"/><path d="M12 11v10"/></svg><h3>100% Solid Sheesham</h3><p>No veneers, no shortcuts — only genuine, kiln-dried solid wood built to outlast trends.</p></div>
+      <div class="wcard"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><h3>Direct Factory Price</h3><p>We own our workshop, so you buy straight from the makers — premium quality without the markup.</p></div>
+      <div class="wcard"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M12 4v4M12 12l3 2"/></svg><h3>3-Year Warranty</h3><p>Every piece is backed by a full three-year warranty and after-sales support you can rely on.</p></div>
+      <div class="wcard"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><h3>Pan-India Delivery</h3><p>Safe, insured delivery and assembly across India — your furniture arrives ready to enjoy.</p></div>
+      <div class="wcard"><svg viewBox="0 0 24 24"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 20l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg><h3>10,000+ Happy Homes</h3><p>A 4.8-star average across 830+ verified reviews from families who chose RJ Arts.</p></div>
+      <div class="wcard"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><h3>Real Human Support</h3><p>A customer-first team on WhatsApp and call, ready to guide you from browsing to after-care.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap reveal">
+    <span class="eyebrow">Visit Us</span>
+    <h2>Come see it. Feel the wood.</h2>
+    <p>Explore our full collection online, or visit the RJ Arts showroom to experience the craftsmanship in person.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="THE-RJ-ARTS.html" class="btn btn--light">Shop the Collection</a>
+      <a href="https://wa.me/917014483250" class="btn btn--light" style="border-color:rgba(255,255,255,.35)">Chat on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section">
+  <div class="wrap">
+    <div style="text-align:center;max-width:640px;margin:0 auto 50px" class="reveal">
+      <span class="eyebrow">Our Spaces</span>
+      <h2 class="h-section" style="margin-top:12px">Step inside RJ Arts.</h2>
+    </div>
+    <div class="gal reveal">
+      <a class="big" data-full="Images/About/a75c6b5c-0f01-4baf-b3b3-a3d70d22227a.png"><img src="Images/About/a75c6b5c-0f01-4baf-b3b3-a3d70d22227a.png" alt="RJ Arts factory and showroom"></a>
+      <a data-full="Images/About/images04.png"><img src="Images/About/images04.png" alt="Showroom exterior"></a>
+      <a data-full="Images/About/images02.png"><img src="Images/About/images02.png" alt="Showroom interior"></a>
+      <a class="wide" data-full="Images/About/images03.png"><img src="Images/About/images03.png" alt="Showroom interior"></a>
+      <a data-full="Images/About/db5e9cad-2339-4212-a3f9-86f963dcd462.png"><img src="Images/About/db5e9cad-2339-4212-a3f9-86f963dcd462.png" alt="Workshop"></a>
+      <a data-full="Images/About/images01.png"><img src="Images/About/images01.png" alt="Storefront"></a>
+      <a class="wide" data-full="Images/About/f5888ea3-7621-40fb-a749-fb24c60eb968.png"><img src="Images/About/f5888ea3-7621-40fb-a749-fb24c60eb968.png" alt="RJ Arts building"></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__news">
+      <div>
+        <span class="eyebrow" style="color:var(--brass)">The Inner Circle</span>
+        <h3>Join the list. Get 10% off your first order.</h3>
+        <p>Early access to new editions, private design events and members-only offers.</p>
+      </div>
+      <form onsubmit="return false">
+        <input type="email" placeholder="Your email address" aria-label="Email">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <div class="footer__logo"><img src="Images/logo.svg" alt="RJ Arts"></div>
+        <p>Handcrafted solid Sheesham furniture for the modern Indian home — loved by over 10,000 happy homes and 1,000+ five-star reviews.</p>
+        <div class="footer__contact">
+          <a href="mailto:care@therjart.com"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> care@therjart.com</a>
+          <a href="https://wa.me/917014483250"><svg viewBox="0 0 24 24"><path d="M4 20l1.5-4A8 8 0 1 1 9 19z"/><path d="M9 10c0 3 2 5 5 5"/></svg> +91 70144 83250</a>
+        </div>
+        <div class="footer__socials">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M15 3h-3a4 4 0 0 0-4 4v3H5v4h3v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7c-2 0-3.5 1.4-3.5 3.3 0 .9.5 1.8 1.2 2M12 7c2 0 3.5 1.4 3.5 3.5S14 14 12.5 14c-1 0-1.7-.7-1.5-1.6l.6-3M10 17l1-4"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M4 20l1.5-4A8 8 0 1 1 9 19z"/><path d="M9 10c0 3 2 5 5 5"/></svg></a>
+        </div>
+      </div>
+      <div><h5>Shop</h5><ul><li><a href="THE-RJ-ARTS.html">Bedroom</a></li><li><a href="THE-RJ-ARTS.html">Living Room</a></li><li><a href="THE-RJ-ARTS.html">Dining</a></li><li><a href="THE-RJ-ARTS.html">New Arrivals</a></li><li><a href="THE-RJ-ARTS.html">Best Sellers</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a href="#">About Us</a></li><li><a href="#">FAQs</a></li><li><a href="#">Help &amp; Contact</a></li><li><a href="#">Order Tracking</a></li></ul></div>
+      <div>
+        <h5>Support</h5>
+        <ul><li><a href="#">Delivery Information</a></li><li><a href="#">Returns &amp; Refunds</a></li><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Privacy Policy</a></li></ul>
+        <div class="footer__pay"><span>We accept</span><div class="chip">UPI</div><div class="chip">Visa</div><div class="chip">Mastercard</div><div class="chip">EMI</div></div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 RJ Arts. All rights reserved.</span>
+      <span>Crafted with care · Designed by AWA</span>
+    </div>
+  </div>
+  <div class="footer__ghost">RJ ARTS</div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb"><span class="lb__close" id="lbClose">&times;</span><img id="lbImg" src="" alt=""></div>
+
+<script>
+/* scroll reveal */
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+
+/* sticky header */
+const header=document.getElementById('header');
+addEventListener('scroll',()=>{header.classList.toggle('scrolled',scrollY>30);},{passive:true});
+
+/* gallery lightbox */
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg');
+document.querySelectorAll('.gal a').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();lbImg.src=a.dataset.full;lb.classList.add('open');});
+});
+function closeLb(){lb.classList.remove('open');}
+document.getElementById('lbClose').addEventListener('click',closeLb);
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
+</script>
+</body>
+</html>
