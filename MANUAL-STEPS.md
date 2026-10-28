@@ -23,6 +23,24 @@ Do zip hain, confusion na karein:
 
 **Rule:** har file paste ke baad **`Ctrl+S`**. Shopify wahin validate karta hai — error turant dikhega.
 
+### ⚠️ Paste karne ka SAHI tarika (ye galti mat karein)
+
+Shopify ka code editor **VS Code** jaisa hai. Agar aap pehle poora text **delete** karke phir paste karte hain, to editor samajhta hai ki aap file **delete** karna chahte hain — aur required files (jaise `config/settings_data.json`) par popup aata hai:
+
+> `config/settings_data.json could not be deleted`
+
+**Sahi tarika (ek hi action me replace):**
+
+1. File kholein
+2. Editor ke andar click karein → `Ctrl+Home` (cursor top par)
+3. `Ctrl+A` (sab select hoga)
+4. **Seedha `Ctrl+V`** — paste hi selection ko replace kar dega (beech me `Delete`/`Backspace` **na** dabayein)
+5. `Ctrl+S`
+
+File kabhi khaali save nahi hogi, isliye "could not be deleted" popup nahi aayega.
+
+Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya dobara paste → `Ctrl+S`.
+
 ---
 
 ## 1. 13 files — isi order me
