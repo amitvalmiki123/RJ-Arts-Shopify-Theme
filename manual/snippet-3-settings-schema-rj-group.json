@@ -1,0 +1,81 @@
+{
+  "name": "RJ Arts - brand tokens",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Powers the RJ Arts design in assets/base.css (appended block at the end of the file). Page base colour and ink come from the colour schemes above; fonts come from Typography."
+    },
+    {
+      "type": "header",
+      "content": "Accent & supporting colours"
+    },
+    {
+      "type": "color",
+      "id": "rj_color_accent",
+      "label": "Accent - brass",
+      "default": "#A9865B"
+    },
+    {
+      "type": "color",
+      "id": "rj_color_accent_deep",
+      "label": "Accent - deep brass (hover)",
+      "default": "#8A6A43"
+    },
+    {
+      "type": "color",
+      "id": "rj_color_sale",
+      "label": "Sale / discount",
+      "default": "#9A5B46"
+    },
+    {
+      "type": "color",
+      "id": "rj_color_panel",
+      "label": "Soft panel surface",
+      "default": "#EFE9E1"
+    },
+    {
+      "type": "color",
+      "id": "rj_color_line",
+      "label": "Hairline",
+      "default": "#E2DBD0"
+    },
+    {
+      "type": "color",
+      "id": "rj_color_grey",
+      "label": "Muted text",
+      "default": "#8A8178"
+    },
+    {
+      "type": "color",
+      "id": "rj_color_ink_soft",
+      "label": "Body text (soft ink)",
+      "default": "#4A433B"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "rj_container",
+      "min": 1200,
+      "max": 1900,
+      "step": 10,
+      "unit": "px",
+      "label": "Container max width",
+      "info": "Design value: 1850px.",
+      "default": 1850
+    },
+    {
+      "type": "range",
+      "id": "rj_container_pad",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Container side padding (desktop)",
+      "info": "Design value: 40px. Mobile is fixed at 20px, as in the design.",
+      "default": 40
+    }
+  ]
+}

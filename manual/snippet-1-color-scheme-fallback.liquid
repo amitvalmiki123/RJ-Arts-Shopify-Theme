@@ -1,0 +1,89 @@
+      {%- comment -%}
+        RJ Arts: colour-scheme fallback. If settings_data.json carries no
+        color_schemes, Shopify emits no .color-scheme-N rules at all and the
+        storefront loses every colour. This only runs in that case, so the
+        Colors panel stays wired to Theme settings whenever data is present.
+      {%- endcomment -%}
+      {%- unless settings.color_schemes.size > 0 -%}
+        :root,
+        .color-scheme-1 {
+          --color-background: 247,244,239;
+          --gradient-background: #F7F4EF;
+          --color-foreground: 33,28,23;
+          --color-background-contrast: 185,183,179;
+          --color-shadow: 33,28,23;
+          --color-button: 33,28,23;
+          --color-button-text: 247,244,239;
+          --color-secondary-button: 247,244,239;
+          --color-secondary-button-text: 33,28,23;
+          --color-link: 33,28,23;
+          --color-badge-foreground: 33,28,23;
+          --color-badge-background: 247,244,239;
+          --color-badge-border: 33,28,23;
+          --payment-terms-background-color: #F7F4EF;
+        }
+        .color-scheme-2 {
+          --color-background: 239,233,225;
+          --gradient-background: #EFE9E1;
+          --color-foreground: 33,28,23;
+          --color-background-contrast: 179,175,169;
+          --color-shadow: 33,28,23;
+          --color-button: 33,28,23;
+          --color-button-text: 239,233,225;
+          --color-secondary-button: 239,233,225;
+          --color-secondary-button-text: 33,28,23;
+          --color-link: 33,28,23;
+          --color-badge-foreground: 33,28,23;
+          --color-badge-background: 239,233,225;
+          --color-badge-border: 33,28,23;
+          --payment-terms-background-color: #EFE9E1;
+        }
+        .color-scheme-3 {
+          --color-background: 255,255,255;
+          --gradient-background: #FFFFFF;
+          --color-foreground: 33,28,23;
+          --color-background-contrast: 191,191,191;
+          --color-shadow: 33,28,23;
+          --color-button: 33,28,23;
+          --color-button-text: 255,255,255;
+          --color-secondary-button: 255,255,255;
+          --color-secondary-button-text: 33,28,23;
+          --color-link: 33,28,23;
+          --color-badge-foreground: 33,28,23;
+          --color-badge-background: 255,255,255;
+          --color-badge-border: 33,28,23;
+          --payment-terms-background-color: #FFFFFF;
+        }
+        .color-scheme-4 {
+          --color-background: 33,28,23;
+          --gradient-background: #211C17;
+          --color-foreground: 247,244,239;
+          --color-background-contrast: 44,39,35;
+          --color-shadow: 33,28,23;
+          --color-button: 247,244,239;
+          --color-button-text: 33,28,23;
+          --color-secondary-button: 33,28,23;
+          --color-secondary-button-text: 247,244,239;
+          --color-link: 247,244,239;
+          --color-badge-foreground: 247,244,239;
+          --color-badge-background: 33,28,23;
+          --color-badge-border: 247,244,239;
+          --payment-terms-background-color: #211C17;
+        }
+        .color-scheme-5 {
+          --color-background: 169,134,91;
+          --gradient-background: #A9865B;
+          --color-foreground: 33,28,23;
+          --color-background-contrast: 127,100,68;
+          --color-shadow: 33,28,23;
+          --color-button: 33,28,23;
+          --color-button-text: 169,134,91;
+          --color-secondary-button: 169,134,91;
+          --color-secondary-button-text: 33,28,23;
+          --color-link: 33,28,23;
+          --color-badge-foreground: 33,28,23;
+          --color-badge-background: 169,134,91;
+          --color-badge-border: 33,28,23;
+          --payment-terms-background-color: #A9865B;
+        }
+      {%- endunless -%}

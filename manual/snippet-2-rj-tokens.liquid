@@ -1,0 +1,14 @@
+    {%- comment -%} RJ ARTS design tokens (Settings → RJ Arts — brand tokens) {%- endcomment -%}
+    {% style %}
+      :root {
+        --rj-set-panel: {{ settings.rj_color_panel }};
+        --rj-set-hairline: {{ settings.rj_color_line }};
+        --rj-set-muted: {{ settings.rj_color_grey }};
+        --rj-set-soft: {{ settings.rj_color_ink_soft }};
+        --rj-set-accent: {{ settings.rj_color_accent }};
+        --rj-set-accent-deep: {{ settings.rj_color_accent_deep }};
+        --rj-set-sale: {{ settings.rj_color_sale }};
+        --rj-set-container: {{ settings.rj_container }}px;
+        --rj-set-pad: {{ settings.rj_container_pad }}px;
+      }
+    {% endstyle %}
