@@ -282,6 +282,8 @@
       "note": "Instruksi khusus pesanan",
       "checkout": "Check out",
       "empty": "Keranjang Anda kosong",
+      "product_disclosure": "Pengungkapan produk",
+      "product_disclosures": "Pengungkapan produk",
       "cart_error": "Terjadi kesalahan saat memperbarui keranjang. Silakan coba lagi.",
       "cart_quantity_error_html": "Hanya dapat menambahkan {{ quantity }} item ini ke keranjang Anda.",
       "headings": {
@@ -391,7 +393,6 @@
       "view_addresses": "Lihat alamat",
       "return": "Kembali ke detail Akun"
     },
-    "account_fallback": "Akun",
     "activate_account": {
       "title": "Aktifkan akun",
       "subtext": "Buat sandi untuk mengaktifkan akunmu.",
@@ -501,7 +502,7 @@
       "subtext": "Voucher Anda",
       "gift_card_code": "Kode voucher",
       "shop_link": "Kunjungi toko online",
-      "add_to_apple_wallet": "Tambahkan ke Apple Wallet",
+      "add_to_apple_wallet": "Tambahkan ke Dompet Apple",
       "qr_image_alt": "Kode QR — pindai untuk menukarkan voucher",
       "copy_code": "Salin kode voucher",
       "expired": "Kedaluwarsa",

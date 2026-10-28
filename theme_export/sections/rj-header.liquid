@@ -1,5 +1,9 @@
 {% comment %}
   RJ ARTS — header (design .header / .nav / .mega)
+
+  Built for Dawn 16.x (Shopify currently ships 16.1.0). If you run an older Dawn,
+  remove the `show_country_selector` / `show_language_selector` / `show_social_links`
+  arguments from the `header-drawer` render below.
   Matches design/THE-RJ-ARTS.html: 82px sticky bar, blurred cream, logo left,
   uppercase nav with hover mega panels (2 link columns + 2 image cards),
   search / account / cart on the right.
@@ -28,7 +32,15 @@
   <div class="rj-wrap">
     <nav class="rj-nav" aria-label="{{ 'sections.header.menu' | t | default: 'Primary' }}">
       {%- if section.settings.menu != blank -%}
-        {%- render 'header-drawer' -%}
+        {%- comment -%}
+          Dawn 16.x: header-drawer takes explicit selector flags. Country/language
+          selectors live in the icon row, social links are not in the design.
+        {%- endcomment -%}
+        {%- render 'header-drawer',
+          show_country_selector: false,
+          show_language_selector: false,
+          show_social_links: false
+        -%}
       {%- endif -%}
 
       <a href="{{ routes.root_url }}" class="rj-logo">

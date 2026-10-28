@@ -321,6 +321,7 @@ button { font: inherit; }
 
 /* --------------------------------------------------------------------------
    Header (design .header / .nav / .mega)
+   Scroll state (.is-scrolled) is toggled by assets/rj-arts.js.
    -------------------------------------------------------------------------- */
 .shopify-section.section-header.rj-site-header {
   position: sticky;
@@ -672,6 +673,7 @@ button { font: inherit; }
   display: none;
   justify-self: start;
   margin-left: 0;
+  height: 19px;
 }
 
 .rj-nav header-drawer summary.header__icon {
@@ -680,12 +682,22 @@ button { font: inherit; }
   min-width: 0;
   width: 19px;
   height: 19px;
+  text-decoration: none;
 }
 
+/* the summary holds both the hamburger and the close icon; base.css sizes them 44px */
 .rj-nav header-drawer summary .svg-wrapper,
 .rj-nav header-drawer summary svg {
   width: 19px;
   height: 19px;
+  fill: currentColor;
+}
+
+@media screen and (max-width: 768px) {
+  .rj-nav header-drawer {
+    display: flex;
+    align-items: center;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -975,10 +987,6 @@ button { font: inherit; }
 
   .rj-nav__menu {
     display: none;
-  }
-
-  .rj-nav header-drawer {
-    display: flex;
   }
 
   .rj-nav__actions {
