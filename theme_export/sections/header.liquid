@@ -1,3 +1,8 @@
+{% comment %}
+  RJ ARTS merge: this is Dawn's header section. Only the schema gained the
+  optional `mega_feature` block (design .mega__feature cards, rendered in
+  snippets/header-mega-menu.liquid). All markup/behaviour is upstream Dawn.
+{% endcomment %}
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -502,7 +507,7 @@
 {
   "name": "t:sections.header.name",
   "class": "section-header",
-  "max_blocks": 3,
+  "max_blocks": 9,
   "settings": [
     {
       "type": "select",
@@ -681,6 +686,35 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "mega_feature",
+      "name": "Mega menu feature card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "parent_link",
+          "label": "Parent menu item title",
+          "info": "Must match a top-level menu title exactly, e.g. Bedroom.",
+          "default": "Bedroom"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card image"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Card label",
+          "default": "Sheesham Beds"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card link"
+        }
+      ]
     }
   ]
 }

@@ -10,7 +10,7 @@ Usage:  python3 tools/build-preview-home.py
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-css = (ROOT / "theme_export/assets/rj-arts.css").read_text()
+css = (ROOT / "theme_export/assets/base.css").read_text()  # Dawn base.css + our appended block
 
 TOKENS = """
 /* ---- static preview stand-ins for what layout/theme.liquid emits ---- */
@@ -33,6 +33,7 @@ TOKENS = """
 /* Dawn colour-scheme classes, preview stand-ins */
 .color-scheme-1 { --color-background: 247, 244, 239; --color-foreground: 33, 28, 23; }
 .color-scheme-4 { --color-background: 33, 28, 23; --color-foreground: 247, 244, 239; }
+html { font-size: 62.5%; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
@@ -47,21 +48,30 @@ button { font: inherit; }
 """
 
 NAV = """
-<div class="utility-bar color-scheme-4">
-  <div class="page-width utility-bar__grid">
-    <div class="announcement-bar" role="region" aria-label="Announcement">
-      <p class="announcement-bar__message"><span>10% off for registered members</span></p>
+<div class="utility-bar color-scheme-4 gradient rj-announce-bar" style="--rj-marquee-duration: 34s;">
+  <div class="rj-ticker" role="region" aria-label="Announcement">
+    <div class="rj-ticker__group">
+      <i class="rj-ticker__star" aria-hidden="true"></i><span class="rj-ticker__msg"><strong>10%</strong> off for registered members</span>
+      <i class="rj-ticker__star" aria-hidden="true"></i><span class="rj-ticker__msg">Over <strong>10,000</strong> happy customers</span>
+      <i class="rj-ticker__star" aria-hidden="true"></i><span class="rj-ticker__msg"><strong>1,000+</strong> five-star reviews</span>
+      <i class="rj-ticker__star" aria-hidden="true"></i><span class="rj-ticker__msg"><strong>0%</strong> finance available</span>
+      <i class="rj-ticker__star" aria-hidden="true"></i><span class="rj-ticker__msg">Free delivery on solid-wood beds</span>
+    </div>
+    <div class="rj-ticker__group" aria-hidden="true">
+      <i class="rj-ticker__star" aria-hidden="true"></i><span class="rj-ticker__msg"><strong>10%</strong> off for registered members</span>
+      <i class="rj-ticker__star" aria-hidden="true"></i><span class="rj-ticker__msg">Over <strong>10,000</strong> happy customers</span>
+      <i class="rj-ticker__star" aria-hidden="true"></i><span class="rj-ticker__msg"><strong>1,000+</strong> five-star reviews</span>
+      <i class="rj-ticker__star" aria-hidden="true"></i><span class="rj-ticker__msg"><strong>0%</strong> finance available</span>
+      <i class="rj-ticker__star" aria-hidden="true"></i><span class="rj-ticker__msg">Free delivery on solid-wood beds</span>
     </div>
   </div>
 </div>
 
 <header class="section-header">
-  <div class="header-wrapper color-scheme-1">
+  <div class="header-wrapper color-scheme-1 gradient">
     <header class="header header--middle-left header--has-menu page-width">
       <button class="header__icon header__icon--menu" aria-label="Menu">
-        <span class="svg-wrapper">
-          <svg viewBox="0 0 18 16" aria-hidden="true"><path fill="currentColor" d="M1 .5a.5.5 0 1 0 0 1h15.71a.5.5 0 0 0 0-1zM.5 8a.5.5 0 0 1 .5-.5h15.71a.5.5 0 0 1 0 1H1A.5.5 0 0 1 .5 8m0 7a.5.5 0 0 1 .5-.5h15.71a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5"/></svg>
-        </span>
+        <span class="svg-wrapper"><svg viewBox="0 0 18 16" aria-hidden="true"><path fill="currentColor" d="M1 .5a.5.5 0 1 0 0 1h15.71a.5.5 0 0 0 0-1zM.5 8a.5.5 0 0 1 .5-.5h15.71a.5.5 0 0 1 0 1H1A.5.5 0 0 1 .5 8m0 7a.5.5 0 0 1 .5-.5h15.71a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5"/></svg></span>
       </button>
 
       <h1 class="header__heading">
@@ -81,7 +91,7 @@ NAV = """
                   <span>Bedroom</span>
                   <svg class="icon icon-caret" viewBox="0 0 10 6" aria-hidden="true"><path fill="currentColor" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708"/></svg>
                 </summary>
-                <div class="mega-menu__content color-scheme-3">
+                <div class="mega-menu__content mega-menu__content--with-feature color-scheme-3">
                   <ul class="mega-menu__list page-width" role="list">
                     <li>
                       <a href="#" class="mega-menu__link mega-menu__link--level-2 link">Beds</a>
@@ -102,30 +112,96 @@ NAV = """
                         <li><a href="#" class="mega-menu__link link">Wardrobes</a></li>
                       </ul>
                     </li>
-                    <li>
-                      <a href="#" class="mega-menu__link mega-menu__link--level-2 link">Living</a>
-                      <ul class="list-unstyled" role="list">
-                        <li><a href="#" class="mega-menu__link link">Sofas</a></li>
-                        <li><a href="#" class="mega-menu__link link">Bar Cabinets</a></li>
-                        <li><a href="#" class="mega-menu__link link">Book Shelves</a></li>
-                      </ul>
-                    </li>
                   </ul>
+                  <div class="mega-menu__feature">
+                    <a class="mega-menu__feature-card" href="#"><img src="Images/Bed.png" alt="Beds"><span>Sheesham Beds</span></a>
+                    <a class="mega-menu__feature-card" href="#"><img src="Images/Bed2.png" alt="Heritage"><span>Brass Heritage</span></a>
+                  </div>
                 </div>
               </details>
             </header-menu>
           </li>
-          <li><a href="#" class="header__menu-item list-menu__item link link--text"><span>Living</span></a></li>
-          <li><a href="#" class="header__menu-item list-menu__item link link--text"><span>Dining</span></a></li>
+          <li>
+            <header-menu>
+              <details class="mega-menu">
+                <summary class="header__menu-item list-menu__item link focus-inset">
+                  <span>Living</span>
+                  <svg class="icon icon-caret" viewBox="0 0 10 6" aria-hidden="true"><path fill="currentColor" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708"/></svg>
+                </summary>
+                <div class="mega-menu__content mega-menu__content--with-feature color-scheme-3">
+                  <ul class="mega-menu__list page-width" role="list">
+                    <li>
+                      <a href="#" class="mega-menu__link mega-menu__link--level-2 link">Seating</a>
+                      <ul class="list-unstyled" role="list">
+                        <li><a href="#" class="mega-menu__link link">1 Seater Sofa</a></li>
+                        <li><a href="#" class="mega-menu__link link">2 Seater Sofa</a></li>
+                        <li><a href="#" class="mega-menu__link link">3 Seater Sofa</a></li>
+                        <li><a href="#" class="mega-menu__link link">Accent Chairs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#" class="mega-menu__link mega-menu__link--level-2 link">Storage</a>
+                      <ul class="list-unstyled" role="list">
+                        <li><a href="#" class="mega-menu__link link">Book Shelves</a></li>
+                        <li><a href="#" class="mega-menu__link link">Cabinets &amp; Sideboards</a></li>
+                        <li><a href="#" class="mega-menu__link link">Bar Cabinets</a></li>
+                        <li><a href="#" class="mega-menu__link link">Coffee Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <div class="mega-menu__feature">
+                    <a class="mega-menu__feature-card" href="#"><img src="Images/Living.jpg" alt="Bar Cabinets"><span>Bar Cabinets</span></a>
+                    <a class="mega-menu__feature-card" href="#"><img src="Images/Sofa.png" alt="Signature Sofas"><span>Signature Sofas</span></a>
+                  </div>
+                </div>
+              </details>
+            </header-menu>
+          </li>
+          <li>
+            <header-menu>
+              <details class="mega-menu">
+                <summary class="header__menu-item list-menu__item link focus-inset">
+                  <span>Dining</span>
+                  <svg class="icon icon-caret" viewBox="0 0 10 6" aria-hidden="true"><path fill="currentColor" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708"/></svg>
+                </summary>
+                <div class="mega-menu__content mega-menu__content--with-feature color-scheme-3">
+                  <ul class="mega-menu__list page-width" role="list">
+                    <li>
+                      <a href="#" class="mega-menu__link mega-menu__link--level-2 link">Dining Sets</a>
+                      <ul class="list-unstyled" role="list">
+                        <li><a href="#" class="mega-menu__link link">2 Seat Dining</a></li>
+                        <li><a href="#" class="mega-menu__link link">4 Seat Dining</a></li>
+                        <li><a href="#" class="mega-menu__link link">6 Seat Dining</a></li>
+                        <li><a href="#" class="mega-menu__link link">Dining Benches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#" class="mega-menu__link mega-menu__link--level-2 link">Finishes</a>
+                      <ul class="list-unstyled" role="list">
+                        <li><a href="#" class="mega-menu__link link">Honey Finish</a></li>
+                        <li><a href="#" class="mega-menu__link link">Walnut Finish</a></li>
+                        <li><a href="#" class="mega-menu__link link">Natural Sheesham</a></li>
+                        <li><a href="#" class="mega-menu__link link">Teak Finish</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <div class="mega-menu__feature">
+                    <a class="mega-menu__feature-card" href="#"><img src="Images/Dining.png" alt="6-Seater Sets"><span>6-Seater Sets</span></a>
+                    <a class="mega-menu__feature-card" href="#"><img src="Images/Dining_image.webp" alt="Bench Dining"><span>Bench Dining</span></a>
+                  </div>
+                </div>
+              </details>
+            </header-menu>
+          </li>
           <li><a href="#" class="header__menu-item list-menu__item link link--text"><span>New Arrivals</span></a></li>
           <li><a href="#" class="header__menu-item list-menu__item link link--text"><span>Best Sellers</span></a></li>
         </ul>
       </nav>
 
       <div class="header__icons">
-        <button class="header__icon header__icon--search" aria-label="Search">
+        <a href="#" class="header__icon header__icon--search" aria-label="Search">
           <span class="svg-wrapper"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></span>
-        </button>
+        </a>
         <a href="#" class="header__icon header__icon--account" aria-label="Account">
           <span class="svg-wrapper"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
         </a>
@@ -341,5 +417,58 @@ html = f"""<!DOCTYPE html>
 </html>
 """
 
+HEADER_ONLY_SCRIPT = """
+<script>
+  const header = document.querySelector('.section-header .header-wrapper');
+  const onScroll = () => header.classList.toggle('rj-scrolled', window.scrollY > 30);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.querySelectorAll('.mega-menu').forEach((d) => {
+    d.addEventListener('mouseenter', () => d.setAttribute('open', ''));
+    d.addEventListener('mouseleave', () => d.removeAttribute('open'));
+  });
+</script>
+"""
+
+header_page = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RJ Arts — Header group (announcement + header)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+{TOKENS}
+{css}
+.header__icon--menu {{ display: none; }}
+@media screen and (max-width: 989px) {{
+  .header__icon--menu {{ display: flex; }}
+  .header__inline-menu {{ display: none; }}
+}}
+.page-width {{ margin-inline: auto; width: 100%; }}
+.list-menu, .list-unstyled {{ list-style: none; margin: 0; padding: 0; }}
+.list-menu--inline {{ display: inline-flex; flex-wrap: wrap; }}
+.header__heading {{ margin: 0; line-height: 0; }}
+.header__icon {{ position: relative; display: flex; align-items: center; justify-content: center; }}
+.mega-menu {{ position: static; }}
+.mega-menu > summary {{ list-style: none; cursor: pointer; }}
+.mega-menu > summary::-webkit-details-marker {{ display: none; }}
+.mega-menu__content {{ position: absolute; left: 0; right: 0; top: 100%; z-index: 30; }}
+.mega-menu__list {{ display: grid; grid-template-columns: repeat(2, 1fr); }}
+.mega-menu:not([open]) .mega-menu__content {{ display: none; }}
+.link {{ text-decoration: none; color: inherit; }}
+body {{ min-height: 200vh; }}
+</style>
+</head>
+<body class="rj-theme">
+{NAV}
+{HEADER_ONLY_SCRIPT}
+</body>
+</html>
+"""
+
+(ROOT / "preview-header-group.html").write_text(header_page)
 (ROOT / "preview-home-01.html").write_text(html)
 print("wrote preview-home-01.html", len(html), "bytes")

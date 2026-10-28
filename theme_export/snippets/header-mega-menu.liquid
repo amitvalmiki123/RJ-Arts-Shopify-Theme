@@ -1,15 +1,27 @@
-{% doc %}
-  Renders the header menu in the mega menu style.
+{% comment %}
+  Renders a megamenu for the header.
 
-  @param {object} [section] - The current header section context, supplied implicitly when rendered from that section and used for menu settings.
+  RJ ARTS merge: Dawn markup below is unchanged; the only addition is the
+  "feature cards" column (design .mega__feature) rendered from header section
+  blocks of type `mega_feature` whose `parent_link` matches the menu item title.
 
-  @example
+  Usage:
   {% render 'header-mega-menu' %}
-{% enddoc %}
+{% endcomment %}
 
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
+      {%- liquid
+        assign feature_blocks = section.blocks | where: 'type', 'mega_feature'
+        assign has_feature = false
+        for block in feature_blocks
+          if block.settings.parent_link == link.title and block.settings.image != blank
+            assign has_feature = true
+            break
+          endif
+        endfor
+      -%}
       <li>
         {%- if link.links != blank -%}
           <header-menu>
@@ -29,7 +41,7 @@
               </summary>
               <div
                 id="MegaMenu-Content-{{ forloop.index }}"
-                class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
+                class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup{% if has_feature %} mega-menu__content--with-feature{% endif %}"
                 tabindex="-1"
               >
                 <ul
@@ -69,6 +81,33 @@
                     </li>
                   {%- endfor -%}
                 </ul>
+
+                {%- if has_feature -%}
+                  <div class="mega-menu__feature">
+                    {%- for block in feature_blocks -%}
+                      {%- if block.settings.parent_link == link.title and block.settings.image != blank -%}
+                        <a
+                          class="mega-menu__feature-card"
+                          href="{{ block.settings.link | default: link.url }}"
+                          {{ block.shopify_attributes }}
+                        >
+                          {{
+                            block.settings.image
+                            | image_url: width: 800
+                            | image_tag:
+                              widths: '300, 500, 700, 800',
+                              sizes: '(min-width: 990px) 260px, 40vw',
+                              loading: 'lazy',
+                              alt: block.settings.label
+                          }}
+                          {%- if block.settings.label != blank -%}
+                            <span>{{ block.settings.label }}</span>
+                          {%- endif -%}
+                        </a>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
               </div>
             </details>
           </header-menu>
