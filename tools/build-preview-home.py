@@ -220,10 +220,44 @@ HERO = """
 </rj-hero>
 """
 
+USP = """
+<div class="rj-usp color-scheme-1 rj-usp--line" style="--rj-usp-pad: 30px;">
+  <div class="rj-wrap">
+    <div class="rj-usp__grid">
+      <div class="rj-usp__item rj-reveal">
+        <span class="rj-usp__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 20l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg></span>
+        <div class="rj-usp__text"><b>1,000+ 5-Star Reviews</b><small>Loved by 10,000+ homes</small></div>
+      </div>
+      <div class="rj-usp__item rj-reveal d1">
+        <span class="rj-usp__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4"/><path d="M12 11v10"/></svg></span>
+        <div class="rj-usp__text"><b>100% Solid Sheesham</b><small>Kiln-dried, hand-finished</small></div>
+      </div>
+      <div class="rj-usp__item rj-reveal d2">
+        <span class="rj-usp__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M12 4v4M12 12l3 2"/></svg></span>
+        <div class="rj-usp__text"><b>3-Year Warranty</b><small>Built to be handed down</small></div>
+      </div>
+      <div class="rj-usp__item rj-reveal d3">
+        <span class="rj-usp__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg></span>
+        <div class="rj-usp__text"><b>0% Finance Available</b><small>Easy EMI at checkout</small></div>
+      </div>
+    </div>
+  </div>
+</div>
+"""
+
 SCRIPT = """
 <script>
 /* mirrors theme_export/assets/rj-hero.js + rj-arts.js for the static preview */
 (function () {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-in');
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.rj-reveal').forEach((el) => io.observe(el));
+
   const header = document.querySelector('[data-rj-header]');
   const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 30);
   onScroll();
@@ -331,7 +365,10 @@ html = f"""<!DOCTYPE html>
 </div>
 
 {NAV}
+<main>
 {HERO}
+{USP}
+</main>
 {SCRIPT}
 </body>
 </html>

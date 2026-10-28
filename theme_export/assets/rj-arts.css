@@ -984,3 +984,88 @@
     display: none;
   }
 }
+
+/* --------------------------------------------------------------------------
+   USP strip (design .usp)
+   Trust row directly under the hero: hairline bottom, 4 items, brass 26px icons.
+   -------------------------------------------------------------------------- */
+.rj-usp {
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  padding-block: var(--rj-usp-pad, 30px);
+}
+
+.rj-usp--line {
+  border-bottom: 1px solid var(--rj-line);
+}
+
+.rj-usp__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.rj-usp__item {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  min-width: 0;
+}
+
+.rj-usp__icon {
+  display: flex;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+}
+
+.rj-usp__icon svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--rj-brass);
+  stroke-width: 1.3;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rj-usp__text {
+  min-width: 0;
+}
+
+.rj-usp__item b {
+  display: block;
+  font-family: var(--rj-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: rgb(var(--color-foreground));
+}
+
+.rj-usp__item small {
+  display: block;
+  color: var(--rj-grey);
+  font-size: 12.5px;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 768px) {
+  .rj-usp__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .rj-usp__item {
+    align-items: flex-start;
+  }
+
+  .rj-usp__item b {
+    font-size: 13.5px;
+  }
+
+  .rj-usp__item small {
+    font-size: 12px;
+  }
+}

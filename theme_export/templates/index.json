@@ -37,7 +37,11 @@
           }
         }
       },
-      "block_order": ["slide-1", "slide-2", "slide-3"],
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ],
       "settings": {
         "height": 92,
         "min_height": 620,
@@ -47,7 +51,58 @@
         "show_arrows": true,
         "show_count": true
       }
+    },
+    "rj_usp": {
+      "type": "rj-usp",
+      "blocks": {
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "icon": "star",
+            "heading": "1,000+ 5-Star Reviews",
+            "text": "Loved by 10,000+ homes"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "icon": "wood",
+            "heading": "100% Solid Sheesham",
+            "text": "Kiln-dried, hand-finished"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "icon": "warranty",
+            "heading": "3-Year Warranty",
+            "text": "Built to be handed down"
+          }
+        },
+        "item-4": {
+          "type": "item",
+          "settings": {
+            "icon": "finance",
+            "heading": "0% Finance Available",
+            "text": "Easy EMI at checkout"
+          }
+        }
+      },
+      "block_order": [
+        "item-1",
+        "item-2",
+        "item-3",
+        "item-4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_y": 30,
+        "show_line": true
+      }
     }
   },
-  "order": ["rj_hero"]
+  "order": [
+    "rj_hero",
+    "rj_usp"
+  ]
 }
