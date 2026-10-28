@@ -1,0 +1,93 @@
+{
+  "name": "RJ Arts header",
+  "type": "header",
+  "sections": {
+    "rj_announcement": {
+      "type": "rj-announcement",
+      "blocks": {
+        "msg-1": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>10%</strong> off for registered members"
+          }
+        },
+        "msg-2": {
+          "type": "text",
+          "settings": {
+            "text": "Over <strong>10,000</strong> happy customers"
+          }
+        },
+        "msg-3": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>1,000+</strong> five-star reviews"
+          }
+        },
+        "msg-4": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>0%</strong> finance available"
+          }
+        },
+        "msg-5": {
+          "type": "text",
+          "settings": {
+            "text": "Free delivery on solid-wood beds"
+          }
+        }
+      },
+      "block_order": ["msg-1", "msg-2", "msg-3", "msg-4", "msg-5"],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "font_size": 12,
+        "speed": 34,
+        "show_star": true
+      }
+    },
+    "rj_header": {
+      "type": "rj-header",
+      "blocks": {
+        "mega-bedroom": {
+          "type": "mega_menu",
+          "settings": {
+            "parent_link": "Bedroom",
+            "menu_1_heading": "Beds",
+            "menu_2_heading": "Bedroom Storage",
+            "card_1_label": "Sheesham Beds",
+            "card_2_label": "Brass Heritage"
+          }
+        },
+        "mega-living": {
+          "type": "mega_menu",
+          "settings": {
+            "parent_link": "Living",
+            "menu_1_heading": "Seating",
+            "menu_2_heading": "Storage",
+            "card_1_label": "Bar Cabinets",
+            "card_2_label": "Signature Sofas"
+          }
+        },
+        "mega-dining": {
+          "type": "mega_menu",
+          "settings": {
+            "parent_link": "Dining",
+            "menu_1_heading": "Dining Sets",
+            "menu_2_heading": "Finishes",
+            "card_1_label": "6-Seater Sets",
+            "card_2_label": "Bench Dining"
+          }
+        }
+      },
+      "block_order": ["mega-bedroom", "mega-living", "mega-dining"],
+      "settings": {
+        "menu": "main-menu",
+        "logo_height": 26,
+        "enable_sticky": true,
+        "show_account": true,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1"
+      }
+    }
+  },
+  "order": ["rj_announcement", "rj_header"]
+}

@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "rj_hero": {
+      "type": "rj-hero",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Bedroom · Solid Sheesham",
+            "heading": "Furniture that\noutlives trends.",
+            "text": "Hand-finished solid-wood beds with cushioned headboards and clever storage — built to be handed down, backed by a 3-year warranty.",
+            "button_1_label": "Shop Bedroom",
+            "button_2_label": "Explore Collections",
+            "button_2_style": "ghost"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Dining · Gather in Style",
+            "heading": "Made for the\nlong dinners.",
+            "text": "Solid Sheesham dining sets in honey, walnut and natural finishes — from intimate 2-seaters to grand 6-seater tables with benches.",
+            "button_1_label": "Shop Dining",
+            "button_2_label": "View Finishes",
+            "button_2_style": "ghost"
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Living · Crafted Comfort",
+            "heading": "Comfort, carved\nfrom wood.",
+            "text": "Handcrafted sofas that blend timeless elegance with everyday comfort — a signature centrepiece for every living space.",
+            "button_1_label": "Shop Living",
+            "button_2_label": "Explore Collections",
+            "button_2_style": "ghost"
+          }
+        }
+      },
+      "block_order": ["slide-1", "slide-2", "slide-3"],
+      "settings": {
+        "height": 92,
+        "min_height": 620,
+        "autoplay": true,
+        "autoplay_speed": 6,
+        "show_dots": true,
+        "show_arrows": true,
+        "show_count": true
+      }
+    }
+  },
+  "order": ["rj_hero"]
+}

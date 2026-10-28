@@ -1,0 +1,281 @@
+{% comment %}
+  RJ ARTS — hero slider (design .hero)
+  Matches design/THE-RJ-ARTS.html: 92vh full-bleed slides, bottom-left white content,
+  01/03 counter, 34px progress dots, 50px circle arrows, 6s autoplay, slow image zoom.
+{% endcomment %}
+
+<script src="{{ 'rj-hero.js' | asset_url }}" defer></script>
+
+{%- assign slide_count = section.blocks.size -%}
+<rj-hero
+  class="rj-hero{% if section.settings.autoplay == false or slide_count < 2 %} rj-hero--static{% endif %}"
+  style="--rj-hero-height: {{ section.settings.height }}vh; --rj-hero-min-height: {{ section.settings.min_height }}px; --rj-hero-duration: {{ section.settings.autoplay_speed }}s;"
+  data-autoplay="{% if section.settings.autoplay and slide_count > 1 %}true{% else %}false{% endif %}"
+  data-speed="{{ section.settings.autoplay_speed }}"
+>
+  {%- for block in section.blocks -%}
+    {%- capture heading_tag -%}{% if request.page_type == 'index' %}h1{% else %}h2{% endif %}{%- endcapture -%}
+    <div
+      class="rj-hero__slide{% if forloop.first %} is-active{% endif %}"
+      data-slide="{{ forloop.index0 }}"
+      {% unless forloop.first %}aria-hidden="true"{% endunless %}
+      {{ block.shopify_attributes }}
+    >
+      <div class="rj-hero__bg">
+        {%- if block.settings.image != blank -%}
+          {{
+            block.settings.image
+            | image_url: width: 3000
+            | image_tag:
+              widths: '600, 900, 1200, 1600, 2000, 2600, 3000',
+              sizes: '100vw',
+              loading: 'eager',
+              fetchpriority: 'high',
+              alt: block.settings.image.alt
+          }}
+        {%- else -%}
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'rj-hero__placeholder' }}
+        {%- endif -%}
+      </div>
+
+      <div class="rj-wrap rj-hero__inner">
+        {%- if block.settings.eyebrow != blank -%}
+          <p class="rj-eyebrow rj-hero__eyebrow">{{ block.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        {%- if block.settings.heading != blank -%}
+          <{{ heading_tag }} class="rj-hero__heading">{{ block.settings.heading | escape | newline_to_br }}</{{ heading_tag }}>
+        {%- endif -%}
+
+        {%- if block.settings.text != blank -%}
+          <p class="rj-hero__text">{{ block.settings.text }}</p>
+        {%- endif -%}
+
+        {%- if block.settings.button_1_label != blank or block.settings.button_2_label != blank -%}
+          <div class="rj-hero__cta">
+            {%- if block.settings.button_1_label != blank -%}
+              <a
+                href="{{ block.settings.button_1_link | default: routes.all_products_collection_url }}"
+                class="rj-btn rj-btn--light"
+              >
+                {{ block.settings.button_1_label }}
+              </a>
+            {%- endif -%}
+            {%- if block.settings.button_2_label != blank -%}
+              <a
+                href="{{ block.settings.button_2_link | default: routes.all_products_collection_url }}"
+                class="rj-btn {% if block.settings.button_2_style == 'solid' %}rj-btn--solid{% elsif block.settings.button_2_style == 'outline' %}rj-btn--light{% else %}rj-btn--ghost{% endif %}"
+              >
+                {{ block.settings.button_2_label }}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endfor -%}
+
+  {%- if slide_count > 1 -%}
+    {%- if section.settings.show_count -%}
+      <div class="rj-hero__count"><b data-rj-hero-count>01</b> / {{ slide_count | prepend: '0' | slice: -2, 2 }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.show_dots -%}
+      <div class="rj-hero__dots" data-rj-hero-dots>
+        {%- for block in section.blocks -%}
+          <button
+            type="button"
+            class="{% if forloop.first %}is-active{% endif %}"
+            data-index="{{ forloop.index0 }}"
+            aria-label="{{ 'sections.slideshow.slide' | t | default: 'Slide' }} {{ forloop.index }}"
+          ></button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_arrows -%}
+      <div class="rj-hero__arrows">
+        <button type="button" data-dir="-1" aria-label="{{ 'general.slider.previous_slide' | t | default: 'Previous slide' }}">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="15 5 8 12 15 19"/></svg>
+        </button>
+        <button type="button" data-dir="1" aria-label="{{ 'general.slider.next_slide' | t | default: 'Next slide' }}">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="9 5 16 12 9 19"/></svg>
+        </button>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+</rj-hero>
+
+{% schema %}
+{
+  "name": "RJ hero slider",
+  "tag": "section",
+  "class": "rj-hero-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "range",
+      "id": "height",
+      "min": 50,
+      "max": 100,
+      "step": 1,
+      "unit": "vh",
+      "label": "Slide height",
+      "info": "Design value: 92vh.",
+      "default": 92
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 400,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height",
+      "info": "Design value: 620px.",
+      "default": 620
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "label": "Time per slide",
+      "info": "Design value: 6s. Also drives the dot progress bar.",
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show progress dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_count",
+      "label": "Show slide counter (01 / 03)",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background image"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "Bedroom · Solid Sheesham"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "info": "Line breaks are kept, like the design's <br>.",
+          "default": "Furniture that\noutlives trends."
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Hand-finished solid-wood beds with cushioned headboards and clever storage — built to be handed down, backed by a 3-year warranty."
+        },
+        {
+          "type": "header",
+          "content": "Buttons"
+        },
+        {
+          "type": "text",
+          "id": "button_1_label",
+          "label": "Button 1 label",
+          "default": "Shop Bedroom"
+        },
+        {
+          "type": "url",
+          "id": "button_1_link",
+          "label": "Button 1 link"
+        },
+        {
+          "type": "text",
+          "id": "button_2_label",
+          "label": "Button 2 label",
+          "default": "Explore Collections"
+        },
+        {
+          "type": "url",
+          "id": "button_2_link",
+          "label": "Button 2 link"
+        },
+        {
+          "type": "select",
+          "id": "button_2_style",
+          "label": "Button 2 style",
+          "options": [
+            { "value": "ghost", "label": "Faint outline (design)" },
+            { "value": "outline", "label": "Light outline" },
+            { "value": "solid", "label": "Solid" }
+          ],
+          "default": "ghost"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RJ hero slider",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Bedroom · Solid Sheesham",
+            "heading": "Furniture that\noutlives trends.",
+            "text": "Hand-finished solid-wood beds with cushioned headboards and clever storage — built to be handed down, backed by a 3-year warranty.",
+            "button_1_label": "Shop Bedroom",
+            "button_2_label": "Explore Collections"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Dining · Gather in Style",
+            "heading": "Made for the\nlong dinners.",
+            "text": "Solid Sheesham dining sets in honey, walnut and natural finishes — from intimate 2-seaters to grand 6-seater tables with benches.",
+            "button_1_label": "Shop Dining",
+            "button_2_label": "View Finishes"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Living · Crafted Comfort",
+            "heading": "Comfort, carved\nfrom wood.",
+            "text": "Handcrafted sofas that blend timeless elegance with everyday comfort — a signature centrepiece for every living space.",
+            "button_1_label": "Shop Living",
+            "button_2_label": "Explore Collections"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

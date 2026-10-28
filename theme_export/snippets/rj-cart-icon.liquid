@@ -1,0 +1,16 @@
+{% comment %}
+  RJ ARTS — cart icon + live count.
+  Shared by sections/rj-header.liquid and sections/cart-icon-bubble.liquid so the
+  count keeps updating inside the Dawn cart drawer without a page reload.
+{% endcomment %}
+<span class="rj-icon-btn__icon" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" focusable="false">
+    <path d="M6 8h12l-1 12H7L6 8z"/>
+    <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+  </svg>
+</span>
+<span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+<div class="cart-count-bubble rj-cart-count">
+  <span aria-hidden="true">{{ cart.item_count }}</span>
+  <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+</div>
