@@ -13,6 +13,10 @@
 
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- comment -%} RJ Arts: display + body typefaces from design/THE-RJ-ARTS.html {%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap">
     {%- endunless -%}
 
     <title>
@@ -383,6 +387,27 @@
         --rj-set-container: {{ settings.rj_container }}px;
         --rj-set-pad: {{ settings.rj_container_pad }}px;
       }
+
+      {%- comment -%}
+        Type fallback: while the merchant has not chosen fonts in Theme settings,
+        use the design's own typefaces. As soon as a font is picked in the
+        Typography panel these rules step aside, so the panel stays in control.
+      {%- endcomment -%}
+      {%- if settings.type_header_font.family == 'Assistant' -%}
+        :root {
+          --font-heading-family: 'Cormorant Garamond', Georgia, serif;
+          --font-heading-style: normal;
+          --font-heading-weight: 500;
+        }
+      {%- endif -%}
+      {%- if settings.type_body_font.family == 'Assistant' -%}
+        :root {
+          --font-body-family: 'Jost', system-ui, sans-serif;
+          --font-body-style: normal;
+          --font-body-weight: 300;
+          --font-body-weight-bold: 500;
+        }
+      {%- endif -%}
     {% endstyle %}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 

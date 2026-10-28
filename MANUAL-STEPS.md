@@ -48,10 +48,10 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | # | File | Action | Lines |
 |---|------|--------|-------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 |
-| 2 | `config/settings_data.json` | REPLACE | 386 |
+| 2 | `config/settings_data.json` | REPLACE | 382 |
 | 3 | `assets/rj-arts.css` | **NAYI FILE** | 1159 |
 | 4 | `assets/rj-arts.js` | **NAYI FILE** | 64 |
-| 5 | `layout/theme.liquid` | REPLACE | 513 |
+| 5 | `layout/theme.liquid` | REPLACE | 538 |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 |
 | 7 | `sections/header.liquid` | REPLACE | 721 |
 | 8 | `snippets/header-mega-menu.liquid` | REPLACE | 135 |
@@ -74,8 +74,10 @@ Ye file "RJ Arts - brand tokens" panel add karti hai (accent colour, hairline, c
 Full file `Ctrl+A` → paste → Save.
 
 ### Step 2 — `config/settings_data.json` → REPLACE
-**Sabse important step.** Isme 5 colour schemes, fonts, page width, cart = drawer, RJ tokens — sab set hain.
-`Ctrl+A` → paste → Save.
+**Sabse important step.** Isme 5 colour schemes, page width, cart = drawer, RJ tokens — sab set hain.
+`Ctrl+A` → `Ctrl+V` → Save.
+
+> **Fonts ki keys is file me nahi hain** (jaan-boojh kar). `cormorant_garamond_n4` / `jost_n4` aapke store ke font library me valid nahi hain — isi wajah se `FileSaveError: … is not a valid font handle` aata tha aur ye file save hi nahi hoti thi. Type ab `theme.liquid` (Google Fonts) se aata hai, isliye design ke fonts milenge hi.
 
 > Agar ye file explorer me na dikhe: Customize me koi chhota change karke **Save** dabayein, file khud ban jayegi, phir paste karein.
 
@@ -151,7 +153,9 @@ Settings ka bada hissa Step 2 se aa jata hai. Ye cheezein editor me karni hain:
 Shadow = text colour. `secondary_button_label` = text colour.
 
 ### 3.3 Typography / Layout / Cart
-- Heading = **Cormorant Garamond**, Body = **Jost** (scale 100 / 100)
+- **Typography panel chhod dein** — design ke fonts (Cormorant Garamond + Jost) theme se hi load hote hain.
+  Customize me panel "Assistant" dikha sakta hai, par site par Cormorant + Jost render honge.
+  Agar aap panel se koi font chunenge, wahi font use hone lagega (panel override kar deta hai).
 - Page width = **1600**
 - Cart type = **Drawer**
 - Buttons radius = 2, border 1 · Spacing sections = 0 · Hover effects = None
@@ -201,6 +205,7 @@ Header section → `mega_feature` blocks. Har block me:
 
 | Error / symptom | Karan | Fix |
 |---|---|---|
+| `FileSaveError: 'cormorant_garamond_n4' is not a valid font handle` | purani `settings_data.json` (jisme font keys thi) paste ho gayi | naya `rj-arts-changes.zip` se `settings_data.json` dobara paste karein |
 | `color schemes must be defined…` | Step 2 nahi hua / cache | `settings_data.json` paste → Save → editor reload |
 | `Block type 'mega_feature' does not exist` | Step 7 se pehle Step 9 | `header.liquid` paste, phir `header-group.json` |
 | `Section type 'rj_hero' does not exist` | Steps 10–11 pending | rj-hero + rj-usp banao, phir `index.json` |
