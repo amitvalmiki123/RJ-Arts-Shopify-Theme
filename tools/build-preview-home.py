@@ -47,120 +47,94 @@ button { font: inherit; }
 """
 
 NAV = """
-<header class="rj-header-wrap header-wrapper color-scheme-1" data-rj-header>
-  <div class="rj-wrap">
-    <nav class="rj-nav" aria-label="Primary">
-      <button class="rj-icon-btn rj-nav__burger" aria-label="Menu">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+<div class="utility-bar color-scheme-4">
+  <div class="page-width utility-bar__grid">
+    <div class="announcement-bar" role="region" aria-label="Announcement">
+      <p class="announcement-bar__message"><span>10% off for registered members</span></p>
+    </div>
+  </div>
+</div>
+
+<header class="section-header">
+  <div class="header-wrapper color-scheme-1">
+    <header class="header header--middle-left header--has-menu page-width">
+      <button class="header__icon header__icon--menu" aria-label="Menu">
+        <span class="svg-wrapper">
+          <svg viewBox="0 0 18 16" aria-hidden="true"><path fill="currentColor" d="M1 .5a.5.5 0 1 0 0 1h15.71a.5.5 0 0 0 0-1zM.5 8a.5.5 0 0 1 .5-.5h15.71a.5.5 0 0 1 0 1H1A.5.5 0 0 1 .5 8m0 7a.5.5 0 0 1 .5-.5h15.71a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5"/></svg>
+        </span>
       </button>
 
-      <a href="#" class="rj-logo"><img src="Images/logo.svg" alt="RJ Arts" width="133" height="29"></a>
-
-      <ul class="rj-nav__menu">
-        <li class="rj-nav__item">
-          <a href="#" class="rj-nav__link">Bedroom <i class="rj-chev" aria-hidden="true"></i></a>
-          <div class="rj-mega">
-            <div>
-              <h4>Beds</h4>
-              <ul>
-                <li><a href="#">King Size Beds</a></li>
-                <li><a href="#">Queen Size Beds</a></li>
-                <li><a href="#">Single Beds</a></li>
-                <li><a href="#">Double Beds</a></li>
-                <li><a href="#">Beds with Storage</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4>Bedroom Storage</h4>
-              <ul>
-                <li><a href="#">Chest of Drawers</a></li>
-                <li><a href="#">Sideboard Cabinets</a></li>
-                <li><a href="#">Bedside Tables</a></li>
-                <li><a href="#">Wardrobes</a></li>
-              </ul>
-            </div>
-            <div class="rj-mega__feature">
-              <a class="rj-mega__card" href="#"><img src="Images/Bed.png" alt="Beds"><span>Sheesham Beds</span></a>
-              <a class="rj-mega__card" href="#"><img src="Images/Bed2.png" alt="Heritage"><span>Brass Heritage</span></a>
-            </div>
-          </div>
-        </li>
-
-        <li class="rj-nav__item">
-          <a href="#" class="rj-nav__link">Living <i class="rj-chev" aria-hidden="true"></i></a>
-          <div class="rj-mega">
-            <div>
-              <h4>Seating</h4>
-              <ul>
-                <li><a href="#">1 Seater Sofa</a></li>
-                <li><a href="#">2 Seater Sofa</a></li>
-                <li><a href="#">3 Seater Sofa</a></li>
-                <li><a href="#">Accent Chairs</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4>Storage</h4>
-              <ul>
-                <li><a href="#">Book Shelves</a></li>
-                <li><a href="#">Cabinets &amp; Sideboards</a></li>
-                <li><a href="#">Bar Cabinets</a></li>
-                <li><a href="#">Coffee Tables</a></li>
-              </ul>
-            </div>
-            <div class="rj-mega__feature">
-              <a class="rj-mega__card" href="#"><img src="Images/Living.jpg" alt="Living"><span>Bar Cabinets</span></a>
-              <a class="rj-mega__card" href="#"><img src="Images/Sofa.png" alt="Sofa"><span>Signature Sofas</span></a>
-            </div>
-          </div>
-        </li>
-
-        <li class="rj-nav__item">
-          <a href="#" class="rj-nav__link">Dining <i class="rj-chev" aria-hidden="true"></i></a>
-          <div class="rj-mega">
-            <div>
-              <h4>Dining Sets</h4>
-              <ul>
-                <li><a href="#">2 Seat Dining</a></li>
-                <li><a href="#">4 Seat Dining</a></li>
-                <li><a href="#">6 Seat Dining</a></li>
-                <li><a href="#">Dining Benches</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4>Finishes</h4>
-              <ul>
-                <li><a href="#">Honey Finish</a></li>
-                <li><a href="#">Walnut Finish</a></li>
-                <li><a href="#">Natural Sheesham</a></li>
-                <li><a href="#">Teak Finish</a></li>
-              </ul>
-            </div>
-            <div class="rj-mega__feature">
-              <a class="rj-mega__card" href="#"><img src="Images/Dining.png" alt="Dining"><span>6-Seater Sets</span></a>
-              <a class="rj-mega__card" href="#"><img src="Images/Dining_image.webp" alt="Bench Dining"><span>Bench Dining</span></a>
-            </div>
-          </div>
-        </li>
-
-        <li class="rj-nav__item"><a href="#new" class="rj-nav__link">New Arrivals</a></li>
-        <li class="rj-nav__item"><a href="#best" class="rj-nav__link">Best Sellers</a></li>
-      </ul>
-
-      <div class="rj-nav__actions">
-        <button class="rj-icon-btn" aria-label="Search">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
-        </button>
-        <a href="#" class="rj-icon-btn rj-icon-btn--account" aria-label="Account">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
-        </a>
-        <a href="#" class="rj-icon-btn rj-icon-btn--cart" aria-label="Cart">
-          <span class="rj-icon-btn__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <h1 class="header__heading">
+        <a href="#" class="header__heading-link link link--text">
+          <span class="header__heading-logo-wrapper">
+            <img class="header__heading-logo" src="Images/logo.png" alt="RJ Arts" width="133" height="29">
           </span>
-          <div class="cart-count-bubble rj-cart-count"><span aria-hidden="true">0</span></div>
+        </a>
+      </h1>
+
+      <nav class="header__inline-menu">
+        <ul class="list-menu list-menu--inline" role="list">
+          <li>
+            <header-menu>
+              <details class="mega-menu">
+                <summary class="header__menu-item list-menu__item link focus-inset">
+                  <span>Bedroom</span>
+                  <svg class="icon icon-caret" viewBox="0 0 10 6" aria-hidden="true"><path fill="currentColor" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708"/></svg>
+                </summary>
+                <div class="mega-menu__content color-scheme-3">
+                  <ul class="mega-menu__list page-width" role="list">
+                    <li>
+                      <a href="#" class="mega-menu__link mega-menu__link--level-2 link">Beds</a>
+                      <ul class="list-unstyled" role="list">
+                        <li><a href="#" class="mega-menu__link link">King Size Beds</a></li>
+                        <li><a href="#" class="mega-menu__link link">Queen Size Beds</a></li>
+                        <li><a href="#" class="mega-menu__link link">Single Beds</a></li>
+                        <li><a href="#" class="mega-menu__link link">Double Beds</a></li>
+                        <li><a href="#" class="mega-menu__link link">Beds with Storage</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#" class="mega-menu__link mega-menu__link--level-2 link">Bedroom Storage</a>
+                      <ul class="list-unstyled" role="list">
+                        <li><a href="#" class="mega-menu__link link">Chest of Drawers</a></li>
+                        <li><a href="#" class="mega-menu__link link">Sideboard Cabinets</a></li>
+                        <li><a href="#" class="mega-menu__link link">Bedside Tables</a></li>
+                        <li><a href="#" class="mega-menu__link link">Wardrobes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#" class="mega-menu__link mega-menu__link--level-2 link">Living</a>
+                      <ul class="list-unstyled" role="list">
+                        <li><a href="#" class="mega-menu__link link">Sofas</a></li>
+                        <li><a href="#" class="mega-menu__link link">Bar Cabinets</a></li>
+                        <li><a href="#" class="mega-menu__link link">Book Shelves</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </details>
+            </header-menu>
+          </li>
+          <li><a href="#" class="header__menu-item list-menu__item link link--text"><span>Living</span></a></li>
+          <li><a href="#" class="header__menu-item list-menu__item link link--text"><span>Dining</span></a></li>
+          <li><a href="#" class="header__menu-item list-menu__item link link--text"><span>New Arrivals</span></a></li>
+          <li><a href="#" class="header__menu-item list-menu__item link link--text"><span>Best Sellers</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="header__icons">
+        <button class="header__icon header__icon--search" aria-label="Search">
+          <span class="svg-wrapper"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></span>
+        </button>
+        <a href="#" class="header__icon header__icon--account" aria-label="Account">
+          <span class="svg-wrapper"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+        </a>
+        <a href="#" class="header__icon header__icon--cart" aria-label="Cart">
+          <span class="svg-wrapper"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span>
+          <div class="cart-count-bubble"><span aria-hidden="true">0</span></div>
         </a>
       </div>
-    </nav>
+    </header>
   </div>
 </header>
 """
@@ -258,8 +232,8 @@ SCRIPT = """
   }, { threshold: 0.12 });
   document.querySelectorAll('.rj-reveal').forEach((el) => io.observe(el));
 
-  const header = document.querySelector('[data-rj-header]');
-  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 30);
+  const header = document.querySelector('.section-header .header-wrapper');
+  const onScroll = () => header.classList.toggle('rj-scrolled', window.scrollY > 30);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -331,38 +305,31 @@ html = f"""<!DOCTYPE html>
 <style>
 {TOKENS}
 {css}
-/* preview-only: hamburger is hidden on desktop exactly like the Liquid header */
-.rj-nav__burger {{ display: none; }}
-@media (max-width: 768px) {{
-  .rj-nav__burger {{ display: flex; }}
-  .rj-nav__handle {{ display: none; }}
+/* preview-only: Dawn hides the hamburger on desktop via component CSS */
+.header__icon--menu {{ display: none; }}
+@media screen and (max-width: 989px) {{
+  .header__icon--menu {{ display: flex; }}
+  .header__inline-menu {{ display: none; }}
 }}
-@media (max-width: 768px) {{
-  .rj-nav__menu {{ display: none; }}
-}}
+.utility-bar__grid {{ display: block; }}
+.page-width {{ margin-inline: auto; width: 100%; }}
+/* ---- preview-only shim for Dawn base.css classes (real theme loads base.css) ---- */
+.list-menu, .list-unstyled {{ list-style: none; margin: 0; padding: 0; }}
+.list-menu--inline {{ display: inline-flex; flex-wrap: wrap; }}
+.header__heading {{ margin: 0; line-height: 0; }}
+.header__icon {{ position: relative; display: flex; align-items: center; justify-content: center; }}
+.header__icon--cart {{ position: relative; }}
+.mega-menu {{ position: static; }}
+.mega-menu > summary {{ list-style: none; cursor: pointer; }}
+.mega-menu > summary::-webkit-details-marker {{ display: none; }}
+.mega-menu__content {{ position: absolute; left: 0; right: 0; top: 100%; z-index: 30; }}
+.mega-menu__list {{ display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1180px; margin-inline: auto; }}
+.mega-menu:not([open]) .mega-menu__content {{ display: none; }}
+.link {{ text-decoration: none; color: inherit; }}
+
 </style>
 </head>
 <body class="rj-theme">
-
-<!-- ANNOUNCEMENT -->
-<div class="rj-announce color-scheme-4" role="region" aria-label="Announcement">
-  <div class="rj-announce__track" style="--rj-marquee-duration: 34s; font-size: 12px;">
-    <span class="rj-announce__group">
-      <i class="rj-announce__star" aria-hidden="true"></i><span><strong>10%</strong> off for registered members</span>
-      <i class="rj-announce__star" aria-hidden="true"></i><span>Over <strong>10,000</strong> happy customers</span>
-      <i class="rj-announce__star" aria-hidden="true"></i><span><strong>1,000+</strong> five-star reviews</span>
-      <i class="rj-announce__star" aria-hidden="true"></i><span><strong>0%</strong> finance available</span>
-      <i class="rj-announce__star" aria-hidden="true"></i><span>Free delivery on solid-wood beds</span>
-    </span>
-    <span class="rj-announce__group" aria-hidden="true">
-      <i class="rj-announce__star" aria-hidden="true"></i><span><strong>10%</strong> off for registered members</span>
-      <i class="rj-announce__star" aria-hidden="true"></i><span>Over <strong>10,000</strong> happy customers</span>
-      <i class="rj-announce__star" aria-hidden="true"></i><span><strong>1,000+</strong> five-star reviews</span>
-      <i class="rj-announce__star" aria-hidden="true"></i><span><strong>0%</strong> finance available</span>
-      <i class="rj-announce__star" aria-hidden="true"></i><span>Free delivery on solid-wood beds</span>
-    </span>
-  </div>
-</div>
 
 {NAV}
 <main>

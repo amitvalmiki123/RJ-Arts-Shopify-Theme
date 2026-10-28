@@ -216,448 +216,6 @@
 }
 
 /* --------------------------------------------------------------------------
-   Announcement bar (design .announce)
-   -------------------------------------------------------------------------- */
-.rj-announce {
-  background-color: rgb(var(--color-background));
-  color: rgb(var(--color-foreground));
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  overflow: hidden;
-  line-height: 1.6;
-}
-
-.rj-announce__track {
-  display: flex;
-  padding: 11px 0;
-  white-space: nowrap;
-  animation: rj-marquee var(--rj-marquee-duration, 34s) linear infinite;
-  width: max-content;
-}
-
-.rj-announce__group {
-  display: inline-flex;
-  align-items: center;
-  gap: 70px;
-  padding-right: 70px;
-  opacity: 0.9;
-}
-
-.rj-announce b,
-.rj-announce strong {
-  font-weight: 400;
-  color: var(--rj-brass);
-}
-
-.rj-announce a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.rj-announce__star {
-  width: 6px;
-  height: 6px;
-  background: var(--rj-brass);
-  border-radius: 50%;
-  display: inline-block;
-  flex: 0 0 auto;
-}
-
-@keyframes rj-marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rj-announce__track {
-    animation: none;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Header (design .header / .nav / .mega)
-   Scroll state (.is-scrolled) is toggled by assets/rj-arts.js.
-   -------------------------------------------------------------------------- */
-.shopify-section.section-header.rj-site-header {
-  position: sticky;
-  top: 0;
-  z-index: 60;
-}
-
-.rj-header-wrap {
-  position: relative;
-  background: rgba(var(--color-background), 0.82);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid transparent;
-  transition: 0.4s var(--rj-ease);
-}
-
-.rj-header-wrap.is-scrolled {
-  border-color: var(--rj-line);
-  background: rgba(var(--color-background), 0.96);
-}
-
-.rj-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 82px;
-  gap: 24px;
-}
-
-.rj-logo {
-  display: flex;
-  align-items: center;
-  flex: 0 0 auto;
-}
-
-.rj-logo img {
-  height: 26px;
-  width: auto;
-  max-width: 200px;
-  object-fit: contain;
-}
-
-.rj-logo__text {
-  font-family: var(--rj-serif);
-  font-size: 26px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--rj-ink);
-  line-height: 1;
-}
-
-.rj-nav__menu {
-  display: flex;
-  gap: 38px;
-  align-items: center;
-  height: 100%;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.rj-nav__item {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.rj-nav__link {
-  font-size: 13px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--rj-ink-soft);
-  transition: 0.3s;
-  text-decoration: none;
-}
-
-.rj-nav__item:hover > .rj-nav__link,
-.rj-nav__item:focus-within > .rj-nav__link {
-  color: var(--rj-ink);
-}
-
-.rj-chev {
-  width: 8px;
-  height: 8px;
-  border-right: 1.4px solid currentColor;
-  border-bottom: 1.4px solid currentColor;
-  transform: rotate(45deg);
-  margin-top: -3px;
-  transition: 0.3s;
-  flex: 0 0 auto;
-}
-
-.rj-nav__item:hover > .rj-nav__link .rj-chev,
-.rj-nav__item:focus-within > .rj-nav__link .rj-chev {
-  transform: rotate(-135deg);
-  margin-top: 2px;
-}
-
-/* mega menu (design .mega) */
-.rj-mega {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(14px);
-  width: min(1180px, 94vw);
-  background: var(--rj-white);
-  border: 1px solid var(--rj-line);
-  border-radius: 4px;
-  box-shadow: var(--rj-shadow);
-  padding: 38px;
-  display: grid;
-  grid-template-columns: 1.1fr 1.1fr 1.4fr;
-  gap: 40px;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.45s var(--rj-ease);
-  z-index: 70;
-  text-align: left;
-}
-
-/* invisible hover bridge so the panel does not close across the gap */
-.rj-mega::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -18px;
-  height: 18px;
-}
-
-.rj-nav__item:hover > .rj-mega,
-.rj-nav__item:focus-within > .rj-mega {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-.rj-mega--no-feature {
-  grid-template-columns: 1.1fr 1.1fr;
-}
-
-.rj-mega--one-col {
-  grid-template-columns: 1fr;
-  width: min(360px, 90vw);
-  padding: 26px 30px;
-}
-
-.rj-mega h4,
-.rj-mega__title {
-  font-family: var(--rj-sans);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--rj-grey);
-  margin: 0 0 18px;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.rj-mega ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.rj-mega li a {
-  display: block;
-  padding: 8px 0;
-  font-size: 15px;
-  color: var(--rj-ink-soft);
-  transition: 0.3s;
-  border-bottom: 1px solid transparent;
-  text-decoration: none;
-}
-
-.rj-mega li a:hover {
-  color: var(--rj-brass);
-  padding-left: 8px;
-}
-
-.rj-mega__feature {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.rj-mega__card {
-  position: relative;
-  border-radius: 3px;
-  overflow: hidden;
-  aspect-ratio: 3 / 4;
-  background: var(--rj-cream-2);
-  display: block;
-}
-
-.rj-mega__card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: 0.7s var(--rj-ease);
-}
-
-.rj-mega__card:hover img {
-  transform: scale(1.06);
-}
-
-.rj-mega__card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(20, 14, 8, 0.55), transparent 60%);
-}
-
-.rj-mega__card span {
-  position: absolute;
-  left: 14px;
-  bottom: 12px;
-  color: #fff;
-  font-family: var(--rj-serif);
-  font-size: 20px;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
-  z-index: 2;
-}
-
-/* right-hand icon actions */
-.rj-nav__actions {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  flex: 0 0 auto;
-}
-
-.rj-icon-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: rgb(var(--color-foreground));
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--rj-sans);
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0;
-  line-height: 1;
-}
-
-.rj-icon-btn svg,
-.rj-nav__actions .header__icon svg {
-  width: 19px;
-  height: 19px;
-  stroke: currentColor;
-  stroke-width: 1.4;
-  fill: none;
-}
-
-.rj-icon-btn svg path,
-.rj-icon-btn svg circle,
-.rj-icon-btn svg line,
-.rj-icon-btn svg rect {
-  stroke: currentColor;
-}
-
-.rj-cart-count {
-  position: static;
-  inset: auto;
-  bottom: auto;
-  left: auto;
-  background: rgb(var(--color-foreground));
-  color: rgb(var(--color-background));
-  border-radius: 50%;
-  width: 17px;
-  height: 17px;
-  font-size: 10px;
-  display: grid;
-  place-items: center;
-  line-height: 1;
-  letter-spacing: 0;
-  font-weight: 400;
-  flex: 0 0 auto;
-}
-
-/* Dawn's search / account / cart icons inherit the design sizing */
-.rj-nav__actions .header__icon {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 0;
-  margin: 0;
-  min-width: 0;
-  width: auto;
-  height: auto;
-  color: rgb(var(--color-foreground));
-}
-
-.rj-nav__actions .header__icon .svg-wrapper {
-  width: 19px;
-  height: 19px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.rj-nav__actions .header__icon .icon,
-.rj-nav__actions .header__icon svg {
-  width: 19px;
-  height: 19px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.4;
-}
-
-.rj-nav__actions .header__search summary.header__icon {
-  padding: 0;
-}
-
-.rj-nav__actions .header__search .header__icon-close {
-  display: none;
-}
-
-/* Dawn ships filled icons; the design uses 1.4px strokes.
-   The search trigger is restyled with a mask so Dawn's search modal JS stays untouched. */
-.rj-nav__actions .header__icon--search .svg-wrapper:not(.header__icon-close) {
-  width: 19px;
-  height: 19px;
-  background-color: currentColor;
-  -webkit-mask-image: var(--rj-icon-search);
-  mask-image: var(--rj-icon-search);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-}
-
-.rj-nav__actions .header__icon--search .svg-wrapper:not(.header__icon-close) svg {
-  display: none;
-}
-
-/* mobile hamburger — Dawn drawer reuses its own component CSS */
-.rj-nav header-drawer {
-  display: none;
-  justify-self: start;
-  margin-left: 0;
-  height: 19px;
-}
-
-.rj-nav header-drawer summary.header__icon {
-  padding: 0;
-  margin: 0;
-  min-width: 0;
-  width: 19px;
-  height: 19px;
-  text-decoration: none;
-}
-
-/* the summary holds both the hamburger and the close icon; base.css sizes them 44px */
-.rj-nav header-drawer summary .svg-wrapper,
-.rj-nav header-drawer summary svg {
-  width: 19px;
-  height: 19px;
-  fill: currentColor;
-}
-
-@media screen and (max-width: 768px) {
-  .rj-nav header-drawer {
-    display: flex;
-    align-items: center;
-  }
-}
-
-/* --------------------------------------------------------------------------
    Hero slider (design .hero)
    -------------------------------------------------------------------------- */
 .rj-hero {
@@ -913,48 +471,9 @@
 /* --------------------------------------------------------------------------
    Responsive
    -------------------------------------------------------------------------- */
-@media (max-width: 989px) {
-  .rj-nav__menu {
-    gap: 24px;
-  }
-
-  .rj-nav__link {
-    font-size: 12px;
-    letter-spacing: 0.1em;
-  }
-
-  .rj-nav__actions {
-    gap: 16px;
-  }
-}
-
 @media (max-width: 768px) {
   .rj-wrap {
     padding-inline: 20px;
-  }
-
-  .rj-nav {
-    height: 72px;
-    gap: 12px;
-  }
-
-  .rj-logo img {
-    height: 22px;
-  }
-
-  .rj-nav__menu {
-    display: none;
-  }
-
-  .rj-nav__actions {
-    gap: 14px;
-    margin-left: auto;
-  }
-
-  .rj-nav__actions .rj-icon-btn svg,
-  .rj-nav__actions .header__icon svg {
-    width: 18px;
-    height: 18px;
   }
 
   .rj-hero__count {
@@ -978,10 +497,6 @@
   .rj-hero__text {
     font-size: 16px;
     margin-bottom: 26px;
-  }
-
-  .rj-mega {
-    display: none;
   }
 }
 
@@ -1067,5 +582,324 @@
 
   .rj-usp__item small {
     font-size: 12px;
+  }
+}
+
+/* ==========================================================================
+   DAWN DEFAULT HEADER + ANNOUNCEMENT BAR — restyled to design/THE-RJ-ARTS.html
+   These rules target Dawn's own markup (sections/header.liquid,
+   sections/announcement-bar.liquid). Nothing here replaces a Dawn file:
+   the default header-group.json just carries our settings.
+   ========================================================================== */
+
+/* ---------- announcement strip (design .announce) ---------- */
+.utility-bar {
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  border-bottom: 0;
+  min-height: 0;
+}
+
+.utility-bar .announcement-bar__message,
+.utility-bar .announcement-bar__message span {
+  font-family: var(--rj-sans);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  margin: 0;
+  padding-block: 11px;
+  opacity: 0.9;
+}
+
+.utility-bar .announcement-bar__message {
+  padding-inline: var(--rj-pad);
+}
+
+.utility-bar .announcement-bar__link {
+  text-decoration: none;
+}
+
+/* Dawn renders a slider when there are several messages; the design has no arrows */
+.utility-bar .slider-button,
+.utility-bar .announcement-bar-slider .slider-buttons {
+  display: none;
+}
+
+.utility-bar .announcement-bar-slider .slider {
+  padding: 0;
+}
+
+.utility-bar .announcement-bar__announcement {
+  height: auto;
+}
+
+.utility-bar .announcement-bar .slider--everywhere {
+  align-items: center;
+}
+
+/* ---------- header shell (design .header / .nav) ---------- */
+.section-header .header-wrapper {
+  background: rgba(var(--color-background), 0.82);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s var(--rj-ease), border-color 0.4s var(--rj-ease);
+}
+
+.section-header .header-wrapper.rj-scrolled {
+  background: rgba(var(--color-background), 0.96);
+  border-bottom-color: var(--rj-line);
+}
+
+/* container + 82px bar: design wins over Dawn's grid defaults */
+.section-header .header.page-width {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: var(--rj-container);
+  padding: 0 var(--rj-pad);
+  height: 82px;
+  grid-template-columns: none;
+  grid-template-areas: none;
+}
+
+/* logo */
+.section-header .header__heading,
+.section-header .header__heading-link {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.section-header .header__heading-logo-wrapper {
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+.section-header .header__heading-logo {
+  height: var(--rj-logo-height, 26px);
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+}
+
+.section-header .header__heading-link .h2 {
+  font-family: var(--rj-serif);
+  font-size: 26px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground));
+  line-height: 1;
+}
+
+/* inline menu */
+.section-header .header__inline-menu {
+  margin: 0;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.section-header .list-menu--inline {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+  flex-wrap: nowrap;
+}
+
+.section-header .header__inline-menu .header__menu-item {
+  font-family: var(--rj-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rj-ink-soft);
+  padding: 0;
+  text-decoration: none;
+  transition: color 0.3s;
+  line-height: 1.2;
+  min-height: 0;
+}
+
+.section-header .header__inline-menu .header__menu-item:hover,
+.section-header .header__inline-menu .header__menu-item[aria-expanded='true'] {
+  color: rgb(var(--color-foreground));
+}
+
+.section-header .header__inline-menu .header__menu-item .icon-caret {
+  width: 8px;
+  height: 8px;
+  color: currentColor;
+  margin-left: 6px;
+}
+
+/* Dawn underlines the active item; the design does not */
+.section-header .header__active-menu-item {
+  text-decoration: none;
+}
+
+/* mega panel (design .mega) */
+.section-header .mega-menu__content {
+  max-width: min(1180px, 94vw);
+  margin-inline: auto;
+  border: 1px solid var(--rj-line);
+  border-radius: 4px;
+  box-shadow: var(--rj-shadow);
+  padding: 38px;
+  top: calc(100% + 0px);
+}
+
+.section-header .mega-menu__list {
+  gap: 40px;
+  column-gap: 40px;
+  padding-inline: 0;
+}
+
+.section-header .mega-menu__link--level-2 {
+  font-family: var(--rj-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rj-grey);
+  margin-bottom: 18px;
+  text-decoration: none;
+}
+
+.section-header .mega-menu__link {
+  font-size: 15px;
+  color: var(--rj-ink-soft);
+  padding: 8px 0;
+  text-decoration: none;
+  transition: color 0.3s, padding-left 0.3s;
+}
+
+.section-header .mega-menu__link:hover {
+  color: var(--rj-brass);
+  padding-left: 8px;
+  text-decoration: none;
+}
+
+/* icons: search / account / cart (design .icon-btn) */
+.section-header .header__icons {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-right: 0;
+  flex: 0 0 auto;
+}
+
+.section-header .header__icons .header__icon,
+.section-header .header__icons shopify-account {
+  color: rgb(var(--color-foreground));
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.section-header .header__icons .header__icon .svg-wrapper,
+.section-header .header__icons shopify-account .svg-wrapper {
+  width: 19px;
+  height: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header .header__icons .header__icon .icon,
+.section-header .header__icons .header__icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+/* cart count = 17px ink circle (design .cart-count) */
+.section-header .cart-count-bubble {
+  position: absolute;
+  bottom: -4px;
+  left: 12px;
+  width: 17px;
+  height: 17px;
+  min-height: 17px;
+  min-width: 17px;
+  border-radius: 50%;
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  font-family: var(--rj-sans);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.section-header .cart-count-bubble span {
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+
+/* search trigger: Dawn's filled icon → design's 1.4px stroke glyph */
+.section-header .header__icon--search .svg-wrapper:not(.header__icon-close) {
+  background-color: currentColor;
+  -webkit-mask-image: var(--rj-icon-search);
+  mask-image: var(--rj-icon-search);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.section-header .header__icon--search .svg-wrapper:not(.header__icon-close) svg {
+  display: none;
+}
+
+/* mobile: hamburger left, logo centre-ish, icons right (design shows no nav) */
+@media screen and (max-width: 989px) {
+  .section-header .list-menu--inline {
+    gap: 24px;
+  }
+
+  .section-header .header__inline-menu .header__menu-item {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+  }
+
+  .section-header .header__icons {
+    gap: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .section-header .header.page-width {
+    height: 72px;
+    padding-inline: 20px;
+    gap: 12px;
+  }
+
+  .section-header .header__heading-logo {
+    height: calc(var(--rj-logo-height, 26px) - 4px);
+  }
+
+  .section-header .header__icons {
+    gap: 14px;
+  }
+
+  .section-header header-drawer summary.header__icon {
+    width: 19px;
+    height: 19px;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .section-header header-drawer summary .svg-wrapper {
+    width: 19px;
+    height: 19px;
   }
 }

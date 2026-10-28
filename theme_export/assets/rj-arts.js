@@ -1,4 +1,4 @@
-/* RJ ARTS — shared behaviours: scroll reveal, sticky header state */
+/* RJ ARTS — shared behaviours: scroll reveal, header scrolled state */
 (function () {
   if (window.rjArtsInit) return;
   window.rjArtsInit = true;
@@ -28,11 +28,13 @@
     targets.forEach((el) => observer.observe(el));
   }
 
+  // Dawn's default header keeps its own sticky behaviour; we only add the
+  // design's scrolled state (hairline + more opaque cream) at > 30px.
   function initHeader(root) {
-    const headers = (root || document).querySelectorAll('[data-rj-header]');
+    const headers = (root || document).querySelectorAll('.section-header .header-wrapper');
     if (!headers.length) return;
     const onScroll = () => {
-      headers.forEach((header) => header.classList.toggle('is-scrolled', window.scrollY > 30));
+      headers.forEach((header) => header.classList.toggle('rj-scrolled', window.scrollY > 30));
     };
     onScroll();
     if (!window.rjHeaderScrollBound) {
