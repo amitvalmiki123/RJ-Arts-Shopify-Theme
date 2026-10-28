@@ -4841,6 +4841,140 @@ details-disclosure > details {
   display: none;
 }
 
+/* ==========================================================================
+   RJ ARTS - mega menu: design-exact layout
+   Design reference: .mega in design/THE-RJ-ARTS.html
+     panel   min(1180px, 94vw), white, 1px hairline, radius 4, 38px padding
+     columns 1.1fr / 1.1fr / 1.4fr with 40px gutters
+     h4      11px, .2em, uppercase, grey, 600
+     links   15px, ink-soft, 8px padding, hover brass + 8px indent
+   Dawn's base.mega-menu__list is a 6 x 1fr grid, which squeezed the column
+   headings into 70px strips ("BEDR / OOM / STOR / AGE"). Everything below
+   replaces that grid, so text never breaks mid-word.
+   ========================================================================== */
+
+/* Parent item: the title is a real link (goes to the menu item's URL).
+   The caret beside it still toggles the panel, as in the design. */
+.section-header .header__menu-item > .header__menu-item-link {
+  color: inherit;
+  display: inline;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.section-header .header__menu-item > .header__menu-item-link:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Panel shell */
+.section-header .mega-menu__content {
+  max-width: min(1180px, 94vw);
+  margin-inline: auto;
+  padding: 38px;
+  border: 1px solid var(--rj-line);
+  border-radius: 4px;
+  box-shadow: var(--rj-shadow);
+  top: 100%;
+}
+
+/* Columns: flex instead of Dawn's fixed 6-column grid */
+.section-header .mega-menu__list,
+.section-header .mega-menu__list--condensed,
+.section-header .mega-menu .mega-menu__list--condensed {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
+  gap: 34px 56px;
+  grid-template-columns: none;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.section-header .mega-menu__list > li {
+  flex: 1 1 170px;
+  max-width: 300px;
+  min-width: 0;
+}
+
+/* Panel with feature cards: 2.2fr of links, 1.4fr of imagery */
+.section-header .mega-menu__content--with-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.section-header .mega-menu__content--with-feature .mega-menu__list {
+  flex: 0 1 auto;
+}
+
+.section-header .mega-menu__content--with-feature .mega-menu__feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  flex: none;
+  width: 100%;
+  max-width: none;
+}
+
+/* Type inside the panel */
+.section-header .mega-menu__link--level-2 {
+  display: block;
+  font-family: var(--rj-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rj-grey);
+  line-height: 1.4;
+  margin: 0 0 14px;
+  padding: 0;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.section-header .mega-menu__link {
+  display: block;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--rj-ink-soft);
+  padding: 8px 0;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color 0.3s var(--rj-ease), padding-left 0.3s var(--rj-ease);
+}
+
+.section-header .mega-menu__link:hover {
+  color: var(--rj-brass);
+  padding-left: 8px;
+  text-decoration: none;
+}
+
+.section-header .mega-menu__list ul.list-unstyled {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Smaller screens: keep two columns of cards, tighter gutters */
+@media screen and (max-width: 1200px) {
+  .section-header .mega-menu__content--with-feature {
+    gap: 28px;
+  }
+
+  .section-header .mega-menu__list,
+  .section-header .mega-menu__list--condensed {
+    gap: 28px 36px;
+  }
+
+  .section-header .mega-menu__list > li {
+    flex-basis: 150px;
+  }
+}
+
 .header__icon--menu { display: none; }
 @media screen and (max-width: 989px) {
   .header__icon--menu { display: flex; }

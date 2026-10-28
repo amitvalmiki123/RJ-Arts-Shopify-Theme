@@ -62,3 +62,51 @@
   // theme editor: re-run when a section is reloaded
   document.addEventListener('shopify:section:load', (event) => boot(event.target));
 })();
+
+/* ==========================================================================
+   RJ ARTS - mega menu opens on hover (design behaviour)
+   Desktop pointers only. The parent title is a real link now, so a click
+   navigates to the menu item's URL while the panel opens on hover.
+   ========================================================================== */
+(function () {
+  if (window.rjMegaHover) return;
+  window.rjMegaHover = true;
+
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  var CLOSE_DELAY = 120;
+
+  function closeOthers(current) {
+    var open = document.querySelectorAll('details.mega-menu[open]');
+    Array.prototype.forEach.call(open, function (other) {
+      if (other !== current) other.removeAttribute('open');
+    });
+  }
+
+  function init() {
+    var menus = document.querySelectorAll('details.mega-menu');
+    Array.prototype.forEach.call(menus, function (details) {
+      var timer = null;
+
+      details.addEventListener('mouseenter', function () {
+        window.clearTimeout(timer);
+        closeOthers(details);
+        details.setAttribute('open', '');
+      });
+
+      details.addEventListener('mouseleave', function () {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(function () {
+          if (details.contains(document.activeElement)) return;
+          details.removeAttribute('open');
+        }, CLOSE_DELAY);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

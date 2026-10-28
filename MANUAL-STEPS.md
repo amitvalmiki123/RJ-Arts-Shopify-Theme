@@ -49,12 +49,12 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 |
 | 2 | `config/settings_data.json` | REPLACE | 382 |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 1159 |
-| 4 | `assets/rj-arts.js` | **NAYI FILE** | 64 |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 1293 |
+| 4 | `assets/rj-arts.js` | **NAYI FILE** | 112 |
 | 5 | `layout/theme.liquid` | REPLACE | 538 |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 |
 | 7 | `sections/header.liquid` | REPLACE | 721 |
-| 8 | `snippets/header-mega-menu.liquid` | REPLACE | 135 |
+| 8 | `snippets/header-mega-menu.liquid` | REPLACE | 134 |
 | 9 | `sections/header-group.json` | REPLACE | 145 |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 |
@@ -111,7 +111,7 @@ Header schema me mega-menu feature cards + `max_blocks: 9`.
 > ⚠️ **Step 7 pehle, Step 9 baad me** — header-group.json me `mega_feature` blocks hain, schema pehle chahiye.
 
 ### Step 8 — `snippets/header-mega-menu.liquid` → REPLACE
-Mega menu ke andar 2-column feature cards + hover zoom.
+Mega menu ke andar 2-column feature cards + hover zoom, aur **parent menu item ab asli link hai** (Bedroom par click karne se collection page khulti hai; caret/hover se panel khulta hai).
 
 ### Step 9 — `sections/header-group.json` → REPLACE
 5 announcement messages + 6 mega feature cards + header settings (logo middle-left, menu, sticky always).
