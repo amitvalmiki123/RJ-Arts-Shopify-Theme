@@ -1,406 +1,214 @@
-# RJ Arts — Manual Setup Guide (Dawn duplicate me paste karke)
+# RJ Arts — Manual Setup (Dawn duplicate me 13 files paste karke)
 
-Ye guide us case ke liye hai jab aap **zip upload nahi** karna chahte, balki **Dawn ko duplicate** karke usme code **haath se paste** karna chahte hain.
+Do zip hain, confusion na karein:
 
-Har step ke saath file ka GitHub link hai. Link khulein → top-right **`Copy raw file`** button dabayein → Shopify code editor me paste karein → **Save**.
+| Zip | Kaam |
+|---|---|
+| **`rj-arts-changes.zip`** | **Sirf 13 changed files** (204 KB) — ye guide isi ke liye hai. Copy-paste ke liye. |
+| `rj-arts-theme.zip` | Poora theme (350 files) — sirf **Themes → Add theme → Upload zip** ke liye. |
 
-> Total kaam: **4 nayi files** + **7 files replace** + **2 files me chhota patch**. Bas.
-> (RJ ka poora CSS/JS alag files me hai — Dawn ki `base.css` / `global.js` ko chhuna nahi padta.)
+> ⚠️ `rj-arts-changes.zip` ko theme upload **na** karein — usme Dawn ki zaroori files nahi hain.
 
----
-
-## 0. Taiyari (5 minute)
-
-1. Shopify admin → **Online Store → Themes**.
-2. Jis **Dawn 16.1.0** theme par kaam karna hai (jo aapne download/upload kiya tha) uske `⋯` menu → **Duplicate**.
-3. Duplicate theme ke `⋯` → **Edit code** khol lein. **Isi** duplicate me sab kaam hoga — apni live theme ko na chhuein.
-4. Ek baar duplicate ko **Customize → Save** kar dein (isse `config/settings_data.json` ban jata hai).
-5. Code editor me left side **Explorer** dikhega: `assets / config / layout / locales / sections / snippets / templates`.
-
-**Tip:** har file paste karne ke baad `Ctrl+S` (Save) dabayein. Agar Liquid/JSON galat hoga to Shopify wahin error dikha dega — us step ko dobara karein.
+**Total kaam: 4 nayi files + 9 replace. Koi file "patch" nahi karni — har file Ctrl+A → paste → Save.**
 
 ---
 
-## 1. Ek nazar me — kya kya badalna hai
+## 0. Taiyari (5 min)
 
-| # | File | Kya karna hai | Kitni lines |
-|---|------|---------------|-------------|
-| 1 | `config/settings_schema.json` | ek group **add** (patch) | +81 |
-| 2 | `config/settings_data.json` | **replace** pura file | 386 |
-| 3 | `layout/theme.liquid` | **5 chhote patch** (3 block + 2 line) | +110 |
-| 4 | `assets/rj-arts.css` | **nayi file** (RJ ka poora CSS) | 1159 |
-| 5 | `assets/rj-arts.js` | **nayi file** (RJ ka poora JS) | 64 |
-| 6 | `sections/announcement-bar.liquid` | **replace** | 180 |
-| 7 | `sections/header.liquid` | **replace** | 721 |
-| 8 | `snippets/header-mega-menu.liquid` | **replace** | 135 |
-| 9 | `sections/header-group.json` | **replace** | 145 |
-| 10 | `sections/rj-hero.liquid` | **nayi file** | 411 |
-| 11 | `sections/rj-usp.liquid` | **nayi file** | 145 |
-| 12 | `sections/footer-group.json` | **replace** | 61 |
-| 13 | `templates/index.json` | **replace** | 108 |
+1. Shopify admin → **Online Store → Themes**
+2. Jis **Dawn 16.1.0** par kaam karna hai → `⋯` → **Duplicate**
+3. Duplicate → `⋯` → **Edit code**
+4. Ek baar duplicate ko **Customize → Save** karein (isse `config/settings_data.json` ban jata hai)
+5. Explorer me folders: `assets / config / layout / locales / sections / snippets / templates`
 
-Baaki 340+ Dawn files **bilkul chhoti nahi** — unhe haath nahi lagana.
-
-> Sab links is branch ke hain:
-> `https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/`
-> (ya wahi file `rj-arts-theme.zip` ke andar bhi mil jayegi)
+**Rule:** har file paste ke baad **`Ctrl+S`**. Shopify wahin validate karta hai — error turant dikhega.
 
 ---
 
-## 2. Step-by-step (isi order me karein — order matter karta hai)
+## 1. 13 files — isi order me
 
-### Step 1 — `config/settings_schema.json` (RJ brand tokens group add)
+| # | File | Action | Lines |
+|---|------|--------|-------|
+| 1 | `config/settings_schema.json` | REPLACE | 1551 |
+| 2 | `config/settings_data.json` | REPLACE | 386 |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 1159 |
+| 4 | `assets/rj-arts.js` | **NAYI FILE** | 64 |
+| 5 | `layout/theme.liquid` | REPLACE | 513 |
+| 6 | `sections/announcement-bar.liquid` | REPLACE | 180 |
+| 7 | `sections/header.liquid` | REPLACE | 721 |
+| 8 | `snippets/header-mega-menu.liquid` | REPLACE | 135 |
+| 9 | `sections/header-group.json` | REPLACE | 145 |
+| 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 |
+| 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 |
+| 12 | `sections/footer-group.json` | REPLACE | 61 |
+| 13 | `templates/index.json` | REPLACE | 108 |
 
-**Kyun:** Settings me "RJ Arts - brand tokens" panel aata hai (accent, hairline, container width, etc.).
+Dawn ki baaki **337 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
-1. `config/settings_schema.json` kholein.
-2. File ke **bilkul end** me aakhri group ke baad ek comma lagayein aur closing `]` se pehle ye group paste karein.
-
-Aakhri 3 lines aisi dikhni chahiye (pehle → baad me):
-
-```json
-// PEHLE
-    }
-  }
-]
-```
-
-```json
-// BAAD ME
-    }
-  },
-  {  ← yahan snippet paste hoga
-  }
-]
-```
-
-**Paste karne ke liye:** [manual/snippet-3-settings-schema-rj-group.json](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/manual/snippet-3-settings-schema-rj-group.json) (81 lines)
-
-**Save** → Customize → Theme settings me neeche **"RJ Arts - brand tokens"** panel dikhna chahiye.
+**Download:** `rj-arts-changes.zip` extract karein — folder structure theme jaisa hi hai, seedha path match karke paste karein.
 
 ---
 
-### Step 2 — `config/settings_data.json` (pura replace)
+## 2. Step-by-step
 
-**Kyun:** ye file theme ki saari settings rakhti hai — **5 colour schemes**, fonts, page width, cart = drawer, RJ tokens. **Yahi wo file hai jiske miss hone se "No color schemes defined" error aata hai.**
+### Step 1 — `config/settings_schema.json` → REPLACE
+Ye file "RJ Arts - brand tokens" panel add karti hai (accent colour, hairline, container width).
+Full file `Ctrl+A` → paste → Save.
 
-1. `config/settings_data.json` kholein (ek hi line me minified JSON dikhega).
-2. `Ctrl+A` → delete → poora naya content paste karein.
+### Step 2 — `config/settings_data.json` → REPLACE
+**Sabse important step.** Isme 5 colour schemes, fonts, page width, cart = drawer, RJ tokens — sab set hain.
+`Ctrl+A` → paste → Save.
 
-**Paste:** [theme_export/config/settings_data.json](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/config/settings_data.json) (386 lines)
+> Agar ye file explorer me na dikhe: Customize me koi chhota change karke **Save** dabayein, file khud ban jayegi, phir paste karein.
 
-**Save** → Customize kholein → banner ("color schemes must be defined") **nahi** dikhna chahiye, aur Colours tab me 5 schemes dikhni chahiye.
+**Save ke baad check:** Customize → Theme settings → **Colours** me 5 schemes dikhni chahiye, aur upar ka "color schemes must be defined" banner **nahi**.
 
-> Agar aapki duplicate Dawn me file hi na dikhe (kabhi-kabhi explorer glitch karta hai): Customize me ek chhota change karke **Save** daba dein — file khud ban jayegi, phir paste karein.
+### Step 3 — `assets/rj-arts.css` → **NAYI FILE**
+RJ ka poora design-system CSS (1159 lines).
 
----
-
-### Step 3 — `layout/theme.liquid` (5 chhote patch — pura file replace NA karein)
-
-Isme sirf 5 jagah change hai: 3 blocks + 2 single lines. Link: [theme_export/layout/theme.liquid](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/layout/theme.liquid)
-
-#### Patch 3a — colour-scheme fallback (safety net)
-
-`theme.liquid` me kareeb **line 119** — dawn ka scheme loop aise khatam hota hai:
-
-```liquid
-      }
-      {% endfor %}          ← iske THIK BAAD paste karein
-
-      {{ scheme_classes | prepend: 'body' }} {
-```
-
-`{% endfor %}` ke baad (blank line se pehle) ye block paste karein:
-
-**Paste:** [manual/snippet-1-color-scheme-fallback.liquid](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/manual/snippet-1-color-scheme-fallback.liquid) (89 lines)
-
-**Kaam kya karta hai:** agar kabhi theme ki settings me colour schemes na hon, to theme khud design ke 5 colours print kar deti hai → site kabhi "white/bina colour" nahi dikhegi.
-
-#### Patch 3b — RJ design tokens
-
-`theme.liquid` me ye line dhundein (kareeb line 371 — `Ctrl+F` me search karein):
-
-```liquid
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-```
-
-Iske **thik neeche** ye block paste karein:
-
-**Paste:** [manual/snippet-2-rj-tokens.liquid](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/manual/snippet-2-rj-tokens.liquid) (14 lines)
-
-#### Patch 3c — body class
-
-Line ~432 par (ya `Ctrl+F` → `<body class`):
-
-```liquid
-<body class="gradient{% if ... %}">          ← PEHLE
-<body class="gradient rj-theme{% if ... %}">  ← BAAD ME
-```
-
-Bas `rj-theme` word add karna hai (RJ ka poora CSS isi class ke andar band hai, isliye Dawn ka baaki design kharab nahi hota).
-
-#### Patch 3d — RJ CSS load karna
-
-`theme.liquid` ke **`<head>` ke sabse end** me, `</head>` se thik pehle ye 2 lines daalein:
-
-```liquid
-    {%- comment -%} RJ ARTS — design system (keep last in <head> so it wins the cascade) {%- endcomment -%}
-    {{ 'rj-arts.css' | asset_url | stylesheet_tag }}
-
-  </head>
-```
-
-(`</head>` pehle se hai — uske thik upar 2 lines add karni hain. Ye `<head>` ka last stylesheet hona chahiye taki Dawn ke baad load ho.)
-
-#### Patch 3e — RJ JS load karna
-
-`theme.liquid` me ye line dhundein (kareeb line 54):
-
-```liquid
-    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-```
-
-Iske **thik neeche**:
-
-```liquid
-    <script src="{{ 'rj-arts.js' | asset_url }}" defer="defer"></script>
-```
-
-**Save.**
-
----
-
-### Step 4 — `assets/rj-arts.css` (**nayi file**)
-
-**Kyun:** RJ Arts ka poora design-system CSS (1159 lines) — tokens, header, ticker, hero, USP, buttons, mobile. Dawn ki `base.css` ko **bilkul chhedna nahi** hai.
-
-1. Explorer me **`assets`** folder par right-click → **New file** (ya `Ctrl+Shift+P` → `New File`)
+1. `assets` folder par right-click → **New file** (ya `Ctrl+Shift+P` → `New File`)
 2. Naam: `rj-arts.css`
-3. Paste karein → Save.
+3. Paste → Save
 
-**Paste:** [theme_export/assets/rj-arts.css](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/assets/rj-arts.css) (1159 lines, 27 KB)
+Pehli line: `/* ====...` `RJ ARTS — appended design-system block`
 
-Pehli line yahi honi chahiye:
+### Step 4 — `assets/rj-arts.js` → **NAYI FILE**
+Scroll reveal + header "scrolled" state (64 lines).
+`assets` → New file → naam `rj-arts.js` → paste → Save.
 
-```css
-/* ==========================================================================
-   RJ ARTS — appended design-system block (do not reformat)
-```
-
-**Save** → preview kholein: header/nav ab Cormorant + Jost me dikhna chahiye.
-
----
-
-### Step 5 — `assets/rj-arts.js` (**nayi file**)
-
-**Kyun:** scroll-reveal animation + header ka "scrolled" state (border/shadow jab page scroll ho).
-
-Wahi tarika: `assets` folder → New file → naam `rj-arts.js` → paste → Save.
-
-**Paste:** [theme_export/assets/rj-arts.js](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/assets/rj-arts.js) (64 lines)
-
-Pehli line:
-
-```js
-/* ==========================================================================
-   RJ ARTS — appended helpers (scroll reveal + header scrolled state)
-```
-
-**Save.**
-
----
-
-### Step 6 — `sections/announcement-bar.liquid` (replace)
-
-**Kyun:** design ka **chalti hui ticker** (marquee) announcement bar, brass highlights ke saath.
-
+### Step 5 — `layout/theme.liquid` → REPLACE
+Isme already sab patch hai: colour-scheme fallback, RJ tokens, `<body class="... rj-theme">`, `rj-arts.css` link (head ke end me) aur `rj-arts.js` script.
 `Ctrl+A` → paste → Save.
-**Paste:** [theme_export/sections/announcement-bar.liquid](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/sections/announcement-bar.liquid) (180 lines)
+
+> Ye file aapke Dawn 16.1.0 se hi bani hai (sirf 5 jagah RJ ka code add hai), isliye replace safe hai.
+
+### Step 6 — `sections/announcement-bar.liquid` → REPLACE
+Design ki **chalti hui ticker** (marquee), brass highlights, 5 messages.
+
+### Step 7 — `sections/header.liquid` → REPLACE
+Header schema me mega-menu feature cards + `max_blocks: 9`.
+
+> ⚠️ **Step 7 pehle, Step 9 baad me** — header-group.json me `mega_feature` blocks hain, schema pehle chahiye.
+
+### Step 8 — `snippets/header-mega-menu.liquid` → REPLACE
+Mega menu ke andar 2-column feature cards + hover zoom.
+
+### Step 9 — `sections/header-group.json` → REPLACE
+5 announcement messages + 6 mega feature cards + header settings (logo middle-left, menu, sticky always).
+
+### Step 10 — `sections/rj-hero.liquid` → **NAYI FILE**
+Hero slider (3 slides, arrows, dots, auto-rotate). `sections` → New file → naam `rj-hero.liquid`.
+
+### Step 11 — `sections/rj-usp.liquid` → **NAYI FILE**
+Hero ke neeche 4-item USP strip. `sections` → New file → naam `rj-usp.liquid`.
+
+### Step 12 — `sections/footer-group.json` → REPLACE
+Footer ke 4 columns (brand + Shop + Company + Support).
+
+### Step 13 — `templates/index.json` → REPLACE
+Homepage template (abhi hero + USP; Group 2 ke baaki sections aage add honge).
+
+> ⚠️ Steps 10–11 pehle hone chahiye, warna `Section type 'rj_hero' does not exist` error aayega.
 
 ---
 
-### Step 7 — `sections/header.liquid` (replace)
+## 3. Data jo manually set karna hai (code nahi)
 
-**Kyun:** header ke schema me mega-menu feature cards (image + label) wala block type add hota hai (`max_blocks: 9`).
-
-`Ctrl+A` → paste → Save.
-**Paste:** [theme_export/sections/header.liquid](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/sections/header.liquid) (721 lines)
-
-> ⚠️ **Step 7 pehle, Step 9 baad me.** Header-group.json me `mega_feature` blocks hain — agar schema pehle nahi hai to JSON save par error aayega.
-
----
-
-### Step 8 — `snippets/header-mega-menu.liquid` (replace)
-
-**Kyun:** mega menu ke andar 2-column feature cards + hover zoom.
-
-`Ctrl+A` → paste → Save.
-**Paste:** [theme_export/snippets/header-mega-menu.liquid](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/snippets/header-mega-menu.liquid) (135 lines)
-
----
-
-### Step 9 — `sections/header-group.json` (replace)
-
-**Kyun:** announcement bar ke 5 messages + 6 mega feature cards + header settings (logo middle-left, menu, sticky always, scheme-1, padding 0).
-
-`Ctrl+A` → paste → Save.
-**Paste:** [theme_export/sections/header-group.json](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/sections/header-group.json) (145 lines)
-
-**Save ke baad** Customize → Header section me: 5 announcement blocks aur 6 feature cards dikhne chahiye.
-
----
-
-### Step 10 — `sections/rj-hero.liquid` (**nayi file**)
-
-**Kyun:** homepage ka hero slider (3 slides, arrows, dots, auto-rotate). Ye koi Dawn file nahi — nayi section hai.
-
-1. Explorer me **`sections`** folder par right-click → **New file**
-   (ya `Ctrl+Shift+P` → `New File`)
-2. Naam: `rj-hero.liquid`
-3. Paste karein → Save.
-
-**Paste:** [theme_export/sections/rj-hero.liquid](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/sections/rj-hero.liquid) (411 lines)
-
----
-
-### Step 11 — `sections/rj-usp.liquid` (**nayi file**)
-
-**Kyun:** hero ke neeche 4-item USP strip (1,000+ reviews / solid sheesham / 3-year warranty / 0% finance).
-
-Wahi tarika: `sections` folder → New file → naam `rj-usp.liquid` → paste → Save.
-
-**Paste:** [theme_export/sections/rj-usp.liquid](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/sections/rj-usp.liquid) (145 lines)
-
----
-
-### Step 12 — `sections/footer-group.json` (replace)
-
-**Kyun:** footer me 4 columns (brand + Shop + Company + Support) set ho jate hain.
-
-`Ctrl+A` → paste → Save.
-**Paste:** [theme_export/sections/footer-group.json](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/sections/footer-group.json) (61 lines)
-
----
-
-### Step 13 — `templates/index.json` (replace)
-
-**Kyun:** homepage ka template — abhi hero + USP hi hai (Group 2 ke baaki sections next turns me add honge).
-
-`Ctrl+A` → paste → Save.
-**Paste:** [theme_export/templates/index.json](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/templates/index.json) (108 lines)
-
-> ⚠️ Steps 10–11 pehle hone chahiye, warna Shopify `rj_hero` / `rj_usp` section na milne par error dega.
-
----
-
-## 3. Data jo manually set karna hai (code nahi, editor me)
-
-Code paste karne ke baad **Customize** me ye cheezein set karni hain. Settings ka **bada hissa Step 2 ki JSON se already aa jayega** — neeche sirf wahi hai jo JSON me nahi aa sakta (images, menus) + verify list.
+Settings ka bada hissa Step 2 se aa jata hai. Ye cheezein editor me karni hain:
 
 ### 3.1 Logo
-- **Theme settings → Logo** → `Images/logo.png` upload karein (1000×218 px).
-  Zip/repo me: `Images/logo.png`
-- **Logo width** = `120 px` (JSON se aa jayega, check kar lein).
-- Logo na daalne par header me text "RJ ARTS" dikhta hai (fallback).
+- Theme settings → **Logo** → `Images/logo.png` upload (1000×218)
+- Logo width = 120 px (Step 2 se aayega, verify karein)
+- Logo na daalein to header me text "RJ ARTS" dikhta hai
 
-### 3.2 Colours (verify — Step 2 ke baad apne aap set honge)
-Theme settings → **Colours** → 5 schemes:
+### 3.2 Colours (verify only)
+| Scheme | Background | Text | Button | Button label |
+|---|---|---|---|---|
+| Scheme 1 cream | `#F7F4EF` | `#211C17` | `#211C17` | `#F7F4EF` |
+| Scheme 2 cream 2 | `#EFE9E1` | `#211C17` | `#211C17` | `#EFE9E1` |
+| Scheme 3 white | `#FFFFFF` | `#211C17` | `#211C17` | `#FFFFFF` |
+| Scheme 4 ink | `#211C17` | `#F7F4EF` | `#F7F4EF` | `#211C17` |
+| Scheme 5 brass | `#A9865B` | `#211C17` | `#211C17` | `#A9865B` |
 
-| Scheme | Background | Text | Button | Button label | Shadow |
-|--------|-----------|------|--------|--------------|--------|
-| Scheme 1 (cream) | `#F7F4EF` | `#211C17` | `#211C17` | `#F7F4EF` | `#211C17` |
-| Scheme 2 (cream 2) | `#EFE9E1` | `#211C17` | `#211C17` | `#EFE9E1` | `#211C17` |
-| Scheme 3 (white) | `#FFFFFF` | `#211C17` | `#211C17` | `#FFFFFF` | `#211C17` |
-| Scheme 4 (ink) | `#211C17` | `#F7F4EF` | `#F7F4EF` | `#211C17` | `#211C17` |
-| Scheme 5 (brass) | `#A9865B` | `#211C17` | `#211C17` | `#A9865B` | `#211C17` |
+Shadow = text colour. `secondary_button_label` = text colour.
 
-`secondary_button_label` = text colour (har scheme me).
-
-### 3.3 Typography
-- Heading = **Cormorant Garamond** (weight 400)
-- Body = **Jost** (weight 400)
-- Heading scale = 100, Body scale = 100
-
-### 3.4 Layout / Buttons / Cart
-- Page width = **1600 px**
-- Buttons → corner radius = **2**, border thickness = **1**
+### 3.3 Typography / Layout / Cart
+- Heading = **Cormorant Garamond**, Body = **Jost** (scale 100 / 100)
+- Page width = **1600**
 - Cart type = **Drawer**
-- Animations → hover effects = **None**, reveal on scroll = **On**
-- Spacing → sections = **0**
+- Buttons radius = 2, border 1 · Spacing sections = 0 · Hover effects = None
 
-### 3.5 Navigation (zaroori — mega menu isi par depend karta hai)
-**Online Store → Navigation → Main menu** me ye structure banayein:
-
+### 3.4 Navigation → Main menu  ⭐ zaroori
 ```
-Bedroom      → children: King Size Beds, Bedroom Storage, Bedside Tables
-Living       → children: Sofas, Coffee Tables, Living Storage
-Dining       → children: Dining Tables, Dining Chairs, Sideboards
+Bedroom      → King Size Beds, Bedroom Storage, Bedside Tables
+Living       → Sofas, Coffee Tables, Living Storage
+Dining       → Dining Tables, Dining Chairs, Sideboards
 New Arrivals (no children)
 Best Sellers (no children)
 ```
+**Children links ke bina mega panel kabhi nahi khulega.**
 
-⚠️ **Children links ke bina mega panel kabhi nahi khulega.** Header ka hover-menu sirf tab kaam karta hai jab parent ke andar kam se kam 1 link ho.
+### 3.5 Hero slider (3 slides)
+Image desktop + mobile, eyebrow, heading, text, 2 buttons.
+Images: `Images/` folder (`Bed_Desktop_Banner.webp`, `Dining_Desktop_Banner.webp`, `Living_Room_Img.webp`…)
 
-### 3.6 Hero slider (rj-hero section)
-Customize → **Hero slider** → 3 slides. Har slide me:
-- Image (desktop) + Image (mobile)
-- Eyebrow (e.g. `LIVING · CRAFTED COMFORT`)
-- Heading (e.g. `Comfort, carved from wood.`)
-- Text + 2 buttons (label + link)
+### 3.6 USP strip (4 items)
+`1,000+ 5-Star Reviews` · `100% Solid Sheesham` · `3-Year Warranty` · `0% Finance Available`
+(icon + heading + subtext per block)
 
-Images: `Images/` folder se (`Bed_Desktop_Banner.webp`, `Dining_Desktop_Banner.webp`, `Living_Room_Img.webp` etc.).
-
-### 3.7 USP strip (rj-usp section)
-Customize → **USP strip** → 4 blocks: icon + heading + subtext.
-Default copy: `1,000+ 5-Star Reviews` / `100% Solid Sheesham` / `3-Year Warranty` / `0% Finance Available`.
-
-### 3.8 Mega feature cards (6)
-Customize → **Header** section → `mega_feature` blocks (6). Har block me:
-- **Parent link** = menu ka **exact** naam (`Bedroom` / `Living` / `Dining`) — spelling/space same hona chahiye
-- Image (3:4 ratio best), Label, Link
-
-Labels/aapke paas images: `Images/Bed.png`, `Bed2.png`, `Living.jpg`, `Dining.png` etc.
+### 3.7 Mega feature cards (6)
+Header section → `mega_feature` blocks. Har block me:
+- **Parent link** = menu naam **exactly** (`Bedroom` / `Living` / `Dining`)
+- Image (3:4), Label, Link
 
 ---
 
-## 4. Final check (5 minute)
+## 4. Final check
 
 | # | Check | Kahan |
 |---|-------|-------|
-| 1 | Colours tab me 5 schemes | Customize → Theme settings → Colours |
-| 2 | "color schemes must be defined" banner **gaya** | Customize ke top par |
-| 3 | Ticker **dark ink** background, cream text, chal raha hai | Homepage top |
-| 4 | Header **cream** (#F7F4EF), nav 13px uppercase letter-spaced | Homepage |
-| 5 | Icons: 1 magnifier + account + bag (bag ke saath 17px count circle) | Header right |
-| 6 | Hover `Bedroom` → mega panel khulta hai + 2 image cards | Homepage |
-| 7 | Hero slider: 3 slides, arrows + dots, auto-rotate | Homepage |
-| 8 | USP strip: 4 items, brass icons | Hero ke neeche |
-| 9 | Footer: brand + Shop + Company + Support columns | Page bottom |
-| 10 | Mobile 390px: hamburger drawer, ticker, hero 1 column | Devtools |
+| 1 | 5 colour schemes, banner gaya | Theme settings → Colours |
+| 2 | Ticker dark ink + cream, chal raha hai | Homepage top |
+| 3 | Header cream, nav 13px uppercase | Homepage |
+| 4 | Icons: 1 magnifier + account + bag (+count) | Header right |
+| 5 | Hover Bedroom → mega panel + 2 image cards | Homepage |
+| 6 | Hero: 3 slides, arrows, dots, auto-rotate | Homepage |
+| 7 | USP: 4 items, brass icons | Hero ke neeche |
+| 8 | Footer: brand + Shop + Company + Support | Page bottom |
+| 9 | Mobile 390px: hamburger drawer, hero 1 column | Devtools |
 
 ---
 
-## 5. Agar kuch galat ho
+## 5. Troubleshooting
 
 | Error / symptom | Karan | Fix |
 |---|---|---|
-| `To preview your changes, color schemes must be defined…` | Step 2 paste nahi hua, ya editor cache | `settings_data.json` dobara paste → Save → Customize reload |
-| `Scheme "mega_feature" does not exist` (ya header-group save error) | Step 7 se pehle Step 9 kar diya | `header.liquid` paste karein, phir `header-group.json` |
-| `Section type 'rj_hero' does not exist` | Steps 10–11 pending | `rj-hero.liquid` + `rj-usp.liquid` banao, phir `index.json` paste |
-| Header ke saare colours white/grey, design jaisa nahi | `rj-arts.css` file nahi bani ya theme.liquid me link nahi laga | Step 3d + Step 4 check karein |
-| Scroll karne par header border/shadow nahi aata | `rj-arts.js` link missing | Step 3e + Step 5 |
-| Fonts default lag rahe hain | Step 2 nahi hua | settings_data paste → Customize me Typography check |
-| Mega menu hover par kuch nahi khulta | Menu me children nahi hain | Section 3.5 follow karein |
-| Kabhi bhi kuch bigad jaye | — | Duplicate theme delete karein → naya duplicate → 13 steps dobara (25 min) |
+| `color schemes must be defined…` | Step 2 nahi hua / cache | `settings_data.json` paste → Save → editor reload |
+| `Block type 'mega_feature' does not exist` | Step 7 se pehle Step 9 | `header.liquid` paste, phir `header-group.json` |
+| `Section type 'rj_hero' does not exist` | Steps 10–11 pending | rj-hero + rj-usp banao, phir `index.json` |
+| Design jaisa styling nahi aa raha | `rj-arts.css` ya uski link missing | Step 3 + Step 5 |
+| Scroll par header border/shadow nahi | `rj-arts.js` ya link missing | Step 4 + Step 5 |
+| Mega menu hover par kuch nahi | Menu me children nahi | Section 3.4 |
+| Kuch bhi bigad jaye | — | Duplicate delete → naya duplicate → 13 steps (25 min). Live theme safe. |
 
 ---
 
-## 6. Aage ka kaam
+## 6. Appendix — sirf patch karna ho (optional)
 
-Ye setup = **Group 1 (header)** complete + homepage ke pehle 2 sections (hero, USP).
+Agar poora `layout/theme.liquid` replace nahi karna chahte, to `manual/` folder me chhote snippets hain:
 
-Group 2 ke baaki sections (design order me) ek-ek karke aayenge:
-3. Category tiles → 4. The showroom edit (tabbed slider) → 5. The Art of Rest → 6. About → 7. Best sellers grid → 8. Crafted Comfort → 9. Collection carousel → 10. Reviews rail
-Fir **Group 3 — Footer**.
+- `manual/snippet-1-color-scheme-fallback.liquid` (89 lines) → `{% endfor %}` ke baad
+- `manual/snippet-2-rj-tokens.liquid` (14 lines) → `{{ 'base.css' ... }}` ke neeche
+- body class: `gradient` → `gradient rj-theme`
+- `{{ 'rj-arts.css' | asset_url | stylesheet_tag }}` → `</head>` se pehle
+- `<script src="{{ 'rj-arts.js' | asset_url }}" defer>` → `global.js` script ke neeche
 
-Har section ke liye 2-3 file steps milenge: nayi `sections/rj-*.liquid` + `templates/index.json` me ek block + (agar CSS ho to) base.css ke end me ek block.
+`config/settings_schema.json` ke liye: `manual/snippet-3-settings-schema-rj-group.json` (81 lines) → aakhri group ke baad comma + `]` se pehle.
+
+---
+
+## 7. Aage
+
+Group 1 (header) ✅ + homepage ke section 1–2 (hero, USP) ✅.
+
+Group 2 me aage: **3** Category tiles → **4** Showroom edit → **5** Art of Rest → **6** About → **7** Best sellers grid → **8** Crafted Comfort → **9** Collection carousel → **10** Reviews. Fir **Group 3 — Footer**.
