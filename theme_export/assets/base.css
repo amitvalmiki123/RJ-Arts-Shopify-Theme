@@ -4692,3 +4692,106 @@ details-disclosure > details {
     max-width: 380px;
   }
 }
+
+/* ==========================================================================
+   RJ ARTS - header icons, exact match to design/THE-RJ-ARTS.html
+   Design specs: 19x19, stroke 1.4, no fill; cart badge 17px circle sitting to
+   the right of the bag; exactly one search trigger, no stray close glyph.
+   ========================================================================== */
+.section-header {
+  --rj-icon-search: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='16.5' y1='16.5' x2='21' y2='21'/%3E%3C/svg%3E");
+  --rj-icon-account: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4 4-6 8-6s8 2 8 6'/%3E%3C/svg%3E");
+  --rj-icon-cart: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8h12l-1 12H7L6 8z'/%3E%3Cpath d='M9 8V6a3 3 0 0 1 6 0v2'/%3E%3C/svg%3E");
+  --rj-icon-close: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E");
+}
+
+/* one search trigger only - Dawn renders a second one left of the logo as soon
+   as customer accounts are enabled, which broke the design's single icon row */
+.section-header .header > .header__search {
+  display: none !important;
+}
+
+/* no stray close glyph; it only appears while the search modal is open */
+.section-header .header__icons .header__icon-close {
+  display: none !important;
+}
+
+.section-header .header__icons details[open] .header__icon-close {
+  display: flex !important;
+}
+
+.section-header .header__icons details[open] .header__icon--search .svg-wrapper:first-child {
+  display: none !important;
+}
+
+/* the real glyphs: design SVGs as masks, painted with the current ink colour */
+.section-header .header__icons .header__icon--search span.svg-wrapper,
+.section-header .header__icons .header__icon--account .svg-wrapper,
+.section-header .header__icons .header__icon--cart .svg-wrapper {
+  display: block;
+  width: 19px;
+  height: 19px;
+  min-width: 19px;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.section-header .header__icons .header__icon--search span.svg-wrapper:not(.header__icon-close) {
+  -webkit-mask-image: var(--rj-icon-search);
+  mask-image: var(--rj-icon-search);
+}
+
+.section-header .header__icons .header__icon-close {
+  -webkit-mask-image: var(--rj-icon-close);
+  mask-image: var(--rj-icon-close);
+}
+
+.section-header .header__icons .header__icon--account .svg-wrapper,
+.section-header .header__icons shopify-account.header__icon .svg-wrapper {
+  -webkit-mask-image: var(--rj-icon-account);
+  mask-image: var(--rj-icon-account);
+}
+
+.section-header .header__icons .header__icon--cart .svg-wrapper {
+  -webkit-mask-image: var(--rj-icon-cart);
+  mask-image: var(--rj-icon-cart);
+}
+
+/* the inner Shopify icons are replaced by the masks above */
+.section-header .header__icons .svg-wrapper > svg,
+.section-header .header__icons .svg-wrapper > img {
+  display: none;
+}
+
+/* cart = bag + count side by side, like the design's icon-btn */
+.section-header .header__icons .header__icon--cart {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.section-header .header__icons .cart-count-bubble {
+  position: static;
+  bottom: auto;
+  left: auto;
+  width: 17px;
+  height: 17px;
+  min-width: 17px;
+  min-height: 17px;
+  border-radius: 50%;
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  font-family: var(--rj-sans);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.section-header .header__icons .cart-count-bubble:empty {
+  display: none;
+}

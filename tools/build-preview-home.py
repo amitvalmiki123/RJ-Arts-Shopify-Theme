@@ -382,7 +382,10 @@ html = f"""<!DOCTYPE html>
 {TOKENS}
 {css}
 /* preview-only: Dawn hides the hamburger on desktop via component CSS */
+/* design-exact icon row: one search trigger, no close glyph */
 .header__icon--menu {{ display: none; }}
+.header__icons .header__icon--search span.svg-wrapper {{ background-color: currentColor; }}
+.header__icons .svg-wrapper > svg {{ display: none; }}
 @media screen and (max-width: 989px) {{
   .header__icon--menu {{ display: flex; }}
   .header__inline-menu {{ display: none; }}

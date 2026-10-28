@@ -102,11 +102,11 @@
     ]
   },
   {
-    "name": "RJ Arts — brand tokens",
+    "name": "RJ Arts - brand tokens",
     "settings": [
       {
         "type": "paragraph",
-        "content": "Powers the RJ Arts design in assets/base.css (the appended block at the end of the file). Page base colour + ink come from the colour schemes above; fonts come from Typography."
+        "content": "Powers the RJ Arts design in assets/base.css (appended block at the end of the file). Page base colour and ink come from the colour schemes above; fonts come from Typography."
       },
       {
         "type": "header",
@@ -115,13 +115,13 @@
       {
         "type": "color",
         "id": "rj_color_accent",
-        "label": "Accent — brass",
+        "label": "Accent - brass",
         "default": "#A9865B"
       },
       {
         "type": "color",
         "id": "rj_color_accent_deep",
-        "label": "Accent — deep brass (hover)",
+        "label": "Accent - deep brass (hover)",
         "default": "#8A6A43"
       },
       {
