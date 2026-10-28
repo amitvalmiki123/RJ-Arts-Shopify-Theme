@@ -106,7 +106,7 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Powers the RJ Arts design system (assets/rj-arts.css). Page base colour and ink come from the colour schemes above; fonts come from Typography."
+        "content": "Powers the RJ Arts design in assets/base.css (the appended block at the end of the file). Page base colour + ink come from the colour schemes above; fonts come from Typography."
       },
       {
         "type": "header",
