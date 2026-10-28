@@ -52,6 +52,7 @@
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'rj-arts.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'cart-disclosure-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'cart-disclosure-tooltip.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
@@ -423,6 +424,9 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+    {%- comment -%} RJ ARTS — design system (keep last in <head> so it wins the cascade) {%- endcomment -%}
+    {{ 'rj-arts.css' | asset_url | stylesheet_tag }}
+
   </head>
 
   <body class="gradient rj-theme{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">

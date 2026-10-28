@@ -10,7 +10,11 @@ Usage:  python3 tools/build-preview-home.py
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-css = (ROOT / "theme_export/assets/base.css").read_text()  # Dawn base.css + our appended block
+css = (
+    (ROOT / "theme_export/assets/base.css").read_text()
+    + "\n/* ---- rj-arts.css ---- */\n"
+    + (ROOT / "theme_export/assets/rj-arts.css").read_text()
+)  # Dawn base.css, then the RJ design system loaded after it
 
 TOKENS = """
 /* ---- static preview stand-ins for what layout/theme.liquid emits ---- */

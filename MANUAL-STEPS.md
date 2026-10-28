@@ -4,7 +4,8 @@ Ye guide us case ke liye hai jab aap **zip upload nahi** karna chahte, balki **D
 
 Har step ke saath file ka GitHub link hai. Link khulein → top-right **`Copy raw file`** button dabayein → Shopify code editor me paste karein → **Save**.
 
-> Total kaam: **2 nayi files** + **6 files replace** + **4 files me chhota patch**. Bas.
+> Total kaam: **4 nayi files** + **7 files replace** + **2 files me chhota patch**. Bas.
+> (RJ ka poora CSS/JS alag files me hai — Dawn ki `base.css` / `global.js` ko chhuna nahi padta.)
 
 ---
 
@@ -26,9 +27,9 @@ Har step ke saath file ka GitHub link hai. Link khulein → top-right **`Copy ra
 |---|------|---------------|-------------|
 | 1 | `config/settings_schema.json` | ek group **add** (patch) | +81 |
 | 2 | `config/settings_data.json` | **replace** pura file | 386 |
-| 3 | `layout/theme.liquid` | **3 chhote patch** | +104 |
-| 4 | `assets/base.css` | **end me block append** | +1159 |
-| 5 | `assets/global.js` | **end me block append** | +64 |
+| 3 | `layout/theme.liquid` | **5 chhote patch** (3 block + 2 line) | +110 |
+| 4 | `assets/rj-arts.css` | **nayi file** (RJ ka poora CSS) | 1159 |
+| 5 | `assets/rj-arts.js` | **nayi file** (RJ ka poora JS) | 64 |
 | 6 | `sections/announcement-bar.liquid` | **replace** | 180 |
 | 7 | `sections/header.liquid` | **replace** | 721 |
 | 8 | `snippets/header-mega-menu.liquid` | **replace** | 135 |
@@ -94,9 +95,9 @@ Aakhri 3 lines aisi dikhni chahiye (pehle → baad me):
 
 ---
 
-### Step 3 — `layout/theme.liquid` (3 chhote patch — pura file replace NA karein)
+### Step 3 — `layout/theme.liquid` (5 chhote patch — pura file replace NA karein)
 
-Isme sirf 3 jagah change hai. Link: [theme_export/layout/theme.liquid](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/layout/theme.liquid)
+Isme sirf 5 jagah change hai: 3 blocks + 2 single lines. Link: [theme_export/layout/theme.liquid](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/layout/theme.liquid)
 
 #### Patch 3a — colour-scheme fallback (safety net)
 
@@ -117,7 +118,7 @@ Isme sirf 3 jagah change hai. Link: [theme_export/layout/theme.liquid](https://g
 
 #### Patch 3b — RJ design tokens
 
-`theme.liquid` me ye line dhundein (kareeb line 281):
+`theme.liquid` me ye line dhundein (kareeb line 371 — `Ctrl+F` me search karein):
 
 ```liquid
     {{ 'base.css' | asset_url | stylesheet_tag }}
@@ -129,7 +130,7 @@ Iske **thik neeche** ye block paste karein:
 
 #### Patch 3c — body class
 
-Line ~324 par:
+Line ~432 par (ya `Ctrl+F` → `<body class`):
 
 ```liquid
 <body class="gradient{% if ... %}">          ← PEHLE
@@ -138,41 +139,67 @@ Line ~324 par:
 
 Bas `rj-theme` word add karna hai (RJ ka poora CSS isi class ke andar band hai, isliye Dawn ka baaki design kharab nahi hota).
 
+#### Patch 3d — RJ CSS load karna
+
+`theme.liquid` ke **`<head>` ke sabse end** me, `</head>` se thik pehle ye 2 lines daalein:
+
+```liquid
+    {%- comment -%} RJ ARTS — design system (keep last in <head> so it wins the cascade) {%- endcomment -%}
+    {{ 'rj-arts.css' | asset_url | stylesheet_tag }}
+
+  </head>
+```
+
+(`</head>` pehle se hai — uske thik upar 2 lines add karni hain. Ye `<head>` ka last stylesheet hona chahiye taki Dawn ke baad load ho.)
+
+#### Patch 3e — RJ JS load karna
+
+`theme.liquid` me ye line dhundein (kareeb line 54):
+
+```liquid
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+```
+
+Iske **thik neeche**:
+
+```liquid
+    <script src="{{ 'rj-arts.js' | asset_url }}" defer="defer"></script>
+```
+
 **Save.**
 
 ---
 
-### Step 4 — `assets/base.css` (end me append)
+### Step 4 — `assets/rj-arts.css` (**nayi file**)
 
-Dawn ki apni CSS ko chhedna nahi hai — sirf **file ke sabse end** me RJ block chipkana hai.
+**Kyun:** RJ Arts ka poora design-system CSS (1159 lines) — tokens, header, ticker, hero, USP, buttons, mobile. Dawn ki `base.css` ko **bilkul chhedna nahi** hai.
 
-1. `assets/base.css` kholein.
-2. `Ctrl+End` (file ke end me jayein).
-3. Ek blank line chhod kar neeche wala block paste karein.
+1. Explorer me **`assets`** folder par right-click → **New file** (ya `Ctrl+Shift+P` → `New File`)
+2. Naam: `rj-arts.css`
+3. Paste karein → Save.
 
-**Paste:** [manual/base-css-append.css](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/manual/base-css-append.css) (1159 lines, 27 KB)
+**Paste:** [theme_export/assets/rj-arts.css](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/assets/rj-arts.css) (1159 lines, 27 KB)
 
-Block ki pehli line yahi honi chahiye:
+Pehli line yahi honi chahiye:
 
 ```css
 /* ==========================================================================
    RJ ARTS — appended design-system block (do not reformat)
 ```
 
-**Check:** paste ke baad file ki total lines **3637 + 1159 = 4796** ke aas-paas honi chahiye.
-
-**Save** → preview kholke dekhein: header/nav ab design font (Cormorant + Jost) me dikhna chahiye.
+**Save** → preview kholein: header/nav ab Cormorant + Jost me dikhna chahiye.
 
 ---
 
-### Step 5 — `assets/global.js` (end me append)
+### Step 5 — `assets/rj-arts.js` (**nayi file**)
 
-1. `assets/global.js` kholein → `Ctrl+End`.
-2. Block paste karein.
+**Kyun:** scroll-reveal animation + header ka "scrolled" state (border/shadow jab page scroll ho).
 
-**Paste:** [manual/global-js-append.js](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/manual/global-js-append.js) (64 lines)
+Wahi tarika: `assets` folder → New file → naam `rj-arts.js` → paste → Save.
 
-Block ki pehli line:
+**Paste:** [theme_export/assets/rj-arts.js](https://github.com/amitvalmiki123/RJ-Arts-Shopify-Theme/blob/arena/b22b7858-rj-arts-shopify-theme/theme_export/assets/rj-arts.js) (64 lines)
+
+Pehli line:
 
 ```js
 /* ==========================================================================
@@ -360,7 +387,8 @@ Labels/aapke paas images: `Images/Bed.png`, `Bed2.png`, `Living.jpg`, `Dining.pn
 | `To preview your changes, color schemes must be defined…` | Step 2 paste nahi hua, ya editor cache | `settings_data.json` dobara paste → Save → Customize reload |
 | `Scheme "mega_feature" does not exist` (ya header-group save error) | Step 7 se pehle Step 9 kar diya | `header.liquid` paste karein, phir `header-group.json` |
 | `Section type 'rj_hero' does not exist` | Steps 10–11 pending | `rj-hero.liquid` + `rj-usp.liquid` banao, phir `index.json` paste |
-| Header ke saare colours white/grey | Step 4 (base.css append) nahi hua | base.css ke end me block paste karein |
+| Header ke saare colours white/grey, design jaisa nahi | `rj-arts.css` file nahi bani ya theme.liquid me link nahi laga | Step 3d + Step 4 check karein |
+| Scroll karne par header border/shadow nahi aata | `rj-arts.js` link missing | Step 3e + Step 5 |
 | Fonts default lag rahe hain | Step 2 nahi hua | settings_data paste → Customize me Typography check |
 | Mega menu hover par kuch nahi khulta | Menu me children nahi hain | Section 3.5 follow karein |
 | Kabhi bhi kuch bigad jaye | — | Duplicate theme delete karein → naya duplicate → 13 steps dobara (25 min) |
