@@ -99,10 +99,50 @@
         "padding_y": 30,
         "show_line": true
       }
+    },
+    "rj_categories": {
+      "type": "rj-categories",
+      "blocks": {
+        "tile-1": {
+          "type": "tile",
+          "settings": {
+            "title": "Bedroom",
+            "subtitle": "Beds, storage & bedsides"
+          }
+        },
+        "tile-2": {
+          "type": "tile",
+          "settings": {
+            "title": "Living",
+            "subtitle": "Sofas & cabinets"
+          }
+        },
+        "tile-3": {
+          "type": "tile",
+          "settings": {
+            "title": "Dining",
+            "subtitle": "Tables, sets & benches"
+          }
+        }
+      },
+      "block_order": [
+        "tile-1",
+        "tile-2",
+        "tile-3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "Shop by Room",
+        "heading": "Three rooms,\none philosophy.",
+        "text": "Every RJ Arts room is designed around solid wood — warm, tactile and made to last a lifetime, not a season.",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     }
   },
   "order": [
     "rj_hero",
-    "rj_usp"
+    "rj_usp",
+    "rj_categories"
   ]
 }

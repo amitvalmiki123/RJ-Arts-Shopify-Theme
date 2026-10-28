@@ -49,9 +49,9 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 |
 | 2 | `config/settings_data.json` | REPLACE | 382 |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 1485 |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 1691 |
 | 4 | `assets/rj-arts.js` | **NAYI FILE** | 112 |
-| 5 | `layout/theme.liquid` | REPLACE | 538 |
+| 5 | `layout/theme.liquid` | REPLACE | 641 |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 |
 | 7 | `sections/header.liquid` | REPLACE | 721 |
 | 8 | `snippets/header-mega-menu.liquid` | REPLACE | 134 |
@@ -59,7 +59,8 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 |
 | 12 | `sections/footer-group.json` | REPLACE | 61 |
-| 13 | `templates/index.json` | REPLACE | 108 |
+| 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 |
+| 14 | `templates/index.json` | REPLACE | 148 |
 
 Dawn ki baaki **337 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -125,10 +126,14 @@ Hero ke neeche 4-item USP strip. `sections` → New file → naam `rj-usp.liquid
 ### Step 12 — `sections/footer-group.json` → REPLACE
 Footer ke 4 columns (brand + Shop + Company + Support).
 
-### Step 13 — `templates/index.json` → REPLACE
+### Step 13 — `sections/rj-categories.liquid` → **NAYI FILE**
+Homepage ke **Category tiles** (asymmetrical 1.4fr / 1fr grid, pehla tile 2 rows).
+`sections` → New file → naam `rj-categories.liquid` → paste → Save.
+
+### Step 14 — `templates/index.json` → REPLACE
 Homepage template (abhi hero + USP; Group 2 ke baaki sections aage add honge).
 
-> ⚠️ Steps 10–11 pehle hone chahiye, warna `Section type 'rj_hero' does not exist` error aayega.
+> ⚠️ Steps 10, 11 aur 13 pehle hone chahiye, warna `Section type 'rj_hero' / 'rj_categories' does not exist` error aayega.
 
 ---
 
@@ -178,7 +183,13 @@ Images: `Images/` folder (`Bed_Desktop_Banner.webp`, `Dining_Desktop_Banner.webp
 `1,000+ 5-Star Reviews` · `100% Solid Sheesham` · `3-Year Warranty` · `0% Finance Available`
 (icon + heading + subtext per block)
 
-### 3.7 Mega feature cards (6)
+### 3.7 Category tiles (homepage section)
+Customize → **RJ Category tiles** → 3 blocks. Har block me **Collection** chunein
+(Bedroom / Living / Dining) — title, link aur image apne aap bhar jayenge.
+Design jaisa look chahiye to **Custom image** me `Images/Bed.png`, `Images/Living.jpg`,
+`Images/Dining.png` upload karein. Sub-line text design se default aata hai.
+
+### 3.8 Mega feature cards (6)
 Header section → `mega_feature` blocks. Har block me:
 - **Parent link** = menu naam **exactly** (`Bedroom` / `Living` / `Dining`)
 - Image (3:4), Label, Link
@@ -209,10 +220,42 @@ Header section → `mega_feature` blocks. Har block me:
 | `color schemes must be defined…` | Step 2 nahi hua / cache | `settings_data.json` paste → Save → editor reload |
 | `Block type 'mega_feature' does not exist` | Step 7 se pehle Step 9 | `header.liquid` paste, phir `header-group.json` |
 | `Section type 'rj_hero' does not exist` | Steps 10–11 pending | rj-hero + rj-usp banao, phir `index.json` |
+| `config/settings_data.json` folder me hi nahi dikh raha | upload/paste ke waqt file theme me nahi gayi | Section 5.1 dekhein |
+| Colours panel khaali + banner | `settings_data.json` missing | Section 5.1 → Step 2 |
 | Design jaisa styling nahi aa raha | `rj-arts.css` ya uski link missing | Step 3 + Step 5 |
 | Scroll par header border/shadow nahi | `rj-arts.js` ya link missing | Step 4 + Step 5 |
 | Mega menu hover par kuch nahi | Menu me children nahi | Section 3.4 |
-| Kuch bhi bigad jaye | — | Duplicate delete → naya duplicate → 13 steps (25 min). Live theme safe. |
+| Kuch bhi bigad jaye | — | Duplicate delete → naya duplicate → 14 steps (30 min). Live theme safe. |
+
+---
+
+### 5.1 `config/settings_data.json` missing / `could not be deleted`
+
+Editor banner `The configuration file config/settings_data.json needs to be added…`
+aur **Theme settings → Colours = "No color schemes defined"** ka matlab: theme me
+yeh file nahi hai (ya khaali hai). Check: **Edit code → config** — wahan sirf
+`settings_schema.json` dikhe.
+
+Fix (is order me try karein):
+
+1. **Edit code → config → `settings_schema.json` ke saath jo bhi file hai** dekhein.
+   Agar `settings_data.json` hai → Step 2 ke content se **Replace** karein
+   (`Ctrl+Home` → `Ctrl+A` → paste → `Ctrl+S`).
+2. Agar file hai hi nahi → **config** folder ke aage `...` (ya sidebar me `+`)
+   → **New file** → naam exactly `settings_data.json` → Step 2 ka content paste → Save.
+3. New file ka option na mile → **Customize** me koi bhi chhota change karein
+   (e.g. logo width slider hilaayein) → **Save**. Iske baad Shopify file khud
+   bana deta hai, phir Step 2 ka content paste karein.
+4. Phir bhi na ho → theme **delete** karke `rj-arts-theme.zip` dobara upload karein
+   (fresh slot me) aur `config` check karein.
+
+> Note: ab tak ke zips me `config/settings_data.json` **zip ke andar maujood hai**
+> (verify: `unzip -l rj-arts-theme.zip | grep config` → 12 KB). Isliye agar wo
+> theme me nahi pahuncha to problem upload/paste side ki hai, file ki nahi.
+>
+> Safety net: `theme.liquid` me fallback hai — schemes missing ho to bhi
+> storefront cream/ink + Cormorant/Jost me dikhega, sirf **Colours panel** aur
+> banner baaki rahega.
 
 ---
 
@@ -220,7 +263,7 @@ Header section → `mega_feature` blocks. Har block me:
 
 Agar poora `layout/theme.liquid` replace nahi karna chahte, to `manual/` folder me chhote snippets hain:
 
-- `manual/snippet-1-color-scheme-fallback.liquid` (89 lines) → `{% endfor %}` ke baad
+- `manual/snippet-1-color-scheme-fallback.liquid` (102 lines) → `{% endfor %}` ke baad
 - `manual/snippet-2-rj-tokens.liquid` (14 lines) → `{{ 'base.css' ... }}` ke neeche
 - body class: `gradient` → `gradient rj-theme`
 - `{{ 'rj-arts.css' | asset_url | stylesheet_tag }}` → `</head>` se pehle
@@ -232,6 +275,6 @@ Agar poora `layout/theme.liquid` replace nahi karna chahte, to `manual/` folder 
 
 ## 7. Aage
 
-Group 1 (header) ✅ + homepage ke section 1–2 (hero, USP) ✅.
+Group 1 (header) ✅ + homepage ke section **1–3** (hero, USP, Category tiles) ✅.
 
-Group 2 me aage: **3** Category tiles → **4** Showroom edit → **5** Art of Rest → **6** About → **7** Best sellers grid → **8** Crafted Comfort → **9** Collection carousel → **10** Reviews. Fir **Group 3 — Footer**.
+Group 2 me aage: **4** Showroom edit → **5** Art of Rest → **6** About → **7** Best sellers grid → **8** Crafted Comfort → **9** Collection carousel → **10** Reviews. Fir **Group 3 — Footer**.

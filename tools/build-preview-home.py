@@ -297,6 +297,32 @@ USP = """
     </div>
   </div>
 </div>
+
+<div class="rj-cats color-scheme-1" style="--rj-cats-pt: 96px; --rj-cats-pb: 96px;">
+  <div class="rj-wrap">
+    <div class="rj-cats__head rj-reveal">
+      <div class="rj-cats__head-main">
+        <span class="rj-eyebrow">Shop by Room</span>
+        <h2 class="rj-cats__title">Three rooms,<br>one philosophy.</h2>
+      </div>
+      <p class="rj-cats__text">Every RJ Arts room is designed around solid wood &mdash; warm, tactile and made to last a lifetime, not a season.</p>
+    </div>
+    <div class="rj-cats__grid">
+      <a class="rj-cat rj-reveal" href="#">
+        <img class="rj-cat__img" src="Images/Bed.png" alt="Bedroom">
+        <span class="rj-cat__body"><h3 class="rj-cat__title">Bedroom</h3><span class="rj-cat__sub">Beds, storage &amp; bedsides</span></span>
+      </a>
+      <a class="rj-cat rj-reveal d1" href="#">
+        <img class="rj-cat__img" src="Images/Living.jpg" alt="Living Room">
+        <span class="rj-cat__body"><h3 class="rj-cat__title">Living</h3><span class="rj-cat__sub">Sofas &amp; cabinets</span></span>
+      </a>
+      <a class="rj-cat rj-reveal d2" href="#">
+        <img class="rj-cat__img" src="Images/Dining.png" alt="Dining Room">
+        <span class="rj-cat__body"><h3 class="rj-cat__title">Dining</h3><span class="rj-cat__sub">Tables, sets &amp; benches</span></span>
+      </a>
+    </div>
+  </div>
+</div>
 """
 
 SCRIPT = """

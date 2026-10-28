@@ -1,0 +1,201 @@
+{% comment %}
+  RJ ARTS — Category tiles (design .cats)
+
+  Matches design/THE-RJ-ARTS.html exactly:
+    grid     1.4fr / 1fr, rows repeat(2, minmax(210px, 32vh)), 18px gutter
+    first tile spans both rows, 4px radius, cream-2 backing
+    image     object-fit cover, scale(1.07) on hover over 1.1s
+    overlay   rgba(20,14,8,.6) -> transparent 55%, darkens on hover
+    body      28px from left, 26px from bottom, serif 30px title,
+              12px/.18em uppercase sub-line with a "→" that slides 6px
+
+  Every tile can be linked to a collection (title, url and featured image are
+  inherited) or set up manually with its own image + link.
+
+  Usage: {% section 'rj-categories' %}
+{% endcomment %}
+
+<div
+  class="rj-cats color-{{ section.settings.color_scheme }} gradient"
+  style="--rj-cats-pt: {{ section.settings.padding_top }}px; --rj-cats-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="rj-wrap">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.text != blank -%}
+      <div class="rj-cats__head rj-reveal">
+        <div class="rj-cats__head-main">
+          {%- if section.settings.eyebrow != blank -%}
+            <span class="rj-eyebrow">{{ section.settings.eyebrow | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="rj-cats__title">{{ section.settings.heading | escape | newline_to_br }}</h2>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.text != blank -%}
+          <p class="rj-cats__text">{{ section.settings.text | escape }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="rj-cats__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign rj_collection = block.settings.collection
+          assign rj_image = block.settings.image | default: rj_collection.featured_image
+          assign rj_title = block.settings.title | default: rj_collection.title
+          assign rj_link = block.settings.link | default: rj_collection.url
+          assign rj_delay = forloop.index0 | at_most: 3
+          assign rj_delay_class = ''
+          if rj_delay > 0
+            assign rj_delay_class = ' d' | append: rj_delay
+          endif
+        -%}
+        <a
+          class="rj-cat rj-reveal{{ rj_delay_class }}"
+          {% if rj_link != blank %}href="{{ rj_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+          {{ block.shopify_attributes }}
+        >
+          {%- if rj_image != blank -%}
+            {{ rj_image | image_url: width: 1600 | image_tag:
+                loading: 'lazy',
+                widths: '400,600,800,1000,1200,1600',
+                sizes: '(min-width: 990px) 60vw, 100vw',
+                class: 'rj-cat__img',
+                alt: rj_title
+            }}
+          {%- else -%}
+            {{ 'collection-1' | placeholder_svg_tag: 'rj-cat__img rj-cat__img--placeholder' }}
+          {%- endif -%}
+          <span class="rj-cat__body">
+            {%- if rj_title != blank -%}
+              <h3 class="rj-cat__title">{{ rj_title | escape }}</h3>
+            {%- endif -%}
+            {%- if block.settings.subtitle != blank -%}
+              <span class="rj-cat__sub">{{ block.settings.subtitle | escape }}</span>
+            {%- endif -%}
+          </span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RJ Category tiles",
+  "tag": "section",
+  "class": "rj-cats-section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Shop by Room"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Three rooms,\none philosophy."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Intro paragraph",
+      "default": "Every RJ Arts room is designed around solid wood — warm, tactile and made to last a lifetime, not a season."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Room tile",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "Pick a collection — its title, link and featured image are used automatically. The first tile is the tall one."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom image",
+          "info": "Optional. Overrides the collection image. Portrait crops look best in tile 1."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title override",
+          "info": "Leave empty to use the collection title."
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Sub-line",
+          "default": "Beds, storage & bedsides"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link override",
+          "info": "Leave empty to link to the collection."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RJ Category tiles",
+      "blocks": [
+        {
+          "type": "tile",
+          "settings": {
+            "title": "Bedroom",
+            "subtitle": "Beds, storage & bedsides"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "title": "Living",
+            "subtitle": "Sofas & cabinets"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "title": "Dining",
+            "subtitle": "Tables, sets & benches"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

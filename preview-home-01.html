@@ -5167,6 +5167,212 @@ details-disclosure > details {
   justify-content: center;
 }
 
+/* ==========================================================================
+   RJ ARTS - category tiles (design .cats / .cat)
+   1.4fr / 1fr asymmetric grid, first tile spans both rows, 18px gutter,
+   4px radius, 30px serif label + 12px/.18em sub-line with a sliding arrow.
+   ========================================================================== */
+
+.rj-cats {
+  padding-block: var(--rj-cats-pt, 96px) var(--rj-cats-pb, 96px);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+/* ---- section head (design .sec-head) ---- */
+.rj-cats__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 46px;
+}
+
+.rj-cats__title {
+  margin: 12px 0 0;
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: inherit;
+}
+
+.rj-cats__text {
+  margin: 10px 0 0;
+  max-width: 440px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--rj-grey);
+}
+
+/* ---- tiles ---- */
+.rj-cats__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-rows: repeat(2, minmax(210px, 32vh));
+  gap: 18px;
+}
+
+.rj-cat {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: var(--rj-cream-2);
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.rj-cat:first-child {
+  grid-row: span 2;
+}
+
+.rj-cat__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.1s var(--rj-ease);
+}
+
+.rj-cat:hover .rj-cat__img,
+.rj-cat:focus-visible .rj-cat__img {
+  transform: scale(1.07);
+}
+
+.rj-cat__img--placeholder {
+  opacity: 0.9;
+}
+
+/* bottom gradient that deepens on hover */
+.rj-cat::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(20, 14, 8, 0.6), transparent 55%);
+  transition: background 0.5s var(--rj-ease);
+  pointer-events: none;
+}
+
+.rj-cat:hover::after,
+.rj-cat:focus-visible::after {
+  background: linear-gradient(to top, rgba(20, 14, 8, 0.72), rgba(20, 14, 8, 0.1) 60%);
+}
+
+.rj-cat__body {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 26px;
+  z-index: 2;
+  color: #fff;
+  display: block;
+}
+
+.rj-cat__title {
+  margin: 0;
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.rj-cat__sub {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 8px;
+  font-family: var(--rj-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  color: #fff;
+}
+
+.rj-cat__sub::after {
+  content: '\2192';
+  transition: transform 0.4s var(--rj-ease);
+}
+
+.rj-cat:hover .rj-cat__sub::after,
+.rj-cat:focus-visible .rj-cat__sub::after {
+  transform: translateX(6px);
+}
+
+/* ---- 989 and below: tighter rows, smaller label ---- */
+@media screen and (max-width: 989px) {
+  .rj-cats__grid {
+    grid-template-rows: repeat(2, minmax(190px, 28vh));
+    gap: 16px;
+  }
+
+  .rj-cat__body {
+    left: 22px;
+    right: 22px;
+    bottom: 20px;
+  }
+
+  .rj-cat__title {
+    font-size: 26px;
+  }
+}
+
+/* ---- 768 and below (design): single column, 16:10 tiles ---- */
+@media screen and (max-width: 768px) {
+  .rj-cats {
+    padding-block: min(var(--rj-cats-pt, 96px), 64px) min(var(--rj-cats-pb, 96px), 64px);
+  }
+
+  .rj-cats__head {
+    margin-bottom: 30px;
+    gap: 18px;
+  }
+
+  .rj-cats__title {
+    font-size: clamp(28px, 7vw, 38px);
+  }
+
+  .rj-cats__text {
+    font-size: 15px;
+    max-width: none;
+  }
+
+  .rj-cats__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    gap: 14px;
+  }
+
+  .rj-cats__grid .rj-cat {
+    aspect-ratio: 16 / 10;
+  }
+
+  .rj-cats__grid .rj-cat:first-child {
+    grid-row: auto;
+  }
+
+  .rj-cat__body {
+    left: 20px;
+    right: 20px;
+    bottom: 18px;
+  }
+
+  .rj-cat__title {
+    font-size: 24px;
+  }
+
+  .rj-cat__sub {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+}
+
 /* preview-only: Dawn hides the hamburger on desktop via component CSS */
 /* design-exact icon row: one search trigger, no close glyph */
 .header__icon--menu { display: none; }
@@ -5438,6 +5644,32 @@ details-disclosure > details {
         <span class="rj-usp__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg></span>
         <div class="rj-usp__text"><b>0% Finance Available</b><small>Easy EMI at checkout</small></div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="rj-cats color-scheme-1" style="--rj-cats-pt: 96px; --rj-cats-pb: 96px;">
+  <div class="rj-wrap">
+    <div class="rj-cats__head rj-reveal">
+      <div class="rj-cats__head-main">
+        <span class="rj-eyebrow">Shop by Room</span>
+        <h2 class="rj-cats__title">Three rooms,<br>one philosophy.</h2>
+      </div>
+      <p class="rj-cats__text">Every RJ Arts room is designed around solid wood &mdash; warm, tactile and made to last a lifetime, not a season.</p>
+    </div>
+    <div class="rj-cats__grid">
+      <a class="rj-cat rj-reveal" href="#">
+        <img class="rj-cat__img" src="Images/Bed.png" alt="Bedroom">
+        <span class="rj-cat__body"><h3 class="rj-cat__title">Bedroom</h3><span class="rj-cat__sub">Beds, storage &amp; bedsides</span></span>
+      </a>
+      <a class="rj-cat rj-reveal d1" href="#">
+        <img class="rj-cat__img" src="Images/Living.jpg" alt="Living Room">
+        <span class="rj-cat__body"><h3 class="rj-cat__title">Living</h3><span class="rj-cat__sub">Sofas &amp; cabinets</span></span>
+      </a>
+      <a class="rj-cat rj-reveal d2" href="#">
+        <img class="rj-cat__img" src="Images/Dining.png" alt="Dining Room">
+        <span class="rj-cat__body"><h3 class="rj-cat__title">Dining</h3><span class="rj-cat__sub">Tables, sets &amp; benches</span></span>
+      </a>
     </div>
   </div>
 </div>
