@@ -62,14 +62,14 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | ✅ pehle kar liya to skip |
 | 14 | `sections/rj-band.liquid` | **NAYI FILE** | 188 | ✅ pehle kar liya to skip |
 | 15 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | ✅ pehle kar liya to skip |
-| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 239 | ✅ pichle round me kar liya to skip |
-| 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 212 | ✅ pichle round me kar liya to skip |
-| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 212 | ✅ pichle round me kar liya to skip |
-| 19 | `sections/rj-footer.liquid` | **NAYI FILE** | 443 | **⬅ is round me naya (Footer)** |
-| 20 | `sections/footer-group.json` | REPLACE | 63 | **⬅ is round me badla (ab rj-footer use karta hai)** |
+| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 239 | ✅ pehle kar liya to skip |
+| 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 212 | ✅ pehle kar liya to skip |
+| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 212 | ✅ pehle kar liya to skip |
+| 19 | `sections/footer.liquid` | REPLACE (Dawn ki file) | 447 | **⬅ is round me badli (design footer isi me hai)** |
+| 20 | `sections/footer-group.json` | REPLACE | 63 | **⬅ is round me badla** |
 | 21 | `templates/index.json` | REPLACE | 413 | ✅ pichle round me kar liya to skip |
 
-Dawn ki baaki **337 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
+Dawn ki baaki **336 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
 **Download:** `rj-arts-changes.zip` extract karein — folder structure theme jaisa hi hai, seedha path match karke paste karein.
 
@@ -153,10 +153,15 @@ Collection carousel (arrows wali rail). File naam: `rj-collections.liquid`.
 Reviews rail (merchant ke apne review blocks, koi app nahi chahiye).
 File naam: `rj-reviews.liquid`.
 
-### Step 19 — `sections/rj-footer.liquid` → **NAYI FILE**
+### Step 19 — `sections/footer.liquid` → **REPLACE (Dawn ki hi file)**
 Group 3 ka footer: newsletter band (asli customer form), brand + 3 menus,
 payment chips, bottom bar, ghost "RJ ARTS" wordmark.
-`sections` → New file → naam `rj-footer.liquid` → paste → Save.
+**Nayi file nahi banani** — `sections/footer.liquid` (Dawn wali) kholiye,
+`Ctrl+Home` → `Ctrl+A` → paste → `Ctrl+S`.
+> Design footer isi ek file me hai, isliye theme me **ek hi footer** rahega —
+> bilkul `header.liquid` ki tarah. Section type bhi Dawn ka hi (`footer`) hai.
+> Agar pichle round me galti se `sections/rj-footer.liquid` bana li thi to
+> **usse delete kar dein** (warna Add section list me do footer dikhenge).
 
 ### Step 20 — `sections/footer-group.json` → REPLACE
 Footer ke 4 columns (brand + Shop + Company + Support).

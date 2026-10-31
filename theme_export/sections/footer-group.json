@@ -2,8 +2,8 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "rj_footer": {
-      "type": "rj-footer",
+    "footer": {
+      "type": "footer",
       "blocks": {
         "shop": {
           "type": "menu",
@@ -58,6 +58,6 @@
     }
   },
   "order": [
-    "rj_footer"
+    "footer"
   ]
 }
