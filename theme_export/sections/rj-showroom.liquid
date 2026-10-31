@@ -1,0 +1,357 @@
+{% comment %}
+  RJ ARTS — The showroom edit (design "TABBED PRODUCT SLIDER")
+
+  Matches design/THE-RJ-ARTS.html:
+    head      eyebrow + h2 left, pill tabs + round arrow pair right
+    tabs      New Arrivals / Best Sellers / Heritage — 13px uppercase pills,
+              active = ink fill, hover = ink outline
+    rail      horizontal snap rail, cards min 280px, 22px gap, brass 3px bar
+    card      square image, badge (Sale / New) top-left, "Quick View" button
+              that slides up on hover, category, 2-line serif title, price with
+              struck-through compare-at + % off, brass stars + review label
+
+  Products come from each tab's collection. Tab 1 = tall? no — every tab has
+  its own rail. Cards are driven by real product data (title, price,
+  compare-at, product type, featured image), so nothing is hard-coded.
+
+  Usage: {% section 'rj-showroom' %}
+{% endcomment %}
+
+{%- liquid
+  assign tab_count = section.blocks.size
+  assign per_tab = section.settings.products_to_show
+-%}
+
+{%- if tab_count > 0 -%}
+  <rj-showroom
+    class="rj-show color-{{ section.settings.color_scheme }} gradient"
+    style="--rj-show-pt: {{ section.settings.padding_top }}px; --rj-show-pb: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="rj-wrap">
+      <div class="rj-show__head rj-reveal">
+        <div class="rj-show__head-main">
+          {%- if section.settings.eyebrow != blank -%}
+            <span class="rj-eyebrow">{{ section.settings.eyebrow | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="rj-show__title">{{ section.settings.heading | escape }}</h2>
+          {%- endif -%}
+        </div>
+
+        <div class="rj-show__controls">
+          {%- if tab_count > 1 -%}
+            <div class="rj-tabs" role="tablist" aria-label="{{ section.settings.heading | escape }}">
+              {%- for block in section.blocks -%}
+                <button
+                  type="button"
+                  class="rj-tab{% if forloop.first %} is-active{% endif %}"
+                  role="tab"
+                  id="rj-tab-{{ section.id }}-{{ forloop.index0 }}"
+                  data-rj-tab="{{ forloop.index0 }}"
+                  aria-controls="rj-panel-{{ section.id }}-{{ forloop.index0 }}"
+                  aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                  tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+                >
+                  {{- block.settings.label | escape -}}
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          <div class="rj-railnav">
+            <button type="button" data-rj-rail-dir="-1" aria-label="{{ 'general.slider.previous_slide' | t | default: 'Previous' }}">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="15 5 8 12 15 19"/></svg>
+            </button>
+            <button type="button" data-rj-rail-dir="1" aria-label="{{ 'general.slider.next_slide' | t | default: 'Next' }}">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="9 5 16 12 9 19"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rj-panels">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign tab_collection = block.settings.collection
+            assign label = block.settings.rating_label | default: 'Signature'
+          -%}
+          <div
+            class="rj-panel{% if forloop.first %} is-active{% endif %}"
+            id="rj-panel-{{ section.id }}-{{ forloop.index0 }}"
+            data-rj-panel="{{ forloop.index0 }}"
+            role="tabpanel"
+            aria-labelledby="rj-tab-{{ section.id }}-{{ forloop.index0 }}"
+            {% unless forloop.first %}hidden{% endunless %}
+            {{ block.shopify_attributes }}
+          >
+            <div class="rj-rail" data-rj-rail>
+              {%- if tab_collection != blank and tab_collection.products_count > 0 -%}
+                {%- for product in tab_collection.products limit: per_tab -%}
+                  {%- liquid
+                    assign on_sale = false
+                    if product.compare_at_price > product.price
+                      assign on_sale = true
+                    endif
+                    assign discount = 0
+                    if on_sale
+                      assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+                    endif
+                    assign badge = ''
+                    if on_sale
+                      assign badge = block.settings.sale_badge | default: 'Sale'
+                      assign badge_class = ' is-sale'
+                    elsif product.tags contains 'New Arrivals'
+                      assign badge = block.settings.new_badge | default: 'New'
+                      assign badge_class = ''
+                    elsif product.tags contains 'Heritage'
+                      assign badge = block.settings.heritage_badge | default: 'Heritage'
+                      assign badge_class = ''
+                    else
+                      assign badge_class = ''
+                    endif
+                  -%}
+                  <article class="rj-pcard">
+                    <div class="rj-pcard__media">
+                      {%- if badge != blank -%}
+                        <span class="rj-pcard__tag{{ badge_class }}">{{ badge }}</span>
+                      {%- endif -%}
+                      <a class="rj-pcard__link" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+                        {%- if product.featured_image != blank -%}
+                          {{ product.featured_image | image_url: width: 700 | image_tag:
+                              loading: 'lazy',
+                              widths: '300,400,500,700',
+                              sizes: '(min-width: 990px) 300px, 78vw',
+                              class: 'rj-pcard__img',
+                              alt: product.title
+                          }}
+                        {%- else -%}
+                          {{ 'product-1' | placeholder_svg_tag: 'rj-pcard__img rj-pcard__img--placeholder' }}
+                        {%- endif -%}
+                      </a>
+                      <div class="rj-pcard__quick">
+                        <a class="rj-btn rj-btn--light" href="{{ product.url }}">
+                          {{ section.settings.quick_view_label | escape }}
+                        </a>
+                      </div>
+                    </div>
+                    <div class="rj-pcard__body">
+                      {%- if product.type != blank -%}
+                        <span class="rj-pcard__cat">{{ product.type | escape }}</span>
+                      {%- endif -%}
+                      <h3 class="rj-pcard__title">
+                        <a href="{{ product.url }}">{{ product.title | escape }}</a>
+                      </h3>
+                      <div class="rj-pcard__price">
+                        <span class="now">{{ product.price | money }}</span>
+                        {%- if on_sale -%}
+                          <span class="was">{{ product.compare_at_price | money }}</span>
+                          <span class="off">&minus;{{ discount }}%</span>
+                        {%- endif -%}
+                      </div>
+                      <div class="rj-pcard__stars">
+                        <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <small>{{ label | escape }}</small>
+                      </div>
+                    </div>
+                  </article>
+                {%- endfor -%}
+              {%- else -%}
+                {%- for i in (1..5) -%}
+                  <article class="rj-pcard">
+                    <div class="rj-pcard__media">
+                      <span class="rj-pcard__tag{% cycle '', ' is-sale' %}">{% cycle 'New', 'Sale' %}</span>
+                      <div class="rj-pcard__placeholder">
+                        {{ 'product-' | append: i | placeholder_svg_tag: 'rj-pcard__img rj-pcard__img--placeholder' }}
+                      </div>
+                      <div class="rj-pcard__quick">
+                        <span class="rj-btn rj-btn--light">{{ section.settings.quick_view_label | escape }}</span>
+                      </div>
+                    </div>
+                    <div class="rj-pcard__body">
+                      <span class="rj-pcard__cat">Bedroom</span>
+                      <h3 class="rj-pcard__title">Example solid-wood product</h3>
+                      <div class="rj-pcard__price">
+                        <span class="now">₹0</span>
+                      </div>
+                      <div class="rj-pcard__stars">
+                        <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <small>{{ label | escape }}</small>
+                      </div>
+                    </div>
+                  </article>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.link_label != blank -%}
+              <div class="rj-show__foot">
+                <a class="rj-show__all" href="{{ block.settings.link | default: tab_collection.url }}">
+                  {{- block.settings.link_label | escape -}}
+                </a>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </rj-showroom>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "RJ Showroom edit",
+  "tag": "section",
+  "class": "rj-show-section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Curated Selection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The showroom edit."
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "label": "Products per tab",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "quick_view_label",
+      "label": "Card button label",
+      "default": "Quick View",
+      "info": "Opens the product page. A hover quick-view modal needs an app."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab label",
+          "default": "New Arrivals"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "Products are pulled from this collection."
+        },
+        {
+          "type": "text",
+          "id": "rating_label",
+          "label": "Text under the stars",
+          "default": "New",
+          "info": "Design uses “New”, “19 reviews” or “Signature”. Live review counts need a reviews app."
+        },
+        {
+          "type": "text",
+          "id": "new_badge",
+          "label": "Badge for “New Arrivals” tag",
+          "default": "New"
+        },
+        {
+          "type": "text",
+          "id": "sale_badge",
+          "label": "Badge for discounted products",
+          "default": "Sale"
+        },
+        {
+          "type": "text",
+          "id": "heritage_badge",
+          "label": "Badge for “Heritage” tag",
+          "default": "Heritage"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link under the rail",
+          "info": "Optional. Leave empty to hide."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link target",
+          "info": "Defaults to the tab collection."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RJ Showroom edit",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "label": "New Arrivals",
+            "rating_label": "New",
+            "new_badge": "New",
+            "sale_badge": "Sale",
+            "heritage_badge": "Heritage"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "label": "Best Sellers",
+            "rating_label": "Best Seller",
+            "new_badge": "New",
+            "sale_badge": "Sale",
+            "heritage_badge": "Heritage"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "label": "Heritage",
+            "rating_label": "Signature",
+            "new_badge": "New",
+            "sale_badge": "Sale",
+            "heritage_badge": "Heritage"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -49,8 +49,8 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 |
 | 2 | `config/settings_data.json` | REPLACE | 382 |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 1691 |
-| 4 | `assets/rj-arts.js` | **NAYI FILE** | 112 |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 2119 |
+| 4 | `assets/rj-arts.js` | **NAYI FILE** | 182 |
 | 5 | `layout/theme.liquid` | REPLACE | 641 |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 |
 | 7 | `sections/header.liquid` | REPLACE | 721 |
@@ -58,9 +58,10 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 9 | `sections/header-group.json` | REPLACE | 145 |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 |
-| 12 | `sections/footer-group.json` | REPLACE | 61 |
+| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 |
 | 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 |
-| 14 | `templates/index.json` | REPLACE | 148 |
+| 14 | `sections/footer-group.json` | REPLACE | 61 |
+| 15 | `templates/index.json` | REPLACE | 198 |
 
 Dawn ki baaki **337 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -123,17 +124,21 @@ Hero slider (3 slides, arrows, dots, auto-rotate). `sections` → New file → n
 ### Step 11 — `sections/rj-usp.liquid` → **NAYI FILE**
 Hero ke neeche 4-item USP strip. `sections` → New file → naam `rj-usp.liquid`.
 
-### Step 12 — `sections/footer-group.json` → REPLACE
-Footer ke 4 columns (brand + Shop + Company + Support).
+### Step 12 — `sections/rj-showroom.liquid` → **NAYI FILE**
+Homepage ka **The showroom edit** (pill tabs + horizontal product rail).
+`sections` → New file → naam `rj-showroom.liquid` → paste → Save.
 
 ### Step 13 — `sections/rj-categories.liquid` → **NAYI FILE**
 Homepage ke **Category tiles** (asymmetrical 1.4fr / 1fr grid, pehla tile 2 rows).
 `sections` → New file → naam `rj-categories.liquid` → paste → Save.
 
-### Step 14 — `templates/index.json` → REPLACE
-Homepage template (abhi hero + USP; Group 2 ke baaki sections aage add honge).
+### Step 14 — `sections/footer-group.json` → REPLACE
+Footer ke 4 columns (brand + Shop + Company + Support).
 
-> ⚠️ Steps 10, 11 aur 13 pehle hone chahiye, warna `Section type 'rj_hero' / 'rj_categories' does not exist` error aayega.
+### Step 15 — `templates/index.json` → REPLACE
+Homepage template (abhi hero + USP + Category tiles + Showroom edit; baaki sections aage add honge).
+
+> ⚠️ Steps 10–13 pehle hone chahiye, warna `Section type 'rj_hero' / 'rj_categories' / 'rj_showroom' does not exist` error aayega.
 
 ---
 
@@ -189,7 +194,20 @@ Customize → **RJ Category tiles** → 3 blocks. Har block me **Collection** ch
 Design jaisa look chahiye to **Custom image** me `Images/Bed.png`, `Images/Living.jpg`,
 `Images/Dining.png` upload karein. Sub-line text design se default aata hai.
 
-### 3.8 Mega feature cards (6)
+### 3.8 Showroom edit — collections (zaroori)
+Customize → **RJ Showroom edit** → 3 tabs. Har tab me **Collection** chunein:
+`New Arrivals` collection → tab 1, `Best Sellers` → tab 2, `Heritage` → tab 3.
+Collection na chuni ho to section dummy cards dikhata hai (₹0, "Example
+solid-wood product") — yeh sirf placeholder hai.
+
+- Card **badge** product tag se aata hai: `Sale` (compare-at price > price),
+  warna `New Arrivals` tag → "New", `Heritage` tag → "Heritage".
+- Stars ke neeche wala text (`New` / `Best Seller` / `Signature`) tab setting
+  se aata hai — asli review count ke liye reviews app chahiye.
+- "Quick View" button product page kholta hai (hover par slide-up). Sach ka
+  modal quick-view ke liye app lagana padega.
+
+### 3.9 Mega feature cards (6)
 Header section → `mega_feature` blocks. Har block me:
 - **Parent link** = menu naam **exactly** (`Bedroom` / `Living` / `Dining`)
 - Image (3:4), Label, Link
@@ -205,6 +223,7 @@ Header section → `mega_feature` blocks. Har block me:
 | 3 | Header cream, nav 13px uppercase | Homepage |
 | 4 | Icons: 1 magnifier + account + bag (+count) | Header right |
 | 5 | Hover Bedroom → mega panel + 2 image cards | Homepage |
+| 5a | Showroom: 3 pill tabs switch, arrows rail scroll karte hain | Hero ke neeche |
 | 6 | Hero: 3 slides, arrows, dots, auto-rotate | Homepage |
 | 7 | USP: 4 items, brass icons | Hero ke neeche |
 | 8 | Footer: brand + Shop + Company + Support | Page bottom |
@@ -275,6 +294,6 @@ Agar poora `layout/theme.liquid` replace nahi karna chahte, to `manual/` folder 
 
 ## 7. Aage
 
-Group 1 (header) ✅ + homepage ke section **1–3** (hero, USP, Category tiles) ✅.
+Group 1 (header) ✅ + homepage ke section **1–4** (hero, USP, Category tiles, Showroom edit) ✅.
 
-Group 2 me aage: **4** Showroom edit → **5** Art of Rest → **6** About → **7** Best sellers grid → **8** Crafted Comfort → **9** Collection carousel → **10** Reviews. Fir **Group 3 — Footer**.
+Group 2 me aage: **5** Art of Rest → **6** About → **7** Best sellers grid → **8** Crafted Comfort → **9** Collection carousel → **10** Reviews. Fir **Group 3 — Footer**.

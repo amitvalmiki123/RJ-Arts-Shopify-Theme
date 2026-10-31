@@ -110,3 +110,73 @@
     init();
   }
 })();
+
+/* ==========================================================================
+   RJ ARTS - <rj-showroom>: pill tabs + snap-rail arrows
+   (design "TABBED PRODUCT SLIDER"). Self-contained custom element, so a
+   section reload in the theme editor just re-runs connectedCallback.
+   ========================================================================== */
+(function () {
+  if (window.rjShowroomDefined || customElements.get('rj-showroom')) return;
+  window.rjShowroomDefined = true;
+
+  customElements.define('rj-showroom', class RjShowroom extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.rjReady) return;
+      this.dataset.rjReady = '1';
+
+      this.tabs = Array.prototype.slice.call(this.querySelectorAll('[data-rj-tab]'));
+      this.panels = Array.prototype.slice.call(this.querySelectorAll('[data-rj-panel]'));
+      this.rail = this.panels.length ? this.panels[0].querySelector('[data-rj-rail]') : null;
+
+      this.tabs.forEach((tab) => {
+        tab.addEventListener('click', () => this.select(tab));
+        tab.addEventListener('keydown', (event) => this.onKey(event, tab));
+      });
+
+      this.querySelectorAll('[data-rj-rail-dir]').forEach((button) => {
+        button.addEventListener('click', () => this.scrollRail(parseInt(button.dataset.rjRailDir, 10)));
+      });
+
+      this.setIntervalOnce = null;
+    }
+
+    get activeIndex() {
+      return this.tabs.findIndex((tab) => tab.classList.contains('is-active'));
+    }
+
+    select(tab) {
+      const index = parseInt(tab.dataset.rjTab, 10);
+      this.tabs.forEach((item, i) => {
+        const on = i === index;
+        item.classList.toggle('is-active', on);
+        item.setAttribute('aria-selected', on ? 'true' : 'false');
+        item.setAttribute('tabindex', on ? '0' : '-1');
+      });
+      this.panels.forEach((panel, i) => {
+        const on = i === index;
+        panel.classList.toggle('is-active', on);
+        if (on) panel.removeAttribute('hidden');
+        else panel.setAttribute('hidden', '');
+      });
+      this.rail = this.panels[index] ? this.panels[index].querySelector('[data-rj-rail]') : null;
+      if (this.rail) this.rail.scrollLeft = 0;
+    }
+
+    onKey(event, tab) {
+      const keys = { ArrowLeft: -1, ArrowRight: 1 };
+      if (!(event.key in keys) || !this.tabs.length) return;
+      event.preventDefault();
+      const next = (this.activeIndex + keys[event.key] + this.tabs.length) % this.tabs.length;
+      this.select(this.tabs[next]);
+      this.tabs[next].focus();
+    }
+
+    scrollRail(dir) {
+      if (!this.rail) return;
+      const card = this.rail.querySelector('.rj-pcard');
+      const step = card ? card.getBoundingClientRect().width + 22 : this.rail.clientWidth * 0.8;
+      this.rail.scrollBy({ left: step * dir, behavior: 'smooth' });
+    }
+  });
+})();

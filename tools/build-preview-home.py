@@ -323,7 +323,106 @@ USP = """
     </div>
   </div>
 </div>
-"""
+
+<div class="rj-show" id="new">
+  <div class="rj-wrap">
+    <div class="rj-show__head rj-reveal">
+      <div>
+        <span class="rj-eyebrow">Curated Selection</span>
+        <h2 class="rj-show__title">The showroom edit.</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px;align-items:flex-end">
+        <div class="rj-tabs" id="tabs">
+          <button class="rj-tab is-active" data-tab="p-new">New Arrivals</button>
+          <button class="rj-tab" data-tab="p-best">Best Sellers</button>
+          <button class="rj-tab" data-tab="p-her">Heritage</button>
+        </div>
+        <div class="rj-railnav">
+          <button data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19"/></svg></button>
+          <button data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW ARRIVALS -->
+    <div class="rj-panel is-active" id="p-new">
+      <div class="rj-rail">
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag">New</span><img src="Images/Bed2.png" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Jaipur Cane Box-Storage King Bed</h3><div class="rj-pcard__price"><span class="now">₹36,699</span><span class="was">₹67,899</span><span class="off">−46%</span></div><div class="rj-pcard__stars">★★★★★ <small>New</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">Sale</span><img src="Images/Bed_4.webp" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Brass-Work Headboard King Bed</h3><div class="rj-pcard__price"><span class="now">₹35,522</span><span class="was">₹80,599</span><span class="off">−56%</span></div><div class="rj-pcard__stars">★★★★★ <small>New</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag">New</span><img src="Images/Bed_Side_Table.webp" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Sheesham Queen Bed · Honey Finish</h3><div class="rj-pcard__price"><span class="now">₹14,500</span></div><div class="rj-pcard__stars">★★★★★ <small>New</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">Sale</span><img src="Images/Dining_image.webp" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Dining</span><h3 class="rj-pcard__title">Buck Dining Set · Walnut Finish</h3><div class="rj-pcard__price"><span class="now">₹41,595</span><span class="was">₹71,544</span><span class="off">−42%</span></div><div class="rj-pcard__stars">★★★★★ <small>New</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag">New</span><img src="Images/Dining.png" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Dining</span><h3 class="rj-pcard__title">Solid Wood Dining Set with Bench</h3><div class="rj-pcard__price"><span class="now">₹45,522</span></div><div class="rj-pcard__stars">★★★★★ <small>New</small></div></div>
+        </article>
+      </div>
+    </div>
+
+    <!-- BEST SELLERS -->
+    <div class="rj-panel" id="p-best" hidden>
+      <div class="rj-rail">
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">Sale</span><img src="Images/Bed-Banner.png" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Platform Cot Bed · Cushioned Headboard</h3><div class="rj-pcard__price"><span class="now">₹15,566</span><span class="was">₹28,798</span><span class="off">−46%</span></div><div class="rj-pcard__stars">★★★★★ <small>19 reviews</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">Sale</span><img src="Images/Bed-2_4.webp" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Wood Arch Bed · Without Storage</h3><div class="rj-pcard__price"><span class="now">₹15,998</span><span class="was">₹28,078</span><span class="off">−43%</span></div><div class="rj-pcard__stars">★★★★★ <small>16 reviews</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">Sale</span><img src="Images/BedRoom_a6f690c8-7f36-4dde-8366-7078a65d25fa.webp" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Low-Height Double Bed · Rosewood</h3><div class="rj-pcard__price"><span class="now">₹15,823</span><span class="was">₹27,358</span><span class="off">−42%</span></div><div class="rj-pcard__stars">★★★★★ <small>19 reviews</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">Sale</span><img src="Images/Sofa-_4.webp" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Living</span><h3 class="rj-pcard__title">Lurid Sheesham 3-Seater Sofa</h3><div class="rj-pcard__price"><span class="now">₹15,622</span></div><div class="rj-pcard__stars">★★★★★ <small>Best Seller</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">Sale</span><img src="Images/Bed_4.webp" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Double Bed · Without Storage</h3><div class="rj-pcard__price"><span class="now">₹21,100</span><span class="was">₹35,998</span><span class="off">−41%</span></div><div class="rj-pcard__stars">★★★★★ <small>15 reviews</small></div></div>
+        </article>
+      </div>
+    </div>
+
+    <!-- HERITAGE -->
+    <div class="rj-panel" id="p-her" hidden>
+      <div class="rj-rail">
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag">Heritage</span><img src="Images/Sideboard_Cabinet_image.webp" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Living</span><h3 class="rj-pcard__title">Regular Brass-Design Home Bar Cabinet</h3><div class="rj-pcard__price"><span class="now">₹41,595</span></div><div class="rj-pcard__stars">★★★★★ <small>Signature</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag">Heritage</span><img src="Images/Bed_4.webp" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Sevilla Half-Box & Trolley Storage Bed</h3><div class="rj-pcard__price"><span class="now">₹34,522</span><span class="was">₹80,599</span><span class="off">−57%</span></div><div class="rj-pcard__stars">★★★★★ <small>Signature</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag">Heritage</span><img src="Images/Dining_Desktop_Banner.webp" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Dining</span><h3 class="rj-pcard__title">Imperial 6-Seater Dining · Honey</h3><div class="rj-pcard__price"><span class="now">₹45,522</span></div><div class="rj-pcard__stars">★★★★★ <small>Signature</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag">Heritage</span><img src="Images/Dining.png" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Dining</span><h3 class="rj-pcard__title">Natural Sheesham 6-Seater Set</h3><div class="rj-pcard__price"><span class="now">₹45,522</span></div><div class="rj-pcard__stars">★★★★★ <small>Signature</small></div></div>
+        </article>
+        <article class="rj-pcard">
+          <div class="rj-pcard__media"><span class="rj-pcard__tag">Heritage</span><img src="Images/Dining_image.webp" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="#">Quick View</a></div></div>
+          <div class="rj-pcard__body"><span class="rj-pcard__cat">Dining</span><h3 class="rj-pcard__title">Buck Dining Set · Honey Finish</h3><div class="rj-pcard__price"><span class="now">₹41,595</span><span class="was">₹71,544</span><span class="off">−42%</span></div><div class="rj-pcard__stars">★★★★★ <small>Signature</small></div></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>"""
 
 SCRIPT = """
 <script>
@@ -342,6 +441,34 @@ SCRIPT = """
   const onScroll = () => header.classList.toggle('rj-scrolled', window.scrollY > 30);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+
+
+  /* mirrors sections/rj-showroom.liquid + rj-arts.js <rj-showroom> */
+  const show = document.querySelector('.rj-show');
+  if (show) {
+    const tabs = Array.from(show.querySelectorAll('.rj-tab'));
+    const panels = Array.from(show.querySelectorAll('.rj-panel'));
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const index = tabs.indexOf(tab);
+        tabs.forEach((item, i) => item.classList.toggle('is-active', i === index));
+        panels.forEach((panel, i) => {
+          panel.classList.toggle('is-active', i === index);
+          if (i === index) panel.removeAttribute('hidden');
+          else panel.setAttribute('hidden', '');
+        });
+      });
+    });
+    show.querySelectorAll('[data-rj-rail-dir]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const rail = show.querySelector('.rj-panel.is-active .rj-rail');
+        if (!rail) return;
+        const card = rail.querySelector('.rj-pcard');
+        const step = card ? card.getBoundingClientRect().width + 22 : 320;
+        rail.scrollBy({ left: step * parseInt(button.dataset.rjRailDir, 10), behavior: 'smooth' });
+      });
+    });
+  }
 
   const hero = document.querySelector('rj-hero');
   const slides = [...hero.querySelectorAll('.rj-hero__slide')];
