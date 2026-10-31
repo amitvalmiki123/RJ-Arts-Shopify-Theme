@@ -206,7 +206,7 @@ NAV = """
         <a href="#" class="header__icon header__icon--search" aria-label="Search">
           <span class="svg-wrapper"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></span>
         </a>
-        <a href="/pages/wishlist" class="header__icon rj-header__wishlist link focus-inset" aria-label="Wishlist">
+        <a href="#hero-wishlist" class="header__icon rj-header__wishlist link focus-inset wishlist-hero-header-icon" aria-label="Wishlist">
           <span class="svg-wrapper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg></span>
         </a>
         <a href="#" class="header__icon header__icon--account" aria-label="Account">

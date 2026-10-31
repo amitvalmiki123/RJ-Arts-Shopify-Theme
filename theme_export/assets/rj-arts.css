@@ -3360,3 +3360,38 @@
     font-size: 17px;
   }
 }
+
+/* ==========================================================================
+   RJ ARTS - Wishlist Hero (Revamp) in our header icon row
+   The app can also inject its own a.wishlist-hero-header-icon / floating
+   button. When it does, we keep only ONE visual icon: ours in the icon row
+   wins and the app's injected copy next to it is hidden, while the floating
+   launch point stays available if the merchant keeps it on.
+   ========================================================================== */
+
+.rj-header__wishlist.wishlist-hero-header-icon {
+  text-decoration: none;
+}
+
+/* app-injected duplicate inside the icon row */
+.header__icons > a.wishlist-hero-header-icon:not(.rj-header__wishlist),
+.header__icons > .wishlisthero-header-icon:not(.rj-header__wishlist) {
+  display: none !important;
+}
+
+/* count badge: the app writes into .wishlist-hero-header-count */
+.rj-header__wishlist .wishlist-hero-header-count:empty {
+  display: none;
+}
+
+/* keep their floating launch point clear of our footer/section rails */
+.wishlisthero-floating {
+  z-index: 50;
+}
+
+@media screen and (max-width: 768px) {
+  .wishlisthero-floating {
+    bottom: 18px;
+    right: 18px;
+  }
+}

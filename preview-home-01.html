@@ -7044,6 +7044,41 @@ details-disclosure > details {
   }
 }
 
+/* ==========================================================================
+   RJ ARTS - Wishlist Hero (Revamp) in our header icon row
+   The app can also inject its own a.wishlist-hero-header-icon / floating
+   button. When it does, we keep only ONE visual icon: ours in the icon row
+   wins and the app's injected copy next to it is hidden, while the floating
+   launch point stays available if the merchant keeps it on.
+   ========================================================================== */
+
+.rj-header__wishlist.wishlist-hero-header-icon {
+  text-decoration: none;
+}
+
+/* app-injected duplicate inside the icon row */
+.header__icons > a.wishlist-hero-header-icon:not(.rj-header__wishlist),
+.header__icons > .wishlisthero-header-icon:not(.rj-header__wishlist) {
+  display: none !important;
+}
+
+/* count badge: the app writes into .wishlist-hero-header-count */
+.rj-header__wishlist .wishlist-hero-header-count:empty {
+  display: none;
+}
+
+/* keep their floating launch point clear of our footer/section rails */
+.wishlisthero-floating {
+  z-index: 50;
+}
+
+@media screen and (max-width: 768px) {
+  .wishlisthero-floating {
+    bottom: 18px;
+    right: 18px;
+  }
+}
+
 /* preview-only: Dawn hides the hamburger on desktop via component CSS */
 /* design-exact icon row: one search trigger, no close glyph */
 .header__icon--menu { display: none; }
@@ -7229,7 +7264,7 @@ details-disclosure > details {
         <a href="#" class="header__icon header__icon--search" aria-label="Search">
           <span class="svg-wrapper"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></span>
         </a>
-        <a href="/pages/wishlist" class="header__icon rj-header__wishlist link focus-inset" aria-label="Wishlist">
+        <a href="#hero-wishlist" class="header__icon rj-header__wishlist link focus-inset wishlist-hero-header-icon" aria-label="Wishlist">
           <span class="svg-wrapper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg></span>
         </a>
         <a href="#" class="header__icon header__icon--account" aria-label="Account">

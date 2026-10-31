@@ -49,11 +49,11 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 3362 | **⬅ is round me badli (wishlist + Judge.me CSS)** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 3397 | **⬅ is round me badli (Wishlist Hero CSS)** |
 | 4 | `assets/rj-arts.js` | **NAYI FILE** | 211 | ✅ pichle round me kar liya to skip |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
-| 7 | `sections/header.liquid` | REPLACE | 801 | **⬅ is round me badli (wishlist icon)** |
+| 7 | `sections/header.liquid` | REPLACE | 820 | **⬅ is round me badli (Wishlist Hero mode)** |
 | 8 | `sections/header-group.json` | REPLACE | 150 | **⬅ is round me badla (wishlist ON)** |
 | 9 | `snippets/header-mega-menu.liquid` | REPLACE | 134 | ✅ pehle kar liya to skip |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 | ✅ pehle kar liya to skip |
@@ -308,7 +308,7 @@ Header section → `mega_feature` blocks. Har block me:
 | 7d | Crafted Comfort band (sofa photo, 520px) | Best sellers ke neeche |
 | 7e | Collection carousel: arrows rail scroll karte hain | Band ke neeche |
 | 7f | Reviews: white section, cream cards, brass initials | Sabse neeche |
-| 7g | Header: search ke right wishlist (heart) icon | Header right |
+| 7g | Header: search ke right wishlist (heart) icon, click → Wishlist Hero | Header right |
 | 7h | Judge.me install ke baad reviews app se aate hain | Sabse neeche |
 | 7i | Footer form submit → Customers me subscriber | Footer + admin |
 | 8 | Footer: brand + Shop + Company + Support | Page bottom |
@@ -334,7 +334,9 @@ Header section → `mega_feature` blocks. Har block me:
 | Design jaisa styling nahi aa raha | `rj-arts.css` ya uski link missing | Step 3 + Step 5 |
 | Scroll par header border/shadow nahi | `rj-arts.js` ya link missing | Step 4 + Step 5 |
 | Mega menu hover par kuch nahi | Menu me children nahi | Section 3.4 |
-| Wishlist icon dikh raha par click par 404 | wishlist page nahi bani | Pages → `wishlist` page banayein, ya app ka URL dalein |
+| Wishlist icon par click se kuch nahi hota | app ka Launch Point “As a menu item” nahi hai | Wishlist Hero → Customize Appearance → Launch Point Type |
+| Wishlist icon 404 par ja raha | link mode + galat URL | Header → Wishlist app = **Wishlist Hero**, ya URL theek karein |
+| Do wishlist icon dikh rahe | app ne apna icon inject kiya | Section 6.3 — ek ko OFF karein (CSS duplicate already hide karta hai) |
 | Wishlist count badge nahi aa raha | app count class nahi mili | Header → “Extra CSS classes” me app ki class dalein (e.g. `ssw-wishlist`) |
 | Judge.me reviews nahi dikh rahe | app install nahi / carousel off | Section 6.2 steps 1–3 |
 | Reviews section purane 4 cards dikha raha | Judge.me carousel khaali | App me reviews publish karein — fallback isi liye hai |
@@ -404,22 +406,53 @@ hidden `contact[tags]`, aur button `name="commit"` — teeno footer.liquid me ha
 > Product page ka review widget alag hota hai — wo Group 4 (product template) me
 > lagega, tab Judge.me ka Review Widget snippet wahan add hoga.
 
-### 6.3 Wishlist icon (header, search ke right)
-Theme editor → **Header** → **RJ wishlist icon**:
-| Setting | Kya karein |
-|---|---|
-| Show wishlist icon | ON (default ON hai) |
-| Wishlist app | **Wishlist Plus (Swym)** chunein agar wahi app use kar rahe hain, warna **Any app / plain page link** |
-| Wishlist page URL | App ka page — default `/pages/wishlist` |
-| Extra CSS classes | Agar app apni class maangta hai (e.g. `ssw-wishlist`, `wk-wishlist`) to likh dein |
+### 6.3 Wishlist — Wishlist Hero (installed)
+App: **Wishlist Hero (Revamp)**. Header icon already in code hai (search ke right),
+**mode = Wishlist Hero** set hai — yaani app install karte hi icon click par
+wishlist khulni chahiye.
 
-Setup:
-1. App install karein (Wishlist Plus, Wishlist King, Smart Wishlist, Growave — koi bhi).
-2. Online Store → **Pages → Add page** → title `Wishlist`, handle `wishlist`.
-   (Kai apps apna `/apps/wishlist` route khud bana dete hain — jo app de, wahi URL dalein.)
-3. Header setting me URL/class set karein → Save.
-4. Count badge app se aata hai (Swym mode me `swym-wishlist-header-counter`,
-   baaki apps apni class se) — 0 hone par badge chhupa rehta hai.
+**App me yeh 3 setting check karein:**
+1. Wishlist Hero admin → **Customize Appearance** →
+   **Launch Point Type = “As a menu item”** → Save.
+   (Floating button wahin se off/on hota hai. Agar floating button rakhein to
+   icon ke saath dono dikhenge — chaho to floating off kar dein.)
+2. **Wishlist page / popup**: app jis page/popup par le jata hai wahi rakhein.
+   Agar app khud ka page use karta hai (e.g. `/pages/wishlist` ya `/apps/wishlist`),
+   to theme me `Pages → Wishlist` page banane ki zaroorat nahi — app ka URL chalega.
+3. **Collections / product cards par heart** (optional): app ke App Embeds me
+   “Collections Icon” ON karein — hamare product cards par heart aa jayenge.
+
+**Theme side (already done):**
+| Setting (Header → RJ wishlist icon) | Value |
+|---|---|
+| Show wishlist icon | ON |
+| Wishlist app | **Wishlist Hero (#hero-wishlist)** |
+| Wishlist page URL | `/pages/wishlist` (sirf link mode ke liye) |
+| Extra CSS classes | khaali |
+
+- Icon `href="#hero-wishlist"` par jata hai — yeh Wishlist Hero ka documented
+  static launch point hai; unka script click pakad kar wishlist kholta hai.
+- Count badge: `<span class="wishlist-hero-header-count">` — app jab count deta
+  hai tab dikhta hai, 0 par chhupa rehta hai.
+
+**Duplicate icon ho to:** agar app ne apna icon header me inject kar diya
+(`a.wishlist-hero-header-icon` do baar), CSS pehle se hi hamare icon row ka
+duplicate hide karta hai. Phir bhi do dikhe to:
+- Header → RJ wishlist icon → **Show wishlist icon = OFF** (app ka apna chale), ya
+- App ka auto-inject band karein.
+
+**Zaroori warning:** Wishlist Hero install par kai baar theme files me apna code
+khud daal deta hai (`header.liquid`, `theme.liquid`). Hum `header.liquid` paste
+karte hain, isliye:
+1. Paste se pehle **app ka snippet/insert note kar lein** (Edit code me grep:
+   `wishlisthero`, `wlh-`, `hero-wishlist`).
+2. Paste ke baad check karein icon ek hi hai; agar app ka code hat gaya ho to
+   app se **Reinstall theme integration** dobara chala lein — hamara icon phir
+   bhi kaam karega (sirf app ka extra code wapas aayega).
+
+**Product page heart** Group 4 (product template) me lagega:
+`{% render 'wishlisthero-collection-product' with product: product, buttonMode:'default', buttonClass:'wishlisthero-quick-view' %}`
+(ya app ka product-page button auto hi aa jata hai).
 
 ---
 

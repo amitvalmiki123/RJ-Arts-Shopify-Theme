@@ -303,7 +303,25 @@
           endif
           assign rj_wl_extra = section.settings.rj_wishlist_classes | strip
         -%}
-        {%- if rj_wl_mode == 'swym' -%}
+        {%- if rj_wl_mode == 'wishlist-hero' -%}
+          {%- comment -%}
+            Wishlist Hero (Revamp). "#hero-wishlist" is their documented static
+            launch point - the app script opens the wishlist from it. Classes
+            mirror the ones the app puts on its own header icon.
+          {%- endcomment -%}
+          <a
+            href="#hero-wishlist"
+            class="header__icon rj-header__wishlist link focus-inset wishlist-hero-header-icon{% if rj_wl_extra != blank %} {{ rj_wl_extra }}{% endif %}"
+            aria-label="{{ section.settings.rj_wishlist_label | escape }}"
+          >
+            <span class="svg-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/>
+              </svg>
+            </span>
+            <span class="rj-header__wishlist-count wishlist-hero-header-count" data-rj-wishlist-count></span>
+          </a>
+        {%- elsif rj_wl_mode == 'swym' -%}
           <a
             href="#swym-wishlist"
             class="header__icon rj-header__wishlist link focus-inset swym-wishlist{% if rj_wl_extra != blank %} {{ rj_wl_extra }}{% endif %}"
@@ -696,11 +714,12 @@
       "id": "rj_wishlist_mode",
       "label": "Wishlist app",
       "options": [
+        { "value": "wishlist-hero", "label": "Wishlist Hero (#hero-wishlist)" },
         { "value": "link", "label": "Any app / plain page link" },
         { "value": "swym", "label": "Wishlist Plus (Swym)" }
       ],
-      "default": "link",
-      "info": "Swym mode uses their launch-point classes and counter. For other apps pick the link mode and keep the app's own wishlist page URL."
+      "default": "wishlist-hero",
+      "info": "Wishlist Hero: app me Launch Point = “As a menu item” rakhein. Link mode: app ka wishlist page URL dalein. Swym: unke launch-point classes."
     },
     {
       "type": "text",
