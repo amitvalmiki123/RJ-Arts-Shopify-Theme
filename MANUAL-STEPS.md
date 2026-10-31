@@ -498,6 +498,8 @@ heading, sticky bar — sab **RJ Product** section ke settings/blocks se editabl
 | Error / symptom | Karan | Fix |
 |---|---|---|
 | `FileSaveError: 'cormorant_garamond_n4' is not a valid font handle` | purani `settings_data.json` (jisme font keys thi) paste ho gayi | naya `rj-arts-changes.zip` se `settings_data.json` dobara paste karein |
+| `FileSaveError: Invalid schema: setting with id="toolbar_top" step invalid. Range settings must have at most 101 steps` | section schema me kisi range ka `(max - min) / step` 100 se zyada tha | 31-Oct-2026 ko fix ho gaya — `sections/rj-collection.liquid` (555 lines) dobara paste karein. Aage ke liye: koi bhi range `step` badha dein taaki total steps 101 se kam rahe |
+| `Section type 'rj_product' does not exist` / `'rj-collection' does not exist` | template JSON pehle paste ho gaya, section file baad me | pehle `sections/` ki nayi file banayein, phir `templates/` JSON paste karein |
 | `color schemes must be defined…` | Step 2 nahi hua / cache | `settings_data.json` paste → Save → editor reload |
 | `Block type 'mega_feature' does not exist` | Step 7 se pehle Step 9 | `header.liquid` paste, phir `header-group.json` |
 | `Section type 'rj_hero' does not exist` | Steps 10–11 pending | rj-hero + rj-usp banao, phir `index.json` |
