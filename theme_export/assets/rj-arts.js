@@ -301,3 +301,210 @@
     boot(event.target);
   });
 })();
+
+/* ==========================================================================
+   PRODUCT PAGE  (sections/rj-product.liquid)
+   Gallery thumbs, variant buttons -> price/SKU/stock/image/URL updates,
+   quantity stepper, accordion, sticky add bar. Add-to-cart itself is Dawn's
+   product-form element (AJAX + cart drawer), we only drive the hidden variant
+   id and the quantity input it reads.
+   ========================================================================== */
+(function () {
+  function initProduct(root) {
+    var scope = root || document;
+    var wrap = scope.querySelector('[data-rj-product]');
+    if (!wrap) return;
+
+    var dataEl = document.querySelector('[data-rj-variants]');
+    var variants = [];
+    if (dataEl) {
+      try {
+        variants = JSON.parse(dataEl.textContent);
+      } catch (error) {
+        variants = [];
+      }
+    }
+
+    var form = wrap.querySelector('[data-type="add-to-cart-form"]');
+    var idInput = wrap.querySelector('.product-variant-id');
+    var priceEl = wrap.querySelector('[data-rj-price]');
+    var wasEl = wrap.querySelector('[data-rj-was]');
+    var skuEl = wrap.querySelector('[data-rj-sku]');
+    var stockEl = wrap.querySelector('[data-rj-stock]');
+    var stockText = wrap.querySelector('[data-rj-stock-text]');
+    var badgeEl = wrap.querySelector('[data-rj-badge]');
+    var addBtn = wrap.querySelector('[data-rj-add]');
+    var addText = wrap.querySelector('[data-rj-add-text]');
+    var stageImg = wrap.querySelector('[data-rj-stage]');
+    var stickyPrice = wrap.querySelector('[data-rj-sticky-price]');
+    var stickyWas = wrap.querySelector('[data-rj-sticky-was]');
+    var stickyAdd = wrap.querySelector('[data-rj-sticky-add]');
+    var labels = {
+      inStock: wrap.dataset.labelInStock || (stockText ? stockText.textContent.trim() : 'In stock'),
+      add: wrap.dataset.labelAdd || (addText ? addText.textContent.trim() : 'Add to cart'),
+      soldOut: wrap.dataset.labelSoldOut || 'Sold out'
+    };
+
+    var selected = [];
+    wrap.querySelectorAll('[data-option-position]').forEach(function (button) {
+      var position = parseInt(button.dataset.optionPosition, 10) - 1;
+      if (button.classList.contains('is-active')) selected[position] = button.dataset.rjOptValue;
+      button.addEventListener('click', function () {
+        selected[position] = button.dataset.rjOptValue;
+        wrap.querySelectorAll('[data-option-position="' + (position + 1) + '"]').forEach(function (sibling) {
+          var active = sibling === button;
+          sibling.classList.toggle('is-active', active);
+          sibling.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        var nameEl = wrap.querySelector('[data-rj-opt-name="' + (position + 1) + '"]');
+        if (nameEl) nameEl.textContent = button.dataset.rjOptValue;
+        syncVariant();
+      });
+    });
+
+    function findVariant() {
+      for (var i = 0; i < variants.length; i += 1) {
+        var options = variants[i].options;
+        var match = true;
+        for (var j = 0; j < options.length; j += 1) {
+          if (selected[j] !== undefined && selected[j] !== options[j]) {
+            match = false;
+            break;
+          }
+        }
+        if (match) return variants[i];
+      }
+      return null;
+    }
+
+    function syncVariant() {
+      var variant = findVariant();
+      if (!variant) return;
+
+      if (idInput) {
+        idInput.value = variant.id;
+        idInput.disabled = !variant.available;
+      }
+      if (priceEl) priceEl.textContent = variant.price;
+      if (wasEl) {
+        if (variant.compare) {
+          wasEl.textContent = variant.compare;
+          wasEl.hidden = false;
+        } else {
+          wasEl.textContent = '';
+          wasEl.hidden = true;
+        }
+      }
+      if (badgeEl) {
+        if (variant.discount) {
+          badgeEl.textContent = badgeEl.dataset.prefix + variant.discount + '%';
+          badgeEl.hidden = false;
+        } else {
+          badgeEl.hidden = true;
+        }
+      }
+      if (skuEl) skuEl.textContent = variant.sku || '—';
+      if (stockEl) stockEl.classList.toggle('is-out', !variant.available);
+      if (stockText) stockText.textContent = variant.available ? labels.inStock : labels.soldOut;
+      if (addBtn) {
+        addBtn.disabled = !variant.available;
+        if (addText) addText.textContent = variant.available ? labels.add : labels.soldOut;
+      }
+      if (stickyAdd) stickyAdd.disabled = !variant.available;
+      if (stickyPrice) stickyPrice.textContent = variant.price;
+      if (stickyWas) {
+        if (variant.compare) {
+          stickyWas.textContent = variant.compare;
+          stickyWas.hidden = false;
+        } else {
+          stickyWas.hidden = true;
+        }
+      }
+      if (variant.image && stageImg) {
+        stageImg.src = variant.image;
+        if (stageImg.srcset) stageImg.srcset = '';
+        wrap.querySelectorAll('[data-rj-thumb]').forEach(function (thumb) {
+          thumb.classList.toggle('is-active', thumb.dataset.mediaId === String(variant.media_id));
+        });
+      }
+
+      var url = new URL(window.location.href);
+      url.searchParams.set('variant', variant.id);
+      window.history.replaceState({}, '', url.toString());
+    }
+
+    /* badge prefix, so JS keeps the merchant's wording */
+    if (badgeEl) {
+      var prefix = (badgeEl.textContent || '').replace(/[0-9]+%?$/, '');
+      badgeEl.dataset.prefix = prefix;
+    }
+
+    /* gallery */
+    wrap.querySelectorAll('[data-rj-thumb]').forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        if (!stageImg || !thumb.dataset.full) return;
+        stageImg.src = thumb.dataset.full;
+        if (stageImg.srcset) stageImg.srcset = '';
+        wrap.querySelectorAll('[data-rj-thumb]').forEach(function (other) {
+          other.classList.toggle('is-active', other === thumb);
+        });
+      });
+    });
+
+    /* quantity */
+    var qtyInput = wrap.querySelector('[data-rj-qty-input]');
+    wrap.querySelectorAll('[data-rj-qty]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (!qtyInput) return;
+        var step = parseInt(button.dataset.rjQty, 10) || 1;
+        var value = parseInt(qtyInput.value, 10) || 1;
+        value = Math.max(1, value + step);
+        qtyInput.value = value;
+      });
+    });
+
+    /* accordion */
+    wrap.querySelectorAll('[data-rj-acc] .rj-acc__head').forEach(function (head) {
+      head.addEventListener('click', function () {
+        var item = head.closest('[data-rj-acc]');
+        var isOpen = item.classList.toggle('is-open');
+        head.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+
+    /* sticky add bar */
+    var sticky = wrap.querySelector('[data-rj-sticky]');
+    if (sticky && addBtn) {
+      var toggleSticky = function () {
+        var past = addBtn.getBoundingClientRect().bottom < 0;
+        sticky.hidden = !past;
+        sticky.classList.toggle('is-shown', past);
+      };
+      window.addEventListener('scroll', toggleSticky, { passive: true });
+      toggleSticky();
+    }
+
+    if (stickyAdd && form) {
+      stickyAdd.addEventListener('click', function () {
+        var submit = form.querySelector('[name="add"]');
+        if (submit) submit.click();
+      });
+    }
+  }
+
+  function bootProduct(root) {
+    initProduct(root);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      bootProduct(document);
+    });
+  } else {
+    bootProduct(document);
+  }
+
+  document.addEventListener('shopify:section:load', function (event) {
+    bootProduct(event.target);
+  });
+})();

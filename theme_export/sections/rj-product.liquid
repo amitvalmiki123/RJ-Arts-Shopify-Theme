@@ -1,0 +1,726 @@
+{% comment %}
+  RJ ARTS — PRODUCT PAGE  (design/product.html)
+  File name: rj-product.liquid  ·  used by templates/product.json
+
+  NOTE — naam milte-julte sections, confuse na karein:
+     rj-collections.liquid (plural)   = homepage carousel
+     rj-collection.liquid  (singular) = collection page
+     rj-product.liquid                = ye file, product page
+
+  Layout, exactly like the design:
+    .crumb            breadcrumb (collection + product title)
+    .pdp              gallery (88px thumbs + square stage) + info column
+    .sku-row          SKU + stock
+    .price            now / was / "Save 46%" badge
+    .sizes            one group of buttons per product option
+    .buyrow           qty stepper + Add to Cart (+ Shop Pay / dynamic checkout)
+    .trust-bar        Judge.me rating badge (hidden until the app is installed)
+    .wishline         Wishlist Hero launch point
+    .usprow           3 policy tiles (blocks)
+    .acc              accordion: Details = product description, rest = blocks
+    "Complete the set" recommendations + Customer Reviews (Judge.me widget)
+    .stickybar        appears after the add-to-cart button scrolls away
+
+  Everything a merchant can change is a section/block setting; anything that is
+  real product data comes from the product object (variants, images, price, SKU,
+  availability, description) or from Judge.me.
+{% endcomment %}
+
+{%- liquid
+  assign rj_v = product.selected_or_first_available_variant
+  assign rj_form_id = 'product-form-' | append: section.id
+  assign rj_cur = cart.currency.symbol | default: section.settings.currency_symbol
+  assign rj_has_options = false
+  if product.has_only_default_variant == false
+    assign rj_has_options = true
+  endif
+  assign rj_media_count = product.media.size
+-%}
+
+<div class="rj-product color-{{ section.settings.color_scheme }} gradient" data-rj-product
+     data-label-add="{{ section.settings.add_to_cart_label | escape }}"
+     data-label-sold-out="{{ section.settings.sold_out_label | escape }}"
+     data-label-in-stock="{{ section.settings.in_stock_label | escape }}">
+
+  <div class="rj-wrap">
+
+    {%- if section.settings.show_breadcrumb -%}
+      <nav class="rj-crumb rj-crumb--pdp" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">{{ section.settings.home_label | escape }}</a>
+        <span>/</span>
+        {%- if collection and collection.handle != blank -%}
+          <a href="{{ collection.url }}">{{ collection.title | escape }}</a>
+          <span>/</span>
+        {%- endif -%}
+        <span>{{ product.title | escape }}</span>
+      </nav>
+    {%- endif -%}
+
+    <div class="rj-pdp">
+
+      {%- comment -%} ---------------- gallery ---------------- {%- endcomment -%}
+      <div class="rj-gal">
+        {%- if rj_media_count > 1 -%}
+          <div class="rj-thumbs">
+            {%- for media in product.media -%}
+              <button type="button"
+                      class="rj-thumb{% if forloop.first %} is-active{% endif %}"
+                      data-rj-thumb
+                      data-media-id="{{ media.id }}"
+                      data-full="{{ media | image_url: width: 1400 }}"
+                      aria-label="{{ 'products.product.media.load_image' | t: index: forloop.index }}">
+                {{ media | image_url: width: 200 | image_tag: loading: 'lazy', alt: media.alt, class: 'rj-thumb__img', widths: '100,200' }}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <div class="rj-stage">
+          {%- if rj_v.compare_at_price > rj_v.price -%}
+            {%- assign rj_save = rj_v.compare_at_price | minus: rj_v.price | times: 100.0 | divided_by: rj_v.compare_at_price | round -%}
+            <span class="rj-stage__badge" data-rj-badge>{{ section.settings.badge_prefix | escape }}{{ rj_save }}%</span>
+          {%- else -%}
+            <span class="rj-stage__badge" data-rj-badge hidden></span>
+          {%- endif -%}
+
+          {%- if product.featured_media != blank -%}
+            <img class="rj-stage__img"
+                 data-rj-stage
+                 src="{{ product.featured_media | image_url: width: 1400 }}"
+                 alt="{{ product.featured_media.alt | default: product.title | escape }}"
+                 width="{{ product.featured_media.width }}"
+                 height="{{ product.featured_media.height }}">
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'rj-stage__img rj-stage__img--placeholder' }}
+          {%- endif -%}
+
+          {%- if section.settings.zoom_hint != blank -%}
+            <span class="rj-stage__zoom">{{ section.settings.zoom_hint | escape }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} ---------------- info ---------------- {%- endcomment -%}
+      <div class="rj-pinfo">
+
+        <div class="rj-skurow">
+          {%- if section.settings.show_sku -%}
+            <span class="rj-sku">
+              {{ section.settings.sku_label | escape }}
+              <span data-rj-sku>{{ rj_v.sku | default: '—' }}</span>
+            </span>
+          {%- endif -%}
+          <span class="rj-stock{% unless rj_v.available %} is-out{% endunless %}" data-rj-stock>
+            <i aria-hidden="true"></i>
+            <span data-rj-stock-text>
+              {%- if rj_v.available -%}{{ section.settings.in_stock_label | escape }}{%- else -%}{{ section.settings.sold_out_label | escape }}{%- endif -%}
+            </span>
+          </span>
+        </div>
+
+        <h1 class="rj-pinfo__title">{{ product.title | escape }}</h1>
+
+        {%- assign rj_badge = product.metafields.judgeme.badge -%}
+        {%- if rj_badge != blank -%}
+          <div class="rj-pinfo__rating rj-pinfo__rating--app">
+            <a href="#RjReviews">{{ rj_badge }}</a>
+          </div>
+        {%- endif -%}
+
+        <div class="rj-price">
+          <span class="rj-price__now" data-rj-price>{{ rj_v.price | money }}</span>
+          <span class="rj-price__was" data-rj-was {% unless rj_v.compare_at_price > rj_v.price %}hidden{% endunless %}>
+            {%- if rj_v.compare_at_price > rj_v.price -%}{{ rj_v.compare_at_price | money }}{%- endif -%}
+          </span>
+        </div>
+
+        {%- if rj_has_options -%}
+          <div class="rj-options" data-rj-options>
+            {%- for option in product.options_with_values -%}
+              <div class="rj-opt" data-rj-opt-group="{{ option.position }}">
+                <div class="rj-opt__label">
+                  {{ option.name | escape }}:
+                  <span data-rj-opt-name="{{ option.position }}">{{ option.selected_value | escape }}</span>
+                </div>
+                <div class="rj-sizes">
+                  {%- for value in option.values -%}
+                    {%- assign is_selected = false -%}
+                    {%- if value == option.selected_value -%}{%- assign is_selected = true -%}{%- endif -%}
+                    <button type="button"
+                            class="rj-size{% if is_selected %} is-active{% endif %}"
+                            data-rj-opt-value="{{ value | escape }}"
+                            data-option-position="{{ option.position }}"
+                            aria-pressed="{% if is_selected %}true{% else %}false{% endif %}">
+                      <b>{{ value | escape }}</b>
+                    </button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_ships_in and section.settings.ships_in_value != blank -%}
+          <div class="rj-metaline">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="1" y="5" width="14" height="11" rx="1"/><path d="M15 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.2"/><circle cx="18.5" cy="18.5" r="2.2"/></svg>
+            {{ section.settings.ships_in_label | escape }}
+            <b>{{ section.settings.ships_in_value | escape }}</b>
+          </div>
+        {%- endif -%}
+
+        {%- assign rj_dimension = product.metafields.custom.dimension -%}
+        {%- if rj_dimension != blank -%}
+          <div class="rj-dimline">{{ section.settings.dimension_label | escape }} {{ rj_dimension }}</div>
+        {%- endif -%}
+
+        <div class="rj-divider"></div>
+
+        {%- comment -%} Add to Cart — Dawn's product-form keeps AJAX + cart drawer {%- endcomment -%}
+        <product-form class="rj-pform" data-section-id="{{ section.id }}">
+          <div class="product-form__error-message-wrapper rj-pform__error" role="alert" hidden>
+            <span class="product-form__error-message rj-pform__error-text"></span>
+          </div>
+
+          {%- form 'product', product, id: rj_form_id, class: 'rj-pform__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+            <input type="hidden"
+                   name="id"
+                   value="{{ rj_v.id }}"
+                   class="product-variant-id"
+                   {% unless rj_v.available %}disabled{% endunless %}>
+
+            <div class="rj-buyrow">
+              <div class="rj-qty">
+                <button type="button" data-rj-qty="-1" aria-label="{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}">&minus;</button>
+                <input type="number"
+                       class="rj-qty__input"
+                       name="quantity"
+                       value="1"
+                       min="1"
+                       step="1"
+                       inputmode="numeric"
+                       data-rj-qty-input
+                       aria-label="{{ section.settings.quantity_label | escape }}">
+                <button type="button" data-rj-qty="1" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}">+</button>
+              </div>
+
+              <button type="submit"
+                      name="add"
+                      class="rj-btn rj-btn--solid rj-add"
+                      data-rj-add
+                      {% unless rj_v.available %}disabled{% endunless %}>
+                <span data-rj-add-text>
+                  {%- if rj_v.available -%}{{ section.settings.add_to_cart_label | escape }}{%- else -%}{{ section.settings.sold_out_label | escape }}{%- endif -%}
+                </span>
+                {%- render 'loading-spinner' -%}
+              </button>
+            </div>
+
+            {%- if section.settings.show_dynamic_checkout -%}
+              <div class="rj-pform__dynamic">{{ form | payment_button }}</div>
+            {%- endif -%}
+          {%- endform -%}
+        </product-form>
+
+        <a class="rj-wishline rj-card-wish"
+           href="{{ section.settings.wishlist_url }}"
+           data-wlh-id="{{ product.id }}"
+           data-wlh-link="{{ shop.url }}{{ product.url }}"
+           data-wlh-name="{{ product.title | escape }}"
+           data-wlh-price="{{ rj_v.price | divided_by: 100.0 }}">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
+          {{ section.settings.wishlist_label | escape }}
+        </a>
+
+        {%- if rj_badge != blank and section.settings.show_trust -%}
+          <div class="rj-trust">
+            {{ rj_badge }}
+            {%- if section.settings.trust_note != blank -%}
+              <span class="rj-trust__note">{{ section.settings.trust_note | escape }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          {%- assign rj_usp_blocks = section.blocks | where: 'type', 'usp' -%}
+          {%- if rj_usp_blocks.size > 0 -%}
+            <div class="rj-usprow">
+              {%- for block in rj_usp_blocks -%}
+                <div class="rj-uspi" {{ block.shopify_attributes }}>
+                  {%- case block.settings.icon -%}
+                    {%- when 'shield' -%}
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                    {%- when 'returns' -%}
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4"/><path d="M8 15l-2-2 2-2"/><path d="M6 13h5"/></svg>
+                    {%- else -%}
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="1" y="4" width="15" height="12" rx="1"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                  {%- endcase -%}
+                  <b>{{ block.settings.label | escape }}</b>
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- comment -%} ---------------- accordion ---------------- {%- endcomment -%}
+        <div class="rj-acc">
+          {%- if product.description != blank -%}
+            <div class="rj-acc__item{% if section.settings.description_open %} is-open{% endif %}" data-rj-acc>
+              <button type="button" class="rj-acc__head" aria-expanded="{% if section.settings.description_open %}true{% else %}false{% endif %}">
+                {{ section.settings.description_tab_title | escape }}
+                <span class="rj-acc__pm" aria-hidden="true"></span>
+              </button>
+              <div class="rj-acc__body">
+                <div class="rj-acc__inner rte">{{ product.description }}</div>
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'tab' -%}
+              <div class="rj-acc__item{% if block.settings.open %} is-open{% endif %}" data-rj-acc {{ block.shopify_attributes }}>
+                <button type="button" class="rj-acc__head" aria-expanded="{% if block.settings.open %}true{% else %}false{% endif %}">
+                  {{ block.settings.title | escape }}
+                  <span class="rj-acc__pm" aria-hidden="true"></span>
+                </button>
+                <div class="rj-acc__body">
+                  <div class="rj-acc__inner rte">{{ block.settings.content }}</div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.metafield_note != blank -%}
+          <p class="rj-pinfo__note">{{ section.settings.metafield_note }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ---------------- complete the set ---------------- {%- endcomment -%}
+  {%- assign rj_rel = recommendations.products -%}
+  {%- if recommendations.performed == false or rj_rel.size == 0 -%}
+    {%- assign rj_rel = section.settings.related_collection.products -%}
+  {%- endif -%}
+
+  {%- if section.settings.show_related and rj_rel.size > 0 -%}
+    <section class="rj-relsec">
+      <div class="rj-wrap">
+        <div class="rj-relsec__head rj-reveal">
+          {%- if section.settings.related_eyebrow != blank -%}
+            <span class="rj-eyebrow">{{ section.settings.related_eyebrow | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.related_heading != blank -%}
+            <h2 class="rj-relsec__title">{{ section.settings.related_heading | escape }}</h2>
+          {%- endif -%}
+        </div>
+        <div class="rj-cgrid rj-cgrid--related">
+          {%- for rel in rj_rel limit: section.settings.related_count -%}
+            {%- liquid
+              assign rel_on_sale = false
+              if rel.compare_at_price > rel.price
+                assign rel_on_sale = true
+              endif
+            -%}
+            <article class="rj-pcard rj-pcard--grid rj-reveal">
+              <a class="rj-pcard__media rj-pcard__media--link" href="{{ rel.url }}">
+                {%- if rel.featured_image != blank -%}
+                  {{ rel.featured_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300,400,500,700', sizes: '(min-width: 1200px) 23vw, (min-width: 900px) 30vw, 45vw', class: 'rj-pcard__img', alt: rel.title }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'rj-pcard__img rj-pcard__img--placeholder' }}
+                {%- endif -%}
+              </a>
+              <div class="rj-pcard__body">
+                {%- if rel.type != blank -%}
+                  <span class="rj-pcard__cat">{{ rel.type | escape }}</span>
+                {%- endif -%}
+                <h3 class="rj-pcard__title"><a href="{{ rel.url }}">{{ rel.title | escape }}</a></h3>
+                <div class="rj-pcard__price">
+                  <span class="now">{{ rel.price | money }}</span>
+                  {%- if rel_on_sale -%}<span class="was">{{ rel.compare_at_price | money }}</span>{%- endif -%}
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------------- reviews (Judge.me) ---------------- {%- endcomment -%}
+  {%- if section.settings.show_reviews -%}
+    <section class="rj-prev" id="RjReviews">
+      <div class="rj-wrap">
+        {%- if section.settings.reviews_heading != blank -%}
+          <h2 class="rj-prev__title">{{ section.settings.reviews_heading | escape }}</h2>
+        {%- endif -%}
+
+        {%- assign rj_widget = product.metafields.judgeme.widget -%}
+        {%- if rj_widget != blank -%}
+          <div class="rj-prev__app">{{ rj_widget }}</div>
+        {%- else -%}
+          {%- if request.design_mode and section.settings.reviews_empty_hint != blank -%}
+            <p class="rj-prev__note">{{ section.settings.reviews_empty_hint }}</p>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------------- sticky add bar ---------------- {%- endcomment -%}
+  {%- if section.settings.show_sticky -%}
+    <div class="rj-stickybar" data-rj-sticky hidden>
+      <div class="rj-wrap rj-stickybar__in">
+        <div class="rj-stickybar__left">
+          {%- if product.featured_media != blank -%}
+            {{ product.featured_media | image_url: width: 150 | image_tag: loading: 'lazy', class: 'rj-stickybar__img', alt: product.title }}
+          {%- endif -%}
+          <div>
+            <b>{{ product.title | escape }}</b>
+            <span class="rj-stickybar__price">
+              <span data-rj-sticky-price>{{ rj_v.price | money }}</span>
+              <s data-rj-sticky-was {% unless rj_v.compare_at_price > rj_v.price %}hidden{% endunless %}>
+                {%- if rj_v.compare_at_price > rj_v.price -%}{{ rj_v.compare_at_price | money }}{%- endif -%}
+              </s>
+            </span>
+          </div>
+        </div>
+        <div class="rj-stickybar__right">
+          <button type="button" class="rj-btn rj-btn--solid rj-stickybar__add" data-rj-sticky-add {% unless rj_v.available %}disabled{% endunless %}>
+            {{ section.settings.add_to_cart_label | escape }}
+          </button>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+<script type="application/json" data-rj-variants>
+[
+  {%- for v in product.variants -%}
+    {%- liquid
+      assign v_discount = 0
+      if v.compare_at_price > v.price
+        assign v_discount = v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round
+      endif
+    -%}
+    {
+      "id": {{ v.id }},
+      "options": {{ v.options | json }},
+      "available": {{ v.available | json }},
+      "price": {{ v.price | money | json }},
+      "compare": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | json }}{% else %}null{% endif %},
+      "discount": {% if v_discount > 0 %}{{ v_discount }}{% else %}null{% endif %},
+      "sku": {{ v.sku | default: '' | json }},
+      "media_id": {% if v.featured_media %}{{ v.featured_media.id }}{% else %}null{% endif %},
+      "image": {% if v.featured_media %}{{ v.featured_media | image_url: width: 1400 | json }}{% else %}null{% endif %}
+    }{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+]
+</script>
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "RJ Product",
+  "tag": "section",
+  "class": "rj-product-section",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumb"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Show breadcrumb",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "home_label",
+      "label": "Home label",
+      "default": "Home"
+    },
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "text",
+      "id": "zoom_hint",
+      "label": "Zoom hint pill",
+      "default": "Hover to zoom"
+    },
+    {
+      "type": "text",
+      "id": "badge_prefix",
+      "label": "Discount badge prefix",
+      "info": "Badge sirf tab dikhta hai jab compare-at price ho. e.g. Save 46%",
+      "default": "Save "
+    },
+    {
+      "type": "header",
+      "content": "Product info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sku",
+      "label": "Show SKU",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sku_label",
+      "label": "SKU label",
+      "default": "SKU:"
+    },
+    {
+      "type": "text",
+      "id": "in_stock_label",
+      "label": "In stock",
+      "default": "In Stock"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_label",
+      "label": "Sold out",
+      "default": "Sold out"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ships_in",
+      "label": "Show dispatch line",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "ships_in_label",
+      "label": "Dispatch label",
+      "default": "Ships in:"
+    },
+    {
+      "type": "text",
+      "id": "ships_in_value",
+      "label": "Dispatch time",
+      "info": "Khali chhodein to line chhup jayegi.",
+      "default": "7-10 Days"
+    },
+    {
+      "type": "text",
+      "id": "dimension_label",
+      "label": "Dimension label",
+      "info": "Value product metafield custom.dimension se aata hai (product ke hisaab se).",
+      "default": "Dimension:"
+    },
+    {
+      "type": "header",
+      "content": "Buy buttons"
+    },
+    {
+      "type": "text",
+      "id": "quantity_label",
+      "label": "Quantity field label (screen reader)",
+      "default": "Quantity"
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_label",
+      "label": "Add to cart",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "label": "Show dynamic checkout (Shop Pay / UPI)",
+      "default": true,
+      "info": "Stores settings → Payments me dynamic checkout on hona chahiye."
+    },
+    {
+      "type": "text",
+      "id": "wishlist_label",
+      "label": "Wishlist label",
+      "default": "Add to Wishlist"
+    },
+    {
+      "type": "text",
+      "id": "wishlist_url",
+      "label": "Wishlist page URL",
+      "default": "/pages/wishlist"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust",
+      "label": "Show Judge.me trust bar",
+      "default": true,
+      "info": "Sirf tab dikhta hai jab Judge.me install ho (judgeme.badge metafield)."
+    },
+    {
+      "type": "text",
+      "id": "trust_note",
+      "label": "Trust bar note",
+      "default": "Verified reviews"
+    },
+    {
+      "type": "header",
+      "content": "Accordion"
+    },
+    {
+      "type": "text",
+      "id": "description_tab_title",
+      "label": "Description tab title",
+      "default": "Details"
+    },
+    {
+      "type": "checkbox",
+      "id": "description_open",
+      "label": "Description tab open by default",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "metafield_note",
+      "label": "Note under the accordion (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Complete the set"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Show related products",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_eyebrow",
+      "label": "Eyebrow",
+      "default": "Complete the Set"
+    },
+    {
+      "type": "text",
+      "id": "related_heading",
+      "label": "Heading",
+      "default": "Pairs beautifully with"
+    },
+    {
+      "type": "range",
+      "id": "related_count",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    {
+      "type": "collection",
+      "id": "related_collection",
+      "label": "Fallback collection",
+      "info": "Shopify recommendations na mile to is collection se products aate hain."
+    },
+    {
+      "type": "header",
+      "content": "Reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Show reviews section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "reviews_heading",
+      "label": "Reviews heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "textarea",
+      "id": "reviews_empty_hint",
+      "label": "Editor hint when Judge.me is empty",
+      "default": "Judge.me review widget yahan aayega — app install/onboard karne ke baad reviews khud dikhenge. Live site par ye note nahi dikhta.",
+      "info": "Sirf theme editor me dikhta hai."
+    },
+    {
+      "type": "header",
+      "content": "Sticky add bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sticky",
+      "label": "Show sticky add bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "currency_symbol",
+      "label": "Currency symbol fallback",
+      "default": "₹"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "Policy tile",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "truck", "label": "Shipping" },
+            { "value": "shield", "label": "Secure payments" },
+            { "value": "returns", "label": "Returns" }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Free Shipping"
+        }
+      ]
+    },
+    {
+      "type": "tab",
+      "name": "Accordion tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Delivery"
+        },
+        {
+          "type": "checkbox",
+          "id": "open",
+          "label": "Open by default",
+          "default": false
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Your order will be delivered within 7-10 days.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RJ Product"
+    }
+  ]
+}
+{% endschema %}

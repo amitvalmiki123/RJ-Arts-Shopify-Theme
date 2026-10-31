@@ -9,12 +9,10 @@ Do zip hain, confusion na karein:
 
 > ⚠️ `rj-arts-changes.zip` ko theme upload **na** karein — usme Dawn ki zaroori files nahi hain.
 
-**Total kaam: 12 nayi files + 11 replace. Koi file "patch" nahi karni — har file Ctrl+A → paste → Save.**
+**Total kaam: 13 nayi files + 12 replace. Koi file "patch" nahi karni — har file Ctrl+A → paste → Save.**
 
-**Is round me (Collection page + editable audit) 7 files:** `assets/rj-arts.css`,
-`assets/rj-arts.js`, `sections/rj-collection.liquid` (**nayi**), `templates/collection.json`,
-`sections/rj-best.liquid`, `sections/rj-showroom.liquid`, `sections/rj-reviews.liquid`,
-`templates/index.json`. Baaki sab ✅ skip.
+**Is round me (Product page) 4 files:** `assets/rj-arts.css`, `assets/rj-arts.js`,
+`sections/rj-product.liquid` (**nayi**), `templates/product.json`. Baaki sab ✅ skip.
 
 ---
 
@@ -54,8 +52,8 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 4158 | **⬅ is round me badli (Collection CSS + editable vars)** |
-| 4 | `assets/rj-arts.js` | **NAYI FILE** | 303 | **⬅ is round me badla (drawer + sort)** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 4961 | **⬅ is round me badli (Product page CSS)** |
+| 4 | `assets/rj-arts.js` | **NAYI FILE** | 510 | **⬅ is round me badla (variant + sticky bar JS)** |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
 | 7 | `sections/header.liquid` | REPLACE | 820 | ✅ pichle round me kar liya to skip |
@@ -63,18 +61,20 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 9 | `snippets/header-mega-menu.liquid` | REPLACE | 134 | ✅ pehle kar liya to skip |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 | ✅ pehle kar liya to skip |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 | ✅ pehle kar liya to skip |
-| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 352 | **⬅ is round me badla (fake placeholder hataya)** |
+| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 352 | ✅ pichle round me kar liya to skip |
 | 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | ✅ pehle kar liya to skip |
 | 14 | `sections/rj-band.liquid` | **NAYI FILE** | 188 | ✅ pehle kar liya to skip |
 | 15 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | ✅ pehle kar liya to skip |
-| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 234 | **⬅ is round me badla (fake placeholder hataya)** |
+| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 234 | ✅ pichle round me kar liya to skip |
 | 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 219 | ✅ pehle kar liya to skip *(homepage carousel)* |
-| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 276 | **⬅ is round me badla (editor hint editable)** |
+| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 276 | ✅ pichle round me kar liya to skip |
 | 19 | `sections/footer.liquid` | REPLACE (Dawn ki file) | 447 | ✅ pichle round me kar liya to skip |
 | 20 | `sections/footer-group.json` | REPLACE | 63 | ✅ pichle round me kar liya to skip |
-| 21 | `templates/index.json` | REPLACE | 418 | **⬅ is round me badla (placeholder_note)** |
-| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 556 | **⬅ is round me badli (35 settings)** |
-| 23 | `templates/collection.json` | REPLACE | 35 | **⬅ is round me badla (collection template)** |
+| 21 | `templates/index.json` | REPLACE | 418 | ✅ pichle round me kar liya to skip |
+| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 556 | ✅ pichle round me kar liya to skip |
+| 23 | `templates/collection.json` | REPLACE | 35 | ✅ pichle round me kar liya to skip |
+| 24 | `sections/rj-product.liquid` | **NAYI FILE** | 726 | **⬅ is round me bani (Product page)** |
+| 25 | `templates/product.json` | REPLACE | 104 | **⬅ is round me badla (product template)** |
 
 Dawn ki baaki **336 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -192,7 +192,7 @@ Homepage template — poore 10 sections (hero, USP, category tiles, showroom, Ar
 
 > ⚠️ Steps 10–18 (saari custom sections) pehle hone chahiye, warna `Section type 'rj_best' / 'rj_collections' / 'rj_reviews' / 'rj-footer' does not exist` error aayega.
 
-### Step 22 — `sections/rj-collection.liquid` → **NAYI FILE** ⬅ is round *(singular — collection page)*
+### Step 22 — `sections/rj-collection.liquid` → **NAYI FILE** *(singular — collection page)*
 
 > ⚠️ Ye **`rj-collection.liquid`** hai (bina `s` ke). Step 17 wali
 > **`rj-collections.liquid`** (plural) homepage ka carousel hai — usse replace mat karein.
@@ -217,12 +217,45 @@ Kya asli data se aata hai (hardcoded nahi):
 > ⚠️ Collection page par Dawn ke `main-collection-banner` + `main-collection-product-grid`
 > hat jayenge — ye jaan-boojh kar hai, design ek hi section maangta hai.
 
-### Step 23 — `templates/collection.json` → REPLACE ⬅ is round
+### Step 23 — `templates/collection.json` → REPLACE
 
-Sirf 28 lines. `templates` → `collection.json` → `Ctrl+A` → paste → `Ctrl+S`.
+Sirf 35 lines. `templates` → `collection.json` → `Ctrl+A` → paste → `Ctrl+S`.
 
 Iske baad **Customize → Collection page** kholein aur **RJ Collection** section
 verify karein (Filter, Sort by, Load More labels wahin se badal sakte hain).
+
+### Step 25 — `sections/rj-product.liquid` → **NAYI FILE** ⬅ is round
+
+Product page ka poora layout ek section me: breadcrumb, gallery (88px thumbs +
+square stage + "Save 46%" badge), SKU + stock, title, price, **size/variant
+buttons**, dispatch line, qty stepper + Add to Cart (+ Shop Pay/UPC dynamic
+checkout), wishlist line, 3 policy tiles, accordion (Details = product
+description), "Complete the Set" aur **Customer Reviews (Judge.me widget)**,
+plus neeche **sticky add bar**.
+
+`sections` → **New file** → naam `rj-product.liquid` → paste → `Ctrl+S`.
+
+Kya asli data se aata hai (hardcoded nahi):
+- Title, price, compare-at ("Save 46%"), SKU, stock, images, variants → product se
+- Size buttons → product options (har option ka apna group ban jata hai)
+- Details tab → **product description**
+- Reviews + rating + trust bar → **Judge.me** (`judgeme.widget` / `judgeme.badge`),
+  app na ho to sirf editor me hint dikhta hai
+- Related products → Shopify recommendations, fallback = section ki collection
+- Add to Cart → Dawn ka `product-form` (AJAX + cart drawer), koi custom JS nahi
+
+> ⚠️ Is section ke naam `rj-product.liquid` hai — Step 17/22 wali collection
+> files se alag hai.
+
+### Step 26 — `templates/product.json` → REPLACE ⬅ is round
+
+104 lines. `templates` → `product.json` → `Ctrl+A` → paste → `Ctrl+S`.
+
+Ise paste karne ke baad product page par Dawn ka purana `main-product` (vendor,
+title, price, variant picker, buy buttons...) **hat jayega** — sab kuch naye
+**RJ Product** section se aata hai. Blocks pehle se bhare hain: 3 policy tiles +
+4 accordion tabs (Delivery / Return & Cancellation / Care Instructions /
+Quality Promise).
 
 ### Editable check — kya hardcoded hai aur kya nahi
 
@@ -392,6 +425,24 @@ Header section → `mega_feature` blocks. Har block me:
    Filter add na karein to Filter button + drawer chhup jayenge (page normal chalega).
 5. **Sort options** — store ki default list hi use hoti hai; kuch karne ki zaroorat nahi.
 
+### 3.17 Product page — 5 cheezein (zaroori)
+
+1. **Products me images** — pehli image stage par aati hai, baaki thumbnails.
+   6–8 square images best lagti hain.
+2. **Variants** — Size/Storage options ho to buttons khud ban jate hain; har
+   variant ka price/SKU/image badalte hi update ho jata hai.
+3. **Compare-at price** — daal dein to "Save 46%" badge aur cut price dikhta hai;
+   na ho to badge chhup jata hai.
+4. **Dimension (optional)** — Settings → Custom data → Products → metafield
+   definition banayein: namespace `custom`, key `dimension`, type **Single line
+   text** (e.g. `2.11L x 1.89W x 0.91H Meters`). Product me value bharne par
+   stage ke neeche line aati hai; na bharein to line dikhti hi nahi.
+5. **Judge.me** — install ke baad reviews + rating + trust bar khud aate hain.
+   Tab tak section editor me hint dikhata hai (live site par kuch nahi).
+
+Stock text, SKU label, "Ships in", button labels, accordion tabs, related
+heading, sticky bar — sab **RJ Product** section ke settings/blocks se editable.
+
 ---
 
 ## 4. Final check
@@ -423,6 +474,15 @@ Header section → `mega_feature` blocks. Har block me:
 | 8h | Card hover: heart + View Product, tag -46% / New | Collection page |
 | 8i | "Load More" 16 products ke baad dikhta hai | Collection page bottom |
 | 8j | Mobile 360/390: 2-column grid, drawer full-height | Devtools |
+| 9a | Product page: thumbs click par stage image badalti hai | Kisi product par |
+| 9b | Size button badalne par price/SKU/image/URL (`?variant=`) badalta hai | Product page |
+| 9c | Qty +/− chalta hai, Add to Cart cart drawer kholta hai | Product page |
+| 9d | Save % badge sirf compare-at price hone par | Product page |
+| 9e | Accordion: Details = product description, baaki tabs blocks | Product page |
+| 9f | Scroll down par sticky add bar neeche aata hai | Product page |
+| 9g | Complete the Set me 4 products (recommendations/collection se) | Product page |
+| 9h | Reviews section Judge.me widget dikhata hai (install ke baad) | Product page bottom |
+| 9i | Mobile 360/390: gallery single column, thumbs neeche scroll | Devtools |
 | 8 | Footer: brand + Shop + Company + Support | Page bottom |
 | 8a | Footer newsletter band + brass Subscribe button | Footer top |
 | 8b | Payment chips + ghost "RJ ARTS" wordmark | Footer bottom |
@@ -585,11 +645,11 @@ Agar poora `layout/theme.liquid` replace nahi karna chahte, to `manual/` folder 
 ## 8. Aage
 
 Group 1 (header) ✅ · Group 2 (**10/10** homepage sections) ✅ · Group 3 (footer) ✅ ·
-**Group 4 (Collection page) ✅** · Integrations code ready (app install aapke baad).
+**Group 4 (Collection page) ✅** · **Group 5 (Product page) ✅** · Integrations code ready (app install aapke baad).
 
 Ab bacha:
 1. `config/settings_data.json` (Colours panel) — Colours + banner, ek hi baar me
-2. **Product page** (design/`product.html`) — Judge.me Review Widget + wishlist button slot
+2. ~~Product page~~ ✅ ho gaya (Judge.me widget + wishlist button slot ready)
 3. **About page** (design/`About.html`)
 4. Content entry: collections, menus, images, products
 

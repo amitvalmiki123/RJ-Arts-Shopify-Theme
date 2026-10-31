@@ -1,1 +1,104 @@
-{"sections":{"main":{"type":"main-product","blocks":{"vendor":{"type":"text","settings":{"text":"{{ product.vendor }}","text_style":"uppercase"}},"title":{"type":"title","settings":{}},"price":{"type":"price","settings":{}},"variant_picker":{"type":"variant_picker","settings":{"picker_type":"button","swatch_shape":"circle"}},"quantity_selector":{"type":"quantity_selector","settings":{}},"buy_buttons":{"type":"buy_buttons","settings":{"show_dynamic_checkout":true,"show_gift_card_recipient":true}},"description":{"type":"description","settings":{}},"share":{"type":"share","settings":{"share_label":"Share"}}},"block_order":["vendor","title","price","variant_picker","quantity_selector","buy_buttons","description","share"],"settings":{"enable_sticky_info":true,"color_scheme":"scheme-1","media_size":"large","constrain_to_viewport":true,"media_fit":"contain","gallery_layout":"stacked","mobile_thumbnails":"hide","media_position":"left","image_zoom":"lightbox","hide_variants":true,"enable_video_looping":false,"padding_top":36,"padding_bottom":12}},"disclosures":{"type":"disclosures","settings":{"padding_top":36,"padding_bottom":0}},"related-products":{"type":"related-products","settings":{"heading":"You may also like","heading_size":"h2","products_to_show":4,"columns_desktop":4,"columns_mobile":"2","color_scheme":"scheme-1","image_ratio":"square","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":false,"padding_top":36,"padding_bottom":28}}},"order":["main","disclosures","related-products"]}
+{
+  "sections": {
+    "rj-product": {
+      "type": "rj-product",
+      "blocks": {
+        "usp-shipping": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "label": "Free Shipping"
+          }
+        },
+        "usp-payments": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "label": "Secure Payments"
+          }
+        },
+        "usp-returns": {
+          "type": "usp",
+          "settings": {
+            "icon": "returns",
+            "label": "7-Days Returns"
+          }
+        },
+        "tab-delivery": {
+          "type": "tab",
+          "settings": {
+            "title": "Delivery",
+            "open": false,
+            "content": "<p>Your order will be delivered within <strong>7–10 days.</strong></p>"
+          }
+        },
+        "tab-returns": {
+          "type": "tab",
+          "settings": {
+            "title": "Return & Cancellation",
+            "open": false,
+            "content": "<p><strong>Returns</strong></p><p>We take great care to ensure your order is delivered safely. In the unlikely event you receive a damaged or defective product:</p><ul><li>Inform the delivery personnel immediately.</li><li>Report the issue to our Customer Support team right away.</li></ul><p>All complaints are reviewed within 72 hours. If confirmed, we will arrange a replacement, return, or other suitable resolution. If any assembly parts are missing, please notify Customer Support so we can ship the required components promptly.</p><p><strong>Cancellations</strong></p><p>Orders may be cancelled within 24 hours of placement.</p>"
+          }
+        },
+        "tab-care": {
+          "type": "tab",
+          "settings": {
+            "title": "Care Instructions",
+            "open": false,
+            "content": "<p><strong>Cleaning</strong></p><ul><li>Wipe dust with a soft cotton cloth.</li><li>Use a slightly moistened cloth, avoiding excess water.</li><li>Clean only with water — avoid chemicals or harsh cleaners.</li></ul><p><strong>Avoid Chemicals</strong></p><ul><li>Do not use chemical-based cleaners or polyurethane paints.</li><li>Chemicals can damage the natural finish and reduce durability.</li></ul><p><strong>Surface Care</strong></p><ul><li>Use coasters or mats for hot, cold, or wet items to protect the polish.</li><li>Wipe spills immediately with a soft, dry cloth to prevent stains.</li><li>For scratches, burns, or residue, use fine-grit sandpaper, then reapply mineral oil.</li></ul><p><strong>Additional Tips</strong></p><ul><li>Avoid prolonged exposure to direct sunlight as it may fade the polish/colour.</li><li>Do not drag furniture (especially beds) while repositioning, as it may weaken joints.</li></ul>"
+          }
+        },
+        "tab-quality": {
+          "type": "tab",
+          "settings": {
+            "title": "Quality Promise & Disclaimer",
+            "open": false,
+            "content": "<p><strong>Quality Promise</strong></p><ul><li>All wooden products undergo a 3-step treatment for protection against termites, borers, and pests.</li><li>Wood is seasoned for optimum moisture content to minimise seasonal expansion or contraction.</li><li>Every product is tested through a 3-stage quality check with over 50+ checkpoints before dispatch.</li></ul><p><strong>Disclaimer</strong></p><ul><li>Accessories shown in images are for display purposes only and are not included, unless specified.</li><li>Natural wood grains may vary slightly from piece to piece, reflecting the uniqueness of solid wood.</li><li>Handcrafted details or hand-painted designs may show minor variations from images.</li><li>Due to differences in screen settings, slight variations in fabric colour or wood finish may occur.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "usp-shipping",
+        "usp-payments",
+        "usp-returns",
+        "tab-delivery",
+        "tab-returns",
+        "tab-care",
+        "tab-quality"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "show_breadcrumb": true,
+        "home_label": "Home",
+        "zoom_hint": "Hover to zoom",
+        "badge_prefix": "Save ",
+        "show_sku": true,
+        "sku_label": "SKU:",
+        "in_stock_label": "In Stock",
+        "sold_out_label": "Sold out",
+        "show_ships_in": true,
+        "ships_in_label": "Ships in:",
+        "ships_in_value": "7-10 Days",
+        "dimension_label": "Dimension:",
+        "quantity_label": "Quantity",
+        "add_to_cart_label": "Add to Cart",
+        "show_dynamic_checkout": true,
+        "wishlist_label": "Add to Wishlist",
+        "wishlist_url": "/pages/wishlist",
+        "show_trust": true,
+        "trust_note": "Verified reviews",
+        "description_tab_title": "Details",
+        "description_open": true,
+        "show_related": true,
+        "related_eyebrow": "Complete the Set",
+        "related_heading": "Pairs beautifully with",
+        "related_count": 4,
+        "show_reviews": true,
+        "reviews_heading": "Customer Reviews",
+        "show_sticky": true,
+        "currency_symbol": "₹"
+      }
+    }
+  },
+  "order": ["rj-product"]
+}

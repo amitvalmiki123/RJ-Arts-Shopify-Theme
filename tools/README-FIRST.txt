@@ -1,22 +1,18 @@
-RJ ARTS - changed files only (27 files)
+RJ ARTS - changed files only (29 files)
 =======================================
 
->>> IS ROUND ME SIRF YE 8 FILES (Collection page + hardcoded audit):
-      assets/rj-arts.css                  (4158 lines - Collection CSS + editable vars)
-      assets/rj-arts.js                   (303 lines - drawer + sort JS)
-      sections/rj-collection.liquid       (556 lines - NAYI FILE, 35 settings)
-      templates/collection.json           (35 lines - collection template)
-      sections/rj-best.liquid             (234 lines - fake placeholder hataya)
-      sections/rj-showroom.liquid         (352 lines - fake placeholder hataya)
-      sections/rj-reviews.liquid          (276 lines - editor hint setting)
-      templates/index.json                (418 lines - placeholder_note)
+>>> IS ROUND ME SIRF YE 4 FILES (Product page):
+      assets/rj-arts.css                  (4961 lines - Product page CSS)
+      assets/rj-arts.js                   (510 lines - variant + sticky bar JS)
+      sections/rj-product.liquid          (726 lines - NAYI FILE, 41 settings)
+      templates/product.json              (104 lines - product template)
 
       config/settings_data.json           (382 lines - Colours panel, AB TAK PENDING)
 
-    Collection page par Dawn ke main-collection-banner +
-    main-collection-product-grid hat jayenge (jaan-boojh kar - design ek hi
-    section maangta hai). Filters Search & Discovery app se aate hain;
-    filters add na karein to Filter button chhup jata hai, page normal chalta hai.
+    Product page par Dawn ka main-product (vendor/title/price/variant picker/
+    buy buttons) hat jayega - sab kuch naye RJ Product section se aata hai.
+    Reviews/rating/trust bar Judge.me install ke baad dikhte hain; tab tak
+    sirf theme editor me hint.
 
     announcement-bar.liquid paste karne ki zaroorat NAHI - aapki already set
     hai. Design me ticker sticky nahi hai, header sticky hai, isliye scroll
@@ -25,9 +21,10 @@ RJ ARTS - changed files only (27 files)
     App install (Judge.me / Wishlist Hero) abhi pending hai - code fallback
     par chalta hai: reviews = 4 blocks, wishlist heart = /pages/wishlist.
 
-    HARDTEXT CHECK: collection section ke 35 settings se sab text/labels/columns/
-    opacity change ho sakte hain. Fake product data hataya gaya (rj-best /
-    rj-showroom placeholders ab sirf note dikhate hain, ₹0/stars nahi).
+    PRODUCT PAGE: rj-product.liquid 41 settings + blocks (3 policy tiles,
+    4 accordion tabs). Price/SKU/stock/variants/images/description product se,
+    reviews + rating Judge.me se, related Shopify recommendations se.
+    Add to Cart = Dawn ka product-form (AJAX + cart drawer).
 
 ⚠️  YE ZIP THEME UPLOAD KARNE KE LIYE NAHI HAI.
     Sirf copy-paste ke liye hai. Upload ke liye "rj-arts-theme.zip" use karein.
@@ -37,7 +34,7 @@ Paste karne ka tarika (har file):
   (beech me Delete/Backspace kabhi na dabayein, warna
    "config/settings_data.json could not be deleted" popup aata hai)
 
----- REPLACE (11 files) ----
+---- REPLACE (12 files) ----
   config/settings_schema.json          1551 lines
   config/settings_data.json             382 lines  <- colours/fonts/cart yahin se
   layout/theme.liquid                   641 lines
@@ -48,7 +45,8 @@ Paste karne ka tarika (har file):
   sections/footer-group.json              63 lines
   sections/footer.liquid                447 lines   <- REPLACE (Dawn ki file)
   templates/index.json                   418 lines
-  templates/collection.json               35 lines  <- NAYA (is round)
+  templates/collection.json               35 lines
+  templates/product.json                 104 lines  <- NAYA (is round)
 
 ---- NAYI FILE - sections me New file banakar paste karein ----
   (dhyan: rj-collections = homepage carousel, rj-collection = collection page)
@@ -62,8 +60,9 @@ Paste karne ka tarika (har file):
   sections/rj-collections.liquid         219 lines   <- NAYA (HOMEPAGE carousel, plural)
   sections/rj-reviews.liquid             276 lines   <- Reviews (Judge.me source)
   sections/rj-collection.liquid          556 lines   <- NAYA (Collection PAGE, singular)
-  assets/rj-arts.css                    4158 lines   <- poora replace
-  assets/rj-arts.js                      303 lines
+  sections/rj-product.liquid              726 lines   <- NAYA (Product page, is round)
+  assets/rj-arts.css                    4961 lines   <- poora replace
+  assets/rj-arts.js                      510 lines
 
 ---- manual/ - OPTIONAL (sirf patch karna ho to) ----
   manual/snippet-1-color-scheme-fallback.liquid   102 lines
