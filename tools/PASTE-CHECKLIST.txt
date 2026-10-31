@@ -1,0 +1,74 @@
+RJ ARTS — PASTE CHECKLIST (jo abhi baaki hai)
+=============================================
+
+Aapne collection page paste nahi kiya, aur uske baad product page bhi ban gaya.
+Isliye abhi TOTAL **10 files** paste karni hain — 2 nayi + 8 replace.
+Time: ~15 min. Har file: Ctrl+Home → Ctrl+A → Ctrl+V → Ctrl+S.
+
+⚠️ ORDER ZAROORI HAI — pehle sections, phir templates, phir assets.
+   (Template JSON pehle paste karne par "Section type does not exist" error aayega.)
+
+---------------------------------------------------------------
+STEP 1 — NAYE FILES (sections → "New file" → naam → paste → Save)
+---------------------------------------------------------------
+[ ] 1. sections/rj-collection.liquid        555 lines   (Collection page)
+[ ] 2. sections/rj-product.liquid           726 lines   (Product page)
+
+   Naam exactly yahi rakhein:
+     rj-collection.liquid  = collection page   (SINGULAR)
+     rj-collections.liquid = homepage carousel (PLURAL, pehle se maujood — isse chhed-chhad nahi)
+
+---------------------------------------------------------------
+STEP 2 — TEMPLATES (templates → file kholen → Ctrl+A → paste → Save)
+---------------------------------------------------------------
+[ ] 3. templates/collection.json             35 lines   (Collection page ka section order)
+[ ] 4. templates/product.json               104 lines   (Product page ka section order)
+[ ] 5. templates/index.json                 418 lines   (homepage — placeholder_note setting)
+
+---------------------------------------------------------------
+STEP 3 — SECTIONS REPLACE (sections → file kholen → Ctrl+A → paste → Save)
+---------------------------------------------------------------
+[ ] 6. sections/rj-best.liquid              234 lines   (fake ₹0 / 5-star placeholder hataya)
+[ ] 7. sections/rj-showroom.liquid          352 lines   (fake placeholder hataya)
+[ ] 8. sections/rj-reviews.liquid           276 lines   (editor hint ab setting)
+
+---------------------------------------------------------------
+STEP 4 — ASSETS (assets → file kholen → Ctrl+A → paste → Save)
+---------------------------------------------------------------
+[ ] 9. assets/rj-arts.css                  4961 lines   (Collection + Product page CSS)
+[ ] 10. assets/rj-arts.js                   510 lines   (drawer, sort, variant, sticky bar)
+
+---------------------------------------------------------------
+STEP 5 — AB BHI PENDING (Colours panel) — alag se karna hai
+---------------------------------------------------------------
+[ ] 11. config/settings_data.json           382 lines   (Colours + banner + fonts)
+
+   ⚠️ Isme sirf Ctrl+A → paste → Save. Delete/Backspace kabhi na dabayein,
+      warna "config/settings_data.json could not be deleted" popup aata hai.
+      File hi na dikhe to MANUAL-STEPS.md → section 5.1 dekhein.
+
+---------------------------------------------------------------
+SKIP — inhe haath NAHI lagana
+---------------------------------------------------------------
+  config/settings_schema.json      (pehle ho chuka)
+  layout/theme.liquid              (pehle ho chuka)
+  sections/announcement-bar.liquid  (aapki already set — intended behaviour)
+  sections/header.liquid           (pehle ho chuka)
+  sections/header-group.json       (pehle ho chuka)
+  snippets/header-mega-menu.liquid  (pehle ho chuka)
+  sections/footer.liquid           (pehle ho chuka)
+  sections/footer-group.json       (pehle ho chuka)
+  sections/rj-hero / rj-usp / rj-showroom* / rj-categories / rj-band /
+  rj-about / rj-collections — already pasted (rj-showroom ka naya version
+  Step 3 me hai, wahi paste karna hai)
+
+---------------------------------------------------------------
+PASTE KE BAAD 5-SECOND CHECK (har page par)
+---------------------------------------------------------------
+1. Collection page → hero + filter pill + 4-column grid + Load More
+2. Product page → gallery thumbs + size buttons + Add to Cart (cart drawer khule)
+3. Size button badlein → price + SKU + image badalne chahiye
+4. Homepage → Best sellers / Showroom me "Example best seller" ya ₹0 nahi dikhna chahiye
+5. Reviews/Judge.me abhi khaali rahega — app install ke baad bharega (ye normal hai)
+
+Zyada detail chahiye to: MANUAL-STEPS.md (Step 22–26, §3.16–3.17)

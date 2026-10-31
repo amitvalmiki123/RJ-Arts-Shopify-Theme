@@ -11,6 +11,9 @@ Do zip hain, confusion na karein:
 
 **Total kaam: 13 nayi files + 12 replace. Koi file "patch" nahi karni — har file Ctrl+A → paste → Save.**
 
+> 📋 **Shortcut:** root me `PASTE-CHECKLIST.txt` hai — tik-tik karke paste karne ki
+> poori list (10 files, order ke saath). Ye guide usse zyada detail wala version hai.
+
 **Is round me (Product page) 4 files:** `assets/rj-arts.css`, `assets/rj-arts.js`,
 `sections/rj-product.liquid` (**nayi**), `templates/product.json`. Baaki sab ✅ skip.
 
@@ -71,7 +74,7 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 19 | `sections/footer.liquid` | REPLACE (Dawn ki file) | 447 | ✅ pichle round me kar liya to skip |
 | 20 | `sections/footer-group.json` | REPLACE | 63 | ✅ pichle round me kar liya to skip |
 | 21 | `templates/index.json` | REPLACE | 418 | ✅ pichle round me kar liya to skip |
-| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 556 | ✅ pichle round me kar liya to skip |
+| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 555 | ✅ pichle round me kar liya to skip |
 | 23 | `templates/collection.json` | REPLACE | 35 | ✅ pichle round me kar liya to skip |
 | 24 | `sections/rj-product.liquid` | **NAYI FILE** | 726 | **⬅ is round me bani (Product page)** |
 | 25 | `templates/product.json` | REPLACE | 104 | **⬅ is round me badla (product template)** |
