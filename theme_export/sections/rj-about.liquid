@@ -1,0 +1,220 @@
+{% comment %}
+  RJ ARTS — About / Our Story (design "ABOUT", #about)
+
+  Matches design/THE-RJ-ARTS.html:
+    .about            grid 1fr / 1.05fr, 64px gap, centre-aligned, white section
+    .about__media     6px radius, aspect-ratio 4/5, cream-2 backing,
+                      image hover scale(1.05) over 1.3s
+    .about__media .badge  floating glass card: left 24 / bottom 24,
+                      rgba(255,255,255,.92) + blur(6px), radius 4, pad 16/22,
+                      serif 30px ink number over an 11px/.16em grey caption
+    .about__body h2   margin 14 / 22
+    .about__body p    ink-soft, 18px below, max 560, line-height 1.85
+    .about__stats     flex, 44px gap, 32/34 margins, serif 40px brass numbers
+                      over 12px/.1em uppercase captions
+    button            .btn--solid (ink fill)
+    <= 900            1 column, 38px gap
+
+  Usage: {% section 'rj-about' %}
+{% endcomment %}
+
+{%- liquid
+  assign rj_alt = section.settings.image.alt | default: section.settings.heading | strip_html | strip
+  if rj_alt == blank
+    assign rj_alt = shop.name
+  endif
+-%}
+
+<div
+  class="rj-aboutsec color-{{ section.settings.color_scheme }} gradient"
+  style="--rj-about-pt: {{ section.settings.padding_top }}px; --rj-about-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="rj-wrap">
+    <div class="rj-about rj-reveal">
+      <div class="rj-about__media">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 1400
+            | image_tag:
+              loading: 'lazy',
+              widths: '400,600,800,1000,1200,1400',
+              sizes: '(min-width: 900px) 45vw, 100vw',
+              class: 'rj-about__img',
+              alt: rj_alt
+          }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'rj-about__img rj-about__img--placeholder' }}
+        {%- endif -%}
+
+        {%- if section.settings.show_badge and section.settings.badge_heading != blank -%}
+          <div class="rj-about__badge">
+            <b>{{ section.settings.badge_heading | escape }}</b>
+            {%- if section.settings.badge_text != blank -%}
+              <small>{{ section.settings.badge_text | escape }}</small>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="rj-about__body">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="rj-eyebrow">{{ section.settings.eyebrow | escape }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="rj-about__title">{{ section.settings.heading | escape | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.text != blank -%}
+          <div class="rj-about__text rte">{{ section.settings.text }}</div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="rj-about__stats">
+            {%- for block in section.blocks -%}
+              <div class="rj-about__stat" {{ block.shopify_attributes }}>
+                {%- if block.settings.value != blank -%}
+                  <b>{{ block.settings.value | escape }}</b>
+                {%- endif -%}
+                {%- if block.settings.label != blank -%}
+                  <small>{{ block.settings.label | escape }}</small>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <a
+            class="rj-btn rj-btn--solid rj-about__cta"
+            {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+          >
+            {{- section.settings.button_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RJ About story",
+  "tag": "section",
+  "class": "rj-about-section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "info": "Design uses the white scheme for this section.",
+      "default": "scheme-3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Workshop / story image",
+      "info": "Portrait crop, 4:5. Example: Images/About/Our Story.png"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show the floating badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_heading",
+      "label": "Badge heading",
+      "default": "25+ Years"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge caption",
+      "default": "of Woodcraft"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our Story"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Craft that carries\na family's name."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Story copy",
+      "default": "<p>RJ Arts began in the workshops of Rajasthan, where solid Sheesham is still shaped the way it has been for generations — kiln-dried, hand-joined, and finished by artisans who take pride in every grain.</p><p>Each bed, sofa and dining set is built to be lived with and handed down, not replaced. That belief in permanence is why over 10,000 homes have made RJ Arts a part of their everyday.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Read Our Story"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Number",
+          "default": "10,000+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Caption",
+          "default": "Happy Homes"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RJ About story",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "10,000+", "label": "Happy Homes" } },
+        { "type": "stat", "settings": { "value": "830+", "label": "5-Star Reviews" } },
+        { "type": "stat", "settings": { "value": "3 Years", "label": "Warranty" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

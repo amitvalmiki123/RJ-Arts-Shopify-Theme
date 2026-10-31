@@ -5963,6 +5963,213 @@ details-disclosure > details {
   }
 }
 
+/* ==========================================================================
+   RJ ARTS - about / our story (design .about)
+   1fr / 1.05fr split, 4:5 portrait photo with a floating glass badge,
+   ink-soft copy at 1.85 leading, brass serif stat numbers, solid button.
+   ========================================================================== */
+
+.rj-aboutsec {
+  display: block;
+  padding-block: var(--rj-about-pt, 96px) var(--rj-about-pb, 96px);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.rj-about {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 64px;
+  align-items: center;
+}
+
+/* ---- media + floating badge ---- */
+.rj-about__media {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--rj-cream-2);
+}
+
+.rj-about__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.3s var(--rj-ease);
+}
+
+.rj-about:hover .rj-about__img {
+  transform: scale(1.05);
+}
+
+.rj-about__img--placeholder {
+  opacity: 0.9;
+}
+
+.rj-about__badge {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-radius: 4px;
+  padding: 16px 22px;
+  box-shadow: var(--rj-shadow-sm);
+}
+
+.rj-about__badge b {
+  display: block;
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--rj-ink);
+}
+
+.rj-about__badge small {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--rj-sans);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rj-grey);
+}
+
+/* ---- body ---- */
+.rj-about__title {
+  margin: 14px 0 22px;
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+.rj-about__text p {
+  margin: 0 0 18px;
+  max-width: 560px;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--rj-ink-soft);
+}
+
+.rj-about__text p:last-child {
+  margin-bottom: 0;
+}
+
+.rj-about__text a {
+  color: var(--rj-brass-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- stats ---- */
+.rj-about__stats {
+  display: flex;
+  gap: 44px;
+  flex-wrap: wrap;
+  margin: 32px 0 34px;
+}
+
+.rj-about__stat b {
+  display: block;
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--rj-brass);
+}
+
+.rj-about__stat small {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--rj-sans);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rj-grey);
+}
+
+/* ---- 989 and below ---- */
+@media screen and (max-width: 989px) {
+  .rj-about {
+    gap: 44px;
+  }
+
+  .rj-about__stats {
+    gap: 32px;
+  }
+
+  .rj-about__stat b {
+    font-size: 34px;
+  }
+}
+
+/* ---- 900 and below (design): single column ---- */
+@media screen and (max-width: 900px) {
+  .rj-about {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .rj-about__media {
+    aspect-ratio: 4 / 3;
+    max-height: 520px;
+  }
+}
+
+/* ---- 768 and below ---- */
+@media screen and (max-width: 768px) {
+  .rj-aboutsec {
+    padding-block: min(var(--rj-about-pt, 96px), 64px) min(var(--rj-about-pb, 96px), 64px);
+  }
+
+  .rj-about__media {
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
+  }
+
+  .rj-about__badge {
+    left: 16px;
+    bottom: 16px;
+    padding: 12px 16px;
+  }
+
+  .rj-about__badge b {
+    font-size: 24px;
+  }
+
+  .rj-about__title {
+    font-size: clamp(28px, 7vw, 38px);
+    margin: 12px 0 18px;
+  }
+
+  .rj-about__text p {
+    font-size: 15px;
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .rj-about__stats {
+    gap: 24px 32px;
+    margin: 26px 0 28px;
+  }
+
+  .rj-about__stat b {
+    font-size: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rj-about__img {
+    transition: none;
+  }
+}
+
 .header__icon--menu { display: none; }
 @media screen and (max-width: 989px) {
   .header__icon--menu { display: flex; }

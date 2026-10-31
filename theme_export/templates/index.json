@@ -200,6 +200,49 @@
         "padding_top": 0,
         "padding_bottom": 96
       }
+    },
+    "rj_about": {
+      "type": "rj-about",
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "10,000+",
+            "label": "Happy Homes"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "830+",
+            "label": "5-Star Reviews"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "3 Years",
+            "label": "Warranty"
+          }
+        }
+      },
+      "block_order": [
+        "stat-1",
+        "stat-2",
+        "stat-3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "show_badge": true,
+        "badge_heading": "25+ Years",
+        "badge_text": "of Woodcraft",
+        "eyebrow": "Our Story",
+        "heading": "Craft that carries\na family's name.",
+        "text": "<p>RJ Arts began in the workshops of Rajasthan, where solid Sheesham is still shaped the way it has been for generations — kiln-dried, hand-joined, and finished by artisans who take pride in every grain.</p><p>Each bed, sofa and dining set is built to be lived with and handed down, not replaced. That belief in permanence is why over 10,000 homes have made RJ Arts a part of their everyday.</p>",
+        "button_label": "Read Our Story",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     }
   },
   "order": [
@@ -207,6 +250,7 @@
     "rj_usp",
     "rj_categories",
     "rj_showroom",
-    "rj_band_rest"
+    "rj_band_rest",
+    "rj_about"
   ]
 }

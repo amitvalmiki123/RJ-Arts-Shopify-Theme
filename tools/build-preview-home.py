@@ -435,6 +435,30 @@ USP = """
       </div>
     </div>
   </div>
+</div>
+<div class="rj-aboutsec" id="about" style="--rj-about-pt: 96px; --rj-about-pb: 96px;">
+  <div class="rj-wrap">
+    <div class="rj-about rj-reveal">
+      <div class="rj-about__media">
+        <img class="rj-about__img" src="Images/About/Our Story.png" alt="Inside the RJ Arts workshop">
+        <div class="rj-about__badge"><b>25+ Years</b><small>of Woodcraft</small></div>
+      </div>
+      <div class="rj-about__body">
+        <span class="rj-eyebrow">Our Story</span>
+        <h2 class="rj-about__title">Craft that carries<br>a family's name.</h2>
+        <div class="rj-about__text">
+        <p>RJ Arts began in the workshops of Rajasthan, where solid Sheesham is still shaped the way it has been for generations — kiln-dried, hand-joined, and finished by artisans who take pride in every grain.</p>
+        <p>Each bed, sofa and dining set is built to be lived with and handed down, not replaced. That belief in permanence is why over 10,000 homes have made RJ Arts a part of their everyday.</p>
+        </div>
+        <div class="rj-about__stats">
+          <div class="rj-about__stat"><b>10,000+</b><small>Happy Homes</small></div>
+          <div class="rj-about__stat"><b>830+</b><small>5-Star Reviews</small></div>
+          <div class="rj-about__stat"><b>3 Years</b><small>Warranty</small></div>
+        </div>
+        <a href="#" class="rj-btn rj-btn--solid rj-about__cta">Read Our Story</a>
+      </div>
+    </div>
+  </div>
 </div>"""
 
 SCRIPT = """
