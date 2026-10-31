@@ -6170,6 +6170,318 @@ details-disclosure > details {
   }
 }
 
+/* ==========================================================================
+   RJ ARTS - best sellers grid (design .pgrid, 4 equal cards)
+   ========================================================================== */
+
+.rj-best {
+  display: block;
+  padding-block: var(--rj-best-pt, 96px) var(--rj-best-pb, 96px);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.rj-best__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 46px;
+}
+
+.rj-best__title {
+  margin: 12px 0 0;
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+.rj-best__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+/* card look is shared with the showroom rail (.rj-pcard) - only the grid
+   needs its own rules here. */
+
+@media screen and (max-width: 1024px) {
+  .rj-best__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .rj-best {
+    padding-block: min(var(--rj-best-pt, 96px), 64px) min(var(--rj-best-pb, 96px), 64px);
+  }
+
+  .rj-best__head {
+    margin-bottom: 28px;
+    gap: 18px;
+  }
+
+  .rj-best__title {
+    font-size: clamp(28px, 7vw, 38px);
+  }
+
+  .rj-best__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .rj-best__grid .rj-pcard__body {
+    padding: 14px 14px 18px;
+  }
+
+  .rj-best__grid .rj-pcard__title {
+    font-size: 17px;
+    min-height: 42px;
+    margin: 6px 0 10px;
+  }
+
+  .rj-best__grid .rj-pcard__price .now {
+    font-size: 15px;
+  }
+
+  .rj-best__grid .rj-pcard__quick {
+    transform: none;
+    opacity: 1;
+  }
+
+  .rj-best__grid .rj-pcard__quick .rj-btn {
+    font-size: 10px;
+    padding: 10px;
+  }
+}
+
+/* ==========================================================================
+   RJ ARTS - collection carousel (design "horizontal collection carousel")
+   Reuses .rj-rail + .rj-pcard; only the head and card width differ.
+   ========================================================================== */
+
+.rj-edit {
+  display: block; /* custom element <rj-carousel> */
+  padding-block: var(--rj-edit-pt, 0px) var(--rj-edit-pb, 96px);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.rj-edit__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 46px;
+}
+
+.rj-edit__title {
+  margin: 12px 0 0;
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+.rj-edit__rail.rj-rail {
+  grid-auto-columns: minmax(240px, 1fr);
+}
+
+@media screen and (max-width: 768px) {
+  .rj-edit {
+    padding-block: 0 min(var(--rj-edit-pb, 96px), 64px);
+  }
+
+  .rj-edit__head {
+    margin-bottom: 26px;
+    gap: 18px;
+  }
+
+  .rj-edit__title {
+    font-size: clamp(28px, 7vw, 38px);
+  }
+
+  .rj-edit__rail.rj-rail {
+    grid-auto-columns: minmax(220px, 74vw);
+  }
+}
+
+/* ==========================================================================
+   RJ ARTS - reviews rail (design .reviews / .rev-rail / .rcard)
+   White section framed by hairlines, serif quotes on cream cards,
+   brass initial coins.
+   ========================================================================== */
+
+.rj-reviews {
+  display: block;
+  padding-block: var(--rj-rev-pt, 96px) var(--rj-rev-pb, 96px);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.rj-reviews--rules {
+  border-top: 1px solid var(--rj-line);
+  border-bottom: 1px solid var(--rj-line);
+}
+
+.rj-reviews__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 46px;
+}
+
+.rj-reviews__title {
+  margin: 12px 0 0;
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+.rj-reviews__intro {
+  max-width: 440px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--rj-grey);
+}
+
+.rj-revrail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(340px, 1fr);
+  gap: 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rj-brass) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rj-revrail::-webkit-scrollbar {
+  height: 3px;
+}
+
+.rj-revrail::-webkit-scrollbar-thumb {
+  background: var(--rj-brass);
+  border-radius: 3px;
+}
+
+/* design uses the cream surface (#f7f4ef) on a white section; the panel
+   token keeps that surface editable from Theme settings */
+.rj-rcard {
+  background: var(--rj-cream-2);
+  border: 1px solid var(--rj-line);
+  border-radius: 5px;
+  padding: 30px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.rj-rcard__stars {
+  color: var(--rj-brass);
+  letter-spacing: 3px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.rj-rcard__quote {
+  margin: 16px 0 22px;
+  font-family: var(--rj-serif);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 1.4;
+  color: var(--rj-ink);
+}
+
+.rj-rcard__who {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.rj-rcard__av {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--rj-brass);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-family: var(--rj-serif);
+  font-size: 18px;
+  flex: 0 0 auto;
+  text-transform: uppercase;
+}
+
+.rj-rcard__meta b {
+  display: block;
+  font-family: var(--rj-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.rj-rcard__meta small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--rj-grey);
+}
+
+@media screen and (max-width: 989px) {
+  .rj-revrail {
+    grid-auto-columns: minmax(290px, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .rj-reviews {
+    padding-block: min(var(--rj-rev-pt, 96px), 64px) min(var(--rj-rev-pb, 96px), 64px);
+  }
+
+  .rj-reviews__head {
+    margin-bottom: 28px;
+    gap: 16px;
+  }
+
+  .rj-reviews__title {
+    font-size: clamp(28px, 7vw, 38px);
+  }
+
+  .rj-reviews__intro {
+    font-size: 15px;
+    max-width: none;
+  }
+
+  .rj-revrail {
+    grid-auto-columns: minmax(268px, 82vw);
+    gap: 14px;
+  }
+
+  .rj-rcard {
+    padding: 22px;
+  }
+
+  .rj-rcard__quote {
+    font-size: 18px;
+    margin: 14px 0 18px;
+  }
+}
+
 .header__icon--menu { display: none; }
 @media screen and (max-width: 989px) {
   .header__icon--menu { display: flex; }

@@ -459,6 +459,78 @@ USP = """
       </div>
     </div>
   </div>
+</div>
+<div class="rj-best" id="best" style="--rj-best-pt: 96px; --rj-best-pb: 96px;">
+  <div class="rj-wrap">
+    <div class="rj-best__head rj-reveal">
+      <div><span class="rj-eyebrow">Loved Most</span><h2 class="rj-best__title">This week's best sellers.</h2></div>
+      <a href="#" class="rj-btn rj-best__viewall">View All Best Sellers</a>
+    </div>
+    <div class="rj-best__grid rj-reveal">
+      <article class="rj-pcard">
+        <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">−46%</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=700" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-best__viewall" href="#">Quick View</a></div></div>
+        <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Platform Cot Bed · Cushioned Headboard</h3><div class="rj-pcard__price"><span class="now">₹15,566</span><span class="was">₹28,798</span></div><div class="rj-pcard__stars">★★★★★ <small>19 reviews</small></div></div>
+      </article>
+      <article class="rj-pcard">
+        <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">−43%</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-best__viewall" href="#">Quick View</a></div></div>
+        <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Wood Arch Bed · Sheesham</h3><div class="rj-pcard__price"><span class="now">₹15,998</span><span class="was">₹28,078</span></div><div class="rj-pcard__stars">★★★★★ <small>16 reviews</small></div></div>
+      </article>
+      <article class="rj-pcard">
+        <div class="rj-pcard__media"><span class="rj-pcard__tag">Best Seller</span><img src="https://therjart.com/cdn/shop/files/Rjart_Nirvana_Sheesham_Single_Seater_Sofa.png?width=700" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-best__viewall" href="#">Quick View</a></div></div>
+        <div class="rj-pcard__body"><span class="rj-pcard__cat">Living</span><h3 class="rj-pcard__title">Nirvana Single-Seater Sofa</h3><div class="rj-pcard__price"><span class="now">₹15,622</span></div><div class="rj-pcard__stars">★★★★★ <small>Best Seller</small></div></div>
+      </article>
+      <article class="rj-pcard">
+        <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">−42%</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-best__viewall" href="#">Quick View</a></div></div>
+        <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Low-Height Double Bed · Rosewood</h3><div class="rj-pcard__price"><span class="now">₹15,823</span><span class="was">₹27,358</span></div><div class="rj-pcard__stars">★★★★★ <small>19 reviews</small></div></div>
+      </article>
+    </div>
+  </div>
+</div>
+<div class="rj-bandwrap" style="--rj-band-pt: 0px; --rj-band-pb: 96px; --rj-band-min: 520px;">
+  <div class="rj-wrap">
+    <div class="rj-band rj-reveal">
+      <div class="rj-band__bg"><img class="rj-band__img" src="Images/Sofa_Desktop_Banner.webp" alt="Crafted Comfort"></div>
+      <div class="rj-band__inner">
+        <span class="rj-eyebrow rj-band__eyebrow">Crafted Comfort</span>
+        <h2 class="rj-band__title">For every<br>corner of home.</h2>
+        <p class="rj-band__text">Handcrafted sofas and cabinets that blend timeless elegance with everyday comfort — from modern minimalism to classic luxury.</p>
+        <a href="#" class="rj-btn rj-btn--light rj-band__cta">Shop Living Room</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="rj-edit" style="--rj-edit-pt: 0px; --rj-edit-pb: 96px;">
+  <div class="rj-wrap">
+    <div class="rj-edit__head rj-reveal">
+      <div><span class="rj-eyebrow">Latest Editions</span><h2 class="rj-edit__title">Fresh from the workshop.</h2></div>
+      <div class="rj-railnav">
+        <button data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19" fill="none" stroke="currentColor"/></svg></button>
+        <button data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19" fill="none" stroke="currentColor"/></svg></button>
+      </div>
+    </div>
+    <div class="rj-rail rj-edit__rail rj-reveal" data-rj-rail>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Sevilla</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Storage</span><h3 class="rj-pcard__title">Sevilla Half-Box Storage Bed</h3><div class="rj-pcard__price"><span class="now">₹34,522</span></div></div></article>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Crew</span><img src="https://therjart.com/cdn/shop/files/Rjart_Nirvana_Sheesham_Single_Seater_Sofa.png?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Lounge</span><h3 class="rj-pcard__title">Crew 2-Seater Sofa</h3><div class="rj-pcard__price"><span class="now">₹18,999</span></div></div></article>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Simons</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Single</span><h3 class="rj-pcard__title">Simons Single Box-Storage Bed</h3><div class="rj-pcard__price"><span class="now">₹16,499</span></div></div></article>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Scott</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Rjart_Solid_Wood_Dining_Set_With_Bench_Dining_Chairs.png?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Crafted</span><h3 class="rj-pcard__title">Scott 2-Seater Sofa</h3><div class="rj-pcard__price"><span class="now">₹17,999</span></div></div></article>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Arvyn</span><img src="https://therjart.com/cdn/shop/files/Arvyn_Sheesham_6_Seater_Dining_Set_-_3_Years_Warranty.png?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Dining</span><h3 class="rj-pcard__title">Arvyn 6-Seater Dining Set</h3><div class="rj-pcard__price"><span class="now">₹45,999</span></div></div></article>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Bar</span><img src="https://therjart.com/cdn/shop/files/Rjart_Sheesham_Regular_Brass_Design_Home_Bar_Cabinet.png?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Living</span><h3 class="rj-pcard__title">Brass-Design Home Bar Cabinet</h3><div class="rj-pcard__price"><span class="now">₹41,595</span></div></div></article>
+    </div>
+  </div>
+</div>
+<div class="rj-reviews rj-reviews--rules" style="--rj-rev-pt: 96px; --rj-rev-pb: 96px;">
+  <div class="rj-wrap">
+    <div class="rj-reviews__head rj-reveal">
+      <div><span class="rj-eyebrow">830+ Reviews</span><h2 class="rj-reviews__title">Let customers<br>speak for us.</h2></div>
+      <p class="rj-reviews__intro">A 4.8 average across 830 verified reviews — from real RJ Arts homes.</p>
+    </div>
+    <div class="rj-revrail rj-reveal" data-rj-rail>
+      <div class="rj-rcard"><div class="rj-rcard__stars">★★★★★</div><p class="rj-rcard__quote">"Good as per my expectation. Delivery on time. Quality very good. Price reasonable. Worth buying."</p><div class="rj-rcard__who"><span class="rj-rcard__av">P</span><div class="rj-rcard__meta"><b>Paramjit Sodhi</b><br><small>Low-Height Sheesham Bed · Verified</small></div></div></div>
+      <div class="rj-rcard"><div class="rj-rcard__stars">★★★★★</div><p class="rj-rcard__quote">"The bed frame is very steady and looks simple and elegant. Very easy for kids and elderly to use. Very happy with this purchase."</p><div class="rj-rcard__who"><span class="rj-rcard__av">H</span><div class="rj-rcard__meta"><b>Hirdesh Chowhan</b><br><small>Wood Double Bed · Verified</small></div></div></div>
+      <div class="rj-rcard"><div class="rj-rcard__stars">★★★★★</div><p class="rj-rcard__quote">"The joints and finishing are very neat. Truly premium quality."</p><div class="rj-rcard__who"><span class="rj-rcard__av">V</span><div class="rj-rcard__meta"><b>Venkat Hebbar</b><br><small>King Storage Bed · Verified</small></div></div></div>
+      <div class="rj-rcard"><div class="rj-rcard__stars">★★★★★</div><p class="rj-rcard__quote">"The Sheesham wood feels very strong. The cushioned headboard adds comfort and looks classy."</p><div class="rj-rcard__who"><span class="rj-rcard__av">A</span><div class="rj-rcard__meta"><b>Arjun Reddy</b><br><small>Platform Cot Bed · Verified</small></div></div></div>
+    </div>
+  </div>
 </div>"""
 
 SCRIPT = """
@@ -506,6 +578,17 @@ SCRIPT = """
       });
     });
   }
+
+  document.querySelectorAll('[data-rj-rail-dir]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const rail = button.closest('.rj-edit').querySelector('[data-rj-rail]');
+      if (!rail) return;
+      const card = rail.querySelector('.rj-pcard, .rj-rcard');
+      const gap = parseFloat(getComputedStyle(rail).columnGap) || 22;
+      const step = card ? card.getBoundingClientRect().width + gap : 300;
+      rail.scrollBy({ left: step * parseInt(button.dataset.rjRailDir, 10), behavior: 'smooth' });
+    });
+  });
 
   const hero = document.querySelector('rj-hero');
   const slides = [...hero.querySelectorAll('.rj-hero__slide')];

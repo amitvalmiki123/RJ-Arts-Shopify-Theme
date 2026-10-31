@@ -1,0 +1,212 @@
+{% comment %}
+  RJ ARTS — Reviews rail (design "REVIEWS")
+
+  Matches design/THE-RJ-ARTS.html:
+    .reviews          white section, hairline rules top + bottom
+    .sec-head         eyebrow + h2 left, grey intro paragraph right
+    .rev-rail         horizontal snap rail, cards min 340px, 22px gap
+    .rcard            cream card, hairline border, 5px radius, 30px padding
+    .rcard .stars     brass stars, 3px letter-spacing, 14px
+    .rcard p          serif 21px / 1.4 quote, 16 / 22 margins
+    .rcard .who       brass 40px circle initial + name + product line
+
+  Reviews are merchant blocks (name, quote, product, stars, initial), so no app
+  is required. A reviews app can be dropped in later without touching the CSS.
+
+  Usage: {% section 'rj-reviews' %}
+{% endcomment %}
+
+<div
+  class="rj-reviews color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_rules %} rj-reviews--rules{% endif %}"
+  style="--rj-rev-pt: {{ section.settings.padding_top }}px; --rj-rev-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="rj-wrap">
+    <div class="rj-reviews__head rj-reveal">
+      <div class="rj-reviews__head-main">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="rj-eyebrow">{{ section.settings.eyebrow | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="rj-reviews__title">{{ section.settings.heading | escape | newline_to_br }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.text != blank -%}
+        <p class="rj-reviews__intro">{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="rj-revrail rj-reveal" data-rj-rail>
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign rj_stars = block.settings.stars | default: 5
+          assign rj_initial = block.settings.initial
+          if rj_initial == blank
+            assign rj_initial = block.settings.name | slice: 0
+          endif
+        -%}
+        <div class="rj-rcard" {{ block.shopify_attributes }}>
+          <div class="rj-rcard__stars" aria-label="{{ rj_stars }} out of 5" role="img">
+            {%- for i in (1..rj_stars) -%}&#9733;{%- endfor -%}
+          </div>
+          {%- if block.settings.quote != blank -%}
+            <p class="rj-rcard__quote">&ldquo;{{ block.settings.quote | escape }}&rdquo;</p>
+          {%- endif -%}
+          <div class="rj-rcard__who">
+            <span class="rj-rcard__av" aria-hidden="true">{{ rj_initial }}</span>
+            <div class="rj-rcard__meta">
+              {%- if block.settings.name != blank -%}
+                <b>{{ block.settings.name | escape }}</b>
+              {%- endif -%}
+              {%- if block.settings.product != blank -%}
+                <small>{{ block.settings.product | escape }}</small>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RJ Reviews rail",
+  "tag": "section",
+  "class": "rj-reviews-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "info": "Design uses the white scheme with hairline rules.",
+      "default": "scheme-3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rules",
+      "label": "Show hairline above and below",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "830+ Reviews"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Let customers\nspeak for us."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Intro paragraph",
+      "default": "A 4.8 average across 830 verified reviews — from real RJ Arts homes."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "stars",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Stars",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review text",
+          "default": "The joints and finishing are very neat. Truly premium quality."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name",
+          "default": "Venkat Hebbar"
+        },
+        {
+          "type": "text",
+          "id": "product",
+          "label": "Product line",
+          "info": "Example: King Storage Bed · Verified",
+          "default": "King Storage Bed · Verified"
+        },
+        {
+          "type": "text",
+          "id": "initial",
+          "label": "Avatar letter",
+          "info": "Optional. Defaults to the first letter of the name."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RJ Reviews rail",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "quote": "Good as per my expectation. Delivery on time. Quality very good. Price reasonable. Worth buying.",
+            "name": "Paramjit Sodhi",
+            "product": "Low-Height Sheesham Bed · Verified"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "quote": "The bed frame is very steady and looks simple and elegant. Very easy for kids and elderly to use. Very happy with this purchase.",
+            "name": "Hirdesh Chowhan",
+            "product": "Wood Double Bed · Verified"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "quote": "The joints and finishing are very neat. Truly premium quality.",
+            "name": "Venkat Hebbar",
+            "product": "King Storage Bed · Verified"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "quote": "The Sheesham wood feels very strong. The cushioned headboard adds comfort and looks classy.",
+            "name": "Arjun Reddy",
+            "product": "Platform Cot Bed · Verified"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

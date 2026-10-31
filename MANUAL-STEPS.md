@@ -49,8 +49,8 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 2488 | **⬅ is round me badli (About CSS)** |
-| 4 | `assets/rj-arts.js` | **NAYI FILE** | 182 | **⬅ is round me badli (showroom tabs)** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 2800 | **⬅ is round me badli (best / carousel / reviews CSS)** |
+| 4 | `assets/rj-arts.js` | **NAYI FILE** | 211 | **⬅ is round me badli (<rj-carousel> arrows)** |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
 | 7 | `sections/header.liquid` | REPLACE | 721 | ✅ pehle kar liya to skip |
@@ -61,9 +61,12 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 | ✅ pichle round me kar liya to skip |
 | 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | ✅ pichle round me kar liya to skip |
 | 14 | `sections/rj-band.liquid` | **NAYI FILE** | 188 | ✅ pichle round me kar liya to skip |
-| 15 | `sections/footer-group.json` | REPLACE | 61 | ✅ pehle kar liya to skip |
-| 16 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | **⬅ is round me naya (About story)** |
-| 17 | `templates/index.json` | REPLACE | 256 | **⬅ sabse aakhir me** |
+| 15 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | ✅ pichle round me kar liya to skip |
+| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 239 | **⬅ is round me naya (Best sellers)** |
+| 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 212 | **⬅ is round me naya (Collection carousel)** |
+| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 212 | **⬅ is round me naya (Reviews rail)** |
+| 19 | `sections/footer-group.json` | REPLACE | 61 | ✅ pehle kar liya to skip |
+| 20 | `templates/index.json` | REPLACE | 413 | **⬅ poora homepage — sabse aakhir me** |
 
 Dawn ki baaki **337 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -139,17 +142,27 @@ Feature band (photo + left copy). Isi ek file se **do** bands banenge —
 "The Art of Rest" (560px) aur aage "Crafted Comfort" (520px).
 `sections` → New file → naam `rj-band.liquid` → paste → Save.
 
-### Step 15 — `sections/footer-group.json` → REPLACE
+### Step 16 — `sections/rj-best.liquid` → **NAYI FILE**
+Best sellers 4-up grid. `sections` → New file → naam `rj-best.liquid` → paste → Save.
+
+### Step 17 — `sections/rj-collections.liquid` → **NAYI FILE**
+Collection carousel (arrows wali rail). File naam: `rj-collections.liquid`.
+
+### Step 18 — `sections/rj-reviews.liquid` → **NAYI FILE**
+Reviews rail (merchant ke apne review blocks, koi app nahi chahiye).
+File naam: `rj-reviews.liquid`.
+
+### Step 19 — `sections/footer-group.json` → REPLACE
 Footer ke 4 columns (brand + Shop + Company + Support).
 
-### Step 16 — `sections/rj-about.liquid` → **NAYI FILE**
+### Step 15 — `sections/rj-about.liquid` → **NAYI FILE**
 "Our Story" split section (4:5 photo + floating 25+ Years badge, 3 stats).
 `sections` → New file → naam `rj-about.liquid` → paste → Save.
 
-### Step 17 — `templates/index.json` → REPLACE
-Homepage template (abhi hero + USP + Category tiles + Showroom edit + Art of Rest band + About story).
+### Step 20 — `templates/index.json` → REPLACE
+Homepage template — poore 10 sections (hero, USP, category tiles, showroom, Art of Rest band, About, best sellers, Crafted Comfort band, collection carousel, reviews).
 
-> ⚠️ Steps 10–13 pehle hone chahiye, warna `Section type 'rj_hero' / 'rj_categories' / 'rj_showroom' / 'rj-band' / 'rj-about' does not exist` error aayega.
+> ⚠️ Steps 10–18 (saari custom sections) pehle hone chahiye, warna `Section type 'rj_best' / 'rj_collections' / 'rj_reviews' does not exist` error aayega.
 
 ---
 
@@ -232,7 +245,23 @@ Customize → **RJ About story** → **Workshop / story image** me
 (`25+ Years` / `of Woodcraft`) aur 3 stats blocks wahin se edit hote hain.
 Button `Read Our Story` → `pages/about-us` (page banane ke baad).
 
-### 3.11 Mega feature cards (6)
+### 3.11 Best sellers — collection (zaroori)
+Customize → **RJ Best sellers** → **Collection** = `best-sellers`. 4 products
+dikhenge (slider se 2–8). Badge: discount % (compare-at se) ya `Best Sellers`
+tag hone par "Best Seller".
+
+### 3.12 Collection carousel — collection cards
+Customize → **RJ Collection carousel** → har card me **Collection** chunein
+(Sevilla / Crew / Simons / Scott / Arvyn / Bar jaisi series-auto collections).
+"Small image tag" aur "Category line" design ke text hain — apne hisaab se badal
+sakte hain. Card na chunein to placeholder dikhega.
+
+### 3.13 Reviews rail — apne reviews
+Customize → **RJ Reviews rail** → 4 review blocks pehle se bhare hain (design ke
+text). Apne asli reviews paste karein: text, naam, product line, stars. Reviews
+app baad me lag sakta hai — CSS same rahega.
+
+### 3.14 Mega feature cards (6)
 Header section → `mega_feature` blocks. Har block me:
 - **Parent link** = menu naam **exactly** (`Bedroom` / `Living` / `Dining`)
 - Image (3:4), Label, Link
@@ -253,6 +282,10 @@ Header section → `mega_feature` blocks. Har block me:
 | 7 | USP: 4 items, brass icons | Hero ke neeche |
 | 7a | Art of Rest band: photo + gold eyebrow + white button | Showroom ke neeche |
 | 7b | About: 4:5 photo + 25+ Years badge + 3 brass stats | Band ke neeche |
+| 7c | Best sellers: 4 cards, −46% jaise rust badges | About ke neeche |
+| 7d | Crafted Comfort band (sofa photo, 520px) | Best sellers ke neeche |
+| 7e | Collection carousel: arrows rail scroll karte hain | Band ke neeche |
+| 7f | Reviews: white section, cream cards, brass initials | Sabse neeche |
 | 8 | Footer: brand + Shop + Company + Support | Page bottom |
 | 9 | Mobile 390px: hamburger drawer, hero 1 column | Devtools |
 
@@ -324,6 +357,6 @@ Agar poora `layout/theme.liquid` replace nahi karna chahte, to `manual/` folder 
 
 ## 7. Aage
 
-Group 1 (header) ✅ + homepage ke section **1–6** (hero, USP, Category tiles, Showroom edit, Art of Rest band, About story) ✅.
+Group 1 (header) ✅ + Group 2 (**10/10** homepage sections) ✅. Group 3 (footer) baaki.
 
-Group 2 me aage: **7** Best sellers grid → **8** Crafted Comfort (isi rj-band section se) → **9** Collection carousel → **10** Reviews. Fir **Group 3 — Footer**.
+Group 2 ✅ **poora ho gaya** (10/10 sections). Ab sirf **Group 3 — Footer** bacha hai (newsletter band, brand, 3 menus, contact, socials, payment chips, ghost wordmark).

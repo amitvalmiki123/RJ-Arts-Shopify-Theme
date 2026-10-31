@@ -6170,6 +6170,318 @@ details-disclosure > details {
   }
 }
 
+/* ==========================================================================
+   RJ ARTS - best sellers grid (design .pgrid, 4 equal cards)
+   ========================================================================== */
+
+.rj-best {
+  display: block;
+  padding-block: var(--rj-best-pt, 96px) var(--rj-best-pb, 96px);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.rj-best__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 46px;
+}
+
+.rj-best__title {
+  margin: 12px 0 0;
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+.rj-best__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+/* card look is shared with the showroom rail (.rj-pcard) - only the grid
+   needs its own rules here. */
+
+@media screen and (max-width: 1024px) {
+  .rj-best__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .rj-best {
+    padding-block: min(var(--rj-best-pt, 96px), 64px) min(var(--rj-best-pb, 96px), 64px);
+  }
+
+  .rj-best__head {
+    margin-bottom: 28px;
+    gap: 18px;
+  }
+
+  .rj-best__title {
+    font-size: clamp(28px, 7vw, 38px);
+  }
+
+  .rj-best__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .rj-best__grid .rj-pcard__body {
+    padding: 14px 14px 18px;
+  }
+
+  .rj-best__grid .rj-pcard__title {
+    font-size: 17px;
+    min-height: 42px;
+    margin: 6px 0 10px;
+  }
+
+  .rj-best__grid .rj-pcard__price .now {
+    font-size: 15px;
+  }
+
+  .rj-best__grid .rj-pcard__quick {
+    transform: none;
+    opacity: 1;
+  }
+
+  .rj-best__grid .rj-pcard__quick .rj-btn {
+    font-size: 10px;
+    padding: 10px;
+  }
+}
+
+/* ==========================================================================
+   RJ ARTS - collection carousel (design "horizontal collection carousel")
+   Reuses .rj-rail + .rj-pcard; only the head and card width differ.
+   ========================================================================== */
+
+.rj-edit {
+  display: block; /* custom element <rj-carousel> */
+  padding-block: var(--rj-edit-pt, 0px) var(--rj-edit-pb, 96px);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.rj-edit__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 46px;
+}
+
+.rj-edit__title {
+  margin: 12px 0 0;
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+.rj-edit__rail.rj-rail {
+  grid-auto-columns: minmax(240px, 1fr);
+}
+
+@media screen and (max-width: 768px) {
+  .rj-edit {
+    padding-block: 0 min(var(--rj-edit-pb, 96px), 64px);
+  }
+
+  .rj-edit__head {
+    margin-bottom: 26px;
+    gap: 18px;
+  }
+
+  .rj-edit__title {
+    font-size: clamp(28px, 7vw, 38px);
+  }
+
+  .rj-edit__rail.rj-rail {
+    grid-auto-columns: minmax(220px, 74vw);
+  }
+}
+
+/* ==========================================================================
+   RJ ARTS - reviews rail (design .reviews / .rev-rail / .rcard)
+   White section framed by hairlines, serif quotes on cream cards,
+   brass initial coins.
+   ========================================================================== */
+
+.rj-reviews {
+  display: block;
+  padding-block: var(--rj-rev-pt, 96px) var(--rj-rev-pb, 96px);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.rj-reviews--rules {
+  border-top: 1px solid var(--rj-line);
+  border-bottom: 1px solid var(--rj-line);
+}
+
+.rj-reviews__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 46px;
+}
+
+.rj-reviews__title {
+  margin: 12px 0 0;
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+.rj-reviews__intro {
+  max-width: 440px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--rj-grey);
+}
+
+.rj-revrail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(340px, 1fr);
+  gap: 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rj-brass) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rj-revrail::-webkit-scrollbar {
+  height: 3px;
+}
+
+.rj-revrail::-webkit-scrollbar-thumb {
+  background: var(--rj-brass);
+  border-radius: 3px;
+}
+
+/* design uses the cream surface (#f7f4ef) on a white section; the panel
+   token keeps that surface editable from Theme settings */
+.rj-rcard {
+  background: var(--rj-cream-2);
+  border: 1px solid var(--rj-line);
+  border-radius: 5px;
+  padding: 30px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.rj-rcard__stars {
+  color: var(--rj-brass);
+  letter-spacing: 3px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.rj-rcard__quote {
+  margin: 16px 0 22px;
+  font-family: var(--rj-serif);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 1.4;
+  color: var(--rj-ink);
+}
+
+.rj-rcard__who {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.rj-rcard__av {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--rj-brass);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-family: var(--rj-serif);
+  font-size: 18px;
+  flex: 0 0 auto;
+  text-transform: uppercase;
+}
+
+.rj-rcard__meta b {
+  display: block;
+  font-family: var(--rj-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.rj-rcard__meta small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--rj-grey);
+}
+
+@media screen and (max-width: 989px) {
+  .rj-revrail {
+    grid-auto-columns: minmax(290px, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .rj-reviews {
+    padding-block: min(var(--rj-rev-pt, 96px), 64px) min(var(--rj-rev-pb, 96px), 64px);
+  }
+
+  .rj-reviews__head {
+    margin-bottom: 28px;
+    gap: 16px;
+  }
+
+  .rj-reviews__title {
+    font-size: clamp(28px, 7vw, 38px);
+  }
+
+  .rj-reviews__intro {
+    font-size: 15px;
+    max-width: none;
+  }
+
+  .rj-revrail {
+    grid-auto-columns: minmax(268px, 82vw);
+    gap: 14px;
+  }
+
+  .rj-rcard {
+    padding: 22px;
+  }
+
+  .rj-rcard__quote {
+    font-size: 18px;
+    margin: 14px 0 18px;
+  }
+}
+
 /* preview-only: Dawn hides the hamburger on desktop via component CSS */
 /* design-exact icon row: one search trigger, no close glyph */
 .header__icon--menu { display: none; }
@@ -6607,6 +6919,78 @@ details-disclosure > details {
     </div>
   </div>
 </div>
+<div class="rj-best" id="best" style="--rj-best-pt: 96px; --rj-best-pb: 96px;">
+  <div class="rj-wrap">
+    <div class="rj-best__head rj-reveal">
+      <div><span class="rj-eyebrow">Loved Most</span><h2 class="rj-best__title">This week's best sellers.</h2></div>
+      <a href="#" class="rj-btn rj-best__viewall">View All Best Sellers</a>
+    </div>
+    <div class="rj-best__grid rj-reveal">
+      <article class="rj-pcard">
+        <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">−46%</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=700" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-best__viewall" href="#">Quick View</a></div></div>
+        <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Platform Cot Bed · Cushioned Headboard</h3><div class="rj-pcard__price"><span class="now">₹15,566</span><span class="was">₹28,798</span></div><div class="rj-pcard__stars">★★★★★ <small>19 reviews</small></div></div>
+      </article>
+      <article class="rj-pcard">
+        <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">−43%</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-best__viewall" href="#">Quick View</a></div></div>
+        <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Wood Arch Bed · Sheesham</h3><div class="rj-pcard__price"><span class="now">₹15,998</span><span class="was">₹28,078</span></div><div class="rj-pcard__stars">★★★★★ <small>16 reviews</small></div></div>
+      </article>
+      <article class="rj-pcard">
+        <div class="rj-pcard__media"><span class="rj-pcard__tag">Best Seller</span><img src="https://therjart.com/cdn/shop/files/Rjart_Nirvana_Sheesham_Single_Seater_Sofa.png?width=700" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-best__viewall" href="#">Quick View</a></div></div>
+        <div class="rj-pcard__body"><span class="rj-pcard__cat">Living</span><h3 class="rj-pcard__title">Nirvana Single-Seater Sofa</h3><div class="rj-pcard__price"><span class="now">₹15,622</span></div><div class="rj-pcard__stars">★★★★★ <small>Best Seller</small></div></div>
+      </article>
+      <article class="rj-pcard">
+        <div class="rj-pcard__media"><span class="rj-pcard__tag is-sale">−42%</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" alt=""><div class="rj-pcard__quick"><a class="rj-btn rj-best__viewall" href="#">Quick View</a></div></div>
+        <div class="rj-pcard__body"><span class="rj-pcard__cat">Bedroom</span><h3 class="rj-pcard__title">Low-Height Double Bed · Rosewood</h3><div class="rj-pcard__price"><span class="now">₹15,823</span><span class="was">₹27,358</span></div><div class="rj-pcard__stars">★★★★★ <small>19 reviews</small></div></div>
+      </article>
+    </div>
+  </div>
+</div>
+<div class="rj-bandwrap" style="--rj-band-pt: 0px; --rj-band-pb: 96px; --rj-band-min: 520px;">
+  <div class="rj-wrap">
+    <div class="rj-band rj-reveal">
+      <div class="rj-band__bg"><img class="rj-band__img" src="Images/Sofa_Desktop_Banner.webp" alt="Crafted Comfort"></div>
+      <div class="rj-band__inner">
+        <span class="rj-eyebrow rj-band__eyebrow">Crafted Comfort</span>
+        <h2 class="rj-band__title">For every<br>corner of home.</h2>
+        <p class="rj-band__text">Handcrafted sofas and cabinets that blend timeless elegance with everyday comfort — from modern minimalism to classic luxury.</p>
+        <a href="#" class="rj-btn rj-btn--light rj-band__cta">Shop Living Room</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="rj-edit" style="--rj-edit-pt: 0px; --rj-edit-pb: 96px;">
+  <div class="rj-wrap">
+    <div class="rj-edit__head rj-reveal">
+      <div><span class="rj-eyebrow">Latest Editions</span><h2 class="rj-edit__title">Fresh from the workshop.</h2></div>
+      <div class="rj-railnav">
+        <button data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19" fill="none" stroke="currentColor"/></svg></button>
+        <button data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19" fill="none" stroke="currentColor"/></svg></button>
+      </div>
+    </div>
+    <div class="rj-rail rj-edit__rail rj-reveal" data-rj-rail>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Sevilla</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Storage</span><h3 class="rj-pcard__title">Sevilla Half-Box Storage Bed</h3><div class="rj-pcard__price"><span class="now">₹34,522</span></div></div></article>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Crew</span><img src="https://therjart.com/cdn/shop/files/Rjart_Nirvana_Sheesham_Single_Seater_Sofa.png?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Lounge</span><h3 class="rj-pcard__title">Crew 2-Seater Sofa</h3><div class="rj-pcard__price"><span class="now">₹18,999</span></div></div></article>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Simons</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Single</span><h3 class="rj-pcard__title">Simons Single Box-Storage Bed</h3><div class="rj-pcard__price"><span class="now">₹16,499</span></div></div></article>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Scott</span><img src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Rjart_Solid_Wood_Dining_Set_With_Bench_Dining_Chairs.png?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Crafted</span><h3 class="rj-pcard__title">Scott 2-Seater Sofa</h3><div class="rj-pcard__price"><span class="now">₹17,999</span></div></div></article>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Arvyn</span><img src="https://therjart.com/cdn/shop/files/Arvyn_Sheesham_6_Seater_Dining_Set_-_3_Years_Warranty.png?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Dining</span><h3 class="rj-pcard__title">Arvyn 6-Seater Dining Set</h3><div class="rj-pcard__price"><span class="now">₹45,999</span></div></div></article>
+      <article class="rj-pcard rj-pcard--edit"><div class="rj-pcard__media"><span class="rj-pcard__tag">Bar</span><img src="https://therjart.com/cdn/shop/files/Rjart_Sheesham_Regular_Brass_Design_Home_Bar_Cabinet.png?width=600" alt=""></div><div class="rj-pcard__body"><span class="rj-pcard__cat">Living</span><h3 class="rj-pcard__title">Brass-Design Home Bar Cabinet</h3><div class="rj-pcard__price"><span class="now">₹41,595</span></div></div></article>
+    </div>
+  </div>
+</div>
+<div class="rj-reviews rj-reviews--rules" style="--rj-rev-pt: 96px; --rj-rev-pb: 96px;">
+  <div class="rj-wrap">
+    <div class="rj-reviews__head rj-reveal">
+      <div><span class="rj-eyebrow">830+ Reviews</span><h2 class="rj-reviews__title">Let customers<br>speak for us.</h2></div>
+      <p class="rj-reviews__intro">A 4.8 average across 830 verified reviews — from real RJ Arts homes.</p>
+    </div>
+    <div class="rj-revrail rj-reveal" data-rj-rail>
+      <div class="rj-rcard"><div class="rj-rcard__stars">★★★★★</div><p class="rj-rcard__quote">"Good as per my expectation. Delivery on time. Quality very good. Price reasonable. Worth buying."</p><div class="rj-rcard__who"><span class="rj-rcard__av">P</span><div class="rj-rcard__meta"><b>Paramjit Sodhi</b><br><small>Low-Height Sheesham Bed · Verified</small></div></div></div>
+      <div class="rj-rcard"><div class="rj-rcard__stars">★★★★★</div><p class="rj-rcard__quote">"The bed frame is very steady and looks simple and elegant. Very easy for kids and elderly to use. Very happy with this purchase."</p><div class="rj-rcard__who"><span class="rj-rcard__av">H</span><div class="rj-rcard__meta"><b>Hirdesh Chowhan</b><br><small>Wood Double Bed · Verified</small></div></div></div>
+      <div class="rj-rcard"><div class="rj-rcard__stars">★★★★★</div><p class="rj-rcard__quote">"The joints and finishing are very neat. Truly premium quality."</p><div class="rj-rcard__who"><span class="rj-rcard__av">V</span><div class="rj-rcard__meta"><b>Venkat Hebbar</b><br><small>King Storage Bed · Verified</small></div></div></div>
+      <div class="rj-rcard"><div class="rj-rcard__stars">★★★★★</div><p class="rj-rcard__quote">"The Sheesham wood feels very strong. The cushioned headboard adds comfort and looks classy."</p><div class="rj-rcard__who"><span class="rj-rcard__av">A</span><div class="rj-rcard__meta"><b>Arjun Reddy</b><br><small>Platform Cot Bed · Verified</small></div></div></div>
+    </div>
+  </div>
+</div>
 </main>
 
 <script>
@@ -6653,6 +7037,17 @@ details-disclosure > details {
       });
     });
   }
+
+  document.querySelectorAll('[data-rj-rail-dir]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const rail = button.closest('.rj-edit').querySelector('[data-rj-rail]');
+      if (!rail) return;
+      const card = rail.querySelector('.rj-pcard, .rj-rcard');
+      const gap = parseFloat(getComputedStyle(rail).columnGap) || 22;
+      const step = card ? card.getBoundingClientRect().width + gap : 300;
+      rail.scrollBy({ left: step * parseInt(button.dataset.rjRailDir, 10), behavior: 'smooth' });
+    });
+  });
 
   const hero = document.querySelector('rj-hero');
   const slides = [...hero.querySelectorAll('.rj-hero__slide')];

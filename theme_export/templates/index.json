@@ -243,6 +243,159 @@
         "padding_top": 96,
         "padding_bottom": 96
       }
+    },
+    "rj_best": {
+      "type": "rj-best",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "Loved Most",
+        "heading": "This week's best sellers.",
+        "products_to_show": 4,
+        "best_badge": "Best Seller",
+        "rating_label": "Best Seller",
+        "quick_view_label": "Quick View",
+        "link_label": "View All Best Sellers",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "rj_band_comfort": {
+      "type": "rj-band",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "Crafted Comfort",
+        "heading": "For every\ncorner of home.",
+        "text": "Handcrafted sofas and cabinets that blend timeless elegance with everyday comfort — from modern minimalism to classic luxury.",
+        "button_label": "Shop Living Room",
+        "min_height": 520,
+        "padding_top": 0,
+        "padding_bottom": 96
+      }
+    },
+    "rj_collections": {
+      "type": "rj-collections",
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "tag": "Sevilla",
+            "category": "Storage",
+            "show_price": true
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "tag": "Crew",
+            "category": "Lounge",
+            "show_price": true
+          }
+        },
+        "card-3": {
+          "type": "card",
+          "settings": {
+            "tag": "Simons",
+            "category": "Single",
+            "show_price": true
+          }
+        },
+        "card-4": {
+          "type": "card",
+          "settings": {
+            "tag": "Scott",
+            "category": "Crafted",
+            "show_price": true
+          }
+        },
+        "card-5": {
+          "type": "card",
+          "settings": {
+            "tag": "Arvyn",
+            "category": "Dining",
+            "show_price": true
+          }
+        },
+        "card-6": {
+          "type": "card",
+          "settings": {
+            "tag": "Bar",
+            "category": "Living",
+            "show_price": true
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3",
+        "card-4",
+        "card-5",
+        "card-6"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "Latest Editions",
+        "heading": "Fresh from the workshop.",
+        "price_prefix": "From",
+        "padding_top": 0,
+        "padding_bottom": 96
+      }
+    },
+    "rj_reviews": {
+      "type": "rj-reviews",
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "quote": "Good as per my expectation. Delivery on time. Quality very good. Price reasonable. Worth buying.",
+            "name": "Paramjit Sodhi",
+            "product": "Low-Height Sheesham Bed · Verified"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "quote": "The bed frame is very steady and looks simple and elegant. Very easy for kids and elderly to use. Very happy with this purchase.",
+            "name": "Hirdesh Chowhan",
+            "product": "Wood Double Bed · Verified"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "quote": "The joints and finishing are very neat. Truly premium quality.",
+            "name": "Venkat Hebbar",
+            "product": "King Storage Bed · Verified"
+          }
+        },
+        "review-4": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "quote": "The Sheesham wood feels very strong. The cushioned headboard adds comfort and looks classy.",
+            "name": "Arjun Reddy",
+            "product": "Platform Cot Bed · Verified"
+          }
+        }
+      },
+      "block_order": [
+        "review-1",
+        "review-2",
+        "review-3",
+        "review-4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "show_rules": true,
+        "eyebrow": "830+ Reviews",
+        "heading": "Let customers\nspeak for us.",
+        "text": "A 4.8 average across 830 verified reviews — from real RJ Arts homes.",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     }
   },
   "order": [
@@ -251,6 +404,10 @@
     "rj_categories",
     "rj_showroom",
     "rj_band_rest",
-    "rj_about"
+    "rj_about",
+    "rj_best",
+    "rj_band_comfort",
+    "rj_collections",
+    "rj_reviews"
   ]
 }

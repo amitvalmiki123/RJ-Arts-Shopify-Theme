@@ -180,3 +180,32 @@
     }
   });
 })();
+
+/* ==========================================================================
+   RJ ARTS - <rj-carousel>: round arrow pair scrolling a snap rail
+   (collection carousel). Independent of <rj-showroom>.
+   ========================================================================== */
+(function () {
+  if (customElements.get('rj-carousel')) return;
+
+  customElements.define('rj-carousel', class RjCarousel extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.rjReady) return;
+      this.dataset.rjReady = '1';
+
+      this.rail = this.querySelector('[data-rj-rail]');
+      if (!this.rail) return;
+
+      this.querySelectorAll('[data-rj-rail-dir]').forEach((button) => {
+        button.addEventListener('click', () => this.scrollRail(parseInt(button.dataset.rjRailDir, 10)));
+      });
+    }
+
+    scrollRail(dir) {
+      const card = this.rail.querySelector('.rj-pcard, .rj-rcard');
+      const gap = parseFloat(getComputedStyle(this.rail).columnGap) || 22;
+      const step = card ? card.getBoundingClientRect().width + gap : this.rail.clientWidth * 0.8;
+      this.rail.scrollBy({ left: step * dir, behavior: 'smooth' });
+    }
+  });
+})();
