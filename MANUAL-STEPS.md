@@ -68,15 +68,25 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 14 | `sections/rj-band.liquid` | **NAYI FILE** | 188 | ✅ pehle kar liya to skip |
 | 15 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | ✅ pehle kar liya to skip |
 | 16 | `sections/rj-best.liquid` | **NAYI FILE** | 234 | **⬅ is round me badla (fake placeholder hataya)** |
-| 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 212 | ✅ pehle kar liya to skip |
+| 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 219 | ✅ pehle kar liya to skip *(homepage carousel)* |
 | 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 276 | **⬅ is round me badla (editor hint editable)** |
 | 19 | `sections/footer.liquid` | REPLACE (Dawn ki file) | 447 | ✅ pichle round me kar liya to skip |
 | 20 | `sections/footer-group.json` | REPLACE | 63 | ✅ pichle round me kar liya to skip |
 | 21 | `templates/index.json` | REPLACE | 418 | **⬅ is round me badla (placeholder_note)** |
-| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 549 | **⬅ is round me badli (35 settings)** |
+| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 556 | **⬅ is round me badli (35 settings)** |
 | 23 | `templates/collection.json` | REPLACE | 35 | **⬅ is round me badla (collection template)** |
 
 Dawn ki baaki **336 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
+
+> ⚠️ **Do sections ke naam me sirf ek `s` ka farq hai — ye duplicate NAHI hain:**
+>
+> | File | Kahan use hota hai | Theme editor me naam | Template |
+> |---|---|---|---|
+> | `rj-collections.liquid` (**plural**) | Homepage ka "The Collections" carousel | **RJ Collection carousel** | `templates/index.json` |
+> | `rj-collection.liquid` (**singular**) | Collection page (hero, filter, grid) | **RJ Collection page** | `templates/collection.json` |
+>
+> Dono alag files hain — **koi ek bhi delete na karein**. Naya file banate waqt naam
+> exactly copy karein (extra `s` ya kam `s` → `Section type ... does not exist` error).
 
 **Download:** `rj-arts-changes.zip` extract karein — folder structure theme jaisa hi hai, seedha path match karke paste karein.
 
@@ -153,7 +163,7 @@ Feature band (photo + left copy). Isi ek file se **do** bands banenge —
 ### Step 16 — `sections/rj-best.liquid` → **NAYI FILE**
 Best sellers 4-up grid. `sections` → New file → naam `rj-best.liquid` → paste → Save.
 
-### Step 17 — `sections/rj-collections.liquid` → **NAYI FILE**
+### Step 17 — `sections/rj-collections.liquid` → **NAYI FILE** *(plural — homepage carousel)*
 Collection carousel (arrows wali rail). File naam: `rj-collections.liquid`.
 
 ### Step 18 — `sections/rj-reviews.liquid` → **NAYI FILE**
@@ -182,7 +192,10 @@ Homepage template — poore 10 sections (hero, USP, category tiles, showroom, Ar
 
 > ⚠️ Steps 10–18 (saari custom sections) pehle hone chahiye, warna `Section type 'rj_best' / 'rj_collections' / 'rj_reviews' / 'rj-footer' does not exist` error aayega.
 
-### Step 22 — `sections/rj-collection.liquid` → **NAYI FILE** ⬅ is round
+### Step 22 — `sections/rj-collection.liquid` → **NAYI FILE** ⬅ is round *(singular — collection page)*
+
+> ⚠️ Ye **`rj-collection.liquid`** hai (bina `s` ke). Step 17 wali
+> **`rj-collections.liquid`** (plural) homepage ka carousel hai — usse replace mat karein.
 
 Collection page ka poora layout ek hi section me: hero (breadcrumb + title +
 description + 16% opacity image), sticky toolbar (Filter pill + live count +

@@ -4,7 +4,7 @@ RJ ARTS - changed files only (27 files)
 >>> IS ROUND ME SIRF YE 8 FILES (Collection page + hardcoded audit):
       assets/rj-arts.css                  (4158 lines - Collection CSS + editable vars)
       assets/rj-arts.js                   (303 lines - drawer + sort JS)
-      sections/rj-collection.liquid       (549 lines - NAYI FILE, 35 settings)
+      sections/rj-collection.liquid       (556 lines - NAYI FILE, 35 settings)
       templates/collection.json           (35 lines - collection template)
       sections/rj-best.liquid             (234 lines - fake placeholder hataya)
       sections/rj-showroom.liquid         (352 lines - fake placeholder hataya)
@@ -51,6 +51,7 @@ Paste karne ka tarika (har file):
   templates/collection.json               35 lines  <- NAYA (is round)
 
 ---- NAYI FILE - sections me New file banakar paste karein ----
+  (dhyan: rj-collections = homepage carousel, rj-collection = collection page)
   sections/rj-hero.liquid                411 lines
   sections/rj-usp.liquid                 145 lines
   sections/rj-showroom.liquid            352 lines   <- NAYA (Showroom edit)
@@ -58,9 +59,9 @@ Paste karne ka tarika (har file):
   sections/rj-band.liquid                188 lines   <- NAYA (Feature band)
   sections/rj-about.liquid               220 lines   <- NAYA (About story)
   sections/rj-best.liquid                234 lines   <- NAYA (Best sellers)
-  sections/rj-collections.liquid         212 lines   <- NAYA (Collection carousel)
+  sections/rj-collections.liquid         219 lines   <- NAYA (HOMEPAGE carousel, plural)
   sections/rj-reviews.liquid             276 lines   <- Reviews (Judge.me source)
-  sections/rj-collection.liquid          549 lines   <- NAYA (Collection page)
+  sections/rj-collection.liquid          556 lines   <- NAYA (Collection PAGE, singular)
   assets/rj-arts.css                    4158 lines   <- poora replace
   assets/rj-arts.js                      303 lines
 
