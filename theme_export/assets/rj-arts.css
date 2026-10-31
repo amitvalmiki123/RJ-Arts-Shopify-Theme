@@ -4191,6 +4191,20 @@ body.rj-drawer-open {
   top: 104px;
 }
 
+/* only one image => no thumb rail, so the stage must span the full column
+   (otherwise auto-placement drops it into the 88px thumb column) */
+.rj-gal--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.rj-gal > * {
+  min-width: 0;
+}
+
+.rj-pdp > * {
+  min-width: 0;
+}
+
 .rj-thumbs {
   display: flex;
   flex-direction: column;
@@ -4535,8 +4549,42 @@ body.rj-drawer-open {
   margin-top: 12px;
 }
 
-.rj-pform__dynamic .shopify-payment-button__button {
-  border-radius: 2px;
+/* "Buy it now" is Shopify's accelerated checkout button: it ships its own
+   blue styling, so it has to be forced onto the RJ ink/cream button. */
+.rj-pform__dynamic .shopify-payment-button__button,
+.rj-pform__dynamic .shopify-payment-button__button--unbranded,
+.rj-pform__dynamic button.shopify-payment-button__button--unbranded {
+  width: 100%;
+  min-height: 0;
+  border: 1px solid var(--rj-ink) !important;
+  border-radius: 2px !important;
+  background: var(--rj-ink) !important;
+  color: var(--rj-cream) !important;
+  font-family: var(--rj-sans) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase;
+  padding: 17px 34px !important;
+  transition: background 0.4s var(--rj-ease), color 0.4s var(--rj-ease);
+}
+
+.rj-pform__dynamic .shopify-payment-button__button:hover,
+.rj-pform__dynamic .shopify-payment-button__button--unbranded:hover:not([disabled]) {
+  background: var(--rj-brass-deep) !important;
+  color: #fff !important;
+}
+
+.rj-pform__dynamic .shopify-payment-button__more-options {
+  color: var(--rj-ink-soft);
+  font-family: var(--rj-sans);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  margin-top: 10px;
+}
+
+.rj-pform__dynamic [role='button'] {
+  border-radius: 2px !important;
 }
 
 /* wishlist line */

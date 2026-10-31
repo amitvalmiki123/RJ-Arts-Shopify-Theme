@@ -1,10 +1,11 @@
 RJ ARTS - changed files only (29 files)
 =======================================
 
->>> IS ROUND ME SIRF YE 4 FILES (Product page):
-      assets/rj-arts.css                  (4961 lines - Product page CSS)
+>>> IS ROUND ME SIRF YE 3 FILES (gallery + hero fixes):
+      assets/rj-arts.css                  (5009 lines - gallery + Buy it now fix)
       assets/rj-arts.js                   (510 lines - variant + sticky bar JS)
       sections/rj-product.liquid          (726 lines - NAYI FILE, 41 settings)
+      sections/rj-collection.liquid       (562 lines - hero image fallback)
       templates/product.json              (104 lines - product template)
 
       config/settings_data.json           (382 lines - Colours panel, AB TAK PENDING)
@@ -59,9 +60,9 @@ Paste karne ka tarika (har file):
   sections/rj-best.liquid                234 lines   <- NAYA (Best sellers)
   sections/rj-collections.liquid         219 lines   <- NAYA (HOMEPAGE carousel, plural)
   sections/rj-reviews.liquid             276 lines   <- Reviews (Judge.me source)
-  sections/rj-collection.liquid          556 lines   <- NAYA (Collection PAGE, singular)
+  sections/rj-collection.liquid          562 lines   <- NAYA (Collection PAGE, singular)
   sections/rj-product.liquid              726 lines   <- NAYA (Product page, is round)
-  assets/rj-arts.css                    4961 lines   <- poora replace
+  assets/rj-arts.css                    5009 lines   <- poora replace
   assets/rj-arts.js                      510 lines
 
 ---- manual/ - OPTIONAL (sirf patch karna ho to) ----

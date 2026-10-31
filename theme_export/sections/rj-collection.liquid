@@ -23,7 +23,14 @@
 {% endcomment %}
 
 {%- liquid
-  assign rj_img = section.settings.hero_image | default: collection.image
+  assign rj_img = collection.image
+  if rj_img == blank
+    assign rj_img = section.settings.hero_image
+  endif
+  if rj_img == blank and collection.products.size > 0
+    assign rj_first_product = collection.products.first
+    assign rj_img = rj_first_product.featured_image
+  endif
   assign rj_per_page = section.settings.products_per_page
   assign rj_active_count = 0
   for filter in collection.filters
@@ -182,9 +189,9 @@
               {%- endif -%}
               <h3 class="rj-pcard__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
               <div class="rj-pcard__price">
-                <span class="now">{{ product.price | money }}</span>
+                <span class="now">{{ product.price | money_without_trailing_zeros }}</span>
                 {%- if on_sale -%}
-                  <span class="was">{{ product.compare_at_price | money }}</span>
+                  <span class="was">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
                 {%- endif -%}
               </div>
               {%- comment -%}

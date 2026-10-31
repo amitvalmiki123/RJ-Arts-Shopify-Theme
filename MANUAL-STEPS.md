@@ -14,8 +14,8 @@ Do zip hain, confusion na karein:
 > 📋 **Shortcut:** root me `PASTE-CHECKLIST.txt` hai — tik-tik karke paste karne ki
 > poori list (10 files, order ke saath). Ye guide usse zyada detail wala version hai.
 
-**Is round me (Product page) 4 files:** `assets/rj-arts.css`, `assets/rj-arts.js`,
-`sections/rj-product.liquid` (**nayi**), `templates/product.json`. Baaki sab ✅ skip.
+**Is round me (fix round) 2 files:** `assets/rj-arts.css`, `sections/rj-collection.liquid`,
+`sections/rj-product.liquid`. Baaki sab ✅ skip (agar pichle round me paste kar liye hain).
 
 ---
 
@@ -55,7 +55,7 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 4961 | **⬅ is round me badli (Product page CSS)** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 5009 | **⬅ is round me badli (gallery + Buy it now fix)** |
 | 4 | `assets/rj-arts.js` | **NAYI FILE** | 510 | **⬅ is round me badla (variant + sticky bar JS)** |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
@@ -74,9 +74,9 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 19 | `sections/footer.liquid` | REPLACE (Dawn ki file) | 447 | ✅ pichle round me kar liya to skip |
 | 20 | `sections/footer-group.json` | REPLACE | 63 | ✅ pichle round me kar liya to skip |
 | 21 | `templates/index.json` | REPLACE | 418 | ✅ pichle round me kar liya to skip |
-| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 555 | ✅ pichle round me kar liya to skip |
+| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 562 | **⬅ is round me badli (hero image fallback)** |
 | 23 | `templates/collection.json` | REPLACE | 35 | ✅ pichle round me kar liya to skip |
-| 24 | `sections/rj-product.liquid` | **NAYI FILE** | 726 | **⬅ is round me bani (Product page)** |
+| 24 | `sections/rj-product.liquid` | **NAYI FILE** | 726 | **⬅ is round me badli (single-image gallery)** |
 | 25 | `templates/product.json` | REPLACE | 104 | **⬅ is round me badla (product template)** |
 
 Dawn ki baaki **336 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
@@ -500,6 +500,10 @@ heading, sticky bar — sab **RJ Product** section ke settings/blocks se editabl
 | `FileSaveError: 'cormorant_garamond_n4' is not a valid font handle` | purani `settings_data.json` (jisme font keys thi) paste ho gayi | naya `rj-arts-changes.zip` se `settings_data.json` dobara paste karein |
 | `FileSaveError: Invalid schema: setting with id="toolbar_top" step invalid. Range settings must have at most 101 steps` | section schema me kisi range ka `(max - min) / step` 100 se zyada tha | 31-Oct-2026 ko fix ho gaya — `sections/rj-collection.liquid` (555 lines) dobara paste karein. Aage ke liye: koi bhi range `step` badha dein taaki total steps 101 se kam rahe |
 | `Section type 'rj_product' does not exist` / `'rj-collection' does not exist` | template JSON pehle paste ho gaya, section file baad me | pehle `sections/` ki nayi file banayein, phir `templates/` JSON paste karein |
+| Product page par gallery bahut chhoti (88px) dikh rahi hai, "Hover to zoom" usi me chipka hai | product me sirf **1 image** thi, isliye stage thumb column me chala gaya tha | fix ho gaya (31-Oct) — `sections/rj-product.liquid` + `rj-arts.css` dobara paste karein. Aage: product me 2+ images rakhein |
+| "Buy it now" button blue dikh raha hai | Shopify ka accelerated checkout apni styling laata hai | fix ho gaya (31-Oct) — `rj-arts.css` dobara paste karein; button ab ink/cream me |
+| Collection page ke hero me koi image nahi | collection me image set nahi hai | fix ho gaya (31-Oct): collection image → section "Hero image override" → **pehle product ki image** fallback. Ya collection me image daal dein |
+| Price `$45,999.00` jaisa decimal ke saath | store currency USD hai + `money` filter decimals dikhata hai | theme ab `money_without_trailing_zeros` use karta hai (`$45,999`). Rupee chahiye to Settings → Store details → Currency = INR |
 | `color schemes must be defined…` | Step 2 nahi hua / cache | `settings_data.json` paste → Save → editor reload |
 | `Block type 'mega_feature' does not exist` | Step 7 se pehle Step 9 | `header.liquid` paste, phir `header-group.json` |
 | `Section type 'rj_hero' does not exist` | Steps 10–11 pending | rj-hero + rj-usp banao, phir `index.json` |

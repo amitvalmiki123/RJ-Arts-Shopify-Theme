@@ -59,7 +59,7 @@
     <div class="rj-pdp">
 
       {%- comment -%} ---------------- gallery ---------------- {%- endcomment -%}
-      <div class="rj-gal">
+      <div class="rj-gal{% if rj_media_count <= 1 %} rj-gal--single{% endif %}">
         {%- if rj_media_count > 1 -%}
           <div class="rj-thumbs">
             {%- for media in product.media -%}
@@ -128,9 +128,9 @@
         {%- endif -%}
 
         <div class="rj-price">
-          <span class="rj-price__now" data-rj-price>{{ rj_v.price | money }}</span>
+          <span class="rj-price__now" data-rj-price>{{ rj_v.price | money_without_trailing_zeros }}</span>
           <span class="rj-price__was" data-rj-was {% unless rj_v.compare_at_price > rj_v.price %}hidden{% endunless %}>
-            {%- if rj_v.compare_at_price > rj_v.price -%}{{ rj_v.compare_at_price | money }}{%- endif -%}
+            {%- if rj_v.compare_at_price > rj_v.price -%}{{ rj_v.compare_at_price | money_without_trailing_zeros }}{%- endif -%}
           </span>
         </div>
 
@@ -336,8 +336,8 @@
                 {%- endif -%}
                 <h3 class="rj-pcard__title"><a href="{{ rel.url }}">{{ rel.title | escape }}</a></h3>
                 <div class="rj-pcard__price">
-                  <span class="now">{{ rel.price | money }}</span>
-                  {%- if rel_on_sale -%}<span class="was">{{ rel.compare_at_price | money }}</span>{%- endif -%}
+                  <span class="now">{{ rel.price | money_without_trailing_zeros }}</span>
+                  {%- if rel_on_sale -%}<span class="was">{{ rel.compare_at_price | money_without_trailing_zeros }}</span>{%- endif -%}
                 </div>
               </div>
             </article>
@@ -380,7 +380,7 @@
             <span class="rj-stickybar__price">
               <span data-rj-sticky-price>{{ rj_v.price | money }}</span>
               <s data-rj-sticky-was {% unless rj_v.compare_at_price > rj_v.price %}hidden{% endunless %}>
-                {%- if rj_v.compare_at_price > rj_v.price -%}{{ rj_v.compare_at_price | money }}{%- endif -%}
+                {%- if rj_v.compare_at_price > rj_v.price -%}{{ rj_v.compare_at_price | money_without_trailing_zeros }}{%- endif -%}
               </s>
             </span>
           </div>
@@ -408,8 +408,8 @@
       "id": {{ v.id }},
       "options": {{ v.options | json }},
       "available": {{ v.available | json }},
-      "price": {{ v.price | money | json }},
-      "compare": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | json }}{% else %}null{% endif %},
+      "price": {{ v.price | money_without_trailing_zeros | json }},
+      "compare": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money_without_trailing_zeros | json }}{% else %}null{% endif %},
       "discount": {% if v_discount > 0 %}{{ v_discount }}{% else %}null{% endif %},
       "sku": {{ v.sku | default: '' | json }},
       "media_id": {% if v.featured_media %}{{ v.featured_media.id }}{% else %}null{% endif %},

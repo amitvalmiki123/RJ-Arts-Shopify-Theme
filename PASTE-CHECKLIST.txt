@@ -5,13 +5,19 @@ Aapne collection page paste nahi kiya, aur uske baad product page bhi ban gaya.
 Isliye abhi TOTAL **10 files** paste karni hain — 2 nayi + 8 replace.
 Time: ~15 min. Har file: Ctrl+Home → Ctrl+A → Ctrl+V → Ctrl+S.
 
+⚡ AGAR pichle round me 10 files paste kar li hain (sirf fix baaki hai):
+   Sirf ye 3 files dobara paste karein —
+     [ ] sections/rj-collection.liquid   562 lines  (hero image fallback)
+     [ ] sections/rj-product.liquid      726 lines  (single-image gallery fix)
+     [ ] assets/rj-arts.css             5009 lines  (gallery + "Buy it now" colour)
+
 ⚠️ ORDER ZAROORI HAI — pehle sections, phir templates, phir assets.
    (Template JSON pehle paste karne par "Section type does not exist" error aayega.)
 
 ---------------------------------------------------------------
 STEP 1 — NAYE FILES (sections → "New file" → naam → paste → Save)
 ---------------------------------------------------------------
-[ ] 1. sections/rj-collection.liquid        555 lines   (Collection page)
+[ ] 1. sections/rj-collection.liquid        562 lines   (Collection page)
 [ ] 2. sections/rj-product.liquid           726 lines   (Product page)
 
    Naam exactly yahi rakhein:
@@ -35,7 +41,7 @@ STEP 3 — SECTIONS REPLACE (sections → file kholen → Ctrl+A → paste → S
 ---------------------------------------------------------------
 STEP 4 — ASSETS (assets → file kholen → Ctrl+A → paste → Save)
 ---------------------------------------------------------------
-[ ] 9. assets/rj-arts.css                  4961 lines   (Collection + Product page CSS)
+[ ] 9. assets/rj-arts.css                  5009 lines   (Collection + Product page CSS)
 [ ] 10. assets/rj-arts.js                   510 lines   (drawer, sort, variant, sticky bar)
 
 ---------------------------------------------------------------
