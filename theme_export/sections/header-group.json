@@ -76,7 +76,12 @@
         "enable_language_selector": false,
         "margin_bottom": 0,
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "rj_show_wishlist": true,
+        "rj_wishlist_mode": "link",
+        "rj_wishlist_url": "/pages/wishlist",
+        "rj_wishlist_label": "Wishlist",
+        "rj_wishlist_classes": ""
       },
       "blocks": {
         "mega-bed-1": {

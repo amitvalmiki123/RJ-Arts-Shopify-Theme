@@ -287,6 +287,47 @@
       </div>
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
+      {%- comment -%}
+        RJ ARTS: wishlist icon directly right of search.
+        mode "link"  -> plain link to the wishlist page (any wishlist app).
+        mode "swym"  -> Wishlist Plus launch point (their classes + counter).
+        Extra app classes can be added via the "Extra CSS classes" setting,
+        e.g. ssw-wishlist, wk-wishlist, smartwishlist.
+      {%- endcomment -%}
+      {%- if section.settings.rj_show_wishlist -%}
+        {%- liquid
+          assign rj_wl_mode = section.settings.rj_wishlist_mode | default: 'link'
+          assign rj_wl_url = section.settings.rj_wishlist_url
+          if rj_wl_url == blank
+            assign rj_wl_url = '/pages/wishlist'
+          endif
+          assign rj_wl_extra = section.settings.rj_wishlist_classes | strip
+        -%}
+        {%- if rj_wl_mode == 'swym' -%}
+          <a
+            href="#swym-wishlist"
+            class="header__icon rj-header__wishlist link focus-inset swym-wishlist{% if rj_wl_extra != blank %} {{ rj_wl_extra }}{% endif %}"
+            aria-label="{{ section.settings.rj_wishlist_label | escape }}"
+          >
+            <span class="svg-wrapper"><i aria-hidden="true" class="icon-swym-wishlist"></i></span>
+            <span class="swym-wishlist-header-counter rj-header__wishlist-count"></span>
+          </a>
+        {%- else -%}
+          <a
+            href="{{ rj_wl_url }}"
+            class="header__icon rj-header__wishlist link focus-inset{% if rj_wl_extra != blank %} {{ rj_wl_extra }}{% endif %}"
+            aria-label="{{ section.settings.rj_wishlist_label | escape }}"
+          >
+            <span class="svg-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/>
+              </svg>
+            </span>
+            <span class="rj-header__wishlist-count" data-rj-wishlist-count></span>
+          </a>
+        {%- endif -%}
+      {%- endif -%}
+
       {%- if shop.customer_accounts_enabled -%}
         <shopify-account
           menu="{{ settings.customer_account_menu | default: 'customer-account-main-menu' }}"
@@ -639,6 +680,45 @@
       "default": true,
       "label": "t:sections.header.settings.enable_language_selector.label",
       "info": "t:sections.header.settings.enable_language_selector.info"
+    },
+    {
+      "type": "header",
+      "content": "RJ wishlist icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "rj_show_wishlist",
+      "label": "Show wishlist icon (right of search)",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "rj_wishlist_mode",
+      "label": "Wishlist app",
+      "options": [
+        { "value": "link", "label": "Any app / plain page link" },
+        { "value": "swym", "label": "Wishlist Plus (Swym)" }
+      ],
+      "default": "link",
+      "info": "Swym mode uses their launch-point classes and counter. For other apps pick the link mode and keep the app's own wishlist page URL."
+    },
+    {
+      "type": "text",
+      "id": "rj_wishlist_url",
+      "label": "Wishlist page URL",
+      "default": "/pages/wishlist"
+    },
+    {
+      "type": "text",
+      "id": "rj_wishlist_label",
+      "label": "Accessible label",
+      "default": "Wishlist"
+    },
+    {
+      "type": "text",
+      "id": "rj_wishlist_classes",
+      "label": "Extra CSS classes",
+      "info": "Optional, space separated — e.g. ssw-wishlist or wk-wishlist if your app binds to its own class."
     },
     {
       "type": "paragraph",

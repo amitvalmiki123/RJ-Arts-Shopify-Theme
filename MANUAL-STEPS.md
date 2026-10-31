@@ -49,13 +49,13 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 3204 | **⬅ is round me badli (footer CSS)** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 3362 | **⬅ is round me badli (wishlist + Judge.me CSS)** |
 | 4 | `assets/rj-arts.js` | **NAYI FILE** | 211 | ✅ pichle round me kar liya to skip |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
-| 7 | `sections/header.liquid` | REPLACE | 721 | ✅ pehle kar liya to skip |
-| 8 | `snippets/header-mega-menu.liquid` | REPLACE | 134 | ✅ pehle kar liya to skip |
-| 9 | `sections/header-group.json` | REPLACE | 145 | ✅ pehle kar liya to skip |
+| 7 | `sections/header.liquid` | REPLACE | 801 | **⬅ is round me badli (wishlist icon)** |
+| 8 | `sections/header-group.json` | REPLACE | 150 | **⬅ is round me badla (wishlist ON)** |
+| 9 | `snippets/header-mega-menu.liquid` | REPLACE | 134 | ✅ pehle kar liya to skip |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 | ✅ pehle kar liya to skip |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 | ✅ pehle kar liya to skip |
 | 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 | ✅ pehle kar liya to skip |
@@ -64,10 +64,10 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 15 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | ✅ pehle kar liya to skip |
 | 16 | `sections/rj-best.liquid` | **NAYI FILE** | 239 | ✅ pehle kar liya to skip |
 | 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 212 | ✅ pehle kar liya to skip |
-| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 212 | ✅ pehle kar liya to skip |
-| 19 | `sections/footer.liquid` | REPLACE (Dawn ki file) | 447 | **⬅ is round me badli (design footer isi me hai)** |
-| 20 | `sections/footer-group.json` | REPLACE | 63 | **⬅ is round me badla** |
-| 21 | `templates/index.json` | REPLACE | 413 | ✅ pichle round me kar liya to skip |
+| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 272 | **⬅ is round me badla (Judge.me source)** |
+| 19 | `sections/footer.liquid` | REPLACE (Dawn ki file) | 447 | ✅ pichle round me kar liya to skip |
+| 20 | `sections/footer-group.json` | REPLACE | 63 | ✅ pichle round me kar liya to skip |
+| 21 | `templates/index.json` | REPLACE | 416 | **⬅ is round me badla (reviews source)** |
 
 Dawn ki baaki **336 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -308,6 +308,9 @@ Header section → `mega_feature` blocks. Har block me:
 | 7d | Crafted Comfort band (sofa photo, 520px) | Best sellers ke neeche |
 | 7e | Collection carousel: arrows rail scroll karte hain | Band ke neeche |
 | 7f | Reviews: white section, cream cards, brass initials | Sabse neeche |
+| 7g | Header: search ke right wishlist (heart) icon | Header right |
+| 7h | Judge.me install ke baad reviews app se aate hain | Sabse neeche |
+| 7i | Footer form submit → Customers me subscriber | Footer + admin |
 | 8 | Footer: brand + Shop + Company + Support | Page bottom |
 | 8a | Footer newsletter band + brass Subscribe button | Footer top |
 | 8b | Payment chips + ghost "RJ ARTS" wordmark | Footer bottom |
@@ -331,6 +334,11 @@ Header section → `mega_feature` blocks. Har block me:
 | Design jaisa styling nahi aa raha | `rj-arts.css` ya uski link missing | Step 3 + Step 5 |
 | Scroll par header border/shadow nahi | `rj-arts.js` ya link missing | Step 4 + Step 5 |
 | Mega menu hover par kuch nahi | Menu me children nahi | Section 3.4 |
+| Wishlist icon dikh raha par click par 404 | wishlist page nahi bani | Pages → `wishlist` page banayein, ya app ka URL dalein |
+| Wishlist count badge nahi aa raha | app count class nahi mili | Header → “Extra CSS classes” me app ki class dalein (e.g. `ssw-wishlist`) |
+| Judge.me reviews nahi dikh rahe | app install nahi / carousel off | Section 6.2 steps 1–3 |
+| Reviews section purane 4 cards dikha raha | Judge.me carousel khaali | App me reviews publish karein — fallback isi liye hai |
+| Newsletter submit par kuch nahi hota | form ka `action` block | `footer.liquid` dobara paste karein (asli customer form hai) |
 | Kuch bhi bigad jaye | — | Duplicate delete → naya duplicate → 14 steps (30 min). Live theme safe. |
 
 ---
@@ -363,9 +371,59 @@ Fix (is order me try karein):
 > storefront cream/ink + Cormorant/Jost me dikhega, sirf **Colours panel** aur
 > banner baaki rahega.
 
+
 ---
 
-## 6. Appendix — sirf patch karna ho (optional)
+## 6. Apps & integrations (real-time data)
+
+### 6.1 Newsletter → Customers (already wired)
+Footer ka form **asli Shopify customer form** hai (`{% form 'customer' %}`,
+`contact[tags] = newsletter`). Submit hote hi:
+- **Customers** me subscriber ban jata hai (tag `newsletter`),
+- success message wahin dikhta hai,
+- email marketing consent store ki settings par depend karta hai
+  (Settings → Customer accounts / Notifications → **double opt-in** ON ho to
+  customer ko confirm email jaata hai, confirm ke baad hi marketing list me).
+Agar submit par kuch na ho to check: form ka `<input name="contact[email]">`,
+hidden `contact[tags]`, aur button `name="commit"` — teeno footer.liquid me hain.
+
+### 6.2 Judge.me reviews (homepage rail)
+1. Shopify App Store se **Judge.me Product Reviews** install karein (free plan kaafi hai).
+2. Judge.me app → **Settings → Widgets** me **Reviews Carousel / Featured reviews**
+   enable karein (yahi homepage rail ka source hai).
+3. Theme editor → **RJ Reviews rail** → **Reviews source** = **Judge.me — Reviews Carousel**.
+   (Default isi par set hai.)
+4. Judge.me ki apni script/theme integration zaroori nahi — hum official liquid
+   snippet use karte hain (`shop.metafields.judgeme.featured_carousel`).
+5. App me reviews aane ke baad section apne aap unhe dikhayega. Jab tak reviews
+   na hon, section **manual blocks** par fallback karta hai (khaali nahi dikhega),
+   aur editor me ek hint dikhta hai.
+6. "Read all reviews" link → `all_reviews_url` (design: `/pages/reviews`). Chahein
+   to Judge.me ka All-reviews page bana kar wahan point karein.
+
+> Product page ka review widget alag hota hai — wo Group 4 (product template) me
+> lagega, tab Judge.me ka Review Widget snippet wahan add hoga.
+
+### 6.3 Wishlist icon (header, search ke right)
+Theme editor → **Header** → **RJ wishlist icon**:
+| Setting | Kya karein |
+|---|---|
+| Show wishlist icon | ON (default ON hai) |
+| Wishlist app | **Wishlist Plus (Swym)** chunein agar wahi app use kar rahe hain, warna **Any app / plain page link** |
+| Wishlist page URL | App ka page — default `/pages/wishlist` |
+| Extra CSS classes | Agar app apni class maangta hai (e.g. `ssw-wishlist`, `wk-wishlist`) to likh dein |
+
+Setup:
+1. App install karein (Wishlist Plus, Wishlist King, Smart Wishlist, Growave — koi bhi).
+2. Online Store → **Pages → Add page** → title `Wishlist`, handle `wishlist`.
+   (Kai apps apna `/apps/wishlist` route khud bana dete hain — jo app de, wahi URL dalein.)
+3. Header setting me URL/class set karein → Save.
+4. Count badge app se aata hai (Swym mode me `swym-wishlist-header-counter`,
+   baaki apps apni class se) — 0 hone par badge chhupa rehta hai.
+
+---
+
+## 7. Appendix — sirf patch karna ho (optional)
 
 Agar poora `layout/theme.liquid` replace nahi karna chahte, to `manual/` folder me chhote snippets hain:
 
@@ -379,8 +437,12 @@ Agar poora `layout/theme.liquid` replace nahi karna chahte, to `manual/` folder 
 
 ---
 
-## 7. Aage
+## 8. Aage
 
-Group 1 (header) ✅ · Group 2 (**10/10** homepage sections) ✅ · Group 3 (footer) ✅ — teeno groups poore. Ab bacha: Colours/settings_data, template pages (collection, product, about), aur content entry.
+Group 1 (header) ✅ · Group 2 (**10/10** homepage sections) ✅ · Group 3 (footer) ✅ ·
+Integrations ✅ (Judge.me reviews, wishlist icon, newsletter → Customers).
+
+Ab bacha: `config/settings_data.json` (Colours panel), **collection page**, **product page**
+(Judge.me Review Widget wahin lagega), **About page**, aur content entry.
 
 Group 2 ✅ **poora ho gaya** (10/10 sections). Ab sirf **Group 3 — Footer** bacha hai (newsletter band, brand, 3 menus, contact, socials, payment chips, ghost wordmark).

@@ -389,12 +389,15 @@
       ],
       "settings": {
         "color_scheme": "scheme-3",
+        "review_source": "judgeme",
         "show_rules": true,
         "eyebrow": "830+ Reviews",
         "heading": "Let customers\nspeak for us.",
         "text": "A 4.8 average across 830 verified reviews — from real RJ Arts homes.",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "all_reviews_label": "Read all reviews",
+        "all_reviews_url": "/pages/reviews"
       }
     }
   },

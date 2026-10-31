@@ -3202,3 +3202,161 @@
     padding-bottom: 16px;
   }
 }
+
+/* ==========================================================================
+   RJ ARTS - header wishlist icon (right of search)
+   Matches the v3 icon row: 19px glyph boxes, same gaps as search/account/cart.
+   ========================================================================== */
+
+.rj-header__wishlist {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  position: relative;
+}
+
+.rj-header__wishlist .svg-wrapper {
+  width: 19px;
+  height: 19px;
+  display: grid;
+  place-items: center;
+}
+
+.rj-header__wishlist svg {
+  width: 19px;
+  height: 19px;
+  display: block;
+  stroke: currentColor;
+  fill: none;
+}
+
+.rj-header__wishlist:hover svg {
+  fill: rgba(var(--color-foreground), 0.08);
+}
+
+/* count bubble: empty when the app has not supplied a number */
+.rj-header__wishlist-count {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--rj-brass);
+  color: #fff;
+  font-family: var(--rj-sans);
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 15px;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+.rj-header__wishlist-count:empty {
+  display: none;
+}
+
+/* Wishlist Plus (Swym) injects its own glyph in place of the svg */
+.rj-header__wishlist .icon-swym-wishlist {
+  font-size: 19px;
+  line-height: 1;
+  display: block;
+}
+
+/* ==========================================================================
+   RJ ARTS - Judge.me reviews carousel inside the reviews section
+   We keep our own eyebrow / heading / intro, so Judge.me's own title row is
+   hidden and only its review cards are shown, on our cream surface.
+   ========================================================================== */
+
+.rj-reviews--judgeme .rj-reviews__jdgm {
+  margin-top: 4px;
+}
+
+.rj-reviews--judgeme .jdgm-carousel-wrapper {
+  max-width: none;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.rj-reviews--judgeme .jdgm-carousel-title-and-link,
+.rj-reviews--judgeme .jdgm-carousel-title,
+.rj-reviews--judgeme .jdgm-all-reviews-rating-wrapper {
+  display: none !important;
+}
+
+.rj-reviews--judgeme .jdgm-carousel__items {
+  display: flex;
+  gap: 22px;
+}
+
+.rj-reviews--judgeme .jdgm-carousel-item {
+  background: var(--rj-cream-2);
+  border: 1px solid var(--rj-line);
+  border-radius: 5px;
+  padding: 26px 28px;
+  box-sizing: border-box;
+}
+
+.rj-reviews--judgeme .jdgm-carousel-item__review {
+  font-family: var(--rj-serif);
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--rj-ink);
+}
+
+.rj-reviews--judgeme .jdgm-carousel-item__reviewer-name {
+  font-family: var(--rj-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--rj-ink);
+}
+
+.rj-reviews--judgeme .jdgm-carousel-item__product-title,
+.rj-reviews--judgeme .jdgm-carousel-item__timestamp {
+  font-family: var(--rj-sans);
+  font-size: 12px;
+  color: var(--rj-grey);
+}
+
+.rj-reviews--judgeme .jdgm-carousel-item__review-title {
+  font-family: var(--rj-serif);
+  font-size: 19px;
+  color: var(--rj-ink);
+}
+
+.rj-reviews--judgeme .jdgm-carousel__arrows button,
+.rj-reviews--judgeme .jdgm-prev-badge__stars,
+.rj-reviews--judgeme .jdgm-carousel-item__stars {
+  color: var(--rj-brass);
+}
+
+.rj-reviews__foot {
+  margin-top: 26px;
+}
+
+.rj-reviews__note {
+  margin: 0 0 26px;
+  padding: 12px 16px;
+  border: 1px dashed var(--rj-line);
+  border-radius: 4px;
+  background: rgba(var(--color-foreground), 0.03);
+  font-family: var(--rj-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--rj-grey);
+}
+
+@media screen and (max-width: 768px) {
+  .rj-reviews--judgeme .jdgm-carousel-item {
+    padding: 20px 20px;
+  }
+
+  .rj-reviews--judgeme .jdgm-carousel-item__review {
+    font-size: 17px;
+  }
+}

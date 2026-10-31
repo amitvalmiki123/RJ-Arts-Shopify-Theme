@@ -10,14 +10,28 @@
     .rcard p          serif 21px / 1.4 quote, 16 / 22 margins
     .rcard .who       brass 40px circle initial + name + product line
 
-  Reviews are merchant blocks (name, quote, product, stars, initial), so no app
-  is required. A reviews app can be dropped in later without touching the CSS.
+  Two sources, chosen per section:
+    blocks   - merchant blocks (name, quote, product, stars, initial). No app.
+    judgeme  - Judge.me "Reviews Carousel" widget (official liquid snippet,
+               {{ shop.metafields.judgeme.featured_carousel }}). Our heading,
+               eyebrow and intro stay; Judge.me renders the cards themselves.
+               If the app is not installed / has no featured reviews yet, we
+               fall back to the blocks below so the section never renders empty.
 
   Usage: {% section 'rj-reviews' %}
 {% endcomment %}
 
+{%- liquid
+  assign rj_source = section.settings.review_source
+  assign rj_jm = shop.metafields.judgeme
+  assign rj_use_judgeme = false
+  if rj_source == 'judgeme' and rj_jm.featured_carousel != blank
+    assign rj_use_judgeme = true
+  endif
+-%}
+
 <div
-  class="rj-reviews color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_rules %} rj-reviews--rules{% endif %}"
+  class="rj-reviews color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_rules %} rj-reviews--rules{% endif %}{% if rj_use_judgeme %} rj-reviews--judgeme{% endif %}"
   style="--rj-rev-pt: {{ section.settings.padding_top }}px; --rj-rev-pb: {{ section.settings.padding_bottom }}px;"
 >
   <div class="rj-wrap">
@@ -35,36 +49,60 @@
       {%- endif -%}
     </div>
 
-    <div class="rj-revrail rj-reveal" data-rj-rail>
-      {%- for block in section.blocks -%}
-        {%- liquid
-          assign rj_stars = block.settings.stars | default: 5
-          assign rj_initial = block.settings.initial
-          if rj_initial == blank
-            assign rj_initial = block.settings.name | slice: 0
-          endif
-        -%}
-        <div class="rj-rcard" {{ block.shopify_attributes }}>
-          <div class="rj-rcard__stars" aria-label="{{ rj_stars }} out of 5" role="img">
-            {%- for i in (1..rj_stars) -%}&#9733;{%- endfor -%}
+    {%- if rj_use_judgeme -%}
+      {%- comment -%} Start of Judge.me code (Reviews Carousel) {%- endcomment -%}
+      <div class="rj-reviews__jdgm rj-reveal">
+        <div class="jdgm-carousel-wrapper">
+          {{ rj_jm.featured_carousel }}
+        </div>
+        {%- if section.settings.all_reviews_label != blank -%}
+          <div class="rj-reviews__foot">
+            <a class="rj-show__all" href="{{ section.settings.all_reviews_url | default: '/pages/reviews' }}">
+              {{- section.settings.all_reviews_label | escape -}}
+            </a>
           </div>
-          {%- if block.settings.quote != blank -%}
-            <p class="rj-rcard__quote">&ldquo;{{ block.settings.quote | escape }}&rdquo;</p>
-          {%- endif -%}
-          <div class="rj-rcard__who">
-            <span class="rj-rcard__av" aria-hidden="true">{{ rj_initial }}</span>
-            <div class="rj-rcard__meta">
-              {%- if block.settings.name != blank -%}
-                <b>{{ block.settings.name | escape }}</b>
-              {%- endif -%}
-              {%- if block.settings.product != blank -%}
-                <small>{{ block.settings.product | escape }}</small>
-              {%- endif -%}
+        {%- endif -%}
+      </div>
+      {%- comment -%} End of Judge.me code {%- endcomment -%}
+    {%- else -%}
+      {%- if rj_source == 'judgeme' and request.design_mode -%}
+        <p class="rj-reviews__note">
+          Judge.me carousel abhi khaali hai — app install/onboard karein (ya app me
+          “featured reviews” publish karein). Tab tak neeche wale blocks dikh rahe hain.
+        </p>
+      {%- endif -%}
+
+      <div class="rj-revrail rj-reveal" data-rj-rail>
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign rj_stars = block.settings.stars | default: 5
+            assign rj_initial = block.settings.initial
+            if rj_initial == blank
+              assign rj_initial = block.settings.name | slice: 0
+            endif
+          -%}
+          <div class="rj-rcard" {{ block.shopify_attributes }}>
+            <div class="rj-rcard__stars" aria-label="{{ rj_stars }} out of 5" role="img">
+              {%- for i in (1..rj_stars) -%}&#9733;{%- endfor -%}
+            </div>
+            {%- if block.settings.quote != blank -%}
+              <p class="rj-rcard__quote">&ldquo;{{ block.settings.quote | escape }}&rdquo;</p>
+            {%- endif -%}
+            <div class="rj-rcard__who">
+              <span class="rj-rcard__av" aria-hidden="true">{{ rj_initial }}</span>
+              <div class="rj-rcard__meta">
+                {%- if block.settings.name != blank -%}
+                  <b>{{ block.settings.name | escape }}</b>
+                {%- endif -%}
+                {%- if block.settings.product != blank -%}
+                  <small>{{ block.settings.product | escape }}</small>
+                {%- endif -%}
+              </div>
             </div>
           </div>
-        </div>
-      {%- endfor -%}
-    </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </div>
 </div>
 
@@ -89,6 +127,17 @@
       "default": true
     },
     {
+      "type": "select",
+      "id": "review_source",
+      "label": "Reviews source",
+      "options": [
+        { "value": "blocks", "label": "Manual review blocks (no app)" },
+        { "value": "judgeme", "label": "Judge.me — Reviews Carousel" }
+      ],
+      "default": "blocks",
+      "info": "Judge.me install + review collection ke baad yeh chunein. Khaali hone par section apne aap blocks par gir jaata hai."
+    },
+    {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
@@ -105,6 +154,17 @@
       "id": "text",
       "label": "Intro paragraph",
       "default": "A 4.8 average across 830 verified reviews — from real RJ Arts homes."
+    },
+    {
+      "type": "text",
+      "id": "all_reviews_label",
+      "label": "“All reviews” link (Judge.me mode)",
+      "info": "Optional. Leave empty to hide."
+    },
+    {
+      "type": "url",
+      "id": "all_reviews_url",
+      "label": "“All reviews” link URL"
     },
     {
       "type": "range",
