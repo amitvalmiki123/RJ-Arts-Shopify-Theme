@@ -18,6 +18,7 @@
 {%- liquid
   assign rj_image = section.settings.image
   assign rj_mobile_image = section.settings.image_mobile | default: rj_image
+  assign rj_alt = section.settings.heading | strip_html | strip | default: shop.name
 -%}
 
 <div
@@ -36,7 +37,7 @@
               widths: '600,900,1200,1600,2000,2400',
               sizes: '100vw',
               class: 'rj-band__img rj-band__img--desktop',
-              alt: section.settings.heading | strip_html | default: shop.name
+              alt: rj_alt
           }}
         {%- else -%}
           {{ 'lifestyle-1' | placeholder_svg_tag: 'rj-band__img rj-band__placeholder' }}
@@ -51,7 +52,7 @@
               widths: '480,700,900,1200',
               sizes: '100vw',
               class: 'rj-band__img rj-band__img--mobile',
-              alt: section.settings.heading | strip_html | default: shop.name
+              alt: rj_alt
           }}
         {%- endif -%}
       </div>

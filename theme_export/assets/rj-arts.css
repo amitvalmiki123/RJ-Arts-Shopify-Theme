@@ -57,9 +57,17 @@
   line-height: 1.6;
 }
 
-.rj-theme h1,
-.rj-theme h2,
-.rj-theme h3 {
+/* Base reset.
+   NOTE: these selectors are wrapped in :where() on purpose. As
+   `.rj-theme p` (0,1,1) they out-ranked every single-class component rule
+   (`.rj-hero__text` (0,1,0), `.rj-band__title`, `.rj-btn`, ...) and silently
+   killed their margins and colours - no gap under the hero copy, band title
+   spacing gone, light buttons losing their text colour. :where() keeps the
+   reset (it still beats the user-agent defaults, because author styles win
+   over UA) but gives it zero specificity, so component rules win again. */
+:where(.rj-theme) h1,
+:where(.rj-theme) h2,
+:where(.rj-theme) h3 {
   font-family: var(--rj-serif);
   font-weight: 500;
   line-height: 1.05;
@@ -67,16 +75,16 @@
   margin: 0;
 }
 
-.rj-theme p {
+:where(.rj-theme) p {
   margin: 0;
 }
 
-.rj-theme img {
+:where(.rj-theme) img {
   display: block;
   max-width: 100%;
 }
 
-.rj-theme a {
+:where(.rj-theme) a {
   color: inherit;
   text-decoration: none;
 }
@@ -1697,6 +1705,7 @@
    ========================================================================== */
 
 .rj-show {
+  display: block; /* custom element - inline by default, so padding would not create space */
   padding-block: var(--rj-show-pt, 0px) var(--rj-show-pb, 96px);
   background-color: rgb(var(--color-background));
   color: rgb(var(--color-foreground));
@@ -2202,10 +2211,15 @@
   color: #fff;
 }
 
-.rj-band__cta {
-  background: #fff;
+/* CTA is .rj-btn--light (design .btn--light): transparent, white hairline,
+   white label, white fill + ink label on hover. No fill override here. */
+.rj-band .rj-band__cta {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #fff;
+}
+
+.rj-band .rj-band__cta:hover {
   color: var(--rj-ink);
-  border-color: #fff;
 }
 
 /* ---- 989 and below ---- */

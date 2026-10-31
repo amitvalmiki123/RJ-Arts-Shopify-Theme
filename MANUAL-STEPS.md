@@ -49,7 +49,7 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 2267 | **⬅ is round me badli (2267)** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 2281 | **⬅ is round me badli (spacing fix)** |
 | 4 | `assets/rj-arts.js` | **NAYI FILE** | 182 | **⬅ is round me badli (showroom tabs)** |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
@@ -58,11 +58,11 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 9 | `sections/header-group.json` | REPLACE | 145 | ✅ pehle kar liya to skip |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 | ✅ pehle kar liya to skip |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 | ✅ pehle kar liya to skip |
-| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 | **⬅ is round me naya** |
-| 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | **⬅ is round me naya** |
-| 14 | `sections/rj-band.liquid` | **NAYI FILE** | 187 | **⬅ is round me naya (Feature band)** |
+| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 | ✅ pichle round me kar liya to skip |
+| 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | ✅ pichle round me kar liya to skip |
+| 14 | `sections/rj-band.liquid` | **NAYI FILE** | 188 | **⬅ is round me badla (alt fix)** |
 | 15 | `sections/footer-group.json` | REPLACE | 61 | ✅ pehle kar liya to skip |
-| 16 | `templates/index.json` | REPLACE | 212 | **⬅ sabse aakhir me** |
+| 16 | `templates/index.json` | REPLACE | 212 | ✅ is round me change nahi |
 
 Dawn ki baaki **337 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -256,6 +256,9 @@ Header section → `mega_feature` blocks. Har block me:
 | `Section type 'rj_hero' does not exist` | Steps 10–11 pending | rj-hero + rj-usp banao, phir `index.json` |
 | `config/settings_data.json` folder me hi nahi dikh raha | upload/paste ke waqt file theme me nahi gayi | Section 5.1 dekhein |
 | Colours panel khaali + banner | `settings_data.json` missing | Section 5.1 → Step 2 |
+| Hero me description aur buttons ke beech gap nahi | purani `rj-arts.css` (reset rule) | Step 3 dobara paste (2281 lines) |
+| Showroom aur band ek dusre se chipke hain | purani `rj-arts.css` | Step 3 dobara paste |
+| Band ka button khaali/white box dikh raha | purani `rj-arts.css` + purani `rj-band.liquid` | Steps 3 + 14 |
 | Design jaisa styling nahi aa raha | `rj-arts.css` ya uski link missing | Step 3 + Step 5 |
 | Scroll par header border/shadow nahi | `rj-arts.js` ya link missing | Step 4 + Step 5 |
 | Mega menu hover par kuch nahi | Menu me children nahi | Section 3.4 |
