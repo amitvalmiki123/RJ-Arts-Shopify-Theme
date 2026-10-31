@@ -422,6 +422,19 @@ USP = """
       </div>
     </div>
   </div>
+</div>
+<div class="rj-bandwrap" style="--rj-band-pt: 0px; --rj-band-pb: 96px; --rj-band-min: 560px;">
+  <div class="rj-wrap">
+    <div class="rj-band rj-reveal">
+      <div class="rj-band__bg"><img class="rj-band__img" src="Images/Bed2.png" alt="The Art of Rest"></div>
+      <div class="rj-band__inner">
+        <span class="rj-eyebrow rj-band__eyebrow">The Art of Rest</span>
+        <h2 class="rj-band__title">Elevate every<br>moment of rest.</h2>
+        <p class="rj-band__text">Beds that balance luxury and comfort — hand-finished solid Sheesham, engineered joinery, and headboards worth waking up to.</p>
+        <a href="#" class="rj-btn rj-btn--light rj-band__cta">Shop Bedroom</a>
+      </div>
+    </div>
+  </div>
 </div>"""
 
 SCRIPT = """

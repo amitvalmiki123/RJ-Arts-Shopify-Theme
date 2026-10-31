@@ -1,0 +1,187 @@
+{% comment %}
+  RJ ARTS — Feature band (design "THE ART OF REST" / "CRAFTED COMFORT")
+
+  One reusable band, used twice on the homepage:
+    #5 The Art of Rest   → Images/Bed2.png, min-height 560
+    #8 Crafted Comfort   → Images/Sofa_Desktop_Banner.webp, min-height 520
+
+  Design source (design/THE-RJ-ARTS.html):
+    .band           6px radius, overflow hidden, min-height 560, flex centre
+    .band__bg       absolute inset 0, image object-fit cover
+    .band::after    90deg gradient rgba(20,14,8,.62) → .15 at 60% → transparent
+    .band__inner    max-width 520, padding 64, white text, z-index 2
+    eyebrow         #e7cfa8 (warm gold on the photo), h2 white 14/18, p .9 + 30 below
+
+  Usage: {% section 'rj-band' %}
+{% endcomment %}
+
+{%- liquid
+  assign rj_image = section.settings.image
+  assign rj_mobile_image = section.settings.image_mobile | default: rj_image
+-%}
+
+<div
+  class="rj-bandwrap color-{{ section.settings.color_scheme }} gradient rj-reveal"
+  style="--rj-band-pt: {{ section.settings.padding_top }}px; --rj-band-pb: {{ section.settings.padding_bottom }}px; --rj-band-min: {{ section.settings.min_height }}px;"
+>
+  <div class="rj-wrap">
+    <div class="rj-band">
+      <div class="rj-band__bg{% if section.settings.image_mobile != blank %} rj-band__bg--has-mobile{% endif %}">
+        {%- if rj_image != blank -%}
+          {{
+            rj_image
+            | image_url: width: 2400
+            | image_tag:
+              loading: 'lazy',
+              widths: '600,900,1200,1600,2000,2400',
+              sizes: '100vw',
+              class: 'rj-band__img rj-band__img--desktop',
+              alt: section.settings.heading | strip_html | default: shop.name
+          }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'rj-band__img rj-band__placeholder' }}
+        {%- endif -%}
+
+        {%- if section.settings.image_mobile != blank -%}
+          {{
+            section.settings.image_mobile
+            | image_url: width: 1200
+            | image_tag:
+              loading: 'lazy',
+              widths: '480,700,900,1200',
+              sizes: '100vw',
+              class: 'rj-band__img rj-band__img--mobile',
+              alt: section.settings.heading | strip_html | default: shop.name
+          }}
+        {%- endif -%}
+      </div>
+
+      <div class="rj-band__inner">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="rj-eyebrow rj-band__eyebrow">{{ section.settings.eyebrow | escape }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="rj-band__title">{{ section.settings.heading | escape | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.text != blank -%}
+          <p class="rj-band__text">{{ section.settings.text | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <a
+            class="rj-btn rj-btn--light rj-band__cta"
+            {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+          >
+            {{- section.settings.button_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RJ Feature band",
+  "tag": "section",
+  "class": "rj-band-section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "info": "Page background around the band.",
+      "default": "scheme-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "Landscape, at least 2000px wide. The left third gets the dark overlay, so keep the subject right of centre."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Background image (mobile)",
+      "info": "Optional. Portrait crop used under 750px."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Art of Rest"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Elevate every\nmoment of rest."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Paragraph",
+      "default": "Beds that balance luxury and comfort — hand-finished solid Sheesham, engineered joinery, and headboards worth waking up to."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop Bedroom"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 360,
+      "max": 720,
+      "step": 20,
+      "unit": "px",
+      "label": "Band height",
+      "info": "Design values: 560px for The Art of Rest, 520px for Crafted Comfort.",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "info": "Design value: 0px.",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "RJ Feature band",
+      "settings": {
+        "eyebrow": "The Art of Rest",
+        "heading": "Elevate every\nmoment of rest.",
+        "text": "Beds that balance luxury and comfort — hand-finished solid Sheesham, engineered joinery, and headboards worth waking up to.",
+        "button_label": "Shop Bedroom",
+        "min_height": 560,
+        "padding_top": 0,
+        "padding_bottom": 96
+      }
+    }
+  ]
+}
+{% endschema %}

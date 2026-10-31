@@ -2117,3 +2117,151 @@
     opacity: 1;
   }
 }
+
+/* ==========================================================================
+   RJ ARTS - feature band (design .band: The Art of Rest / Crafted Comfort)
+   6px radius photo band, left-to-right dark gradient, white copy capped at
+   520px with the warm-gold eyebrow, light button.
+   ========================================================================== */
+
+.rj-bandwrap {
+  padding-block: var(--rj-band-pt, 0px) var(--rj-band-pb, 96px);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.rj-band {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  min-height: var(--rj-band-min, 560px);
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+}
+
+.rj-band__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.rj-band__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rj-band__img--mobile {
+  display: none;
+}
+
+.rj-band__placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+/* left-side scrim so the copy always reads over the photo */
+.rj-band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(20, 14, 8, 0.62), rgba(20, 14, 8, 0.15) 60%, transparent);
+  pointer-events: none;
+}
+
+.rj-band__inner {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  padding: 64px;
+  max-width: 520px;
+}
+
+.rj-band__eyebrow {
+  color: #e7cfa8;
+}
+
+.rj-band__title {
+  font-family: var(--rj-serif);
+  font-weight: 500;
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: #fff;
+  margin: 14px 0 18px;
+}
+
+.rj-band__text {
+  margin: 0 0 30px;
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.9;
+  color: #fff;
+}
+
+.rj-band__cta {
+  background: #fff;
+  color: var(--rj-ink);
+  border-color: #fff;
+}
+
+/* ---- 989 and below ---- */
+@media screen and (max-width: 989px) {
+  .rj-band {
+    min-height: min(var(--rj-band-min, 560px), 460px);
+  }
+
+  .rj-band__inner {
+    padding: 48px;
+    max-width: 460px;
+  }
+}
+
+/* ---- 768 and below (design): 40/26 inner padding, mobile crop ---- */
+@media screen and (max-width: 768px) {
+  .rj-bandwrap {
+    padding-block: min(var(--rj-band-pt, 0px), 0px) min(var(--rj-band-pb, 96px), 64px);
+  }
+
+  .rj-band {
+    min-height: min(var(--rj-band-min, 560px), 440px);
+    border-radius: 4px;
+  }
+
+  .rj-band__inner {
+    padding: 40px 26px;
+    max-width: none;
+  }
+
+  .rj-band__title {
+    font-size: clamp(26px, 7.4vw, 38px);
+    margin: 12px 0 14px;
+  }
+
+  .rj-band__text {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .rj-band__bg--has-mobile .rj-band__img--mobile {
+    display: block;
+  }
+
+  .rj-band__bg--has-mobile .rj-band__img--desktop {
+    display: none;
+  }
+
+  /* keep the scrim readable on a portrait crop */
+  .rj-band::after {
+    background: linear-gradient(180deg, rgba(20, 14, 8, 0.15), rgba(20, 14, 8, 0.62) 65%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rj-band__img {
+    transition: none;
+  }
+}

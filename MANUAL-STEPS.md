@@ -47,13 +47,10 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 
 | # | File | Action | Lines | Status |
 |---|------|--------|-------|--------|
-| 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours/banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 2119 | **⬅ har round me badalti hai — paste** |
-| 4 | `assets/rj-arts.js` | **NAYI FILE** | 182 | **⬅ abhi badla (showroom tabs)** |
-| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 | **⬅ naya (Showroom edit)** |
-| 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | **⬅ naya (Category tiles)** |
-| 15 | `templates/index.json` | REPLACE | 198 | **⬅ sabse aakhir me** |
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
+| 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 2267 | **⬅ is round me badli (2267)** |
+| 4 | `assets/rj-arts.js` | **NAYI FILE** | 182 | **⬅ is round me badli (showroom tabs)** |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
 | 7 | `sections/header.liquid` | REPLACE | 721 | ✅ pehle kar liya to skip |
@@ -61,13 +58,11 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 9 | `sections/header-group.json` | REPLACE | 145 | ✅ pehle kar liya to skip |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 | ✅ pehle kar liya to skip |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 | ✅ pehle kar liya to skip |
-| 14 | `sections/footer-group.json` | REPLACE | 61 | ✅ pehle kar liya to skip |
-
-> **Announcement bar ke baare me:** design me ticker **sticky nahi** hai — header
-> `position: sticky; top: 0` hai aur ticker uske upar scroll ho jata hai. Yaani
-> **neeche scroll karne par bar ka gayab hona design ka hi behaviour hai**, bug
-> nahi. Bar ko header ke saath chipka rehna hai to bata dein — ek CSS line se
-> pinned kar dunga.
+| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 | **⬅ is round me naya** |
+| 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | **⬅ is round me naya** |
+| 14 | `sections/rj-band.liquid` | **NAYI FILE** | 187 | **⬅ is round me naya (Feature band)** |
+| 15 | `sections/footer-group.json` | REPLACE | 61 | ✅ pehle kar liya to skip |
+| 16 | `templates/index.json` | REPLACE | 212 | **⬅ sabse aakhir me** |
 
 Dawn ki baaki **337 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -138,13 +133,18 @@ Homepage ka **The showroom edit** (pill tabs + horizontal product rail).
 Homepage ke **Category tiles** (asymmetrical 1.4fr / 1fr grid, pehla tile 2 rows).
 `sections` → New file → naam `rj-categories.liquid` → paste → Save.
 
-### Step 14 — `sections/footer-group.json` → REPLACE
+### Step 14 — `sections/rj-band.liquid` → **NAYI FILE**
+Feature band (photo + left copy). Isi ek file se **do** bands banenge —
+"The Art of Rest" (560px) aur aage "Crafted Comfort" (520px).
+`sections` → New file → naam `rj-band.liquid` → paste → Save.
+
+### Step 15 — `sections/footer-group.json` → REPLACE
 Footer ke 4 columns (brand + Shop + Company + Support).
 
-### Step 15 — `templates/index.json` → REPLACE
-Homepage template (abhi hero + USP + Category tiles + Showroom edit; baaki sections aage add honge).
+### Step 16 — `templates/index.json` → REPLACE
+Homepage template (abhi hero + USP + Category tiles + Showroom edit + Art of Rest band).
 
-> ⚠️ Steps 10–13 pehle hone chahiye, warna `Section type 'rj_hero' / 'rj_categories' / 'rj_showroom' does not exist` error aayega.
+> ⚠️ Steps 10–13 pehle hone chahiye, warna `Section type 'rj_hero' / 'rj_categories' / 'rj_showroom' / 'rj-band' does not exist` error aayega.
 
 ---
 
@@ -213,7 +213,15 @@ solid-wood product") — yeh sirf placeholder hai.
 - "Quick View" button product page kholta hai (hover par slide-up). Sach ka
   modal quick-view ke liye app lagana padega.
 
-### 3.9 Mega feature cards (6)
+### 3.9 Feature band — image (zaroori)
+Customize → **RJ Feature band** → **Background image** me `Images/Bed2.png`
+upload karein (Art of Rest). Design me subject right-of-centre hai — left side
+par dark gradient aata hai, isliye photo me furniture right me rakhein.
+Button label `Shop Bedroom` → link `/collections/bedroom` (collection ban jaye
+ke baad). Aage "Crafted Comfort" band isi section se banega — image
+`Images/Sofa_Desktop_Banner.webp`, height 520.
+
+### 3.10 Mega feature cards (6)
 Header section → `mega_feature` blocks. Har block me:
 - **Parent link** = menu naam **exactly** (`Bedroom` / `Living` / `Dining`)
 - Image (3:4), Label, Link
@@ -232,6 +240,7 @@ Header section → `mega_feature` blocks. Har block me:
 | 5a | Showroom: 3 pill tabs switch, arrows rail scroll karte hain | Hero ke neeche |
 | 6 | Hero: 3 slides, arrows, dots, auto-rotate | Homepage |
 | 7 | USP: 4 items, brass icons | Hero ke neeche |
+| 7a | Art of Rest band: photo + gold eyebrow + white button | Showroom ke neeche |
 | 8 | Footer: brand + Shop + Company + Support | Page bottom |
 | 9 | Mobile 390px: hamburger drawer, hero 1 column | Devtools |
 
@@ -300,6 +309,6 @@ Agar poora `layout/theme.liquid` replace nahi karna chahte, to `manual/` folder 
 
 ## 7. Aage
 
-Group 1 (header) ✅ + homepage ke section **1–4** (hero, USP, Category tiles, Showroom edit) ✅.
+Group 1 (header) ✅ + homepage ke section **1–5** (hero, USP, Category tiles, Showroom edit, Art of Rest band) ✅.
 
-Group 2 me aage: **5** Art of Rest → **6** About → **7** Best sellers grid → **8** Crafted Comfort → **9** Collection carousel → **10** Reviews. Fir **Group 3 — Footer**.
+Group 2 me aage: **6** About → **7** Best sellers grid → **8** Crafted Comfort (isi rj-band section se) → **9** Collection carousel → **10** Reviews. Fir **Group 3 — Footer**.

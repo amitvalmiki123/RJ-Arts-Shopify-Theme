@@ -187,12 +187,26 @@
         "padding_top": 0,
         "padding_bottom": 96
       }
+    },
+    "rj_band_rest": {
+      "type": "rj-band",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "The Art of Rest",
+        "heading": "Elevate every\nmoment of rest.",
+        "text": "Beds that balance luxury and comfort — hand-finished solid Sheesham, engineered joinery, and headboards worth waking up to.",
+        "button_label": "Shop Bedroom",
+        "min_height": 560,
+        "padding_top": 0,
+        "padding_bottom": 96
+      }
     }
   },
   "order": [
     "rj_hero",
     "rj_usp",
     "rj_categories",
-    "rj_showroom"
+    "rj_showroom",
+    "rj_band_rest"
   ]
 }
