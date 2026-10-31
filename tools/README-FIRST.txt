@@ -1,11 +1,15 @@
-RJ ARTS - changed files only (22 files)
+RJ ARTS - changed files only (27 files)
 =======================================
 
->>> IS ROUND ME SIRF YE 4 FILES (Collection page):
-      assets/rj-arts.css                  (4140 lines - Collection page CSS)
+>>> IS ROUND ME SIRF YE 8 FILES (Collection page + hardcoded audit):
+      assets/rj-arts.css                  (4158 lines - Collection CSS + editable vars)
       assets/rj-arts.js                   (303 lines - drawer + sort JS)
-      sections/rj-collection.liquid       (466 lines - NAYI FILE)
-      templates/collection.json           (28 lines - collection template)
+      sections/rj-collection.liquid       (549 lines - NAYI FILE, 35 settings)
+      templates/collection.json           (35 lines - collection template)
+      sections/rj-best.liquid             (234 lines - fake placeholder hataya)
+      sections/rj-showroom.liquid         (352 lines - fake placeholder hataya)
+      sections/rj-reviews.liquid          (276 lines - editor hint setting)
+      templates/index.json                (418 lines - placeholder_note)
 
       config/settings_data.json           (382 lines - Colours panel, AB TAK PENDING)
 
@@ -20,6 +24,10 @@ RJ ARTS - changed files only (22 files)
 
     App install (Judge.me / Wishlist Hero) abhi pending hai - code fallback
     par chalta hai: reviews = 4 blocks, wishlist heart = /pages/wishlist.
+
+    HARDTEXT CHECK: collection section ke 35 settings se sab text/labels/columns/
+    opacity change ho sakte hain. Fake product data hataya gaya (rj-best /
+    rj-showroom placeholders ab sirf note dikhate hain, ₹0/stars nahi).
 
 ⚠️  YE ZIP THEME UPLOAD KARNE KE LIYE NAHI HAI.
     Sirf copy-paste ke liye hai. Upload ke liye "rj-arts-theme.zip" use karein.
@@ -39,21 +47,21 @@ Paste karne ka tarika (har file):
   sections/header-group.json             150 lines
   sections/footer-group.json              63 lines
   sections/footer.liquid                447 lines   <- REPLACE (Dawn ki file)
-  templates/index.json                   416 lines
-  templates/collection.json               28 lines  <- NAYA (is round)
+  templates/index.json                   418 lines
+  templates/collection.json               35 lines  <- NAYA (is round)
 
 ---- NAYI FILE - sections me New file banakar paste karein ----
   sections/rj-hero.liquid                411 lines
   sections/rj-usp.liquid                 145 lines
-  sections/rj-showroom.liquid            357 lines   <- NAYA (Showroom edit)
+  sections/rj-showroom.liquid            352 lines   <- NAYA (Showroom edit)
   sections/rj-categories.liquid          201 lines   <- NAYA (Category tiles)
   sections/rj-band.liquid                188 lines   <- NAYA (Feature band)
   sections/rj-about.liquid               220 lines   <- NAYA (About story)
-  sections/rj-best.liquid                239 lines   <- NAYA (Best sellers)
+  sections/rj-best.liquid                234 lines   <- NAYA (Best sellers)
   sections/rj-collections.liquid         212 lines   <- NAYA (Collection carousel)
-  sections/rj-reviews.liquid             272 lines   <- Reviews (Judge.me source)
-  sections/rj-collection.liquid          466 lines   <- NAYA (Collection page)
-  assets/rj-arts.css                    4140 lines   <- poora replace
+  sections/rj-reviews.liquid             276 lines   <- Reviews (Judge.me source)
+  sections/rj-collection.liquid          549 lines   <- NAYA (Collection page)
+  assets/rj-arts.css                    4158 lines   <- poora replace
   assets/rj-arts.js                      303 lines
 
 ---- manual/ - OPTIONAL (sirf patch karna ho to) ----

@@ -65,11 +65,8 @@
       </div>
       {%- comment -%} End of Judge.me code {%- endcomment -%}
     {%- else -%}
-      {%- if rj_source == 'judgeme' and request.design_mode -%}
-        <p class="rj-reviews__note">
-          Judge.me carousel abhi khaali hai — app install/onboard karein (ya app me
-          “featured reviews” publish karein). Tab tak neeche wale blocks dikh rahe hain.
-        </p>
+      {%- if rj_source == 'judgeme' and request.design_mode and section.settings.empty_hint != blank -%}
+        <p class="rj-reviews__note">{{ section.settings.empty_hint }}</p>
       {%- endif -%}
 
       <div class="rj-revrail rj-reveal" data-rj-rail>
@@ -119,6 +116,13 @@
       "label": "Colour scheme",
       "info": "Design uses the white scheme with hairline rules.",
       "default": "scheme-3"
+    },
+    {
+      "type": "textarea",
+      "id": "empty_hint",
+      "label": "Editor hint when Judge.me is empty",
+      "default": "Judge.me carousel abhi khaali hai — app install/onboard karein (ya app me “featured reviews” publish karein). Tab tak neeche wale blocks dikh rahe hain.",
+      "info": "Sirf theme editor me dikhta hai, live site par nahi."
     },
     {
       "type": "checkbox",

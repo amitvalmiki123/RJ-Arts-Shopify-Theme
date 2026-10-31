@@ -5704,6 +5704,21 @@ details-disclosure > details {
   font-size: 12px;
 }
 
+/* editor-only placeholder card copy (no fake product data) */
+.rj-pcard__note {
+  font-family: var(--rj-sans);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--rj-grey);
+  margin: 0;
+}
+
+.rj-pcard--empty .rj-pcard__body {
+  display: flex;
+  align-items: center;
+  min-height: 88px;
+}
+
 .rj-show__foot {
   margin-top: 26px;
 }
@@ -7106,7 +7121,8 @@ details-disclosure > details {
   height: 100%;
   object-fit: cover;
   display: block;
-  opacity: 0.16;
+  /* section setting: Hero image opacity */
+  opacity: var(--rj-chero-opacity, 0.16);
 }
 
 .rj-chero__in {
@@ -7158,7 +7174,8 @@ details-disclosure > details {
 /* ---- sticky toolbar ---- */
 .rj-toolbar {
   position: sticky;
-  top: 82px;
+  /* section setting: Sticky toolbar offset */
+  top: var(--rj-toolbar-top, 82px);
   z-index: 40;
   background: color-mix(in srgb, var(--rj-cream) 94%, transparent);
   backdrop-filter: blur(12px);
@@ -7321,7 +7338,8 @@ details-disclosure > details {
 /* ---- grid (design .pgrid) ---- */
 .rj-cgrid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* section settings: Columns (desktop) / (mobile) */
+  grid-template-columns: repeat(var(--rj-cols-desktop, 4), minmax(0, 1fr));
   gap: 24px;
   padding-block: 36px 20px;
 }
@@ -7730,7 +7748,7 @@ body.rj-drawer-open {
 
 @media screen and (max-width: 990px) {
   .rj-cgrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--rj-cols-mobile, 2), minmax(0, 1fr));
   }
 
   .rj-toolbar {

@@ -11,8 +11,10 @@ Do zip hain, confusion na karein:
 
 **Total kaam: 12 nayi files + 11 replace. Koi file "patch" nahi karni — har file Ctrl+A → paste → Save.**
 
-**Is round me (Collection page) sirf 4 files:** `assets/rj-arts.css`, `assets/rj-arts.js`,
-`sections/rj-collection.liquid` (**nayi**), `templates/collection.json`. Baaki sab ✅ skip.
+**Is round me (Collection page + editable audit) 7 files:** `assets/rj-arts.css`,
+`assets/rj-arts.js`, `sections/rj-collection.liquid` (**nayi**), `templates/collection.json`,
+`sections/rj-best.liquid`, `sections/rj-showroom.liquid`, `sections/rj-reviews.liquid`,
+`templates/index.json`. Baaki sab ✅ skip.
 
 ---
 
@@ -52,7 +54,7 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 4140 | **⬅ is round me badli (Collection page CSS)** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 4158 | **⬅ is round me badli (Collection CSS + editable vars)** |
 | 4 | `assets/rj-arts.js` | **NAYI FILE** | 303 | **⬅ is round me badla (drawer + sort)** |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
@@ -61,18 +63,18 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 9 | `snippets/header-mega-menu.liquid` | REPLACE | 134 | ✅ pehle kar liya to skip |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 | ✅ pehle kar liya to skip |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 | ✅ pehle kar liya to skip |
-| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 | ✅ pehle kar liya to skip |
+| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 352 | **⬅ is round me badla (fake placeholder hataya)** |
 | 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | ✅ pehle kar liya to skip |
 | 14 | `sections/rj-band.liquid` | **NAYI FILE** | 188 | ✅ pehle kar liya to skip |
 | 15 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | ✅ pehle kar liya to skip |
-| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 239 | ✅ pehle kar liya to skip |
+| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 234 | **⬅ is round me badla (fake placeholder hataya)** |
 | 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 212 | ✅ pehle kar liya to skip |
-| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 272 | ✅ pichle round me kar liya to skip |
+| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 276 | **⬅ is round me badla (editor hint editable)** |
 | 19 | `sections/footer.liquid` | REPLACE (Dawn ki file) | 447 | ✅ pichle round me kar liya to skip |
 | 20 | `sections/footer-group.json` | REPLACE | 63 | ✅ pichle round me kar liya to skip |
-| 21 | `templates/index.json` | REPLACE | 416 | ✅ pichle round me kar liya to skip |
-| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 466 | **⬅ is round me bani (Collection page)** |
-| 23 | `templates/collection.json` | REPLACE | 28 | **⬅ is round me badla (collection template)** |
+| 21 | `templates/index.json` | REPLACE | 418 | **⬅ is round me badla (placeholder_note)** |
+| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 549 | **⬅ is round me badli (35 settings)** |
+| 23 | `templates/collection.json` | REPLACE | 35 | **⬅ is round me badla (collection template)** |
 
 Dawn ki baaki **336 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -209,6 +211,44 @@ Sirf 28 lines. `templates` → `collection.json` → `Ctrl+A` → paste → `Ctr
 Iske baad **Customize → Collection page** kholein aur **RJ Collection** section
 verify karein (Filter, Sort by, Load More labels wahin se badal sakte hain).
 
+### Editable check — kya hardcoded hai aur kya nahi
+
+**Theme editor me sab kuch badal sakte hain** — Collection section me 35 settings:
+
+| Setting | Kya karta hai | Default |
+|---|---|---|
+| Colour scheme | section ka background/text | scheme-1 cream |
+| Hero image + **opacity** | collection image override, 0–60% | collection image, 16% |
+| Description override | hero paragraph | collection description |
+| Home label / Parent label / Parent link | breadcrumb | Home |
+| **Sticky toolbar offset** | header ki height ke hisaab se 0–140px | 82px |
+| Products per page | 8–48 (4 ke steps) | 16 |
+| **Columns** desktop / mobile | 2–5 / 1–2 | 4 / 2 |
+| Show filter drawer | ON/OFF | ON |
+| Filter / Count / Sort / Clear all labels | toolbar + chips text | Filter, products, Sort by, Clear all |
+| Apply / Clear / Show results | drawer ke buttons | Apply, Clear, Show results |
+| **New tag** + **New badge** | kaunsa product tag "New" badge banaye, badge ka text | `New Arrivals` / `New` |
+| Stars fallback text | khali = sirf Judge.me stars; bhara = 5★ + text | khali |
+| Card button label | hover button | View Product |
+| Wishlist page URL | heart ka fallback link | `/pages/wishlist` |
+| Empty state | collection khaali ho to | Hinglish line |
+| Showing / Load more label | pagination text | Showing / Load More |
+| Currency symbol fallback | store ka symbol na mile to | ₹ |
+
+**Jo Shopify khud deta hai (editable par section settings me nahi):** products,
+prices, compare-at price, discount %, `products_count`, filters + counts
+(Search & Discovery), sort options, pagination numbers, Judge.me stars.
+
+**Jo jaan-boojh kar hardcoded hai (badalne ki zaroorat nahi):**
+- Screen-reader labels (`Breadcrumb`, `Close`, `Remove <filter>`, `Add … to wishlist`) — visible text nahi hai
+- `−46%` ka minus sign, `1–16 / 48` ka separator, `×` close glyph — typography ka hissa
+- Grid/hero spacing — design tokens (`rj-arts.css`)
+
+**Is round me fake data hataya:** `rj-best` aur `rj-showroom` ke placeholder cards
+pehle `Bedroom` / `Example best seller` / `₹0` / 5 stars dikhate the — ab sirf
+placeholder image + **"Placeholder card note"** setting ka text. Reviews section
+ka editor hint bhi ab setting hai (**Editor hint when Judge.me is empty**).
+
 ---
 
 ## 3. Data jo manually set karna hai (code nahi)
@@ -266,8 +306,9 @@ Design jaisa look chahiye to **Custom image** me `Images/Bed.png`, `Images/Livin
 ### 3.8 Showroom edit — collections (zaroori)
 Customize → **RJ Showroom edit** → 3 tabs. Har tab me **Collection** chunein:
 `New Arrivals` collection → tab 1, `Best Sellers` → tab 2, `Heritage` → tab 3.
-Collection na chuni ho to section dummy cards dikhata hai (₹0, "Example
-solid-wood product") — yeh sirf placeholder hai.
+Collection na chuni ho to section khaali placeholder cards dikhata hai — koi
+fake product/price nahi, sirf ek note: **"Placeholder card note"** setting ka
+text (default `Choose a collection for this tab.`).
 
 - Card **badge** product tag se aata hai: `Sale` (compare-at price > price),
   warna `New Arrivals` tag → "New", `Heritage` tag → "Heritage".

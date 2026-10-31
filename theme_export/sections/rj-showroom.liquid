@@ -157,26 +157,14 @@
                 {%- endfor -%}
               {%- else -%}
                 {%- for i in (1..5) -%}
-                  <article class="rj-pcard">
+                  <article class="rj-pcard rj-pcard--empty">
                     <div class="rj-pcard__media">
-                      <span class="rj-pcard__tag{% cycle '', ' is-sale' %}">{% cycle 'New', 'Sale' %}</span>
                       <div class="rj-pcard__placeholder">
                         {{ 'product-' | append: i | placeholder_svg_tag: 'rj-pcard__img rj-pcard__img--placeholder' }}
                       </div>
-                      <div class="rj-pcard__quick">
-                        <span class="rj-btn rj-btn--light">{{ section.settings.quick_view_label | escape }}</span>
-                      </div>
                     </div>
                     <div class="rj-pcard__body">
-                      <span class="rj-pcard__cat">Bedroom</span>
-                      <h3 class="rj-pcard__title">Example solid-wood product</h3>
-                      <div class="rj-pcard__price">
-                        <span class="now">₹0</span>
-                      </div>
-                      <div class="rj-pcard__stars">
-                        <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <small>{{ label | escape }}</small>
-                      </div>
+                      <p class="rj-pcard__note">{{ section.settings.placeholder_note | escape }}</p>
                     </div>
                   </article>
                 {%- endfor -%}
@@ -237,6 +225,13 @@
       "label": "Card button label",
       "default": "Quick View",
       "info": "Opens the product page. A hover quick-view modal needs an app."
+    },
+    {
+      "type": "text",
+      "id": "placeholder_note",
+      "label": "Placeholder card note",
+      "default": "Choose a collection for this tab.",
+      "info": "Sirf tab dikhta hai jab tab me koi collection select nahi hai."
     },
     {
       "type": "range",

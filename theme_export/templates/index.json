@@ -185,7 +185,8 @@
         "products_to_show": 5,
         "quick_view_label": "Quick View",
         "padding_top": 0,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "placeholder_note": "Choose a collection for this tab."
       }
     },
     "rj_band_rest": {
@@ -256,7 +257,8 @@
         "quick_view_label": "Quick View",
         "link_label": "View All Best Sellers",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "placeholder_note": "Choose a collection to show products."
       }
     },
     "rj_band_comfort": {

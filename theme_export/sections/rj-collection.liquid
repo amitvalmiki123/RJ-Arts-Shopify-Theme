@@ -30,7 +30,9 @@
   endfor
 -%}
 
-<div class="rj-col color-{{ section.settings.color_scheme }} gradient">
+{%- assign rj_cur = cart.currency.symbol | default: section.settings.currency_symbol -%}
+<div class="rj-col color-{{ section.settings.color_scheme }} gradient"
+     style="--rj-chero-opacity: {{ section.settings.hero_image_opacity | divided_by: 100.0 }}; --rj-cols-desktop: {{ section.settings.columns_desktop }}; --rj-cols-mobile: {{ section.settings.columns_mobile }}; --rj-toolbar-top: {{ section.settings.toolbar_top }}px;">
 
   {%- comment -%} ---------------- hero ---------------- {%- endcomment -%}
   <section class="rj-chero">
@@ -41,7 +43,7 @@
     {%- endif -%}
     <div class="rj-wrap rj-chero__in">
       <nav class="rj-crumb" aria-label="Breadcrumb">
-        <a href="{{ routes.root_url }}">Home</a>
+        <a href="{{ routes.root_url }}">{{ section.settings.home_label | escape }}</a>
         <span>/</span>
         {%- if section.settings.crumb_parent != blank -%}
           <a href="{{ section.settings.crumb_parent_url | default: '#' }}">{{ section.settings.crumb_parent | escape }}</a>
@@ -133,7 +135,7 @@
             <a class="rj-pcard__media rj-pcard__media--link" href="{{ product.url }}">
               {%- if on_sale -%}
                 <span class="rj-pcard__tag is-sale">&minus;{{ discount }}%</span>
-              {%- elsif product.tags contains 'New Arrivals' -%}
+              {%- elsif section.settings.new_tag != blank and product.tags contains section.settings.new_tag -%}
                 <span class="rj-pcard__tag">{{ section.settings.new_badge | default: 'New' }}</span>
               {%- endif -%}
               {%- if product.featured_image != blank -%}
@@ -250,12 +252,12 @@
                       <input type="hidden" name="sort_by" value="{{ collection.sort_by }}">
                     {%- endif -%}
                     <label>
-                      <span>₹</span>
+                      <span>{{ rj_cur }}</span>
                       <input type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}" placeholder="{{ filter.range_min | money_without_currency | replace: ',', '' }}" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' }}">
                     </label>
                     <span class="rj-priceform__dash">–</span>
                     <label>
-                      <span>₹</span>
+                      <span>{{ rj_cur }}</span>
                       <input type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}" placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' }}">
                     </label>
                     <button type="submit" class="rj-btn">{{ section.settings.apply_label | escape }}</button>
@@ -326,10 +328,24 @@
       "default": "scheme-1"
     },
     {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
       "type": "image_picker",
       "id": "hero_image",
       "label": "Hero image override",
-      "info": "Defaults to the collection image (shown at 16% opacity)."
+      "info": "Defaults to the collection image. Shown faint behind the title."
+    },
+    {
+      "type": "range",
+      "id": "hero_image_opacity",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "%",
+      "label": "Hero image opacity",
+      "default": 16
     },
     {
       "type": "richtext",
@@ -338,15 +354,40 @@
       "info": "Leave empty to use the collection description."
     },
     {
+      "type": "header",
+      "content": "Breadcrumb"
+    },
+    {
+      "type": "text",
+      "id": "home_label",
+      "label": "Home label",
+      "default": "Home"
+    },
+    {
       "type": "text",
       "id": "crumb_parent",
-      "label": "Breadcrumb parent (optional)",
+      "label": "Parent label (optional)",
       "info": "e.g. Bedroom. Leave empty for Home / Collection title."
     },
     {
       "type": "url",
       "id": "crumb_parent_url",
-      "label": "Breadcrumb parent link"
+      "label": "Parent link"
+    },
+    {
+      "type": "header",
+      "content": "Toolbar + grid"
+    },
+    {
+      "type": "range",
+      "id": "toolbar_top",
+      "min": 0,
+      "max": 140,
+      "step": 1,
+      "unit": "px",
+      "label": "Sticky toolbar offset",
+      "default": 82,
+      "info": "Header ki height ke barabar. Mobile par 0 ho jata hai (CSS me)."
     },
     {
       "type": "range",
@@ -358,8 +399,33 @@
       "default": 16
     },
     {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Columns (desktop)",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns (mobile)",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    },
+    {
       "type": "header",
-      "content": "Toolbar"
+      "content": "Filters + sorting"
     },
     {
       "type": "checkbox",
@@ -393,13 +459,37 @@
       "default": "Clear all"
     },
     {
+      "type": "text",
+      "id": "apply_label",
+      "label": "Price “Apply” button",
+      "default": "Apply"
+    },
+    {
+      "type": "text",
+      "id": "clear_all_label",
+      "label": "Drawer “Clear” button",
+      "default": "Clear"
+    },
+    {
+      "type": "text",
+      "id": "view_results_label",
+      "label": "Drawer “Show results” button",
+      "default": "Show results"
+    },
+    {
       "type": "header",
-      "content": "Cards + pagination"
+      "content": "Product cards"
+    },
+    {
+      "type": "text",
+      "id": "new_tag",
+      "label": "Tag that shows the “New” badge",
+      "default": "New Arrivals"
     },
     {
       "type": "text",
       "id": "new_badge",
-      "label": "Badge for “New Arrivals” tag",
+      "label": "“New” badge text",
       "default": "New"
     },
     {
@@ -428,6 +518,10 @@
       "default": "Is collection me abhi koi product nahi hai."
     },
     {
+      "type": "header",
+      "content": "Pagination"
+    },
+    {
       "type": "text",
       "id": "showing_label",
       "label": "Showing label",
@@ -441,25 +535,14 @@
     },
     {
       "type": "header",
-      "content": "Filter drawer buttons"
+      "content": "Fallbacks"
     },
     {
       "type": "text",
-      "id": "apply_label",
-      "label": "Price apply",
-      "default": "Apply"
-    },
-    {
-      "type": "text",
-      "id": "clear_all_label",
-      "label": "Clear all",
-      "default": "Clear"
-    },
-    {
-      "type": "text",
-      "id": "view_results_label",
-      "label": "Show results",
-      "default": "Show results"
+      "id": "currency_symbol",
+      "label": "Currency symbol fallback",
+      "default": "₹",
+      "info": "Store ka apna currency symbol automatically use hota hai; ye sirf fallback hai."
     }
   ]
 }
