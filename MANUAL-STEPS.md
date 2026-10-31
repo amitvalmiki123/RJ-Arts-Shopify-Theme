@@ -43,25 +43,31 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 
 ---
 
-## 1. 13 files — isi order me
+## 1. File list — jo pehle se paste ho chuki hain unhe SKIP karein
 
-| # | File | Action | Lines |
-|---|------|--------|-------|
-| 1 | `config/settings_schema.json` | REPLACE | 1551 |
-| 2 | `config/settings_data.json` | REPLACE | 382 |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 2119 |
-| 4 | `assets/rj-arts.js` | **NAYI FILE** | 182 |
-| 5 | `layout/theme.liquid` | REPLACE | 641 |
-| 6 | `sections/announcement-bar.liquid` | REPLACE | 180 |
-| 7 | `sections/header.liquid` | REPLACE | 721 |
-| 8 | `snippets/header-mega-menu.liquid` | REPLACE | 134 |
-| 9 | `sections/header-group.json` | REPLACE | 145 |
-| 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 |
-| 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 |
-| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 |
-| 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 |
-| 14 | `sections/footer-group.json` | REPLACE | 61 |
-| 15 | `templates/index.json` | REPLACE | 198 |
+| # | File | Action | Lines | Status |
+|---|------|--------|-------|--------|
+| 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours/banner isi se** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 2119 | **⬅ har round me badalti hai — paste** |
+| 4 | `assets/rj-arts.js` | **NAYI FILE** | 182 | **⬅ abhi badla (showroom tabs)** |
+| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 | **⬅ naya (Showroom edit)** |
+| 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | **⬅ naya (Category tiles)** |
+| 15 | `templates/index.json` | REPLACE | 198 | **⬅ sabse aakhir me** |
+| 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
+| 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
+| 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
+| 7 | `sections/header.liquid` | REPLACE | 721 | ✅ pehle kar liya to skip |
+| 8 | `snippets/header-mega-menu.liquid` | REPLACE | 134 | ✅ pehle kar liya to skip |
+| 9 | `sections/header-group.json` | REPLACE | 145 | ✅ pehle kar liya to skip |
+| 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 | ✅ pehle kar liya to skip |
+| 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 | ✅ pehle kar liya to skip |
+| 14 | `sections/footer-group.json` | REPLACE | 61 | ✅ pehle kar liya to skip |
+
+> **Announcement bar ke baare me:** design me ticker **sticky nahi** hai — header
+> `position: sticky; top: 0` hai aur ticker uske upar scroll ho jata hai. Yaani
+> **neeche scroll karne par bar ka gayab hona design ka hi behaviour hai**, bug
+> nahi. Bar ko header ke saath chipka rehna hai to bata dein — ek CSS line se
+> pinned kar dunga.
 
 Dawn ki baaki **337 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -104,7 +110,7 @@ Isme already sab patch hai: colour-scheme fallback, RJ tokens, `<body class="...
 
 > Ye file aapke Dawn 16.1.0 se hi bani hai (sirf 5 jagah RJ ka code add hai), isliye replace safe hai.
 
-### Step 6 — `sections/announcement-bar.liquid` → REPLACE
+### Step 6 — `sections/announcement-bar.liquid` → REPLACE *(aapke yahan already set — SKIP)*
 Design ki **chalti hui ticker** (marquee), brass highlights, 5 messages.
 
 ### Step 7 — `sections/header.liquid` → REPLACE
