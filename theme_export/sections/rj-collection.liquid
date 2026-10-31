@@ -1,0 +1,466 @@
+{% comment %}
+  RJ ARTS — Collection page (design/collection.html)
+
+  One custom section replaces Dawn's main-collection-banner +
+  main-collection-product-grid so the layout can follow the design:
+    .chero     collection hero: breadcrumb, h1, description, fainted image
+    .toolbar   sticky bar (top: 82px under our header) with Filter pill,
+               live product count and a glass sort select
+    .chips     active filters as removable pills + "Clear all"
+    .drawer    left filter drawer (430px) with collapsible groups
+    .pgrid     4-up product grid, wishlist heart per card, load more
+
+  Data is real: collection.title / description / image, collection.products,
+  collection.filters (Search & Discovery) and collection.sort_options.
+  Filtering and sorting use native Shopify URL parameters, so app filters and
+  the standard filter parameter names keep working.
+{% endcomment %}
+
+{%- liquid
+  assign rj_img = section.settings.hero_image | default: collection.image
+  assign rj_per_page = section.settings.products_per_page
+  assign rj_active_count = 0
+  for filter in collection.filters
+    assign rj_active_count = rj_active_count | plus: filter.active_values.size
+    if filter.type == 'price_range'
+      if filter.min_value.value != nil or filter.max_value.value != nil
+        assign rj_active_count = rj_active_count | plus: 1
+      endif
+    endif
+  endfor
+-%}
+
+<div class="rj-col color-{{ section.settings.color_scheme }} gradient">
+
+  {%- comment -%} ---------------- hero ---------------- {%- endcomment -%}
+  <section class="rj-chero">
+    {%- if rj_img != blank -%}
+      <div class="rj-chero__bg">
+        {{ rj_img | image_url: width: 2400 | image_tag: loading: 'eager', widths: '800,1200,1600,2000,2400', sizes: '100vw', class: 'rj-chero__img', alt: collection.title }}
+      </div>
+    {%- endif -%}
+    <div class="rj-wrap rj-chero__in">
+      <nav class="rj-crumb" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span>/</span>
+        {%- if section.settings.crumb_parent != blank -%}
+          <a href="{{ section.settings.crumb_parent_url | default: '#' }}">{{ section.settings.crumb_parent | escape }}</a>
+          <span>/</span>
+        {%- endif -%}
+        <span>{{ collection.title | escape }}</span>
+      </nav>
+      <h1 class="rj-chero__title">{{ collection.title | escape }}</h1>
+      {%- assign rj_desc = section.settings.description | default: collection.description -%}
+      {%- if rj_desc != blank -%}
+        <div class="rj-chero__desc">{{ rj_desc }}</div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- comment -%} ---------------- toolbar ---------------- {%- endcomment -%}
+  <div class="rj-toolbar">
+    <div class="rj-wrap rj-toolbar__in">
+      <div class="rj-toolbar__left">
+        {%- if section.settings.show_filters and collection.filters.size > 0 -%}
+          <button type="button" class="rj-filterbtn" data-rj-open-filter>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/>
+              <circle cx="9" cy="7" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="17" r="2"/>
+            </svg>
+            {{ section.settings.filter_label | escape }}
+            {%- if rj_active_count > 0 %} ({{ rj_active_count }}){% endif -%}
+          </button>
+        {%- endif -%}
+        <span class="rj-tbcount"><b>{{ collection.products_count }}</b> {{ section.settings.count_label | escape }}</span>
+      </div>
+
+      <div class="rj-toolbar__right">
+        <label for="RjSort">{{ section.settings.sort_label | escape }}</label>
+        <div class="rj-select">
+          <select id="RjSort" data-rj-sort>
+            {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>
+                {{ option.name }}
+              </option>
+            {%- endfor -%}
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ---------------- active filter chips ---------------- {%- endcomment -%}
+  {%- if rj_active_count > 0 -%}
+    <div class="rj-wrap">
+      <div class="rj-chips">
+        {%- for filter in collection.filters -%}
+          {%- for value in filter.active_values -%}
+            <span class="rj-chip">
+              {{ value.label | escape }}
+              <a href="{{ value.url_to_remove }}" aria-label="Remove {{ value.label | escape }}">&times;</a>
+            </span>
+          {%- endfor -%}
+          {%- if filter.type == 'price_range' -%}
+            {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+              <span class="rj-chip">
+                {{ filter.min_value.value | money_without_trailing_zeros }} – {{ filter.max_value.value | money_without_trailing_zeros }}
+                <a href="{{ filter.url_to_remove }}" aria-label="Remove price filter">&times;</a>
+              </span>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <a class="rj-chips__clear" href="{{ collection.url }}">{{ section.settings.clear_label | escape }}</a>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---------------- grid ---------------- {%- endcomment -%}
+  <div class="rj-wrap">
+    {%- paginate collection.products by rj_per_page -%}
+      <div class="rj-cgrid">
+        {%- for product in collection.products -%}
+          {%- liquid
+            assign on_sale = false
+            if product.compare_at_price > product.price
+              assign on_sale = true
+            endif
+            assign discount = 0
+            if on_sale
+              assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+            endif
+          -%}
+          <article class="rj-pcard rj-pcard--grid rj-reveal">
+            <a class="rj-pcard__media rj-pcard__media--link" href="{{ product.url }}">
+              {%- if on_sale -%}
+                <span class="rj-pcard__tag is-sale">&minus;{{ discount }}%</span>
+              {%- elsif product.tags contains 'New Arrivals' -%}
+                <span class="rj-pcard__tag">{{ section.settings.new_badge | default: 'New' }}</span>
+              {%- endif -%}
+              {%- if product.featured_image != blank -%}
+                {{ product.featured_image | image_url: width: 700 | image_tag:
+                    loading: 'lazy',
+                    widths: '300,400,500,700',
+                    sizes: '(min-width: 1200px) 23vw, (min-width: 900px) 30vw, 45vw',
+                    class: 'rj-pcard__img',
+                    alt: product.title
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'rj-pcard__img rj-pcard__img--placeholder' }}
+              {%- endif -%}
+            </a>
+
+            {%- comment -%}
+              Wishlist heart. If Wishlist Hero is installed it binds to the
+              data-wlh-* attributes and takes over the click; until then the
+              link simply opens the wishlist page.
+            {%- endcomment -%}
+            <a class="rj-pcard__wish rj-card-wish"
+               href="{{ section.settings.wishlist_url }}"
+               aria-label="Add {{ product.title | escape }} to wishlist"
+               data-wlh-id="{{ product.id }}"
+               data-wlh-link="{{ shop.url }}{{ product.url }}"
+               data-wlh-name="{{ product.title | escape }}"
+               data-wlh-price="{{ product.price | divided_by: 100.0 }}">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
+            </a>
+
+            <div class="rj-pcard__quick">
+              <a class="rj-btn rj-btn--light" href="{{ product.url }}">{{ section.settings.quick_view_label | escape }}</a>
+            </div>
+
+            <div class="rj-pcard__body">
+              {%- if product.type != blank -%}
+                <span class="rj-pcard__cat">{{ product.type | escape }}</span>
+              {%- endif -%}
+              <h3 class="rj-pcard__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+              <div class="rj-pcard__price">
+                <span class="now">{{ product.price | money }}</span>
+                {%- if on_sale -%}
+                  <span class="was">{{ product.compare_at_price | money }}</span>
+                {%- endif -%}
+              </div>
+              {%- comment -%}
+                Stars come from the reviews app, never hardcoded. Judge.me writes
+                product.metafields.judgeme.badge; if the app is not installed the
+                row simply does not render (the merchant can force a plain label
+                with the "Text under the stars" setting).
+              {%- endcomment -%}
+              {%- assign rj_badge = product.metafields.judgeme.badge -%}
+              {%- if rj_badge != blank -%}
+                <div class="rj-pcard__stars rj-pcard__stars--app">{{ rj_badge }}</div>
+              {%- elsif section.settings.rating_label != blank -%}
+                <div class="rj-pcard__stars">
+                  <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                  <small>{{ section.settings.rating_label | escape }}</small>
+                </div>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- else -%}
+          <p class="rj-cgrid__empty">{{ section.settings.empty_text | escape }}</p>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <div class="rj-loadmore">
+          {%- assign rj_first = paginate.current_offset | plus: 1 -%}
+          {%- assign rj_last = paginate.current_offset | plus: paginate.page_size -%}
+          {%- if rj_last > paginate.items -%}{%- assign rj_last = paginate.items -%}{%- endif -%}
+          <small>
+            {{ section.settings.showing_label | escape }}
+            {{ rj_first }}–{{ rj_last }} / {{ paginate.items }}
+          </small>
+          <div class="rj-loadmore__bar"><i style="width: {{ paginate.current_page | times: 100.0 | divided_by: paginate.pages | round }}%"></i></div>
+          {%- if paginate.next -%}
+            <a class="rj-btn rj-btn--solid" href="{{ paginate.next.url }}">{{ section.settings.load_more_label | escape }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+
+  {%- comment -%} ---------------- filter drawer ---------------- {%- endcomment -%}
+  {%- if section.settings.show_filters and collection.filters.size > 0 -%}
+    <div class="rj-foverlay" data-rj-filter-overlay hidden></div>
+    <aside class="rj-fdrawer" data-rj-filter-drawer aria-labelledby="RjFilterTitle" hidden>
+      <div class="rj-fdrawer__head">
+        <h3 id="RjFilterTitle">{{ section.settings.filter_label | escape }}</h3>
+        <button type="button" data-rj-close-filter aria-label="Close">&times;</button>
+      </div>
+
+      <div class="rj-fdrawer__body">
+        {%- for filter in collection.filters -%}
+          <div class="rj-fgroup{% if forloop.first %} is-open{% endif %}" data-rj-fgroup>
+            <button type="button" class="rj-fgroup__h" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
+              {{ filter.label | escape }}
+              <span class="rj-fgroup__pm" aria-hidden="true"></span>
+            </button>
+            <div class="rj-fgroup__c">
+              {%- case filter.type -%}
+                {%- when 'price_range' -%}
+                  <form class="rj-priceform" method="get" action="{{ collection.url }}">
+                    {%- for f in collection.filters -%}
+                      {%- unless f.type == 'price_range' -%}
+                        {%- for v in f.active_values -%}
+                          <input type="hidden" name="{{ v.param_name }}" value="{{ v.value }}">
+                        {%- endfor -%}
+                      {%- endunless -%}
+                    {%- endfor -%}
+                    {%- if collection.sort_by != blank -%}
+                      <input type="hidden" name="sort_by" value="{{ collection.sort_by }}">
+                    {%- endif -%}
+                    <label>
+                      <span>₹</span>
+                      <input type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}" placeholder="{{ filter.range_min | money_without_currency | replace: ',', '' }}" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' }}">
+                    </label>
+                    <span class="rj-priceform__dash">–</span>
+                    <label>
+                      <span>₹</span>
+                      <input type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}" placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' }}">
+                    </label>
+                    <button type="submit" class="rj-btn">{{ section.settings.apply_label | escape }}</button>
+                  </form>
+
+                {%- when 'boolean' -%}
+                  {%- for value in filter.values -%}
+                    <a class="rj-fopt" href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}">
+                      <span class="rj-fopt__box{% if value.active %} is-checked{% endif %}"></span>
+                      {{ value.label | escape }}
+                      <span class="rj-fopt__count">{{ value.count }}</span>
+                    </a>
+                  {%- endfor -%}
+
+                {%- else -%}
+                  {%- if filter.presentation == 'swatch' -%}
+                    <div class="rj-swatches">
+                      {%- for value in filter.values -%}
+                        <a class="rj-sw{% if value.active %} is-active{% endif %}"
+                           href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}"
+                           title="{{ value.label | escape }} ({{ value.count }})"
+                           aria-label="{{ value.label | escape }}">
+                          {%- if value.swatch.image -%}
+                            {{ value.swatch.image | image_url: width: 80 | image_tag: loading: 'lazy', class: 'rj-sw__img', alt: value.label }}
+                          {%- elsif value.swatch.color -%}
+                            <span class="rj-sw__fill" style="background: rgb({{ value.swatch.color.rgb }})"></span>
+                          {%- else -%}
+                            <span class="rj-sw__fill"></span>
+                          {%- endif -%}
+                        </a>
+                      {%- endfor -%}
+                    </div>
+                  {%- else -%}
+                    {%- for value in filter.values -%}
+                      <a class="rj-fopt" href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}">
+                        <span class="rj-fopt__box{% if value.active %} is-checked{% endif %}"></span>
+                        {{ value.label | escape }}
+                        <span class="rj-fopt__count">{{ value.count }}</span>
+                      </a>
+                    {%- endfor -%}
+                  {%- endif -%}
+              {%- endcase -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="rj-fdrawer__foot">
+        <a class="rj-btn" href="{{ collection.url }}">{{ section.settings.clear_all_label | escape }}</a>
+        <button type="button" class="rj-btn rj-btn--solid" data-rj-close-filter>
+          {{ section.settings.view_results_label | escape }}
+        </button>
+      </div>
+    </aside>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "RJ Collection",
+  "tag": "section",
+  "class": "rj-col-section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image override",
+      "info": "Defaults to the collection image (shown at 16% opacity)."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description override",
+      "info": "Leave empty to use the collection description."
+    },
+    {
+      "type": "text",
+      "id": "crumb_parent",
+      "label": "Breadcrumb parent (optional)",
+      "info": "e.g. Bedroom. Leave empty for Home / Collection title."
+    },
+    {
+      "type": "url",
+      "id": "crumb_parent_url",
+      "label": "Breadcrumb parent link"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "label": "Products per page",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Toolbar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show filter drawer",
+      "default": true,
+      "info": "Filters come from Search & Discovery → Filters."
+    },
+    {
+      "type": "text",
+      "id": "filter_label",
+      "label": "Filter button",
+      "default": "Filter"
+    },
+    {
+      "type": "text",
+      "id": "count_label",
+      "label": "Count suffix",
+      "default": "products"
+    },
+    {
+      "type": "text",
+      "id": "sort_label",
+      "label": "Sort label",
+      "default": "Sort by"
+    },
+    {
+      "type": "text",
+      "id": "clear_label",
+      "label": "Chips “clear all”",
+      "default": "Clear all"
+    },
+    {
+      "type": "header",
+      "content": "Cards + pagination"
+    },
+    {
+      "type": "text",
+      "id": "new_badge",
+      "label": "Badge for “New Arrivals” tag",
+      "default": "New"
+    },
+    {
+      "type": "text",
+      "id": "rating_label",
+      "label": "Stars fallback text",
+      "info": "Khali chhodein to stars sirf reviews app (Judge.me) se aayenge. Kuch likhein to 5 stars + ye text dikhega."
+    },
+    {
+      "type": "text",
+      "id": "quick_view_label",
+      "label": "Card button label",
+      "default": "View Product"
+    },
+    {
+      "type": "text",
+      "id": "wishlist_url",
+      "label": "Wishlist page URL",
+      "default": "/pages/wishlist",
+      "info": "Used by the heart on each card until Wishlist Hero is installed."
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Empty state",
+      "default": "Is collection me abhi koi product nahi hai."
+    },
+    {
+      "type": "text",
+      "id": "showing_label",
+      "label": "Showing label",
+      "default": "Showing"
+    },
+    {
+      "type": "text",
+      "id": "load_more_label",
+      "label": "Load more label",
+      "default": "Load More"
+    },
+    {
+      "type": "header",
+      "content": "Filter drawer buttons"
+    },
+    {
+      "type": "text",
+      "id": "apply_label",
+      "label": "Price apply",
+      "default": "Apply"
+    },
+    {
+      "type": "text",
+      "id": "clear_all_label",
+      "label": "Clear all",
+      "default": "Clear"
+    },
+    {
+      "type": "text",
+      "id": "view_results_label",
+      "label": "Show results",
+      "default": "Show results"
+    }
+  ]
+}
+{% endschema %}

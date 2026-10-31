@@ -209,3 +209,95 @@
     }
   });
 })();
+
+/* ==========================================================================
+   COLLECTION PAGE  (sections/rj-collection.liquid)
+   Filter drawer open/close, filter-group accordion, sort-by navigation.
+   Filtering itself is plain <a href> links (Shopify's own filter URLs), so it
+   keeps working with JavaScript disabled and with Search & Discovery filters.
+   ========================================================================== */
+(function () {
+  function initCollection(root) {
+    var scope = root || document;
+    var drawer = scope.querySelector('[data-rj-filter-drawer]');
+    var overlay = scope.querySelector('[data-rj-filter-overlay]');
+    if (!drawer) return;
+
+    var lastFocus = null;
+
+    function open() {
+      lastFocus = document.activeElement;
+      drawer.hidden = false;
+      if (overlay) overlay.hidden = false;
+      // next frame so the transition runs from translateX(-100%)
+      requestAnimationFrame(function () {
+        drawer.classList.add('is-open');
+        if (overlay) overlay.classList.add('is-open');
+      });
+      document.body.classList.add('rj-drawer-open');
+      var close = drawer.querySelector('[data-rj-close-filter]');
+      if (close) close.focus();
+    }
+
+    function close() {
+      drawer.classList.remove('is-open');
+      if (overlay) overlay.classList.remove('is-open');
+      document.body.classList.remove('rj-drawer-open');
+      window.setTimeout(function () {
+        drawer.hidden = true;
+        if (overlay) overlay.hidden = true;
+      }, 520);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    scope.querySelectorAll('[data-rj-open-filter]').forEach(function (button) {
+      button.addEventListener('click', open);
+    });
+    drawer.querySelectorAll('[data-rj-close-filter]').forEach(function (button) {
+      button.addEventListener('click', close);
+    });
+    if (overlay) overlay.addEventListener('click', close);
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && drawer.classList.contains('is-open')) close();
+    });
+
+    /* accordion */
+    drawer.querySelectorAll('[data-rj-fgroup]').forEach(function (group) {
+      var head = group.querySelector('.rj-fgroup__h');
+      if (!head) return;
+      head.addEventListener('click', function () {
+        var isOpen = group.classList.toggle('is-open');
+        head.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+  }
+
+  function initSort(root) {
+    var select = (root || document).querySelector('[data-rj-sort]');
+    if (!select) return;
+    select.addEventListener('change', function () {
+      var url = new URL(window.location.href);
+      url.searchParams.set('sort_by', select.value);
+      url.searchParams.delete('page');
+      window.location.href = url.toString();
+    });
+  }
+
+  function boot(root) {
+    initCollection(root);
+    initSort(root);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      boot(document);
+    });
+  } else {
+    boot(document);
+  }
+
+  document.addEventListener('shopify:section:load', function (event) {
+    boot(event.target);
+  });
+})();

@@ -574,7 +574,7 @@ USP = """
         <ul class="rj-footer__links"><li><a href="#">Delivery Information</a></li><li><a href="#">Returns & Refunds</a></li><li><a href="#">Terms & Conditions</a></li><li><a href="#">Privacy Policy</a></li></ul>
         <div class="rj-footer__pay">
           <span>We accept</span>
-          <span class="rj-footer__chip">UPI</div><span class="rj-footer__chip">Visa</div><span class="rj-footer__chip">Mastercard</div><span class="rj-footer__chip">EMI</span>
+          <span class="rj-footer__chip">UPI</span><span class="rj-footer__chip">Visa</span><span class="rj-footer__chip">Mastercard</span><span class="rj-footer__chip">EMI</span>
         </div>
       </div>
     </div>

@@ -1,15 +1,18 @@
-# RJ Arts — Manual Setup (Dawn duplicate me 13 files paste karke)
+# RJ Arts — Manual Setup (Dawn duplicate me files paste karke)
 
 Do zip hain, confusion na karein:
 
 | Zip | Kaam |
 |---|---|
-| **`rj-arts-changes.zip`** | **Sirf 13 changed files** (204 KB) — ye guide isi ke liye hai. Copy-paste ke liye. |
-| `rj-arts-theme.zip` | Poora theme (350 files) — sirf **Themes → Add theme → Upload zip** ke liye. |
+| **`rj-arts-changes.zip`** | **Sirf changed files** — ye guide isi ke liye hai. Copy-paste ke liye. |
+| `rj-arts-theme.zip` | Poora theme — sirf **Themes → Add theme → Upload zip** ke liye. |
 
 > ⚠️ `rj-arts-changes.zip` ko theme upload **na** karein — usme Dawn ki zaroori files nahi hain.
 
-**Total kaam: 4 nayi files + 9 replace. Koi file "patch" nahi karni — har file Ctrl+A → paste → Save.**
+**Total kaam: 12 nayi files + 11 replace. Koi file "patch" nahi karni — har file Ctrl+A → paste → Save.**
+
+**Is round me (Collection page) sirf 4 files:** `assets/rj-arts.css`, `assets/rj-arts.js`,
+`sections/rj-collection.liquid` (**nayi**), `templates/collection.json`. Baaki sab ✅ skip.
 
 ---
 
@@ -49,12 +52,12 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 3397 | **⬅ is round me badli (Wishlist Hero CSS)** |
-| 4 | `assets/rj-arts.js` | **NAYI FILE** | 211 | ✅ pichle round me kar liya to skip |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 4140 | **⬅ is round me badli (Collection page CSS)** |
+| 4 | `assets/rj-arts.js` | **NAYI FILE** | 303 | **⬅ is round me badla (drawer + sort)** |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
-| 7 | `sections/header.liquid` | REPLACE | 820 | **⬅ is round me badli (Wishlist Hero mode)** |
-| 8 | `sections/header-group.json` | REPLACE | 150 | **⬅ is round me badla (wishlist ON)** |
+| 7 | `sections/header.liquid` | REPLACE | 820 | ✅ pichle round me kar liya to skip |
+| 8 | `sections/header-group.json` | REPLACE | 150 | ✅ pichle round me kar liya to skip |
 | 9 | `snippets/header-mega-menu.liquid` | REPLACE | 134 | ✅ pehle kar liya to skip |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 | ✅ pehle kar liya to skip |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 | ✅ pehle kar liya to skip |
@@ -64,10 +67,12 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 15 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | ✅ pehle kar liya to skip |
 | 16 | `sections/rj-best.liquid` | **NAYI FILE** | 239 | ✅ pehle kar liya to skip |
 | 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 212 | ✅ pehle kar liya to skip |
-| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 272 | **⬅ is round me badla (Judge.me source)** |
+| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 272 | ✅ pichle round me kar liya to skip |
 | 19 | `sections/footer.liquid` | REPLACE (Dawn ki file) | 447 | ✅ pichle round me kar liya to skip |
 | 20 | `sections/footer-group.json` | REPLACE | 63 | ✅ pichle round me kar liya to skip |
-| 21 | `templates/index.json` | REPLACE | 416 | **⬅ is round me badla (reviews source)** |
+| 21 | `templates/index.json` | REPLACE | 416 | ✅ pichle round me kar liya to skip |
+| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 466 | **⬅ is round me bani (Collection page)** |
+| 23 | `templates/collection.json` | REPLACE | 28 | **⬅ is round me badla (collection template)** |
 
 Dawn ki baaki **336 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -91,7 +96,7 @@ Full file `Ctrl+A` → paste → Save.
 
 **Save ke baad check:** Customize → Theme settings → **Colours** me 5 schemes dikhni chahiye, aur upar ka "color schemes must be defined" banner **nahi**.
 
-### Step 3 — `assets/rj-arts.css` → **NAYI FILE**
+### Step 3 — `assets/rj-arts.css` → **NAYI FILE** *(is round me badli)*
 RJ ka poora design-system CSS (1159 lines).
 
 1. `assets` folder par right-click → **New file** (ya `Ctrl+Shift+P` → `New File`)
@@ -100,7 +105,7 @@ RJ ka poora design-system CSS (1159 lines).
 
 Pehli line: `/* ====...` `RJ ARTS — appended design-system block`
 
-### Step 4 — `assets/rj-arts.js` → **NAYI FILE**
+### Step 4 — `assets/rj-arts.js` → **NAYI FILE** *(is round me badla)*
 Scroll reveal + header "scrolled" state (64 lines).
 `assets` → New file → naam `rj-arts.js` → paste → Save.
 
@@ -174,6 +179,35 @@ Footer ke 4 columns (brand + Shop + Company + Support).
 Homepage template — poore 10 sections (hero, USP, category tiles, showroom, Art of Rest band, About, best sellers, Crafted Comfort band, collection carousel, reviews).
 
 > ⚠️ Steps 10–18 (saari custom sections) pehle hone chahiye, warna `Section type 'rj_best' / 'rj_collections' / 'rj_reviews' / 'rj-footer' does not exist` error aayega.
+
+### Step 22 — `sections/rj-collection.liquid` → **NAYI FILE** ⬅ is round
+
+Collection page ka poora layout ek hi section me: hero (breadcrumb + title +
+description + 16% opacity image), sticky toolbar (Filter pill + live count +
+sort), active-filter chips, 4-up product grid (wishlist heart + tag + price +
+stars), "Load More" bar aur **left filter drawer**.
+
+`sections` → **New file** → naam `rj-collection.liquid` → paste → `Ctrl+S`.
+
+Kya asli data se aata hai (hardcoded nahi):
+- Title / description / image → collection settings se
+- Products, prices, compare-at price, badges (-46% / New) → products se
+- Count ("48 products") → `collection.products_count`
+- Filters + counts → **Search & Discovery** app ke filters se
+- Sort dropdown → store ki `sort_options` (Featured / Price / Best selling / Newest)
+- Stars → Judge.me ka `judgeme.badge` metafield (app na ho to stars row chhup
+  jata hai — jhoothe 5 stars nahi dikhte). Design jaisa 5-star fallback chahiye
+  to section setting **"Stars fallback text"** me `Verified` likh dein.
+
+> ⚠️ Collection page par Dawn ke `main-collection-banner` + `main-collection-product-grid`
+> hat jayenge — ye jaan-boojh kar hai, design ek hi section maangta hai.
+
+### Step 23 — `templates/collection.json` → REPLACE ⬅ is round
+
+Sirf 28 lines. `templates` → `collection.json` → `Ctrl+A` → paste → `Ctrl+S`.
+
+Iske baad **Customize → Collection page** kholein aur **RJ Collection** section
+verify karein (Filter, Sort by, Load More labels wahin se badal sakte hain).
 
 ---
 
@@ -288,6 +322,22 @@ Header section → `mega_feature` blocks. Har block me:
 - **Parent link** = menu naam **exactly** (`Bedroom` / `Living` / `Dining`)
 - Image (3:4), Label, Link
 
+### 3.16 Collection page — 5 cheezein (zaroori)
+
+1. **Collections banayein** — Products → Collections → Create collection
+   (Bedroom / Living Room / Dining / New Arrivals / Best Sellers).
+   Handle wahi rakhein jo menu me link kiya hai.
+2. **Collection image** — har collection me 1 wide image (2000px+). Hero me
+   16% opacity par background ki tarah dikhti hai; na daalein to plain cream
+   hero rahega (layout nahi tootega).
+3. **Description** — collection description hi hero ka paragraph banta hai.
+4. **Filters** — Shopify admin → **Apps → Search & Discovery → Filters** →
+   Add filter: `Availability`, `Price`, `Product type`, `Vendor`,
+   `Size` (variant option), `Finish` (variant option / metafield).
+   Finish ko **Swatch** presentation de dein, to drawer me colour dots aayenge.
+   Filter add na karein to Filter button + drawer chhup jayenge (page normal chalega).
+5. **Sort options** — store ki default list hi use hoti hai; kuch karne ki zaroorat nahi.
+
 ---
 
 ## 4. Final check
@@ -311,6 +361,14 @@ Header section → `mega_feature` blocks. Har block me:
 | 7g | Header: search ke right wishlist (heart) icon, click → Wishlist Hero | Header right |
 | 7h | Judge.me install ke baad reviews app se aate hain | Sabse neeche |
 | 7i | Footer form submit → Customers me subscriber | Footer + admin |
+| 8c | Collection page: hero + breadcrumb + description, image 16% opacity | Kisi collection par jayein |
+| 8d | Toolbar chipka rehta hai (scroll par header ke neeche) | Collection page scroll |
+| 8e | Filter pill → left drawer khulta hai, groups expand/collapse | Collection page |
+| 8f | Filter lagane par chip + count badalte hain, "Clear all" sab hata deta hai | Collection page |
+| 8g | Sort badalne par order badalta hai (URL me `sort_by`) | Collection page |
+| 8h | Card hover: heart + View Product, tag -46% / New | Collection page |
+| 8i | "Load More" 16 products ke baad dikhta hai | Collection page bottom |
+| 8j | Mobile 360/390: 2-column grid, drawer full-height | Devtools |
 | 8 | Footer: brand + Shop + Company + Support | Page bottom |
 | 8a | Footer newsletter band + brass Subscribe button | Footer top |
 | 8b | Payment chips + ghost "RJ ARTS" wordmark | Footer bottom |
@@ -473,9 +531,14 @@ Agar poora `layout/theme.liquid` replace nahi karna chahte, to `manual/` folder 
 ## 8. Aage
 
 Group 1 (header) ✅ · Group 2 (**10/10** homepage sections) ✅ · Group 3 (footer) ✅ ·
-Integrations ✅ (Judge.me reviews, wishlist icon, newsletter → Customers).
+**Group 4 (Collection page) ✅** · Integrations code ready (app install aapke baad).
 
-Ab bacha: `config/settings_data.json` (Colours panel), **collection page**, **product page**
-(Judge.me Review Widget wahin lagega), **About page**, aur content entry.
+Ab bacha:
+1. `config/settings_data.json` (Colours panel) — Colours + banner, ek hi baar me
+2. **Product page** (design/`product.html`) — Judge.me Review Widget + wishlist button slot
+3. **About page** (design/`About.html`)
+4. Content entry: collections, menus, images, products
 
-Group 2 ✅ **poora ho gaya** (10/10 sections). Ab sirf **Group 3 — Footer** bacha hai (newsletter band, brand, 3 menus, contact, socials, payment chips, ghost wordmark).
+App install (Judge.me, Wishlist Hero) aap identity verify karne ke baad karenge —
+tab tak code graceful fallback par chalta hai (reviews = blocks, wishlist heart =
+`#hero-wishlist` / `/pages/wishlist`).
