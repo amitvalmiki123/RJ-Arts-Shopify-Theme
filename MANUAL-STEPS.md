@@ -49,8 +49,8 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 2800 | **⬅ is round me badli (best / carousel / reviews CSS)** |
-| 4 | `assets/rj-arts.js` | **NAYI FILE** | 211 | **⬅ is round me badli (<rj-carousel> arrows)** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 3204 | **⬅ is round me badli (footer CSS)** |
+| 4 | `assets/rj-arts.js` | **NAYI FILE** | 211 | ✅ pichle round me kar liya to skip |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
 | 7 | `sections/header.liquid` | REPLACE | 721 | ✅ pehle kar liya to skip |
@@ -58,15 +58,16 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 9 | `sections/header-group.json` | REPLACE | 145 | ✅ pehle kar liya to skip |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 | ✅ pehle kar liya to skip |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 | ✅ pehle kar liya to skip |
-| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 | ✅ pichle round me kar liya to skip |
-| 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | ✅ pichle round me kar liya to skip |
-| 14 | `sections/rj-band.liquid` | **NAYI FILE** | 188 | ✅ pichle round me kar liya to skip |
-| 15 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | ✅ pichle round me kar liya to skip |
-| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 239 | **⬅ is round me naya (Best sellers)** |
-| 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 212 | **⬅ is round me naya (Collection carousel)** |
-| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 212 | **⬅ is round me naya (Reviews rail)** |
-| 19 | `sections/footer-group.json` | REPLACE | 61 | ✅ pehle kar liya to skip |
-| 20 | `templates/index.json` | REPLACE | 413 | **⬅ poora homepage — sabse aakhir me** |
+| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 357 | ✅ pehle kar liya to skip |
+| 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | ✅ pehle kar liya to skip |
+| 14 | `sections/rj-band.liquid` | **NAYI FILE** | 188 | ✅ pehle kar liya to skip |
+| 15 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | ✅ pehle kar liya to skip |
+| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 239 | ✅ pichle round me kar liya to skip |
+| 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 212 | ✅ pichle round me kar liya to skip |
+| 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 212 | ✅ pichle round me kar liya to skip |
+| 19 | `sections/rj-footer.liquid` | **NAYI FILE** | 443 | **⬅ is round me naya (Footer)** |
+| 20 | `sections/footer-group.json` | REPLACE | 63 | **⬅ is round me badla (ab rj-footer use karta hai)** |
+| 21 | `templates/index.json` | REPLACE | 413 | ✅ pichle round me kar liya to skip |
 
 Dawn ki baaki **337 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -152,17 +153,22 @@ Collection carousel (arrows wali rail). File naam: `rj-collections.liquid`.
 Reviews rail (merchant ke apne review blocks, koi app nahi chahiye).
 File naam: `rj-reviews.liquid`.
 
-### Step 19 — `sections/footer-group.json` → REPLACE
+### Step 19 — `sections/rj-footer.liquid` → **NAYI FILE**
+Group 3 ka footer: newsletter band (asli customer form), brand + 3 menus,
+payment chips, bottom bar, ghost "RJ ARTS" wordmark.
+`sections` → New file → naam `rj-footer.liquid` → paste → Save.
+
+### Step 20 — `sections/footer-group.json` → REPLACE
 Footer ke 4 columns (brand + Shop + Company + Support).
 
 ### Step 15 — `sections/rj-about.liquid` → **NAYI FILE**
 "Our Story" split section (4:5 photo + floating 25+ Years badge, 3 stats).
 `sections` → New file → naam `rj-about.liquid` → paste → Save.
 
-### Step 20 — `templates/index.json` → REPLACE
+### Step 21 — `templates/index.json` → REPLACE
 Homepage template — poore 10 sections (hero, USP, category tiles, showroom, Art of Rest band, About, best sellers, Crafted Comfort band, collection carousel, reviews).
 
-> ⚠️ Steps 10–18 (saari custom sections) pehle hone chahiye, warna `Section type 'rj_best' / 'rj_collections' / 'rj_reviews' does not exist` error aayega.
+> ⚠️ Steps 10–18 (saari custom sections) pehle hone chahiye, warna `Section type 'rj_best' / 'rj_collections' / 'rj_reviews' / 'rj-footer' does not exist` error aayega.
 
 ---
 
@@ -261,7 +267,18 @@ Customize → **RJ Reviews rail** → 4 review blocks pehle se bhare hain (desig
 text). Apne asli reviews paste karein: text, naam, product line, stars. Reviews
 app baad me lag sakta hai — CSS same rahega.
 
-### 3.14 Mega feature cards (6)
+### 3.14 Footer — 4 cheezein (zaroori)
+1. **Menus** (Settings → Navigation): `Company` aur `Support` menus banayein —
+   footer-group dono ko `footer` menu par point karta hai, ya Customize me
+   **RJ Footer** ke har column me alag menu chunein.
+2. **Social links**: Customize → RJ Footer → Instagram / Facebook / Pinterest /
+   YouTube URLs. Khaali chhodein to icon dikhega hi nahi.
+3. **Payment chips**: store me payment method active ho to asli icons aate hain;
+   warna `UPI, Visa, Mastercard, EMI` text chips dikhte hain.
+4. **Logo**: Theme settings ka logo hi invert hokar white dikhta hai
+   (RJ Footer me chaho to alag logo bhi laga sakte hain).
+
+### 3.15 Mega feature cards (6)
 Header section → `mega_feature` blocks. Har block me:
 - **Parent link** = menu naam **exactly** (`Bedroom` / `Living` / `Dining`)
 - Image (3:4), Label, Link
@@ -287,6 +304,8 @@ Header section → `mega_feature` blocks. Har block me:
 | 7e | Collection carousel: arrows rail scroll karte hain | Band ke neeche |
 | 7f | Reviews: white section, cream cards, brass initials | Sabse neeche |
 | 8 | Footer: brand + Shop + Company + Support | Page bottom |
+| 8a | Footer newsletter band + brass Subscribe button | Footer top |
+| 8b | Payment chips + ghost "RJ ARTS" wordmark | Footer bottom |
 | 9 | Mobile 390px: hamburger drawer, hero 1 column | Devtools |
 
 ---
@@ -357,6 +376,6 @@ Agar poora `layout/theme.liquid` replace nahi karna chahte, to `manual/` folder 
 
 ## 7. Aage
 
-Group 1 (header) ✅ + Group 2 (**10/10** homepage sections) ✅. Group 3 (footer) baaki.
+Group 1 (header) ✅ · Group 2 (**10/10** homepage sections) ✅ · Group 3 (footer) ✅ — teeno groups poore. Ab bacha: Colours/settings_data, template pages (collection, product, about), aur content entry.
 
 Group 2 ✅ **poora ho gaya** (10/10 sections). Ab sirf **Group 3 — Footer** bacha hai (newsletter band, brand, 3 menus, contact, socials, payment chips, ghost wordmark).

@@ -2,60 +2,62 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "footer": {
-      "type": "footer",
-      "settings": {
-        "color_scheme": "scheme-4",
-        "newsletter_enable": true,
-        "newsletter_heading": "Join the list. Get 10% off your first order.",
-        "enable_follow_on_shop": false,
-        "show_social": true,
-        "enable_country_selector": false,
-        "enable_language_selector": false,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 36,
-        "padding_bottom": 36
-      },
+    "rj_footer": {
+      "type": "rj-footer",
       "blocks": {
-        "brand": {
-          "type": "brand_information",
-          "settings": {
-            "show_social": true
-          }
-        },
         "shop": {
-          "type": "link_list",
+          "type": "menu",
           "settings": {
             "heading": "Shop",
-            "menu": "main-menu"
+            "menu": "main-menu",
+            "show_payment": false
           }
         },
         "company": {
-          "type": "link_list",
+          "type": "menu",
           "settings": {
             "heading": "Company",
-            "menu": "footer"
+            "menu": "footer",
+            "show_payment": false
           }
         },
         "support": {
-          "type": "link_list",
+          "type": "menu",
           "settings": {
             "heading": "Support",
-            "menu": "footer"
+            "menu": "footer",
+            "show_payment": true
           }
         }
       },
       "block_order": [
-        "brand",
         "shop",
         "company",
         "support"
-      ]
+      ],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "show_newsletter": true,
+        "newsletter_eyebrow": "The Inner Circle",
+        "newsletter_heading": "Join the list. Get 10% off your first order.",
+        "newsletter_text": "Be first to see new editions and limited pieces, get invitations to private design events, and enjoy members-only offers and styling tips — straight to your inbox.",
+        "newsletter_placeholder": "Your email address",
+        "newsletter_button": "Subscribe",
+        "newsletter_success": "Thanks — welcome to the Inner Circle.",
+        "brand_text": "<p>Handcrafted solid Sheesham furniture for the modern Indian home — loved by over 10,000 happy homes and 1,000+ five-star reviews.</p>",
+        "email": "care@therjart.com",
+        "phone": "+91 70144 83250",
+        "payment_label": "We accept",
+        "payment_chips": "UPI, Visa, Mastercard, EMI",
+        "copyright": "All rights reserved.",
+        "credit": "Crafted with care · Designed by AWA",
+        "show_ghost": true,
+        "ghost_text": "RJ ARTS",
+        "padding_top": 0
+      }
     }
   },
   "order": [
-    "footer"
+    "rj_footer"
   ]
 }

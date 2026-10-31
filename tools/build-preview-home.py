@@ -531,7 +531,60 @@ USP = """
       <div class="rj-rcard"><div class="rj-rcard__stars">★★★★★</div><p class="rj-rcard__quote">"The Sheesham wood feels very strong. The cushioned headboard adds comfort and looks classy."</p><div class="rj-rcard__who"><span class="rj-rcard__av">A</span><div class="rj-rcard__meta"><b>Arjun Reddy</b><br><small>Platform Cot Bed · Verified</small></div></div></div>
     </div>
   </div>
-</div>"""
+</div>
+<footer class="rj-footer" style="--rj-foot-pt: 0px;">
+  <div class="rj-wrap">
+
+    <!-- newsletter band -->
+    <div class="rj-footer__news rj-reveal">
+      <div>
+        <span class="rj-eyebrow rj-footer__news-eyebrow">The Inner Circle</span>
+        <h3 class="rj-footer__news-title">Join the list. Get 10% off your first order.</h3>
+        <p class="rj-footer__news-text">Be first to see new editions and limited pieces, get invitations to private design events, and enjoy members-only offers and styling tips — straight to your inbox.</p>
+      </div>
+      <div class="rj-footer__news-form"><form class="rj-newsform" onsubmit="return false">
+        <input class="rj-newsform__input" type="email" placeholder="Your email address" aria-label="Email">
+        <button class="rj-newsform__btn" type="submit">Subscribe</button>
+      </form></div>
+    </div>
+
+    <!-- main grid -->
+    <div class="rj-footer__grid">
+      <div class="rj-footer__brand">
+        <div class="rj-footer__logo"><img class="rj-footer__logo-img" src="Images/logo.svg" alt="RJ Arts"></div>
+        <div class="rj-footer__brand-text"><p>Handcrafted solid Sheesham furniture for the modern Indian home — loved by over 10,000 happy homes and 1,000+ five-star reviews.</p></div>
+        <div class="rj-footer__contact">
+          <a href="mailto:care@therjart.com"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> care@therjart.com</a>
+          <a href="https://wa.me/917014483250"><svg viewBox="0 0 24 24"><path d="M4 20l1.5-4A8 8 0 1 1 9 19z"/><path d="M9 10c0 3 2 5 5 5"/></svg> +91 70144 83250</a>
+        </div>
+        <div class="rj-footer__socials">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M15 3h-3a4 4 0 0 0-4 4v3H5v4h3v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7c-2 0-3.5 1.4-3.5 3.3 0 .9.5 1.8 1.2 2M12 7c2 0 3.5 1.4 3.5 3.5S14 14 12.5 14c-1 0-1.7-.7-1.5-1.6l.6-3M10 17l1-4"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M4 20l1.5-4A8 8 0 1 1 9 19z"/><path d="M9 10c0 3 2 5 5 5"/></svg></a>
+        </div>
+      </div>
+      <div class="rj-footer__col"><h5 class="rj-footer__hd">Shop</h5><ul class="rj-footer__links"><li><a href="#">Bedroom</a></li><li><a href="#">Living Room</a></li><li><a href="#">Dining</a></li><li><a href="#">New Arrivals</a></li><li><a href="#">Best Sellers</a></li></ul></div>
+      <div class="rj-footer__col"><h5 class="rj-footer__hd">Company</h5><ul class="rj-footer__links"><li><a href="#">What We Do</a></li><li><a href="#">FAQs</a></li><li><a href="#">Help & Contact</a></li><li><a href="#">Order Tracking</a></li></ul></div>
+      <div class="rj-footer__col">
+        <h5 class="rj-footer__hd">Support</h5>
+        <ul class="rj-footer__links"><li><a href="#">Delivery Information</a></li><li><a href="#">Returns & Refunds</a></li><li><a href="#">Terms & Conditions</a></li><li><a href="#">Privacy Policy</a></li></ul>
+        <div class="rj-footer__pay">
+          <span>We accept</span>
+          <span class="rj-footer__chip">UPI</div><span class="rj-footer__chip">Visa</div><span class="rj-footer__chip">Mastercard</div><span class="rj-footer__chip">EMI</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rj-footer__bottom">
+      <span>© 2026 RJ Arts. All rights reserved.</span>
+      <span>Crafted with care · Designed by AWA</span>
+    </div>
+  </div>
+
+  <!-- ghost wordmark -->
+  <div class="rj-footer__ghost" aria-hidden="true">RJ ARTS</div>
+</footer>"""
 
 SCRIPT = """
 <script>
