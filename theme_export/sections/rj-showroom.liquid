@@ -129,10 +129,20 @@
                         {%- endif -%}
                       </a>
                       <div class="rj-pcard__quick">
-                        <a class="rj-btn rj-btn--light" href="{{ product.url }}">
-                          {{ section.settings.quick_view_label | escape }}
-                        </a>
+                        {%- if section.settings.card_button_action == 'quick_view' -%}
+                          <button type="button" class="rj-btn rj-btn--light"
+                                  data-rj-qv-open="{{ product.id }}" aria-haspopup="dialog">
+                            {{ section.settings.quick_view_label | escape }}
+                          </button>
+                        {%- else -%}
+                          <a class="rj-btn rj-btn--light" href="{{ product.url }}">
+                            {{ section.settings.quick_view_label | escape }}
+                          </a>
+                        {%- endif -%}
                       </div>
+                      {%- if section.settings.card_button_action == 'quick_view' -%}
+                        {%- render 'rj-quickview', product: product, add_label: section.settings.quick_view_add_label -%}
+                      {%- endif -%}
                     </div>
                     <div class="rj-pcard__body">
                       {%- if product.type != blank -%}
@@ -182,6 +192,10 @@
         {%- endfor -%}
       </div>
     </div>
+
+    {%- if section.settings.card_button_action == 'quick_view' -%}
+      {%- render 'rj-quickview-modal' -%}
+    {%- endif -%}
   </rj-showroom>
 {%- endif -%}
 
@@ -225,6 +239,22 @@
       "label": "Card button label",
       "default": "Quick View",
       "info": "Opens the product page. A hover quick-view modal needs an app."
+    },
+    {
+      "type": "select",
+      "id": "card_button_action",
+      "label": "Card button",
+      "options": [
+        { "value": "quick_view", "label": "Quick view popup" },
+        { "value": "link", "label": "Go to product page" }
+      ],
+      "default": "quick_view"
+    },
+    {
+      "type": "text",
+      "id": "quick_view_add_label",
+      "label": "Popup add-to-cart label",
+      "default": "Add to Cart"
     },
     {
       "type": "text",

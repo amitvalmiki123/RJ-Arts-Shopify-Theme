@@ -8691,6 +8691,349 @@ body.rj-drawer-open {
   }
 }
 
+/* ==========================================================================
+   QUICK VIEW POPUP  (snippets/rj-quickview.liquid + rj-quickview-modal.liquid)
+   Content is rendered server-side per card inside a <template>, so opening is
+   instant and every price/variant/image is real product data.
+   ========================================================================== */
+
+.rj-qv {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.rj-qv[hidden] {
+  display: none;
+}
+
+.rj-qv__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 14, 8, 0.55);
+  opacity: 0;
+  transition: opacity 0.35s var(--rj-ease);
+}
+
+.rj-qv.is-open .rj-qv__overlay {
+  opacity: 1;
+}
+
+.rj-qv__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(980px, 100%);
+  max-height: min(88vh, 860px);
+  overflow-y: auto;
+  background: var(--rj-cream);
+  border: 1px solid var(--rj-line);
+  border-radius: 6px;
+  box-shadow: var(--rj-shadow);
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  transition: opacity 0.35s var(--rj-ease), transform 0.35s var(--rj-ease);
+  overscroll-behavior: contain;
+}
+
+.rj-qv.is-open .rj-qv__dialog {
+  opacity: 1;
+  transform: none;
+}
+
+.rj-qv__x {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--rj-line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--rj-ink);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.3s var(--rj-ease);
+}
+
+.rj-qv__x:hover {
+  background: var(--rj-ink);
+  border-color: var(--rj-ink);
+  color: var(--rj-cream);
+}
+
+.rj-qv__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.rj-qv__media {
+  background: var(--rj-cream-2);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rj-qv__stage {
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--rj-cream-2);
+}
+
+.rj-qv__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rj-qv__thumbs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rj-qv__thumb {
+  width: 62px;
+  height: 62px;
+  padding: 0;
+  border: 1px solid var(--rj-line);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--rj-white);
+  cursor: pointer;
+  opacity: 0.62;
+  transition: 0.3s var(--rj-ease);
+}
+
+.rj-qv__thumb.is-active,
+.rj-qv__thumb:hover {
+  opacity: 1;
+  border-color: var(--rj-brass);
+}
+
+.rj-qv__thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rj-qv__info {
+  padding: 34px 34px 30px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rj-qv__cat {
+  font-family: var(--rj-sans);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rj-brass);
+}
+
+.rj-qv__title {
+  font-family: var(--rj-serif);
+  font-weight: 400;
+  font-size: calc(clamp(24px, 2.2vw, 32px) * var(--rj-heading-scale));
+  line-height: 1.15;
+  margin: 8px 0 0;
+  padding-right: 34px;
+}
+
+.rj-qv__price {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 16px 0 4px;
+}
+
+.rj-qv__price .now {
+  font-family: var(--rj-sans);
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--rj-ink);
+}
+
+.rj-qv__price .was {
+  font-family: var(--rj-sans);
+  font-size: 16px;
+  color: var(--rj-grey);
+  text-decoration: line-through;
+}
+
+.rj-qv__desc {
+  font-family: var(--rj-sans);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--rj-ink-soft);
+  margin-top: 12px;
+}
+
+.rj-qv__label {
+  display: block;
+  font-family: var(--rj-sans);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rj-ink-soft);
+  margin: 20px 0 8px;
+}
+
+.rj-qv__selectwrap {
+  position: relative;
+}
+
+.rj-qv__select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--rj-line);
+  border-radius: 3px;
+  background: var(--rj-white);
+  color: var(--rj-ink);
+  font-family: var(--rj-sans);
+  font-size: 14px;
+  padding: 12px 40px 12px 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.rj-qv__selectwrap::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--rj-ink);
+  border-bottom: 1.5px solid var(--rj-ink);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.rj-qv__buyrow {
+  margin-top: 20px;
+}
+
+.rj-qv__links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.rj-qv__details {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--rj-sans);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rj-ink);
+  border-bottom: 1px solid var(--rj-line);
+  padding-bottom: 3px;
+  transition: 0.3s var(--rj-ease);
+}
+
+.rj-qv__details svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+
+.rj-qv__details:hover {
+  color: var(--rj-brass-deep);
+  border-color: var(--rj-brass);
+}
+
+.rj-qv .rj-wishline {
+  margin-top: 0;
+  font-size: 12px;
+}
+
+/* keyboard users get a visible ring, mouse users do not */
+.rj-qv__dialog :focus-visible,
+.rj-pcard__quick button:focus-visible {
+  outline: 2px solid var(--rj-brass);
+  outline-offset: 3px;
+}
+
+body.rj-qv-lock {
+  overflow: hidden;
+}
+
+/* the card button is a <button> now, so kill the native chrome */
+.rj-pcard__quick button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+@media screen and (max-width: 860px) {
+  .rj-qv {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .rj-qv__dialog {
+    width: 100%;
+    max-height: 92vh;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 0;
+  }
+
+  .rj-qv__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rj-qv__media {
+    padding: 14px;
+  }
+
+  .rj-qv__stage {
+    aspect-ratio: 4 / 3;
+  }
+
+  .rj-qv__info {
+    padding: 22px 20px 28px;
+  }
+
+  .rj-qv__title {
+    font-size: 22px;
+    padding-right: 40px;
+  }
+
+  .rj-qv__price .now {
+    font-size: 20px;
+  }
+
+  .rj-qv__buyrow {
+    flex-wrap: wrap;
+  }
+
+  .rj-qv__buyrow .rj-btn {
+    flex: 1 1 100%;
+    order: 2;
+  }
+}
+
 .color-scheme-3 { --color-background: 255, 255, 255; --color-foreground: 33, 28, 23; }
 .page-width { margin-inline: auto; width: 100%; }
 .list-menu, .list-unstyled { list-style: none; margin: 0; padding: 0; }
@@ -8940,7 +9283,7 @@ main { display: block; }
           <a class="rj-pcard__wish rj-card-wish" href="#hero-wishlist" aria-label="Add Platform Cot Bed · Upholstered Headboard to wishlist">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
           </a>
-          <div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="product.html">View Product</a></div>
+          <div class="rj-pcard__quick"><button type="button" class="rj-btn rj-btn--light" data-rj-qv-open="1000" aria-haspopup="dialog">Quick View</button></div>
           <div class="rj-pcard__body">
             <span class="rj-pcard__cat">Bedroom</span>
             <h3 class="rj-pcard__title"><a href="product.html">Platform Cot Bed · Upholstered Headboard</a></h3>
@@ -8956,7 +9299,7 @@ main { display: block; }
           <a class="rj-pcard__wish rj-card-wish" href="#hero-wishlist" aria-label="Add Wood Arch Bed · Without Storage to wishlist">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
           </a>
-          <div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="product.html">View Product</a></div>
+          <div class="rj-pcard__quick"><button type="button" class="rj-btn rj-btn--light" data-rj-qv-open="1001" aria-haspopup="dialog">Quick View</button></div>
           <div class="rj-pcard__body">
             <span class="rj-pcard__cat">Bedroom</span>
             <h3 class="rj-pcard__title"><a href="product.html">Wood Arch Bed · Without Storage</a></h3>
@@ -8972,7 +9315,7 @@ main { display: block; }
           <a class="rj-pcard__wish rj-card-wish" href="#hero-wishlist" aria-label="Add Low-Height Double Bed · Rosewood to wishlist">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
           </a>
-          <div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="product.html">View Product</a></div>
+          <div class="rj-pcard__quick"><button type="button" class="rj-btn rj-btn--light" data-rj-qv-open="1002" aria-haspopup="dialog">Quick View</button></div>
           <div class="rj-pcard__body">
             <span class="rj-pcard__cat">Bedroom</span>
             <h3 class="rj-pcard__title"><a href="product.html">Low-Height Double Bed · Rosewood</a></h3>
@@ -8988,7 +9331,7 @@ main { display: block; }
           <a class="rj-pcard__wish rj-card-wish" href="#hero-wishlist" aria-label="Add Double Bed · Without Storage to wishlist">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
           </a>
-          <div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="product.html">View Product</a></div>
+          <div class="rj-pcard__quick"><button type="button" class="rj-btn rj-btn--light" data-rj-qv-open="1003" aria-haspopup="dialog">Quick View</button></div>
           <div class="rj-pcard__body">
             <span class="rj-pcard__cat">Bedroom</span>
             <h3 class="rj-pcard__title"><a href="product.html">Double Bed · Without Storage</a></h3>
@@ -9004,7 +9347,7 @@ main { display: block; }
           <a class="rj-pcard__wish rj-card-wish" href="#hero-wishlist" aria-label="Add Sheesham Queen Bed · Honey Finish to wishlist">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
           </a>
-          <div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="product.html">View Product</a></div>
+          <div class="rj-pcard__quick"><button type="button" class="rj-btn rj-btn--light" data-rj-qv-open="1004" aria-haspopup="dialog">Quick View</button></div>
           <div class="rj-pcard__body">
             <span class="rj-pcard__cat">Bedroom</span>
             <h3 class="rj-pcard__title"><a href="product.html">Sheesham Queen Bed · Honey Finish</a></h3>
@@ -9020,7 +9363,7 @@ main { display: block; }
           <a class="rj-pcard__wish rj-card-wish" href="#hero-wishlist" aria-label="Add Jaipur Cane Box-Storage King Bed to wishlist">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
           </a>
-          <div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="product.html">View Product</a></div>
+          <div class="rj-pcard__quick"><button type="button" class="rj-btn rj-btn--light" data-rj-qv-open="1005" aria-haspopup="dialog">Quick View</button></div>
           <div class="rj-pcard__body">
             <span class="rj-pcard__cat">Bedroom</span>
             <h3 class="rj-pcard__title"><a href="product.html">Jaipur Cane Box-Storage King Bed</a></h3>
@@ -9036,7 +9379,7 @@ main { display: block; }
           <a class="rj-pcard__wish rj-card-wish" href="#hero-wishlist" aria-label="Add Brass-Work Headboard King Bed to wishlist">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
           </a>
-          <div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="product.html">View Product</a></div>
+          <div class="rj-pcard__quick"><button type="button" class="rj-btn rj-btn--light" data-rj-qv-open="1006" aria-haspopup="dialog">Quick View</button></div>
           <div class="rj-pcard__body">
             <span class="rj-pcard__cat">Bedroom</span>
             <h3 class="rj-pcard__title"><a href="product.html">Brass-Work Headboard King Bed</a></h3>
@@ -9052,7 +9395,7 @@ main { display: block; }
           <a class="rj-pcard__wish rj-card-wish" href="#hero-wishlist" aria-label="Add Sevilla Half-Box Storage Bed to wishlist">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
           </a>
-          <div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="product.html">View Product</a></div>
+          <div class="rj-pcard__quick"><button type="button" class="rj-btn rj-btn--light" data-rj-qv-open="1007" aria-haspopup="dialog">Quick View</button></div>
           <div class="rj-pcard__body">
             <span class="rj-pcard__cat">Bedroom</span>
             <h3 class="rj-pcard__title"><a href="product.html">Sevilla Half-Box Storage Bed</a></h3>
@@ -9068,7 +9411,7 @@ main { display: block; }
           <a class="rj-pcard__wish rj-card-wish" href="#hero-wishlist" aria-label="Add Low-Height Bed · Basic Headboard to wishlist">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
           </a>
-          <div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="product.html">View Product</a></div>
+          <div class="rj-pcard__quick"><button type="button" class="rj-btn rj-btn--light" data-rj-qv-open="1008" aria-haspopup="dialog">Quick View</button></div>
           <div class="rj-pcard__body">
             <span class="rj-pcard__cat">Bedroom</span>
             <h3 class="rj-pcard__title"><a href="product.html">Low-Height Bed · Basic Headboard</a></h3>
@@ -9076,11 +9419,362 @@ main { display: block; }
             <div class="rj-pcard__stars"><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><small>14 reviews</small></div>
           </div>
         </article></div>
+    
+  <template data-rj-qv-template="1000">
+    <div class="rj-qv__grid">
+      <div class="rj-qv__media">
+        <div class="rj-qv__stage"><img class="rj-qv__img" data-rj-qv-stage src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=700" alt="Platform Cot Bed · Upholstered Headboard"></div>
+        <div class="rj-qv__thumbs"><button type="button" class="rj-qv__thumb is-active" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" alt="" loading="lazy"></button></div>
+      </div>
+      <div class="rj-qv__info">
+        <span class="rj-qv__cat">Bedroom</span>
+        <h2 class="rj-qv__title">Platform Cot Bed · Upholstered Headboard</h2>
+        <div class="rj-qv__price"><span class="now" data-rj-qv-price>₹15,566</span><span class="was" data-rj-qv-was>₹28,798</span></div>
+        <div class="rj-qv__desc">Solid Sheesham, hand-finished by RJ Arts artisans in Jaipur. Kiln-dried timber, hand-joined frames and a natural polish that deepens with age.</div>
+        <product-form class="rj-pform rj-qv__form" data-section-id="qv-1000">
+          <form class="rj-qv__form-el" data-type="add-to-cart-form" onsubmit="return false">
+            <input type="hidden" name="id" class="product-variant-id" value="1000">
+            <label class="rj-qv__label" for="RjQvVariant-1000">Options</label>
+            <div class="rj-qv__selectwrap">
+              <select id="RjQvVariant-1000" class="rj-qv__select" data-rj-qv-variant>
+                <option value="1000" data-price="₹15,566" data-compare="₹28,798" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=700" selected>King — ₹15,566</option>
+                <option value="10002" data-price="₹15,566" data-compare="₹28,798" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=700">Queen — ₹15,566</option>
+              </select>
+            </div>
+            <div class="rj-buyrow rj-qv__buyrow">
+              <div class="rj-qty">
+                <button type="button" data-rj-qty="-1" aria-label="Decrease">&minus;</button>
+                <input type="number" class="rj-qty__input" name="quantity" value="1" min="1" step="1" data-rj-qty-input aria-label="Quantity">
+                <button type="button" data-rj-qty="1" aria-label="Increase">+</button>
+              </div>
+              <button type="submit" name="add" class="rj-btn rj-btn--solid rj-add"><span data-rj-qv-add-text>Add to Cart</span></button>
+            </div>
+          </form>
+        </product-form>
+        <div class="rj-qv__links">
+          <a class="rj-qv__details" href="product.html">View full details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="rj-wishline rj-card-wish" href="#hero-wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg> Add to Wishlist</a>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template data-rj-qv-template="1001">
+    <div class="rj-qv__grid">
+      <div class="rj-qv__media">
+        <div class="rj-qv__stage"><img class="rj-qv__img" data-rj-qv-stage src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" alt="Wood Arch Bed · Without Storage"></div>
+        <div class="rj-qv__thumbs"><button type="button" class="rj-qv__thumb is-active" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71QJO8fmofL._SX679.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71QJO8fmofL._SX679.jpg?width=700" alt="" loading="lazy"></button></div>
+      </div>
+      <div class="rj-qv__info">
+        <span class="rj-qv__cat">Bedroom</span>
+        <h2 class="rj-qv__title">Wood Arch Bed · Without Storage</h2>
+        <div class="rj-qv__price"><span class="now" data-rj-qv-price>₹15,998</span><span class="was" data-rj-qv-was>₹28,078</span></div>
+        <div class="rj-qv__desc">Solid Sheesham, hand-finished by RJ Arts artisans in Jaipur. Kiln-dried timber, hand-joined frames and a natural polish that deepens with age.</div>
+        <product-form class="rj-pform rj-qv__form" data-section-id="qv-1001">
+          <form class="rj-qv__form-el" data-type="add-to-cart-form" onsubmit="return false">
+            <input type="hidden" name="id" class="product-variant-id" value="1001">
+            <label class="rj-qv__label" for="RjQvVariant-1001">Options</label>
+            <div class="rj-qv__selectwrap">
+              <select id="RjQvVariant-1001" class="rj-qv__select" data-rj-qv-variant>
+                <option value="1001" data-price="₹15,998" data-compare="₹28,078" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" selected>King — ₹15,998</option>
+                <option value="10012" data-price="₹15,998" data-compare="₹28,078" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700">Queen — ₹15,998</option>
+              </select>
+            </div>
+            <div class="rj-buyrow rj-qv__buyrow">
+              <div class="rj-qty">
+                <button type="button" data-rj-qty="-1" aria-label="Decrease">&minus;</button>
+                <input type="number" class="rj-qty__input" name="quantity" value="1" min="1" step="1" data-rj-qty-input aria-label="Quantity">
+                <button type="button" data-rj-qty="1" aria-label="Increase">+</button>
+              </div>
+              <button type="submit" name="add" class="rj-btn rj-btn--solid rj-add"><span data-rj-qv-add-text>Add to Cart</span></button>
+            </div>
+          </form>
+        </product-form>
+        <div class="rj-qv__links">
+          <a class="rj-qv__details" href="product.html">View full details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="rj-wishline rj-card-wish" href="#hero-wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg> Add to Wishlist</a>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template data-rj-qv-template="1002">
+    <div class="rj-qv__grid">
+      <div class="rj-qv__media">
+        <div class="rj-qv__stage"><img class="rj-qv__img" data-rj-qv-stage src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" alt="Low-Height Double Bed · Rosewood"></div>
+        <div class="rj-qv__thumbs"><button type="button" class="rj-qv__thumb is-active" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71QJO8fmofL._SX679.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71QJO8fmofL._SX679.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=700" alt="" loading="lazy"></button></div>
+      </div>
+      <div class="rj-qv__info">
+        <span class="rj-qv__cat">Bedroom</span>
+        <h2 class="rj-qv__title">Low-Height Double Bed · Rosewood</h2>
+        <div class="rj-qv__price"><span class="now" data-rj-qv-price>₹15,823</span><span class="was" data-rj-qv-was>₹27,358</span></div>
+        <div class="rj-qv__desc">Solid Sheesham, hand-finished by RJ Arts artisans in Jaipur. Kiln-dried timber, hand-joined frames and a natural polish that deepens with age.</div>
+        <product-form class="rj-pform rj-qv__form" data-section-id="qv-1002">
+          <form class="rj-qv__form-el" data-type="add-to-cart-form" onsubmit="return false">
+            <input type="hidden" name="id" class="product-variant-id" value="1002">
+            <label class="rj-qv__label" for="RjQvVariant-1002">Options</label>
+            <div class="rj-qv__selectwrap">
+              <select id="RjQvVariant-1002" class="rj-qv__select" data-rj-qv-variant>
+                <option value="1002" data-price="₹15,823" data-compare="₹27,358" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" selected>King — ₹15,823</option>
+                <option value="10022" data-price="₹15,823" data-compare="₹27,358" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700">Queen — ₹15,823</option>
+              </select>
+            </div>
+            <div class="rj-buyrow rj-qv__buyrow">
+              <div class="rj-qty">
+                <button type="button" data-rj-qty="-1" aria-label="Decrease">&minus;</button>
+                <input type="number" class="rj-qty__input" name="quantity" value="1" min="1" step="1" data-rj-qty-input aria-label="Quantity">
+                <button type="button" data-rj-qty="1" aria-label="Increase">+</button>
+              </div>
+              <button type="submit" name="add" class="rj-btn rj-btn--solid rj-add"><span data-rj-qv-add-text>Add to Cart</span></button>
+            </div>
+          </form>
+        </product-form>
+        <div class="rj-qv__links">
+          <a class="rj-qv__details" href="product.html">View full details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="rj-wishline rj-card-wish" href="#hero-wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg> Add to Wishlist</a>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template data-rj-qv-template="1003">
+    <div class="rj-qv__grid">
+      <div class="rj-qv__media">
+        <div class="rj-qv__stage"><img class="rj-qv__img" data-rj-qv-stage src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71QJO8fmofL._SX679.jpg?width=700" alt="Double Bed · Without Storage"></div>
+        <div class="rj-qv__thumbs"><button type="button" class="rj-qv__thumb is-active" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71QJO8fmofL._SX679.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71QJO8fmofL._SX679.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Dreamydesks_Bed_jaipur_cane_box_11_6eba8f40-5816-4585-a6aa-e604a536e888.webp?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Dreamydesks_Bed_jaipur_cane_box_11_6eba8f40-5816-4585-a6aa-e604a536e888.webp?width=700" alt="" loading="lazy"></button></div>
+      </div>
+      <div class="rj-qv__info">
+        <span class="rj-qv__cat">Bedroom</span>
+        <h2 class="rj-qv__title">Double Bed · Without Storage</h2>
+        <div class="rj-qv__price"><span class="now" data-rj-qv-price>₹21,100</span><span class="was" data-rj-qv-was>₹35,998</span></div>
+        <div class="rj-qv__desc">Solid Sheesham, hand-finished by RJ Arts artisans in Jaipur. Kiln-dried timber, hand-joined frames and a natural polish that deepens with age.</div>
+        <product-form class="rj-pform rj-qv__form" data-section-id="qv-1003">
+          <form class="rj-qv__form-el" data-type="add-to-cart-form" onsubmit="return false">
+            <input type="hidden" name="id" class="product-variant-id" value="1003">
+            <label class="rj-qv__label" for="RjQvVariant-1003">Options</label>
+            <div class="rj-qv__selectwrap">
+              <select id="RjQvVariant-1003" class="rj-qv__select" data-rj-qv-variant>
+                <option value="1003" data-price="₹21,100" data-compare="₹35,998" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71QJO8fmofL._SX679.jpg?width=700" selected>King — ₹21,100</option>
+                <option value="10032" data-price="₹21,100" data-compare="₹35,998" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71QJO8fmofL._SX679.jpg?width=700">Queen — ₹21,100</option>
+              </select>
+            </div>
+            <div class="rj-buyrow rj-qv__buyrow">
+              <div class="rj-qty">
+                <button type="button" data-rj-qty="-1" aria-label="Decrease">&minus;</button>
+                <input type="number" class="rj-qty__input" name="quantity" value="1" min="1" step="1" data-rj-qty-input aria-label="Quantity">
+                <button type="button" data-rj-qty="1" aria-label="Increase">+</button>
+              </div>
+              <button type="submit" name="add" class="rj-btn rj-btn--solid rj-add"><span data-rj-qv-add-text>Add to Cart</span></button>
+            </div>
+          </form>
+        </product-form>
+        <div class="rj-qv__links">
+          <a class="rj-qv__details" href="product.html">View full details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="rj-wishline rj-card-wish" href="#hero-wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg> Add to Wishlist</a>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template data-rj-qv-template="1004">
+    <div class="rj-qv__grid">
+      <div class="rj-qv__media">
+        <div class="rj-qv__stage"><img class="rj-qv__img" data-rj-qv-stage src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=700" alt="Sheesham Queen Bed · Honey Finish"></div>
+        <div class="rj-qv__thumbs"><button type="button" class="rj-qv__thumb is-active" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Dreamydesks_Bed_jaipur_cane_box_11_6eba8f40-5816-4585-a6aa-e604a536e888.webp?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Dreamydesks_Bed_jaipur_cane_box_11_6eba8f40-5816-4585-a6aa-e604a536e888.webp?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=700" alt="" loading="lazy"></button></div>
+      </div>
+      <div class="rj-qv__info">
+        <span class="rj-qv__cat">Bedroom</span>
+        <h2 class="rj-qv__title">Sheesham Queen Bed · Honey Finish</h2>
+        <div class="rj-qv__price"><span class="now" data-rj-qv-price>₹14,500</span><span class="was" data-rj-qv-was hidden></span></div>
+        <div class="rj-qv__desc">Solid Sheesham, hand-finished by RJ Arts artisans in Jaipur. Kiln-dried timber, hand-joined frames and a natural polish that deepens with age.</div>
+        <product-form class="rj-pform rj-qv__form" data-section-id="qv-1004">
+          <form class="rj-qv__form-el" data-type="add-to-cart-form" onsubmit="return false">
+            <input type="hidden" name="id" class="product-variant-id" value="1004">
+            <label class="rj-qv__label" for="RjQvVariant-1004">Options</label>
+            <div class="rj-qv__selectwrap">
+              <select id="RjQvVariant-1004" class="rj-qv__select" data-rj-qv-variant>
+                <option value="1004" data-price="₹14,500" data-compare="" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=700" selected>King — ₹14,500</option>
+                <option value="10042" data-price="₹14,500" data-compare="" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/RJSWBEDQK880.png?width=700">Queen — ₹14,500</option>
+              </select>
+            </div>
+            <div class="rj-buyrow rj-qv__buyrow">
+              <div class="rj-qty">
+                <button type="button" data-rj-qty="-1" aria-label="Decrease">&minus;</button>
+                <input type="number" class="rj-qty__input" name="quantity" value="1" min="1" step="1" data-rj-qty-input aria-label="Quantity">
+                <button type="button" data-rj-qty="1" aria-label="Increase">+</button>
+              </div>
+              <button type="submit" name="add" class="rj-btn rj-btn--solid rj-add"><span data-rj-qv-add-text>Add to Cart</span></button>
+            </div>
+          </form>
+        </product-form>
+        <div class="rj-qv__links">
+          <a class="rj-qv__details" href="product.html">View full details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="rj-wishline rj-card-wish" href="#hero-wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg> Add to Wishlist</a>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template data-rj-qv-template="1005">
+    <div class="rj-qv__grid">
+      <div class="rj-qv__media">
+        <div class="rj-qv__stage"><img class="rj-qv__img" data-rj-qv-stage src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Dreamydesks_Bed_jaipur_cane_box_11_6eba8f40-5816-4585-a6aa-e604a536e888.webp?width=700" alt="Jaipur Cane Box-Storage King Bed"></div>
+        <div class="rj-qv__thumbs"><button type="button" class="rj-qv__thumb is-active" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Dreamydesks_Bed_jaipur_cane_box_11_6eba8f40-5816-4585-a6aa-e604a536e888.webp?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Dreamydesks_Bed_jaipur_cane_box_11_6eba8f40-5816-4585-a6aa-e604a536e888.webp?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" alt="" loading="lazy"></button></div>
+      </div>
+      <div class="rj-qv__info">
+        <span class="rj-qv__cat">Bedroom</span>
+        <h2 class="rj-qv__title">Jaipur Cane Box-Storage King Bed</h2>
+        <div class="rj-qv__price"><span class="now" data-rj-qv-price>₹36,699</span><span class="was" data-rj-qv-was>₹67,899</span></div>
+        <div class="rj-qv__desc">Solid Sheesham, hand-finished by RJ Arts artisans in Jaipur. Kiln-dried timber, hand-joined frames and a natural polish that deepens with age.</div>
+        <product-form class="rj-pform rj-qv__form" data-section-id="qv-1005">
+          <form class="rj-qv__form-el" data-type="add-to-cart-form" onsubmit="return false">
+            <input type="hidden" name="id" class="product-variant-id" value="1005">
+            <label class="rj-qv__label" for="RjQvVariant-1005">Options</label>
+            <div class="rj-qv__selectwrap">
+              <select id="RjQvVariant-1005" class="rj-qv__select" data-rj-qv-variant>
+                <option value="1005" data-price="₹36,699" data-compare="₹67,899" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Dreamydesks_Bed_jaipur_cane_box_11_6eba8f40-5816-4585-a6aa-e604a536e888.webp?width=700" selected>King — ₹36,699</option>
+                <option value="10052" data-price="₹36,699" data-compare="₹67,899" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/Dreamydesks_Bed_jaipur_cane_box_11_6eba8f40-5816-4585-a6aa-e604a536e888.webp?width=700">Queen — ₹36,699</option>
+              </select>
+            </div>
+            <div class="rj-buyrow rj-qv__buyrow">
+              <div class="rj-qty">
+                <button type="button" data-rj-qty="-1" aria-label="Decrease">&minus;</button>
+                <input type="number" class="rj-qty__input" name="quantity" value="1" min="1" step="1" data-rj-qty-input aria-label="Quantity">
+                <button type="button" data-rj-qty="1" aria-label="Increase">+</button>
+              </div>
+              <button type="submit" name="add" class="rj-btn rj-btn--solid rj-add"><span data-rj-qv-add-text>Add to Cart</span></button>
+            </div>
+          </form>
+        </product-form>
+        <div class="rj-qv__links">
+          <a class="rj-qv__details" href="product.html">View full details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="rj-wishline rj-card-wish" href="#hero-wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg> Add to Wishlist</a>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template data-rj-qv-template="1006">
+    <div class="rj-qv__grid">
+      <div class="rj-qv__media">
+        <div class="rj-qv__stage"><img class="rj-qv__img" data-rj-qv-stage src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=700" alt="Brass-Work Headboard King Bed"></div>
+        <div class="rj-qv__thumbs"><button type="button" class="rj-qv__thumb is-active" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" alt="" loading="lazy"></button></div>
+      </div>
+      <div class="rj-qv__info">
+        <span class="rj-qv__cat">Bedroom</span>
+        <h2 class="rj-qv__title">Brass-Work Headboard King Bed</h2>
+        <div class="rj-qv__price"><span class="now" data-rj-qv-price>₹35,522</span><span class="was" data-rj-qv-was>₹80,599</span></div>
+        <div class="rj-qv__desc">Solid Sheesham, hand-finished by RJ Arts artisans in Jaipur. Kiln-dried timber, hand-joined frames and a natural polish that deepens with age.</div>
+        <product-form class="rj-pform rj-qv__form" data-section-id="qv-1006">
+          <form class="rj-qv__form-el" data-type="add-to-cart-form" onsubmit="return false">
+            <input type="hidden" name="id" class="product-variant-id" value="1006">
+            <label class="rj-qv__label" for="RjQvVariant-1006">Options</label>
+            <div class="rj-qv__selectwrap">
+              <select id="RjQvVariant-1006" class="rj-qv__select" data-rj-qv-variant>
+                <option value="1006" data-price="₹35,522" data-compare="₹80,599" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=700" selected>King — ₹35,522</option>
+                <option value="10062" data-price="₹35,522" data-compare="₹80,599" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81Qr_Z7CWZL._SL1500.jpg?width=700">Queen — ₹35,522</option>
+              </select>
+            </div>
+            <div class="rj-buyrow rj-qv__buyrow">
+              <div class="rj-qty">
+                <button type="button" data-rj-qty="-1" aria-label="Decrease">&minus;</button>
+                <input type="number" class="rj-qty__input" name="quantity" value="1" min="1" step="1" data-rj-qty-input aria-label="Quantity">
+                <button type="button" data-rj-qty="1" aria-label="Increase">+</button>
+              </div>
+              <button type="submit" name="add" class="rj-btn rj-btn--solid rj-add"><span data-rj-qv-add-text>Add to Cart</span></button>
+            </div>
+          </form>
+        </product-form>
+        <div class="rj-qv__links">
+          <a class="rj-qv__details" href="product.html">View full details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="rj-wishline rj-card-wish" href="#hero-wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg> Add to Wishlist</a>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template data-rj-qv-template="1007">
+    <div class="rj-qv__grid">
+      <div class="rj-qv__media">
+        <div class="rj-qv__stage"><img class="rj-qv__img" data-rj-qv-stage src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" alt="Sevilla Half-Box Storage Bed"></div>
+        <div class="rj-qv__thumbs"><button type="button" class="rj-qv__thumb is-active" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=700" alt="" loading="lazy"></button></div>
+      </div>
+      <div class="rj-qv__info">
+        <span class="rj-qv__cat">Bedroom</span>
+        <h2 class="rj-qv__title">Sevilla Half-Box Storage Bed</h2>
+        <div class="rj-qv__price"><span class="now" data-rj-qv-price>₹34,522</span><span class="was" data-rj-qv-was>₹80,599</span></div>
+        <div class="rj-qv__desc">Solid Sheesham, hand-finished by RJ Arts artisans in Jaipur. Kiln-dried timber, hand-joined frames and a natural polish that deepens with age.</div>
+        <product-form class="rj-pform rj-qv__form" data-section-id="qv-1007">
+          <form class="rj-qv__form-el" data-type="add-to-cart-form" onsubmit="return false">
+            <input type="hidden" name="id" class="product-variant-id" value="1007">
+            <label class="rj-qv__label" for="RjQvVariant-1007">Options</label>
+            <div class="rj-qv__selectwrap">
+              <select id="RjQvVariant-1007" class="rj-qv__select" data-rj-qv-variant>
+                <option value="1007" data-price="₹34,522" data-compare="₹80,599" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" selected>King — ₹34,522</option>
+                <option value="10072" data-price="₹34,522" data-compare="₹80,599" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700">Queen — ₹34,522</option>
+              </select>
+            </div>
+            <div class="rj-buyrow rj-qv__buyrow">
+              <div class="rj-qty">
+                <button type="button" data-rj-qty="-1" aria-label="Decrease">&minus;</button>
+                <input type="number" class="rj-qty__input" name="quantity" value="1" min="1" step="1" data-rj-qty-input aria-label="Quantity">
+                <button type="button" data-rj-qty="1" aria-label="Increase">+</button>
+              </div>
+              <button type="submit" name="add" class="rj-btn rj-btn--solid rj-add"><span data-rj-qv-add-text>Add to Cart</span></button>
+            </div>
+          </form>
+        </product-form>
+        <div class="rj-qv__links">
+          <a class="rj-qv__details" href="product.html">View full details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="rj-wishline rj-card-wish" href="#hero-wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg> Add to Wishlist</a>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template data-rj-qv-template="1008">
+    <div class="rj-qv__grid">
+      <div class="rj-qv__media">
+        <div class="rj-qv__stage"><img class="rj-qv__img" data-rj-qv-stage src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" alt="Low-Height Bed · Basic Headboard"></div>
+        <div class="rj-qv__thumbs"><button type="button" class="rj-qv__thumb is-active" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81dP0WMJ1zL._SL1500.jpg?width=700" alt="" loading="lazy"></button><button type="button" class="rj-qv__thumb" data-rj-qv-thumb data-full="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700"><img class="rj-qv__thumb-img" src="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/71pdtMlrqpL._SL1500.jpg?width=700" alt="" loading="lazy"></button></div>
+      </div>
+      <div class="rj-qv__info">
+        <span class="rj-qv__cat">Bedroom</span>
+        <h2 class="rj-qv__title">Low-Height Bed · Basic Headboard</h2>
+        <div class="rj-qv__price"><span class="now" data-rj-qv-price>₹14,856</span><span class="was" data-rj-qv-was>₹26,998</span></div>
+        <div class="rj-qv__desc">Solid Sheesham, hand-finished by RJ Arts artisans in Jaipur. Kiln-dried timber, hand-joined frames and a natural polish that deepens with age.</div>
+        <product-form class="rj-pform rj-qv__form" data-section-id="qv-1008">
+          <form class="rj-qv__form-el" data-type="add-to-cart-form" onsubmit="return false">
+            <input type="hidden" name="id" class="product-variant-id" value="1008">
+            <label class="rj-qv__label" for="RjQvVariant-1008">Options</label>
+            <div class="rj-qv__selectwrap">
+              <select id="RjQvVariant-1008" class="rj-qv__select" data-rj-qv-variant>
+                <option value="1008" data-price="₹14,856" data-compare="₹26,998" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700" selected>King — ₹14,856</option>
+                <option value="10082" data-price="₹14,856" data-compare="₹26,998" data-available="true" data-image="https://cdn.shopify.com/s/files/1/0675/3042/4451/files/81SHDgTJePL._SX679.jpg?width=700">Queen — ₹14,856</option>
+              </select>
+            </div>
+            <div class="rj-buyrow rj-qv__buyrow">
+              <div class="rj-qty">
+                <button type="button" data-rj-qty="-1" aria-label="Decrease">&minus;</button>
+                <input type="number" class="rj-qty__input" name="quantity" value="1" min="1" step="1" data-rj-qty-input aria-label="Quantity">
+                <button type="button" data-rj-qty="1" aria-label="Increase">+</button>
+              </div>
+              <button type="submit" name="add" class="rj-btn rj-btn--solid rj-add"><span data-rj-qv-add-text>Add to Cart</span></button>
+            </div>
+          </form>
+        </product-form>
+        <div class="rj-qv__links">
+          <a class="rj-qv__details" href="product.html">View full details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="rj-wishline rj-card-wish" href="#hero-wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg> Add to Wishlist</a>
+        </div>
+      </div>
+    </div>
+  </template>
 
     <div class="rj-loadmore">
       <small>Showing 1&ndash;16 / 48</small>
       <div class="rj-loadmore__bar"><i style="width: 33%"></i></div>
       <a class="rj-btn rj-btn--solid" href="#">Load More</a>
+    </div>
+  </div>
+
+  <div class="rj-qv" data-rj-qv hidden>
+    <div class="rj-qv__overlay" data-rj-qv-close></div>
+    <div class="rj-qv__dialog" role="dialog" aria-modal="true" aria-label="Quick view">
+      <button type="button" class="rj-qv__x" data-rj-qv-close aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="rj-qv__content" data-rj-qv-content></div>
     </div>
   </div>
 
@@ -9241,54 +9935,712 @@ main { display: block; }
 </footer>
 
 <script>
-/* mirrors assets/rj-arts.js (reveal + header + collection drawer) */
+/* ==========================================================================
+   RJ ARTS — appended helpers (scroll reveal + header scrolled state)
+   Written for design/THE-RJ-ARTS.html. Re-append this block if Dawn replaces
+   global.js. Loaded by Dawn's own <script src="global.js" defer>.
+   ========================================================================== */
+/* RJ ARTS — shared behaviours: scroll reveal, header scrolled state */
 (function () {
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-in');
-      io.unobserve(entry.target);
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.rj-reveal:not(.is-in)').forEach(function (el) { io.observe(el); });
+  if (window.rjArtsInit) return;
+  window.rjArtsInit = true;
 
-  var header = document.querySelector('.section-header .header-wrapper');
-  if (header) {
-    var onScroll = function () { header.classList.toggle('rj-scrolled', window.scrollY > 30); };
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function initReveal(root) {
+    const targets = (root || document).querySelectorAll('.rj-reveal:not(.is-in)');
+    if (!targets.length) return;
+
+    if (prefersReduced || !('IntersectionObserver' in window)) {
+      targets.forEach((el) => el.classList.add('is-in'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-in');
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    targets.forEach((el) => observer.observe(el));
+  }
+
+  // Dawn's default header keeps its own sticky behaviour; we only add the
+  // design's scrolled state (hairline + more opaque cream) at > 30px.
+  function initHeader(root) {
+    const headers = (root || document).querySelectorAll('.section-header .header-wrapper');
+    if (!headers.length) return;
+    const onScroll = () => {
+      headers.forEach((header) => header.classList.toggle('rj-scrolled', window.scrollY > 30));
+    };
     onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+    if (!window.rjHeaderScrollBound) {
+      window.rjHeaderScrollBound = true;
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
   }
-  document.querySelectorAll('.mega-menu').forEach(function (d) {
-    d.addEventListener('mouseenter', function () { d.setAttribute('open', ''); });
-    d.addEventListener('mouseleave', function () { d.removeAttribute('open'); });
-  });
 
-  var drawer = document.querySelector('[data-rj-filter-drawer]');
-  var overlay = document.querySelector('[data-rj-filter-overlay]');
-  function openFilter() {
-    drawer.hidden = false; overlay.hidden = false;
-    requestAnimationFrame(function () {
-      drawer.classList.add('is-open'); overlay.classList.add('is-open');
-    });
-    document.body.classList.add('rj-drawer-open');
+  function boot(root) {
+    initReveal(root);
+    initHeader(root);
   }
-  function closeFilter() {
-    drawer.classList.remove('is-open'); overlay.classList.remove('is-open');
-    document.body.classList.remove('rj-drawer-open');
-    setTimeout(function () { drawer.hidden = true; overlay.hidden = true; }, 520);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => boot(document));
+  } else {
+    boot(document);
   }
-  document.querySelectorAll('[data-rj-open-filter]').forEach(function (b) { b.addEventListener('click', openFilter); });
-  drawer.querySelectorAll('[data-rj-close-filter]').forEach(function (b) { b.addEventListener('click', closeFilter); });
-  overlay.addEventListener('click', closeFilter);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeFilter(); });
-  drawer.querySelectorAll('[data-rj-fgroup]').forEach(function (g) {
-    var head = g.querySelector('.rj-fgroup__h');
-    head.addEventListener('click', function () {
-      g.classList.toggle('is-open');
-      head.setAttribute('aria-expanded', g.classList.contains('is-open') ? 'true' : 'false');
+
+  // theme editor: re-run when a section is reloaded
+  document.addEventListener('shopify:section:load', (event) => boot(event.target));
+})();
+
+/* ==========================================================================
+   RJ ARTS - mega menu opens on hover (design behaviour)
+   Desktop pointers only. The parent title is a real link now, so a click
+   navigates to the menu item's URL while the panel opens on hover.
+   ========================================================================== */
+(function () {
+  if (window.rjMegaHover) return;
+  window.rjMegaHover = true;
+
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  var CLOSE_DELAY = 120;
+
+  function closeOthers(current) {
+    var open = document.querySelectorAll('details.mega-menu[open]');
+    Array.prototype.forEach.call(open, function (other) {
+      if (other !== current) other.removeAttribute('open');
     });
+  }
+
+  function init() {
+    var menus = document.querySelectorAll('details.mega-menu');
+    Array.prototype.forEach.call(menus, function (details) {
+      var timer = null;
+
+      details.addEventListener('mouseenter', function () {
+        window.clearTimeout(timer);
+        closeOthers(details);
+        details.setAttribute('open', '');
+      });
+
+      details.addEventListener('mouseleave', function () {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(function () {
+          if (details.contains(document.activeElement)) return;
+          details.removeAttribute('open');
+        }, CLOSE_DELAY);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+/* ==========================================================================
+   RJ ARTS - <rj-showroom>: pill tabs + snap-rail arrows
+   (design "TABBED PRODUCT SLIDER"). Self-contained custom element, so a
+   section reload in the theme editor just re-runs connectedCallback.
+   ========================================================================== */
+(function () {
+  if (window.rjShowroomDefined || customElements.get('rj-showroom')) return;
+  window.rjShowroomDefined = true;
+
+  customElements.define('rj-showroom', class RjShowroom extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.rjReady) return;
+      this.dataset.rjReady = '1';
+
+      this.tabs = Array.prototype.slice.call(this.querySelectorAll('[data-rj-tab]'));
+      this.panels = Array.prototype.slice.call(this.querySelectorAll('[data-rj-panel]'));
+      this.rail = this.panels.length ? this.panels[0].querySelector('[data-rj-rail]') : null;
+
+      this.tabs.forEach((tab) => {
+        tab.addEventListener('click', () => this.select(tab));
+        tab.addEventListener('keydown', (event) => this.onKey(event, tab));
+      });
+
+      this.querySelectorAll('[data-rj-rail-dir]').forEach((button) => {
+        button.addEventListener('click', () => this.scrollRail(parseInt(button.dataset.rjRailDir, 10)));
+      });
+
+      this.setIntervalOnce = null;
+    }
+
+    get activeIndex() {
+      return this.tabs.findIndex((tab) => tab.classList.contains('is-active'));
+    }
+
+    select(tab) {
+      const index = parseInt(tab.dataset.rjTab, 10);
+      this.tabs.forEach((item, i) => {
+        const on = i === index;
+        item.classList.toggle('is-active', on);
+        item.setAttribute('aria-selected', on ? 'true' : 'false');
+        item.setAttribute('tabindex', on ? '0' : '-1');
+      });
+      this.panels.forEach((panel, i) => {
+        const on = i === index;
+        panel.classList.toggle('is-active', on);
+        if (on) panel.removeAttribute('hidden');
+        else panel.setAttribute('hidden', '');
+      });
+      this.rail = this.panels[index] ? this.panels[index].querySelector('[data-rj-rail]') : null;
+      if (this.rail) this.rail.scrollLeft = 0;
+    }
+
+    onKey(event, tab) {
+      const keys = { ArrowLeft: -1, ArrowRight: 1 };
+      if (!(event.key in keys) || !this.tabs.length) return;
+      event.preventDefault();
+      const next = (this.activeIndex + keys[event.key] + this.tabs.length) % this.tabs.length;
+      this.select(this.tabs[next]);
+      this.tabs[next].focus();
+    }
+
+    scrollRail(dir) {
+      if (!this.rail) return;
+      const card = this.rail.querySelector('.rj-pcard');
+      const step = card ? card.getBoundingClientRect().width + 22 : this.rail.clientWidth * 0.8;
+      this.rail.scrollBy({ left: step * dir, behavior: 'smooth' });
+    }
   });
 })();
+
+/* ==========================================================================
+   RJ ARTS - <rj-carousel>: round arrow pair scrolling a snap rail
+   (collection carousel). Independent of <rj-showroom>.
+   ========================================================================== */
+(function () {
+  if (customElements.get('rj-carousel')) return;
+
+  customElements.define('rj-carousel', class RjCarousel extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.rjReady) return;
+      this.dataset.rjReady = '1';
+
+      this.rail = this.querySelector('[data-rj-rail]');
+      if (!this.rail) return;
+
+      this.querySelectorAll('[data-rj-rail-dir]').forEach((button) => {
+        button.addEventListener('click', () => this.scrollRail(parseInt(button.dataset.rjRailDir, 10)));
+      });
+    }
+
+    scrollRail(dir) {
+      const card = this.rail.querySelector('.rj-pcard, .rj-rcard');
+      const gap = parseFloat(getComputedStyle(this.rail).columnGap) || 22;
+      const step = card ? card.getBoundingClientRect().width + gap : this.rail.clientWidth * 0.8;
+      this.rail.scrollBy({ left: step * dir, behavior: 'smooth' });
+    }
+  });
+})();
+
+/* ==========================================================================
+   COLLECTION PAGE  (sections/rj-collection.liquid)
+   Filter drawer open/close, filter-group accordion, sort-by navigation.
+   Filtering itself is plain <a href> links (Shopify's own filter URLs), so it
+   keeps working with JavaScript disabled and with Search & Discovery filters.
+   ========================================================================== */
+(function () {
+  function initCollection(root) {
+    var scope = root || document;
+    var drawer = scope.querySelector('[data-rj-filter-drawer]');
+    var overlay = scope.querySelector('[data-rj-filter-overlay]');
+    if (!drawer) return;
+
+    var lastFocus = null;
+
+    function open() {
+      lastFocus = document.activeElement;
+      drawer.hidden = false;
+      if (overlay) overlay.hidden = false;
+      // next frame so the transition runs from translateX(-100%)
+      requestAnimationFrame(function () {
+        drawer.classList.add('is-open');
+        if (overlay) overlay.classList.add('is-open');
+      });
+      document.body.classList.add('rj-drawer-open');
+      var close = drawer.querySelector('[data-rj-close-filter]');
+      if (close) close.focus();
+    }
+
+    function close() {
+      drawer.classList.remove('is-open');
+      if (overlay) overlay.classList.remove('is-open');
+      document.body.classList.remove('rj-drawer-open');
+      window.setTimeout(function () {
+        drawer.hidden = true;
+        if (overlay) overlay.hidden = true;
+      }, 520);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    scope.querySelectorAll('[data-rj-open-filter]').forEach(function (button) {
+      button.addEventListener('click', open);
+    });
+    drawer.querySelectorAll('[data-rj-close-filter]').forEach(function (button) {
+      button.addEventListener('click', close);
+    });
+    if (overlay) overlay.addEventListener('click', close);
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && drawer.classList.contains('is-open')) close();
+    });
+
+    /* accordion */
+    drawer.querySelectorAll('[data-rj-fgroup]').forEach(function (group) {
+      var head = group.querySelector('.rj-fgroup__h');
+      if (!head) return;
+      head.addEventListener('click', function () {
+        var isOpen = group.classList.toggle('is-open');
+        head.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+  }
+
+  function initSort(root) {
+    var select = (root || document).querySelector('[data-rj-sort]');
+    if (!select) return;
+    select.addEventListener('change', function () {
+      var url = new URL(window.location.href);
+      url.searchParams.set('sort_by', select.value);
+      url.searchParams.delete('page');
+      window.location.href = url.toString();
+    });
+  }
+
+  function boot(root) {
+    initCollection(root);
+    initSort(root);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      boot(document);
+    });
+  } else {
+    boot(document);
+  }
+
+  document.addEventListener('shopify:section:load', function (event) {
+    boot(event.target);
+  });
+})();
+
+/* ==========================================================================
+   PRODUCT PAGE  (sections/rj-product.liquid)
+   Gallery thumbs, variant buttons -> price/SKU/stock/image/URL updates,
+   quantity stepper, accordion, sticky add bar. Add-to-cart itself is Dawn's
+   product-form element (AJAX + cart drawer), we only drive the hidden variant
+   id and the quantity input it reads.
+   ========================================================================== */
+(function () {
+  function initProduct(root) {
+    var scope = root || document;
+    var wrap = scope.querySelector('[data-rj-product]');
+    if (!wrap) return;
+
+    var dataEl = document.querySelector('[data-rj-variants]');
+    var variants = [];
+    if (dataEl) {
+      try {
+        variants = JSON.parse(dataEl.textContent);
+      } catch (error) {
+        variants = [];
+      }
+    }
+
+    var form = wrap.querySelector('[data-type="add-to-cart-form"]');
+    var idInput = wrap.querySelector('.product-variant-id');
+    var priceEl = wrap.querySelector('[data-rj-price]');
+    var wasEl = wrap.querySelector('[data-rj-was]');
+    var skuEl = wrap.querySelector('[data-rj-sku]');
+    var stockEl = wrap.querySelector('[data-rj-stock]');
+    var stockText = wrap.querySelector('[data-rj-stock-text]');
+    var badgeEl = wrap.querySelector('[data-rj-badge]');
+    var addBtn = wrap.querySelector('[data-rj-add]');
+    var addText = wrap.querySelector('[data-rj-add-text]');
+    var stageImg = wrap.querySelector('[data-rj-stage]');
+    var stickyPrice = wrap.querySelector('[data-rj-sticky-price]');
+    var stickyWas = wrap.querySelector('[data-rj-sticky-was]');
+    var stickyAdd = wrap.querySelector('[data-rj-sticky-add]');
+    var labels = {
+      inStock: wrap.dataset.labelInStock || (stockText ? stockText.textContent.trim() : 'In stock'),
+      add: wrap.dataset.labelAdd || (addText ? addText.textContent.trim() : 'Add to cart'),
+      soldOut: wrap.dataset.labelSoldOut || 'Sold out'
+    };
+
+    var selected = [];
+    wrap.querySelectorAll('[data-option-position]').forEach(function (button) {
+      var position = parseInt(button.dataset.optionPosition, 10) - 1;
+      if (button.classList.contains('is-active')) selected[position] = button.dataset.rjOptValue;
+      button.addEventListener('click', function () {
+        selected[position] = button.dataset.rjOptValue;
+        wrap.querySelectorAll('[data-option-position="' + (position + 1) + '"]').forEach(function (sibling) {
+          var active = sibling === button;
+          sibling.classList.toggle('is-active', active);
+          sibling.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        var nameEl = wrap.querySelector('[data-rj-opt-name="' + (position + 1) + '"]');
+        if (nameEl) nameEl.textContent = button.dataset.rjOptValue;
+        syncVariant();
+      });
+    });
+
+    function findVariant() {
+      for (var i = 0; i < variants.length; i += 1) {
+        var options = variants[i].options;
+        var match = true;
+        for (var j = 0; j < options.length; j += 1) {
+          if (selected[j] !== undefined && selected[j] !== options[j]) {
+            match = false;
+            break;
+          }
+        }
+        if (match) return variants[i];
+      }
+      return null;
+    }
+
+    function syncVariant() {
+      var variant = findVariant();
+      if (!variant) return;
+
+      if (idInput) {
+        idInput.value = variant.id;
+        idInput.disabled = !variant.available;
+      }
+      if (priceEl) priceEl.textContent = variant.price;
+      if (wasEl) {
+        if (variant.compare) {
+          wasEl.textContent = variant.compare;
+          wasEl.hidden = false;
+        } else {
+          wasEl.textContent = '';
+          wasEl.hidden = true;
+        }
+      }
+      if (badgeEl) {
+        if (variant.discount) {
+          badgeEl.textContent = badgeEl.dataset.prefix + variant.discount + '%';
+          badgeEl.hidden = false;
+        } else {
+          badgeEl.hidden = true;
+        }
+      }
+      if (skuEl) skuEl.textContent = variant.sku || '—';
+      if (stockEl) stockEl.classList.toggle('is-out', !variant.available);
+      if (stockText) stockText.textContent = variant.available ? labels.inStock : labels.soldOut;
+      if (addBtn) {
+        addBtn.disabled = !variant.available;
+        if (addText) addText.textContent = variant.available ? labels.add : labels.soldOut;
+      }
+      if (stickyAdd) stickyAdd.disabled = !variant.available;
+      if (stickyPrice) stickyPrice.textContent = variant.price;
+      if (stickyWas) {
+        if (variant.compare) {
+          stickyWas.textContent = variant.compare;
+          stickyWas.hidden = false;
+        } else {
+          stickyWas.hidden = true;
+        }
+      }
+      if (variant.image && stageImg) {
+        stageImg.src = variant.image;
+        if (stageImg.srcset) stageImg.srcset = '';
+        wrap.querySelectorAll('[data-rj-thumb]').forEach(function (thumb) {
+          thumb.classList.toggle('is-active', thumb.dataset.mediaId === String(variant.media_id));
+        });
+      }
+
+      var url = new URL(window.location.href);
+      url.searchParams.set('variant', variant.id);
+      window.history.replaceState({}, '', url.toString());
+    }
+
+    /* badge prefix, so JS keeps the merchant's wording */
+    if (badgeEl) {
+      var prefix = (badgeEl.textContent || '').replace(/[0-9]+%?$/, '');
+      badgeEl.dataset.prefix = prefix;
+    }
+
+    /* gallery */
+    wrap.querySelectorAll('[data-rj-thumb]').forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        if (!stageImg || !thumb.dataset.full) return;
+        stageImg.src = thumb.dataset.full;
+        if (stageImg.srcset) stageImg.srcset = '';
+        wrap.querySelectorAll('[data-rj-thumb]').forEach(function (other) {
+          other.classList.toggle('is-active', other === thumb);
+        });
+      });
+    });
+
+    /* quantity */
+    var qtyInput = wrap.querySelector('[data-rj-qty-input]');
+    wrap.querySelectorAll('[data-rj-qty]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (!qtyInput) return;
+        var step = parseInt(button.dataset.rjQty, 10) || 1;
+        var value = parseInt(qtyInput.value, 10) || 1;
+        value = Math.max(1, value + step);
+        qtyInput.value = value;
+      });
+    });
+
+    /* accordion */
+    wrap.querySelectorAll('[data-rj-acc] .rj-acc__head').forEach(function (head) {
+      head.addEventListener('click', function () {
+        var item = head.closest('[data-rj-acc]');
+        var isOpen = item.classList.toggle('is-open');
+        head.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+
+    /* sticky add bar */
+    var sticky = wrap.querySelector('[data-rj-sticky]');
+    if (sticky && addBtn) {
+      var toggleSticky = function () {
+        var past = addBtn.getBoundingClientRect().bottom < 0;
+        sticky.hidden = !past;
+        sticky.classList.toggle('is-shown', past);
+      };
+      window.addEventListener('scroll', toggleSticky, { passive: true });
+      toggleSticky();
+    }
+
+    if (stickyAdd && form) {
+      stickyAdd.addEventListener('click', function () {
+        var submit = form.querySelector('[name="add"]');
+        if (submit) submit.click();
+      });
+    }
+  }
+
+  function bootProduct(root) {
+    initProduct(root);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      bootProduct(document);
+    });
+  } else {
+    bootProduct(document);
+  }
+
+  document.addEventListener('shopify:section:load', function (event) {
+    bootProduct(event.target);
+  });
+})();
+
+/* ==========================================================================
+   QUICK VIEW POPUP  (snippets/rj-quickview.liquid)
+   The markup for every card lives in an inert <template>, so opening the popup
+   is a DOM clone: no fetch, no app. Add-to-cart is Dawn's own product-form,
+   which upgrades as soon as the cloned nodes are inserted.
+   ========================================================================== */
+(function () {
+  var lastTrigger = null;
+  var bound = false;
+
+  function findModal(trigger) {
+    var section = trigger.closest('.shopify-section');
+    if (section) {
+      var local = section.querySelector('[data-rj-qv]');
+      if (local) return local;
+    }
+    return document.querySelector('[data-rj-qv]');
+  }
+
+  function setBusy(modal, busy) {
+    var dialog = modal.querySelector('.rj-qv__dialog');
+    if (dialog) dialog.setAttribute('aria-busy', busy ? 'true' : 'false');
+  }
+
+  function wireContent(modal) {
+    var content = modal.querySelector('[data-rj-qv-content]');
+    if (!content) return;
+
+    var stage = content.querySelector('[data-rj-qv-stage]');
+    var priceEl = content.querySelector('[data-rj-qv-price]');
+    var wasEl = content.querySelector('[data-rj-qv-was]');
+    var select = content.querySelector('[data-rj-qv-variant]');
+    var idInput = content.querySelector('.product-variant-id');
+    var submit = content.querySelector('[name="add"]');
+    var submitText = content.querySelector('[data-rj-qv-add-text]');
+    var addLabel = submitText ? submitText.textContent.trim() : 'Add to cart';
+
+    /* thumbnails */
+    content.querySelectorAll('[data-rj-qv-thumb]').forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        if (!stage || !thumb.dataset.full) return;
+        stage.src = thumb.dataset.full;
+        if (stage.srcset) stage.srcset = '';
+        content.querySelectorAll('[data-rj-qv-thumb]').forEach(function (other) {
+          other.classList.toggle('is-active', other === thumb);
+        });
+      });
+    });
+
+    /* variant dropdown */
+    if (select) {
+      select.addEventListener('change', function () {
+        var option = select.options[select.selectedIndex];
+        if (!option) return;
+        if (idInput) {
+          idInput.value = option.value;
+          idInput.disabled = option.dataset.available === 'false';
+        }
+        if (priceEl && option.dataset.price) priceEl.textContent = option.dataset.price;
+        if (wasEl) {
+          var compare = option.dataset.compare || '';
+          wasEl.textContent = compare;
+          wasEl.hidden = !compare;
+        }
+        if (stage && option.dataset.image) {
+          stage.src = option.dataset.image;
+          if (stage.srcset) stage.srcset = '';
+        }
+        if (submit) {
+          var available = option.dataset.available !== 'false';
+          submit.disabled = !available;
+          if (submitText) submitText.textContent = available ? addLabel : 'Sold out';
+        }
+      });
+    }
+
+    /* quantity */
+    var qtyInput = content.querySelector('[data-rj-qty-input]');
+    content.querySelectorAll('[data-rj-qty]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (!qtyInput) return;
+        var step = parseInt(button.dataset.rjQty, 10) || 1;
+        var value = parseInt(qtyInput.value, 10) || 1;
+        qtyInput.value = Math.max(1, value + step);
+      });
+    });
+
+    /* close the popup once the add-to-cart request settled */
+    var formEl = content.querySelector('form');
+    if (formEl) {
+      formEl.addEventListener('submit', function () {
+        window.setTimeout(function () {
+          var error = modal.querySelector('.product-form__error-message-wrapper');
+          if (error && !error.hasAttribute('hidden')) return;
+          close(modal);
+        }, 900);
+      });
+    }
+  }
+
+  function focusables(modal) {
+    return Array.prototype.slice
+      .call(
+        modal.querySelectorAll(
+          'a[href], button:not([disabled]), select, input, [tabindex]:not([tabindex="-1"])'
+        )
+      )
+      .filter(function (el) {
+        return el.offsetParent !== null;
+      });
+  }
+
+  function open(modal, trigger) {
+    var content = modal.querySelector('[data-rj-qv-content]');
+    var template = document.querySelector('template[data-rj-qv-template="' + trigger.dataset.rjQvOpen + '"]');
+    if (!content || !template) return;
+
+    lastTrigger = trigger;
+    content.innerHTML = '';
+    content.appendChild(template.content.cloneNode(true));
+    wireContent(modal);
+
+    modal.hidden = false;
+    document.body.classList.add('rj-qv-lock');
+    window.requestAnimationFrame(function () {
+      modal.classList.add('is-open');
+      var closeButton = modal.querySelector('.rj-qv__x');
+      if (closeButton) closeButton.focus();
+    });
+  }
+
+  function close(modal) {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    document.body.classList.remove('rj-qv-lock');
+    window.setTimeout(function () {
+      modal.hidden = true;
+      var content = modal.querySelector('[data-rj-qv-content]');
+      if (content) content.innerHTML = '';
+    }, 350);
+    if (lastTrigger && lastTrigger.focus) lastTrigger.focus();
+  }
+
+  function boot() {
+    if (bound) return;
+    bound = true;
+
+    document.addEventListener('click', function (event) {
+      var trigger = event.target.closest('[data-rj-qv-open]');
+      if (trigger) {
+        event.preventDefault();
+        var modal = findModal(trigger);
+        if (modal) open(modal, trigger);
+        return;
+      }
+
+      var closer = event.target.closest('[data-rj-qv-close]');
+      if (closer) {
+        event.preventDefault();
+        close(closer.closest('[data-rj-qv]'));
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      var modal = document.querySelector('[data-rj-qv].is-open');
+      if (!modal) return;
+
+      if (event.key === 'Escape') {
+        close(modal);
+        return;
+      }
+
+      /* keep Tab inside the dialog */
+      if (event.key !== 'Tab') return;
+      var items = focusables(modal);
+      if (items.length === 0) return;
+      var first = items[0];
+      var last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+
 </script>
 </body>
 </html>

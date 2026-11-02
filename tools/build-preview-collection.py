@@ -52,7 +52,7 @@ CARD = """
           <a class="rj-pcard__wish rj-card-wish" href="#hero-wishlist" aria-label="Add {title} to wishlist">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
           </a>
-          <div class="rj-pcard__quick"><a class="rj-btn rj-btn--light" href="product.html">View Product</a></div>
+          <div class="rj-pcard__quick"><button type="button" class="rj-btn rj-btn--light" data-rj-qv-open="{pid}" aria-haspopup="dialog">Quick View</button></div>
           <div class="rj-pcard__body">
             <span class="rj-pcard__cat">{cat}</span>
             <h3 class="rj-pcard__title"><a href="product.html">{title}</a></h3>
@@ -62,8 +62,11 @@ CARD = """
         </article>"""
 
 GRID = ""
+cards_done = []
+QV = ""
 for c in cards:
     GRID += CARD.format(
+        pid=str(1000 + len(cards_done)),
         tag=c["tag"],
         tag_class="" if c["tag"].lower() == "new" else " is-sale",
         img=c["img"],
@@ -73,6 +76,53 @@ for c in cards:
         was=f'<span class="was">{c["was"]}</span>' if c["was"] else "",
         stars=c["stars"],
     )
+    pid = str(1000 + len(cards_done))
+    cards_done.append(c)
+    thumbs = "".join(
+        f'<button type="button" class="rj-qv__thumb{" is-active" if i == 0 else ""}" data-rj-qv-thumb data-full="{src}">'
+        f'<img class="rj-qv__thumb-img" src="{src}" alt="" loading="lazy"></button>'
+        for i, src in enumerate([c["img"], cards[(len(cards_done)) % len(cards)]["img"], cards[(len(cards_done) + 1) % len(cards)]["img"]])
+    )
+    was_html = f'<span class="was" data-rj-qv-was>{c["was"]}</span>' if c["was"] else '<span class="was" data-rj-qv-was hidden></span>'
+    QV += f"""
+  <template data-rj-qv-template="{pid}">
+    <div class="rj-qv__grid">
+      <div class="rj-qv__media">
+        <div class="rj-qv__stage"><img class="rj-qv__img" data-rj-qv-stage src="{c['img']}" alt="{c['title']}"></div>
+        <div class="rj-qv__thumbs">{thumbs}</div>
+      </div>
+      <div class="rj-qv__info">
+        <span class="rj-qv__cat">{c['cat']}</span>
+        <h2 class="rj-qv__title">{c['title']}</h2>
+        <div class="rj-qv__price"><span class="now" data-rj-qv-price>{c['now']}</span>{was_html}</div>
+        <div class="rj-qv__desc">Solid Sheesham, hand-finished by RJ Arts artisans in Jaipur. Kiln-dried timber, hand-joined frames and a natural polish that deepens with age.</div>
+        <product-form class="rj-pform rj-qv__form" data-section-id="qv-{pid}">
+          <form class="rj-qv__form-el" data-type="add-to-cart-form" onsubmit="return false">
+            <input type="hidden" name="id" class="product-variant-id" value="{pid}">
+            <label class="rj-qv__label" for="RjQvVariant-{pid}">Options</label>
+            <div class="rj-qv__selectwrap">
+              <select id="RjQvVariant-{pid}" class="rj-qv__select" data-rj-qv-variant>
+                <option value="{pid}" data-price="{c['now']}" data-compare="{c['was']}" data-available="true" data-image="{c['img']}" selected>King — {c['now']}</option>
+                <option value="{pid}2" data-price="{c['now']}" data-compare="{c['was']}" data-available="true" data-image="{c['img']}">Queen — {c['now']}</option>
+              </select>
+            </div>
+            <div class="rj-buyrow rj-qv__buyrow">
+              <div class="rj-qty">
+                <button type="button" data-rj-qty="-1" aria-label="Decrease">&minus;</button>
+                <input type="number" class="rj-qty__input" name="quantity" value="1" min="1" step="1" data-rj-qty-input aria-label="Quantity">
+                <button type="button" data-rj-qty="1" aria-label="Increase">+</button>
+              </div>
+              <button type="submit" name="add" class="rj-btn rj-btn--solid rj-add"><span data-rj-qv-add-text>Add to Cart</span></button>
+            </div>
+          </form>
+        </product-form>
+        <div class="rj-qv__links">
+          <a class="rj-qv__details" href="product.html">View full details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="rj-wishline rj-card-wish" href="#hero-wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg> Add to Wishlist</a>
+        </div>
+      </div>
+    </div>
+  </template>"""
 
 # ---------------------------------------------------------------- filters
 CHECK = """
@@ -215,11 +265,20 @@ main {{ display: block; }}
 
   <div class="rj-wrap">
     <div class="rj-cgrid">{GRID}</div>
+    {QV}
 
     <div class="rj-loadmore">
       <small>Showing 1&ndash;16 / 48</small>
       <div class="rj-loadmore__bar"><i style="width: 33%"></i></div>
       <a class="rj-btn rj-btn--solid" href="#">Load More</a>
+    </div>
+  </div>
+
+  <div class="rj-qv" data-rj-qv hidden>
+    <div class="rj-qv__overlay" data-rj-qv-close></div>
+    <div class="rj-qv__dialog" role="dialog" aria-modal="true" aria-label="Quick view">
+      <button type="button" class="rj-qv__x" data-rj-qv-close aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="rj-qv__content" data-rj-qv-content></div>
     </div>
   </div>
 
@@ -241,59 +300,14 @@ main {{ display: block; }}
 {FOOTER}
 
 <script>
-/* mirrors assets/rj-arts.js (reveal + header + collection drawer) */
-(function () {{
-  var io = new IntersectionObserver(function (entries) {{
-    entries.forEach(function (entry) {{
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-in');
-      io.unobserve(entry.target);
-    }});
-  }}, {{ threshold: 0.12 }});
-  document.querySelectorAll('.rj-reveal:not(.is-in)').forEach(function (el) {{ io.observe(el); }});
-
-  var header = document.querySelector('.section-header .header-wrapper');
-  if (header) {{
-    var onScroll = function () {{ header.classList.toggle('rj-scrolled', window.scrollY > 30); }};
-    onScroll();
-    window.addEventListener('scroll', onScroll, {{ passive: true }});
-  }}
-  document.querySelectorAll('.mega-menu').forEach(function (d) {{
-    d.addEventListener('mouseenter', function () {{ d.setAttribute('open', ''); }});
-    d.addEventListener('mouseleave', function () {{ d.removeAttribute('open'); }});
-  }});
-
-  var drawer = document.querySelector('[data-rj-filter-drawer]');
-  var overlay = document.querySelector('[data-rj-filter-overlay]');
-  function openFilter() {{
-    drawer.hidden = false; overlay.hidden = false;
-    requestAnimationFrame(function () {{
-      drawer.classList.add('is-open'); overlay.classList.add('is-open');
-    }});
-    document.body.classList.add('rj-drawer-open');
-  }}
-  function closeFilter() {{
-    drawer.classList.remove('is-open'); overlay.classList.remove('is-open');
-    document.body.classList.remove('rj-drawer-open');
-    setTimeout(function () {{ drawer.hidden = true; overlay.hidden = true; }}, 520);
-  }}
-  document.querySelectorAll('[data-rj-open-filter]').forEach(function (b) {{ b.addEventListener('click', openFilter); }});
-  drawer.querySelectorAll('[data-rj-close-filter]').forEach(function (b) {{ b.addEventListener('click', closeFilter); }});
-  overlay.addEventListener('click', closeFilter);
-  document.addEventListener('keydown', function (e) {{ if (e.key === 'Escape') closeFilter(); }});
-  drawer.querySelectorAll('[data-rj-fgroup]').forEach(function (g) {{
-    var head = g.querySelector('.rj-fgroup__h');
-    head.addEventListener('click', function () {{
-      g.classList.toggle('is-open');
-      head.setAttribute('aria-expanded', g.classList.contains('is-open') ? 'true' : 'false');
-    }});
-  }});
-}})();
+<!--RJ_JS-->
 </script>
 </body>
 </html>
 """
 
-html = PAGE.format(TOKENS=TOKENS, css=css, NAV=NAV, FOOTER=FOOTER, GRID=GRID, GROUPS=GROUPS)
+js = (ROOT / "theme_export/assets/rj-arts.js").read_text()
+html = PAGE.format(TOKENS=TOKENS, css=css, NAV=NAV, FOOTER=FOOTER, GRID=GRID, QV=QV, GROUPS=GROUPS)
+html = html.replace("<!--RJ_JS-->", js)
 (ROOT / "preview-collection-01.html").write_text(html)
 print("wrote preview-collection-01.html", len(html), "bytes,", len(cards), "cards")

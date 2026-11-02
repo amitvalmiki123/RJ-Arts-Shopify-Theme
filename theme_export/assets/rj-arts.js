@@ -508,3 +508,198 @@
     bootProduct(event.target);
   });
 })();
+
+/* ==========================================================================
+   QUICK VIEW POPUP  (snippets/rj-quickview.liquid)
+   The markup for every card lives in an inert <template>, so opening the popup
+   is a DOM clone: no fetch, no app. Add-to-cart is Dawn's own product-form,
+   which upgrades as soon as the cloned nodes are inserted.
+   ========================================================================== */
+(function () {
+  var lastTrigger = null;
+  var bound = false;
+
+  function findModal(trigger) {
+    var section = trigger.closest('.shopify-section');
+    if (section) {
+      var local = section.querySelector('[data-rj-qv]');
+      if (local) return local;
+    }
+    return document.querySelector('[data-rj-qv]');
+  }
+
+  function setBusy(modal, busy) {
+    var dialog = modal.querySelector('.rj-qv__dialog');
+    if (dialog) dialog.setAttribute('aria-busy', busy ? 'true' : 'false');
+  }
+
+  function wireContent(modal) {
+    var content = modal.querySelector('[data-rj-qv-content]');
+    if (!content) return;
+
+    var stage = content.querySelector('[data-rj-qv-stage]');
+    var priceEl = content.querySelector('[data-rj-qv-price]');
+    var wasEl = content.querySelector('[data-rj-qv-was]');
+    var select = content.querySelector('[data-rj-qv-variant]');
+    var idInput = content.querySelector('.product-variant-id');
+    var submit = content.querySelector('[name="add"]');
+    var submitText = content.querySelector('[data-rj-qv-add-text]');
+    var addLabel = submitText ? submitText.textContent.trim() : 'Add to cart';
+
+    /* thumbnails */
+    content.querySelectorAll('[data-rj-qv-thumb]').forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        if (!stage || !thumb.dataset.full) return;
+        stage.src = thumb.dataset.full;
+        if (stage.srcset) stage.srcset = '';
+        content.querySelectorAll('[data-rj-qv-thumb]').forEach(function (other) {
+          other.classList.toggle('is-active', other === thumb);
+        });
+      });
+    });
+
+    /* variant dropdown */
+    if (select) {
+      select.addEventListener('change', function () {
+        var option = select.options[select.selectedIndex];
+        if (!option) return;
+        if (idInput) {
+          idInput.value = option.value;
+          idInput.disabled = option.dataset.available === 'false';
+        }
+        if (priceEl && option.dataset.price) priceEl.textContent = option.dataset.price;
+        if (wasEl) {
+          var compare = option.dataset.compare || '';
+          wasEl.textContent = compare;
+          wasEl.hidden = !compare;
+        }
+        if (stage && option.dataset.image) {
+          stage.src = option.dataset.image;
+          if (stage.srcset) stage.srcset = '';
+        }
+        if (submit) {
+          var available = option.dataset.available !== 'false';
+          submit.disabled = !available;
+          if (submitText) submitText.textContent = available ? addLabel : 'Sold out';
+        }
+      });
+    }
+
+    /* quantity */
+    var qtyInput = content.querySelector('[data-rj-qty-input]');
+    content.querySelectorAll('[data-rj-qty]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (!qtyInput) return;
+        var step = parseInt(button.dataset.rjQty, 10) || 1;
+        var value = parseInt(qtyInput.value, 10) || 1;
+        qtyInput.value = Math.max(1, value + step);
+      });
+    });
+
+    /* close the popup once the add-to-cart request settled */
+    var formEl = content.querySelector('form');
+    if (formEl) {
+      formEl.addEventListener('submit', function () {
+        window.setTimeout(function () {
+          var error = modal.querySelector('.product-form__error-message-wrapper');
+          if (error && !error.hasAttribute('hidden')) return;
+          close(modal);
+        }, 900);
+      });
+    }
+  }
+
+  function focusables(modal) {
+    return Array.prototype.slice
+      .call(
+        modal.querySelectorAll(
+          'a[href], button:not([disabled]), select, input, [tabindex]:not([tabindex="-1"])'
+        )
+      )
+      .filter(function (el) {
+        return el.offsetParent !== null;
+      });
+  }
+
+  function open(modal, trigger) {
+    var content = modal.querySelector('[data-rj-qv-content]');
+    var template = document.querySelector('template[data-rj-qv-template="' + trigger.dataset.rjQvOpen + '"]');
+    if (!content || !template) return;
+
+    lastTrigger = trigger;
+    content.innerHTML = '';
+    content.appendChild(template.content.cloneNode(true));
+    wireContent(modal);
+
+    modal.hidden = false;
+    document.body.classList.add('rj-qv-lock');
+    window.requestAnimationFrame(function () {
+      modal.classList.add('is-open');
+      var closeButton = modal.querySelector('.rj-qv__x');
+      if (closeButton) closeButton.focus();
+    });
+  }
+
+  function close(modal) {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    document.body.classList.remove('rj-qv-lock');
+    window.setTimeout(function () {
+      modal.hidden = true;
+      var content = modal.querySelector('[data-rj-qv-content]');
+      if (content) content.innerHTML = '';
+    }, 350);
+    if (lastTrigger && lastTrigger.focus) lastTrigger.focus();
+  }
+
+  function boot() {
+    if (bound) return;
+    bound = true;
+
+    document.addEventListener('click', function (event) {
+      var trigger = event.target.closest('[data-rj-qv-open]');
+      if (trigger) {
+        event.preventDefault();
+        var modal = findModal(trigger);
+        if (modal) open(modal, trigger);
+        return;
+      }
+
+      var closer = event.target.closest('[data-rj-qv-close]');
+      if (closer) {
+        event.preventDefault();
+        close(closer.closest('[data-rj-qv]'));
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      var modal = document.querySelector('[data-rj-qv].is-open');
+      if (!modal) return;
+
+      if (event.key === 'Escape') {
+        close(modal);
+        return;
+      }
+
+      /* keep Tab inside the dialog */
+      if (event.key !== 'Tab') return;
+      var items = focusables(modal);
+      if (items.length === 0) return;
+      var first = items[0];
+      var last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();

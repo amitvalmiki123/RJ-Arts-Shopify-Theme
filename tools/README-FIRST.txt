@@ -1,14 +1,21 @@
-RJ ARTS - changed files only (29 files)
+RJ ARTS - changed files only (31 files)
 =======================================
 
->>> IS ROUND ME SIRF YE 3 FILES (gallery + hero fixes):
-      assets/rj-arts.css                  (5009 lines - gallery + Buy it now fix)
-      assets/rj-arts.js                   (510 lines - variant + sticky bar JS)
-      sections/rj-product.liquid          (726 lines - NAYI FILE, 41 settings)
-      sections/rj-collection.liquid       (562 lines - hero image fallback)
-      templates/product.json              (104 lines - product template)
+>>> IS ROUND ME SIRF YE 8 FILES (quick view popup + .00 wapas):
+      assets/rj-arts.css                  (5352 lines - quick view popup CSS)
+      assets/rj-arts.js                   (705 lines - quick view popup JS)
+      snippets/rj-quickview.liquid        (129 lines - NAYI, popup content)
+      snippets/rj-quickview-modal.liquid   (22 lines - NAYI, popup shell)
+      sections/rj-collection.liquid       (595 lines - card button -> popup)
+      sections/rj-best.liquid             (264 lines - card button -> popup)
+      sections/rj-showroom.liquid         (382 lines - card button -> popup)
+      sections/rj-product.liquid          (726 lines - price par .00 wapas)
 
       config/settings_data.json           (382 lines - Colours panel, AB TAK PENDING)
+
+    QUICK VIEW: card hover par "Quick View" button ab popup kholta hai
+    (image, price, options, qty, add to cart). Section setting "Card button"
+    se wapas "Go to product page" bhi kar sakte hain.
 
     Product page par Dawn ka main-product (vendor/title/price/variant picker/
     buy buttons) hat jayega - sab kuch naye RJ Product section se aata hai.
@@ -53,17 +60,20 @@ Paste karne ka tarika (har file):
   (dhyan: rj-collections = homepage carousel, rj-collection = collection page)
   sections/rj-hero.liquid                411 lines
   sections/rj-usp.liquid                 145 lines
-  sections/rj-showroom.liquid            352 lines   <- NAYA (Showroom edit)
+  sections/rj-showroom.liquid            382 lines   <- NAYA (Showroom edit)
   sections/rj-categories.liquid          201 lines   <- NAYA (Category tiles)
   sections/rj-band.liquid                188 lines   <- NAYA (Feature band)
   sections/rj-about.liquid               220 lines   <- NAYA (About story)
-  sections/rj-best.liquid                234 lines   <- NAYA (Best sellers)
+  sections/rj-best.liquid                264 lines   <- NAYA (Best sellers)
   sections/rj-collections.liquid         219 lines   <- NAYA (HOMEPAGE carousel, plural)
   sections/rj-reviews.liquid             276 lines   <- Reviews (Judge.me source)
-  sections/rj-collection.liquid          562 lines   <- NAYA (Collection PAGE, singular)
-  sections/rj-product.liquid              726 lines   <- NAYA (Product page, is round)
-  assets/rj-arts.css                    5009 lines   <- poora replace
-  assets/rj-arts.js                      510 lines
+  sections/rj-collection.liquid          595 lines   <- NAYA (Collection PAGE, singular)
+  sections/rj-product.liquid              726 lines   <- NAYA (Product page)
+  assets/rj-arts.css                    5352 lines   <- poora replace
+  assets/rj-arts.js                      705 lines
+
+  snippets/rj-quickview.liquid           129 lines   <- NAYA (Quick View content)
+  snippets/rj-quickview-modal.liquid      22 lines   <- NAYA (Quick View shell)
 
 ---- manual/ - OPTIONAL (sirf patch karna ho to) ----
   manual/snippet-1-color-scheme-fallback.liquid   102 lines

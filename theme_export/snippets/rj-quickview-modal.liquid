@@ -1,0 +1,22 @@
+{% doc %}
+  RJ Arts quick view — the empty modal shell. Render it once per section, after
+  the product grid, and load product-form.js so "Add to cart" inside the popup
+  works exactly like the product page (AJAX + cart drawer).
+
+  @param {string} [close_label] - screen-reader label for the close button
+
+  @example
+  {% render 'rj-quickview-modal' %}
+{% enddoc %}
+
+<div class="rj-qv" data-rj-qv hidden>
+  <div class="rj-qv__overlay" data-rj-qv-close></div>
+  <div class="rj-qv__dialog" role="dialog" aria-modal="true" aria-label="{{ close_label | default: 'Quick view' }}">
+    <button type="button" class="rj-qv__x" data-rj-qv-close aria-label="{{ close_label | default: 'Close' }}">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="rj-qv__content" data-rj-qv-content></div>
+  </div>
+</div>
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>

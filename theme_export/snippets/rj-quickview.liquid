@@ -1,0 +1,129 @@
+{% doc %}
+  RJ Arts quick view — the modal content for ONE product, emitted inside a
+  <template> so the browser keeps it inert until the customer clicks
+  "Quick View". No AJAX, no app: everything is rendered from the real product
+  object at page render time.
+
+  @param {object} product - product to show
+  @param {string} [wishlist_url] - wishlist page used by the heart line
+  @param {string} [add_label] - add-to-cart label, defaults to "Add to Cart"
+  @param {string} [details_label] - link label, defaults to "View full details"
+  @param {number} [image_limit] - thumbnails to render, defaults to 5
+{% enddoc %}
+
+{%- liquid
+  assign rj_qv_add = add_label | default: 'Add to Cart'
+  assign rj_qv_details = details_label | default: 'View full details'
+  assign rj_qv_limit = image_limit | default: 5
+  assign rj_qv_variant = product.selected_or_first_available_variant
+  assign rj_qv_media = product.media | default: product.images
+  assign rj_qv_form_id = 'rj-qv-form-' | append: product.id
+-%}
+<template data-rj-qv-template="{{ product.id }}">
+  <div class="rj-qv__grid">
+    <div class="rj-qv__media">
+      <div class="rj-qv__stage">
+        {%- if product.featured_media != blank -%}
+          <img class="rj-qv__img" data-rj-qv-stage
+               src="{{ product.featured_media | image_url: width: 900 }}"
+               alt="{{ product.featured_media.alt | default: product.title | escape }}"
+               width="{{ product.featured_media.width }}" height="{{ product.featured_media.height }}">
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'rj-qv__img rj-qv__img--placeholder' }}
+        {%- endif -%}
+      </div>
+      {%- if rj_qv_media.size > 1 -%}
+        <div class="rj-qv__thumbs">
+          {%- for media in rj_qv_media limit: rj_qv_limit -%}
+            <button type="button" class="rj-qv__thumb{% if forloop.first %} is-active{% endif %}"
+                    data-rj-qv-thumb
+                    data-full="{{ media.preview_image | default: media | image_url: width: 900 }}">
+              {{ media.preview_image | default: media | image_url: width: 200 | image_tag: loading: 'lazy', alt: product.title, class: 'rj-qv__thumb-img' }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="rj-qv__info">
+      {%- if product.type != blank -%}
+        <span class="rj-qv__cat">{{ product.type | escape }}</span>
+      {%- endif -%}
+      <h2 class="rj-qv__title" id="RjQvTitle-{{ product.id }}">{{ product.title | escape }}</h2>
+
+      <div class="rj-qv__price">
+        <span class="now" data-rj-qv-price>{{ rj_qv_variant.price | money }}</span>
+        <span class="was" data-rj-qv-was {% unless rj_qv_variant.compare_at_price > rj_qv_variant.price %}hidden{% endunless %}>
+          {%- if rj_qv_variant.compare_at_price > rj_qv_variant.price -%}{{ rj_qv_variant.compare_at_price | money }}{%- endif -%}
+        </span>
+      </div>
+
+      {%- if product.description != blank -%}
+        <div class="rj-qv__desc">{{ product.description | strip_html | truncatewords: 40 }}</div>
+      {%- endif -%}
+
+      <product-form class="rj-pform rj-qv__form" data-section-id="qv-{{ product.id }}">
+        <div class="product-form__error-message-wrapper rj-pform__error" role="alert" hidden>
+          <span class="product-form__error-message rj-pform__error-text"></span>
+        </div>
+
+        {%- form 'product', product, id: rj_qv_form_id, class: 'rj-qv__form-el', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+          <input type="hidden" name="id" class="product-variant-id"
+                 value="{{ rj_qv_variant.id }}"
+                 {% unless rj_qv_variant.available %}disabled{% endunless %}>
+
+          {%- if product.has_only_default_variant == false -%}
+            <label class="rj-qv__label" for="RjQvVariant-{{ product.id }}">Options</label>
+            <div class="rj-qv__selectwrap">
+              <select id="RjQvVariant-{{ product.id }}" class="rj-qv__select" data-rj-qv-variant>
+                {%- for variant in product.variants -%}
+                  <option value="{{ variant.id }}"
+                          data-price="{{ variant.price | money }}"
+                          data-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}"
+                          data-available="{{ variant.available }}"
+                          data-image="{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 900 }}{% endif %}"
+                          data-param="{{ variant.url }}"
+                          {% if variant.id == rj_qv_variant.id %}selected{% endif %}>
+                    {{ variant.title | escape }} — {{ variant.price | money }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endif -%}
+
+          <div class="rj-buyrow rj-qv__buyrow">
+            <div class="rj-qty">
+              <button type="button" data-rj-qty="-1" aria-label="Decrease quantity">&minus;</button>
+              <input type="number" class="rj-qty__input" name="quantity" value="1" min="1" step="1"
+                     inputmode="numeric" data-rj-qty-input aria-label="Quantity">
+              <button type="button" data-rj-qty="1" aria-label="Increase quantity">+</button>
+            </div>
+            <button type="submit" name="add" class="rj-btn rj-btn--solid rj-add"
+                    {% unless rj_qv_variant.available %}disabled{% endunless %}>
+              <span data-rj-qv-add-text>
+                {%- if rj_qv_variant.available -%}{{ rj_qv_add }}{%- else -%}Sold out{%- endif -%}
+              </span>
+              {%- render 'loading-spinner' -%}
+            </button>
+          </div>
+        {%- endform -%}
+      </product-form>
+
+      <div class="rj-qv__links">
+        <a class="rj-qv__details" href="{{ product.url }}">{{ rj_qv_details }}
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </a>
+        {%- if wishlist_url != blank -%}
+          <a class="rj-wishline rj-card-wish" href="{{ wishlist_url }}"
+             data-wlh-id="{{ product.id }}"
+             data-wlh-link="{{ shop.url }}{{ product.url }}"
+             data-wlh-name="{{ product.title | escape }}"
+             data-wlh-price="{{ rj_qv_variant.price | divided_by: 100.0 }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20.5s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.9a4.3 4.3 0 0 1 7.5 2.9c0 5.1-7.5 9.7-7.5 9.7z"/></svg>
+            Add to Wishlist
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</template>

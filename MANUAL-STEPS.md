@@ -9,13 +9,15 @@ Do zip hain, confusion na karein:
 
 > ⚠️ `rj-arts-changes.zip` ko theme upload **na** karein — usme Dawn ki zaroori files nahi hain.
 
-**Total kaam: 13 nayi files + 12 replace. Koi file "patch" nahi karni — har file Ctrl+A → paste → Save.**
+**Total kaam: 15 nayi files + 12 replace. Koi file "patch" nahi karni — har file Ctrl+A → paste → Save.**
 
 > 📋 **Shortcut:** root me `PASTE-CHECKLIST.txt` hai — tik-tik karke paste karne ki
 > poori list (10 files, order ke saath). Ye guide usse zyada detail wala version hai.
 
-**Is round me (fix round) 2 files:** `assets/rj-arts.css`, `sections/rj-collection.liquid`,
-`sections/rj-product.liquid`. Baaki sab ✅ skip (agar pichle round me paste kar liye hain).
+**Is round me (quick view + price revert) 6 files:** `assets/rj-arts.css`, `assets/rj-arts.js`,
+`snippets/rj-quickview.liquid` (**nayi**), `snippets/rj-quickview-modal.liquid` (**nayi**),
+`sections/rj-collection.liquid`, `sections/rj-best.liquid`, `sections/rj-showroom.liquid`.
+`sections/rj-product.liquid` me sirf price format wapas kiya (`.00` dobara dikhega).
 
 ---
 
@@ -55,8 +57,8 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 5009 | **⬅ is round me badli (gallery + Buy it now fix)** |
-| 4 | `assets/rj-arts.js` | **NAYI FILE** | 510 | **⬅ is round me badla (variant + sticky bar JS)** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 5352 | **⬅ is round me badli (quick view popup CSS)** |
+| 4 | `assets/rj-arts.js` | **NAYI FILE** | 705 | **⬅ is round me badla (quick view JS)** |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
 | 7 | `sections/header.liquid` | REPLACE | 820 | ✅ pichle round me kar liya to skip |
@@ -64,20 +66,22 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 9 | `snippets/header-mega-menu.liquid` | REPLACE | 134 | ✅ pehle kar liya to skip |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 | ✅ pehle kar liya to skip |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 | ✅ pehle kar liya to skip |
-| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 352 | ✅ pichle round me kar liya to skip |
+| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 382 | **⬅ is round me badla (quick view button)** |
 | 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | ✅ pehle kar liya to skip |
 | 14 | `sections/rj-band.liquid` | **NAYI FILE** | 188 | ✅ pehle kar liya to skip |
 | 15 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | ✅ pehle kar liya to skip |
-| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 234 | ✅ pichle round me kar liya to skip |
+| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 264 | **⬅ is round me badla (quick view button)** |
 | 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 219 | ✅ pehle kar liya to skip *(homepage carousel)* |
 | 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 276 | ✅ pichle round me kar liya to skip |
 | 19 | `sections/footer.liquid` | REPLACE (Dawn ki file) | 447 | ✅ pichle round me kar liya to skip |
 | 20 | `sections/footer-group.json` | REPLACE | 63 | ✅ pichle round me kar liya to skip |
 | 21 | `templates/index.json` | REPLACE | 418 | ✅ pichle round me kar liya to skip |
-| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 562 | **⬅ is round me badli (hero image fallback)** |
+| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 595 | **⬅ is round me badli (quick view button)** |
 | 23 | `templates/collection.json` | REPLACE | 35 | ✅ pichle round me kar liya to skip |
-| 24 | `sections/rj-product.liquid` | **NAYI FILE** | 726 | **⬅ is round me badli (single-image gallery)** |
-| 25 | `templates/product.json` | REPLACE | 104 | **⬅ is round me badla (product template)** |
+| 24 | `sections/rj-product.liquid` | **NAYI FILE** | 726 | **⬅ is round me badli (.00 wapas)** |
+| 25 | `templates/product.json` | REPLACE | 104 | ✅ pichle round me kar liya to skip |
+| 26 | `snippets/rj-quickview.liquid` | **NAYI FILE** | 129 | **⬅ is round me bani (popup content)** |
+| 27 | `snippets/rj-quickview-modal.liquid` | **NAYI FILE** | 22 | **⬅ is round me bani (popup shell)** |
 
 Dawn ki baaki **336 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -250,7 +254,7 @@ Kya asli data se aata hai (hardcoded nahi):
 > ⚠️ Is section ke naam `rj-product.liquid` hai — Step 17/22 wali collection
 > files se alag hai.
 
-### Step 26 — `templates/product.json` → REPLACE ⬅ is round
+### Step 26 — `templates/product.json` → REPLACE
 
 104 lines. `templates` → `product.json` → `Ctrl+A` → paste → `Ctrl+S`.
 
@@ -259,6 +263,18 @@ title, price, variant picker, buy buttons...) **hat jayega** — sab kuch naye
 **RJ Product** section se aata hai. Blocks pehle se bhare hain: 3 policy tiles +
 4 accordion tabs (Delivery / Return & Cancellation / Care Instructions /
 Quality Promise).
+
+### Step 27 — `snippets/rj-quickview.liquid` → **NAYI FILE** ⬅ is round
+
+`snippets` → **New file** → naam `rj-quickview.liquid` → paste → `Ctrl+S`.
+129 lines. Card ka "Quick View" popup ka **content** — ek `<template>` me product
+ka image, title, price, options dropdown, qty + Add to cart, wishlist.
+Render hone par kuch dikhta nahi; sirf popup khulne par aata hai.
+
+### Step 28 — `snippets/rj-quickview-modal.liquid` → **NAYI FILE** ⬅ is round
+
+22 lines. Popup ka khaali shell + `product-form.js` ka script tag (isi se popup
+ka Add to Cart AJAX se chalta hai, cart drawer khulta hai).
 
 ### Editable check — kya hardcoded hai aur kya nahi
 
@@ -428,6 +444,24 @@ Header section → `mega_feature` blocks. Har block me:
    Filter add na karein to Filter button + drawer chhup jayenge (page normal chalega).
 5. **Sort options** — store ki default list hi use hoti hai; kuch karne ki zaroorat nahi.
 
+### 3.17a Quick View popup — 3 cheezein
+
+Har card (collection page, Best sellers, Showroom tabs) ke hover button par
+**Quick View popup** khulta hai. Section settings me:
+
+| Setting | Kaam | Default |
+|---|---|---|
+| **Card button** | `Quick view popup` ya `Go to product page` | Quick view popup |
+| **Popup add-to-cart label** | popup ke button ka text | Add to Cart |
+| Quick View label (purana) | card par button ka text | Quick View |
+
+- Popup me sab **asli product data**: image + thumbnails, title, price (compare-at
+  ke saath), options dropdown (har variant + price), qty, Add to cart, wishlist,
+  "View full details" link.
+- Add to cart popup se hi ho jata hai — Dawn ka cart drawer khulta hai, popup
+  900ms me khud band ho jata hai.
+- Mobile par popup bottom-sheet ki tarah khulta hai; ESC / overlay click / × se band.
+
 ### 3.17 Product page — 5 cheezein (zaroori)
 
 1. **Products me images** — pehli image stage par aati hai, baaki thumbnails.
@@ -486,6 +520,10 @@ heading, sticky bar — sab **RJ Product** section ke settings/blocks se editabl
 | 9g | Complete the Set me 4 products (recommendations/collection se) | Product page |
 | 9h | Reviews section Judge.me widget dikhata hai (install ke baad) | Product page bottom |
 | 9i | Mobile 360/390: gallery single column, thumbs neeche scroll | Devtools |
+| 9j | Card hover → "Quick View" → popup khulta hai (image + price + options) | Collection page |
+| 9k | Popup me option badlein → price/image badalte hain | Quick view popup |
+| 9l | Popup se Add to Cart → cart drawer khulta hai, popup band hota hai | Quick view popup |
+| 9m | Popup ESC / overlay click / × se band, mobile par bottom sheet | Quick view popup |
 | 8 | Footer: brand + Shop + Company + Support | Page bottom |
 | 8a | Footer newsletter band + brass Subscribe button | Footer top |
 | 8b | Payment chips + ghost "RJ ARTS" wordmark | Footer bottom |
@@ -503,7 +541,7 @@ heading, sticky bar — sab **RJ Product** section ke settings/blocks se editabl
 | Product page par gallery bahut chhoti (88px) dikh rahi hai, "Hover to zoom" usi me chipka hai | product me sirf **1 image** thi, isliye stage thumb column me chala gaya tha | fix ho gaya (31-Oct) — `sections/rj-product.liquid` + `rj-arts.css` dobara paste karein. Aage: product me 2+ images rakhein |
 | "Buy it now" button blue dikh raha hai | Shopify ka accelerated checkout apni styling laata hai | fix ho gaya (31-Oct) — `rj-arts.css` dobara paste karein; button ab ink/cream me |
 | Collection page ke hero me koi image nahi | collection me image set nahi hai | fix ho gaya (31-Oct): collection image → section "Hero image override" → **pehle product ki image** fallback. Ya collection me image daal dein |
-| Price `$45,999.00` jaisa decimal ke saath | store currency USD hai + `money` filter decimals dikhata hai | theme ab `money_without_trailing_zeros` use karta hai (`$45,999`). Rupee chahiye to Settings → Store details → Currency = INR |
+| Price `$45,999.00` jaisa decimal ke saath | store ki currency USD hai (2 decimals) | aapke kehne par theme wapas `money` filter par hai. Rupee + no-decimal chahiye to Settings → Store details → Currency = INR, phir `settings_data.json` ka currency format badalna padega |
 | `color schemes must be defined…` | Step 2 nahi hua / cache | `settings_data.json` paste → Save → editor reload |
 | `Block type 'mega_feature' does not exist` | Step 7 se pehle Step 9 | `header.liquid` paste, phir `header-group.json` |
 | `Section type 'rj_hero' does not exist` | Steps 10–11 pending | rj-hero + rj-usp banao, phir `index.json` |

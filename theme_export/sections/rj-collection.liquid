@@ -180,8 +180,20 @@
             </a>
 
             <div class="rj-pcard__quick">
-              <a class="rj-btn rj-btn--light" href="{{ product.url }}">{{ section.settings.quick_view_label | escape }}</a>
+              {%- if section.settings.card_button_action == 'quick_view' -%}
+                <button type="button" class="rj-btn rj-btn--light"
+                        data-rj-qv-open="{{ product.id }}"
+                        aria-haspopup="dialog">
+                  {{ section.settings.quick_view_label | escape }}
+                </button>
+              {%- else -%}
+                <a class="rj-btn rj-btn--light" href="{{ product.url }}">{{ section.settings.quick_view_label | escape }}</a>
+              {%- endif -%}
             </div>
+
+            {%- if section.settings.card_button_action == 'quick_view' -%}
+              {%- render 'rj-quickview', product: product, wishlist_url: section.settings.wishlist_url, add_label: section.settings.quick_view_add_label -%}
+            {%- endif -%}
 
             <div class="rj-pcard__body">
               {%- if product.type != blank -%}
@@ -189,9 +201,9 @@
               {%- endif -%}
               <h3 class="rj-pcard__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
               <div class="rj-pcard__price">
-                <span class="now">{{ product.price | money_without_trailing_zeros }}</span>
+                <span class="now">{{ product.price | money }}</span>
                 {%- if on_sale -%}
-                  <span class="was">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+                  <span class="was">{{ product.compare_at_price | money }}</span>
                 {%- endif -%}
               </div>
               {%- comment -%}
@@ -233,6 +245,10 @@
       {%- endif -%}
     {%- endpaginate -%}
   </div>
+
+  {%- if section.settings.card_button_action == 'quick_view' -%}
+    {%- render 'rj-quickview-modal' -%}
+  {%- endif -%}
 
   {%- comment -%} ---------------- filter drawer ---------------- {%- endcomment -%}
   {%- if section.settings.show_filters and collection.filters.size > 0 -%}
@@ -516,6 +532,23 @@
       "id": "quick_view_label",
       "label": "Card button label",
       "default": "View Product"
+    },
+    {
+      "type": "select",
+      "id": "card_button_action",
+      "label": "Card button",
+      "options": [
+        { "value": "quick_view", "label": "Quick view popup" },
+        { "value": "link", "label": "Go to product page" }
+      ],
+      "default": "quick_view",
+      "info": "Hover par dikhne wala button. Popup me price, image, options aur Add to cart sab hota hai."
+    },
+    {
+      "type": "text",
+      "id": "quick_view_add_label",
+      "label": "Popup add-to-cart label",
+      "default": "Add to Cart"
     },
     {
       "type": "text",

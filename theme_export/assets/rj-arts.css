@@ -5007,3 +5007,346 @@ body.rj-drawer-open {
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }
+
+/* ==========================================================================
+   QUICK VIEW POPUP  (snippets/rj-quickview.liquid + rj-quickview-modal.liquid)
+   Content is rendered server-side per card inside a <template>, so opening is
+   instant and every price/variant/image is real product data.
+   ========================================================================== */
+
+.rj-qv {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.rj-qv[hidden] {
+  display: none;
+}
+
+.rj-qv__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 14, 8, 0.55);
+  opacity: 0;
+  transition: opacity 0.35s var(--rj-ease);
+}
+
+.rj-qv.is-open .rj-qv__overlay {
+  opacity: 1;
+}
+
+.rj-qv__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(980px, 100%);
+  max-height: min(88vh, 860px);
+  overflow-y: auto;
+  background: var(--rj-cream);
+  border: 1px solid var(--rj-line);
+  border-radius: 6px;
+  box-shadow: var(--rj-shadow);
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  transition: opacity 0.35s var(--rj-ease), transform 0.35s var(--rj-ease);
+  overscroll-behavior: contain;
+}
+
+.rj-qv.is-open .rj-qv__dialog {
+  opacity: 1;
+  transform: none;
+}
+
+.rj-qv__x {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--rj-line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--rj-ink);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.3s var(--rj-ease);
+}
+
+.rj-qv__x:hover {
+  background: var(--rj-ink);
+  border-color: var(--rj-ink);
+  color: var(--rj-cream);
+}
+
+.rj-qv__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.rj-qv__media {
+  background: var(--rj-cream-2);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rj-qv__stage {
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--rj-cream-2);
+}
+
+.rj-qv__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rj-qv__thumbs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rj-qv__thumb {
+  width: 62px;
+  height: 62px;
+  padding: 0;
+  border: 1px solid var(--rj-line);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--rj-white);
+  cursor: pointer;
+  opacity: 0.62;
+  transition: 0.3s var(--rj-ease);
+}
+
+.rj-qv__thumb.is-active,
+.rj-qv__thumb:hover {
+  opacity: 1;
+  border-color: var(--rj-brass);
+}
+
+.rj-qv__thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rj-qv__info {
+  padding: 34px 34px 30px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rj-qv__cat {
+  font-family: var(--rj-sans);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rj-brass);
+}
+
+.rj-qv__title {
+  font-family: var(--rj-serif);
+  font-weight: 400;
+  font-size: calc(clamp(24px, 2.2vw, 32px) * var(--rj-heading-scale));
+  line-height: 1.15;
+  margin: 8px 0 0;
+  padding-right: 34px;
+}
+
+.rj-qv__price {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 16px 0 4px;
+}
+
+.rj-qv__price .now {
+  font-family: var(--rj-sans);
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--rj-ink);
+}
+
+.rj-qv__price .was {
+  font-family: var(--rj-sans);
+  font-size: 16px;
+  color: var(--rj-grey);
+  text-decoration: line-through;
+}
+
+.rj-qv__desc {
+  font-family: var(--rj-sans);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--rj-ink-soft);
+  margin-top: 12px;
+}
+
+.rj-qv__label {
+  display: block;
+  font-family: var(--rj-sans);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rj-ink-soft);
+  margin: 20px 0 8px;
+}
+
+.rj-qv__selectwrap {
+  position: relative;
+}
+
+.rj-qv__select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--rj-line);
+  border-radius: 3px;
+  background: var(--rj-white);
+  color: var(--rj-ink);
+  font-family: var(--rj-sans);
+  font-size: 14px;
+  padding: 12px 40px 12px 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.rj-qv__selectwrap::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--rj-ink);
+  border-bottom: 1.5px solid var(--rj-ink);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.rj-qv__buyrow {
+  margin-top: 20px;
+}
+
+.rj-qv__links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.rj-qv__details {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--rj-sans);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rj-ink);
+  border-bottom: 1px solid var(--rj-line);
+  padding-bottom: 3px;
+  transition: 0.3s var(--rj-ease);
+}
+
+.rj-qv__details svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+
+.rj-qv__details:hover {
+  color: var(--rj-brass-deep);
+  border-color: var(--rj-brass);
+}
+
+.rj-qv .rj-wishline {
+  margin-top: 0;
+  font-size: 12px;
+}
+
+/* keyboard users get a visible ring, mouse users do not */
+.rj-qv__dialog :focus-visible,
+.rj-pcard__quick button:focus-visible {
+  outline: 2px solid var(--rj-brass);
+  outline-offset: 3px;
+}
+
+body.rj-qv-lock {
+  overflow: hidden;
+}
+
+/* the card button is a <button> now, so kill the native chrome */
+.rj-pcard__quick button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+@media screen and (max-width: 860px) {
+  .rj-qv {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .rj-qv__dialog {
+    width: 100%;
+    max-height: 92vh;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 0;
+  }
+
+  .rj-qv__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rj-qv__media {
+    padding: 14px;
+  }
+
+  .rj-qv__stage {
+    aspect-ratio: 4 / 3;
+  }
+
+  .rj-qv__info {
+    padding: 22px 20px 28px;
+  }
+
+  .rj-qv__title {
+    font-size: 22px;
+    padding-right: 40px;
+  }
+
+  .rj-qv__price .now {
+    font-size: 20px;
+  }
+
+  .rj-qv__buyrow {
+    flex-wrap: wrap;
+  }
+
+  .rj-qv__buyrow .rj-btn {
+    flex: 1 1 100%;
+    order: 2;
+  }
+}
