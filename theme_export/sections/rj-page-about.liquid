@@ -1,0 +1,655 @@
+{% comment %}
+  RJ ARTS — ABOUT PAGE  (design/About.html)
+  File name: rj-page-about.liquid  ·  used by templates/page.about.json
+
+  NOTE — naam milte-julte sections:
+     rj-about.liquid       = HOMEPAGE ka "Our Story" split (chhota)
+     rj-page-about.liquid  = ye file, poora About page
+
+  Design blocks, in order:
+     .ahero    full-bleed hero: image + gradient, breadcrumb, big serif h1, intro
+     .split    story: 4:5 photo with floating "Est. Craft" tag + copy + button
+     .stats    4 brass numbers on a cream band
+     .wsband   workshop band with dark overlay
+     .proc     reversed split + 3 numbered process cards
+     .why      6 reason cards in a hairline grid
+     .cta      ink band with two buttons
+     .gal      masonry-ish gallery + lightbox
+
+  Every text/image is a section or block setting; nothing is hardcoded except
+  icon shapes and switchable default copy.
+{% endcomment %}
+
+{%- liquid
+  assign rj_hero = section.settings.hero_image
+  assign rj_story = section.settings.story_image
+  assign rj_ws = section.settings.workshop_image
+  assign rj_craft = section.settings.craft_image
+-%}
+
+<div class="rj-about-page color-{{ section.settings.color_scheme }} gradient"
+     style="--rj-ahero-h: {{ section.settings.hero_height }}vh; --rj-wsband-h: {{ section.settings.workshop_height }}vh;">
+
+  {%- comment -%} ---------------- hero ---------------- {%- endcomment -%}
+  <section class="rj-ahero">
+    {%- if rj_hero != blank -%}
+      <div class="rj-ahero__bg">
+        {{ rj_hero | image_url: width: 2400 | image_tag: loading: 'eager', widths: '800,1200,1600,2000,2400', sizes: '100vw', class: 'rj-ahero__img', alt: section.settings.hero_heading }}
+      </div>
+    {%- endif -%}
+    <div class="rj-wrap rj-ahero__inner">
+      <nav class="rj-crumb rj-crumb--light" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">{{ section.settings.home_label | escape }}</a>
+        <span>/</span>
+        <span>{{ page.title | default: section.settings.crumb_current | escape }}</span>
+      </nav>
+      {%- if section.settings.hero_heading != blank -%}
+        <h1 class="rj-ahero__title">{{ section.settings.hero_heading | newline_to_br }}</h1>
+      {%- endif -%}
+      {%- if section.settings.hero_text != blank -%}
+        <div class="rj-ahero__text">{{ section.settings.hero_text }}</div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- comment -%} ---------------- our story ---------------- {%- endcomment -%}
+  {%- if section.settings.show_story -%}
+    <section class="rj-asec">
+      <div class="rj-wrap">
+        <div class="rj-split rj-reveal">
+          <div class="rj-split__media">
+            {%- if rj_story != blank -%}
+              {{ rj_story | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500,800,1200', sizes: '(min-width: 990px) 45vw, 90vw', class: 'rj-split__img', alt: section.settings.story_heading }}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'rj-split__img rj-split__img--placeholder' }}
+            {%- endif -%}
+            {%- if section.settings.story_tag_heading != blank or section.settings.story_tag_text != blank -%}
+              <div class="rj-split__tag">
+                <b>{{ section.settings.story_tag_heading | escape }}</b>
+                <small>{{ section.settings.story_tag_text | escape }}</small>
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="rj-split__body">
+            {%- if section.settings.story_eyebrow != blank -%}
+              <span class="rj-eyebrow">{{ section.settings.story_eyebrow | escape }}</span>
+            {%- endif -%}
+            {%- if section.settings.story_heading != blank -%}
+              <h2 class="rj-ah2">{{ section.settings.story_heading | newline_to_br }}</h2>
+            {%- endif -%}
+            {%- if section.settings.story_text != blank -%}
+              <div class="rj-atext">{{ section.settings.story_text }}</div>
+            {%- endif -%}
+            {%- if section.settings.story_button_label != blank -%}
+              <a class="rj-btn rj-btn--solid rj-split__btn" href="{{ section.settings.story_button_link | default: routes.all_products_collection_url }}">
+                {{ section.settings.story_button_label | escape }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------------- stats ---------------- {%- endcomment -%}
+  {%- assign rj_stats = section.blocks | where: 'type', 'stat' -%}
+  {%- if rj_stats.size > 0 -%}
+    <section class="rj-astats">
+      <div class="rj-wrap">
+        <div class="rj-astats__grid rj-reveal">
+          {%- for block in rj_stats -%}
+            <div class="rj-astat" {{ block.shopify_attributes }}>
+              <b>{{ block.settings.value | escape }}</b>
+              <small>{{ block.settings.label | escape }}</small>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------------- workshop band ---------------- {%- endcomment -%}
+  {%- if section.settings.show_workshop -%}
+    <section class="rj-wsband">
+      {%- if rj_ws != blank -%}
+        <div class="rj-wsband__bg">
+          {{ rj_ws | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '800,1200,1600,2000,2400', sizes: '100vw', class: 'rj-wsband__img', alt: section.settings.workshop_heading }}
+        </div>
+      {%- endif -%}
+      <div class="rj-wsband__inner rj-reveal">
+        {%- if section.settings.workshop_eyebrow != blank -%}
+          <span class="rj-eyebrow">{{ section.settings.workshop_eyebrow | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.workshop_heading != blank -%}
+          <h2>{{ section.settings.workshop_heading | newline_to_br }}</h2>
+        {%- endif -%}
+        {%- if section.settings.workshop_text != blank -%}
+          <p>{{ section.settings.workshop_text | escape }}</p>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------------- craft + process ---------------- {%- endcomment -%}
+  {%- assign rj_steps = section.blocks | where: 'type', 'step' -%}
+  {%- if section.settings.show_craft -%}
+    <section class="rj-asec">
+      <div class="rj-wrap">
+        <div class="rj-split rj-split--rev rj-reveal">
+          <div class="rj-split__body">
+            {%- if section.settings.craft_eyebrow != blank -%}
+              <span class="rj-eyebrow">{{ section.settings.craft_eyebrow | escape }}</span>
+            {%- endif -%}
+            {%- if section.settings.craft_heading != blank -%}
+              <h2 class="rj-ah2">{{ section.settings.craft_heading | newline_to_br }}</h2>
+            {%- endif -%}
+            {%- if section.settings.craft_text != blank -%}
+              <div class="rj-atext">{{ section.settings.craft_text }}</div>
+            {%- endif -%}
+          </div>
+          <div class="rj-split__media rj-split__media--square">
+            {%- if rj_craft != blank -%}
+              {{ rj_craft | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500,800,1200', sizes: '(min-width: 990px) 45vw, 90vw', class: 'rj-split__img', alt: section.settings.craft_heading }}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'rj-split__img rj-split__img--placeholder' }}
+            {%- endif -%}
+          </div>
+        </div>
+
+        {%- if rj_steps.size > 0 -%}
+          <div class="rj-proc rj-reveal">
+            {%- for block in rj_steps -%}
+              <article class="rj-pstep" {{ block.shopify_attributes }}>
+                <div class="rj-pstep__media">
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400,600,800', sizes: '(min-width: 990px) 30vw, 90vw', class: 'rj-pstep__img', alt: block.settings.title }}
+                  {%- else -%}
+                    {{ 'lifestyle-1' | placeholder_svg_tag: 'rj-pstep__img rj-pstep__img--placeholder' }}
+                  {%- endif -%}
+                </div>
+                <div class="rj-pstep__body">
+                  {%- if block.settings.number != blank -%}
+                    <div class="rj-pstep__n">{{ block.settings.number | escape }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.title != blank -%}
+                    <h3>{{ block.settings.title | escape }}</h3>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <p>{{ block.settings.text | escape }}</p>
+                  {%- endif -%}
+                </div>
+              </article>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------------- why choose us ---------------- {%- endcomment -%}
+  {%- assign rj_why = section.blocks | where: 'type', 'why' -%}
+  {%- if rj_why.size > 0 -%}
+    <section class="rj-asec rj-why">
+      <div class="rj-wrap">
+        <div class="rj-asec__head rj-reveal">
+          {%- if section.settings.why_eyebrow != blank -%}
+            <span class="rj-eyebrow">{{ section.settings.why_eyebrow | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.why_heading != blank -%}
+            <h2 class="rj-ah2">{{ section.settings.why_heading | escape }}</h2>
+          {%- endif -%}
+        </div>
+        <div class="rj-why__grid rj-reveal">
+          {%- for block in rj_why -%}
+            <div class="rj-wcard" {{ block.shopify_attributes }}>
+              {%- case block.settings.icon -%}
+                {%- when 'check' -%}
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg>
+                {%- when 'warranty' -%}
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M12 4v4M12 12l3 2"/></svg>
+                {%- when 'truck' -%}
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                {%- when 'star' -%}
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 20l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+                {%- when 'chat' -%}
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                {%- else -%}
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4"/><path d="M12 11v10"/></svg>
+              {%- endcase -%}
+              {%- if block.settings.title != blank -%}
+                <h3>{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p>{{ block.settings.text | escape }}</p>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------------- visit CTA ---------------- {%- endcomment -%}
+  {%- if section.settings.show_cta -%}
+    <section class="rj-cta">
+      <div class="rj-wrap rj-reveal">
+        {%- if section.settings.cta_eyebrow != blank -%}
+          <span class="rj-eyebrow">{{ section.settings.cta_eyebrow | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.cta_heading != blank -%}
+          <h2>{{ section.settings.cta_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.cta_text != blank -%}
+          <p>{{ section.settings.cta_text | escape }}</p>
+        {%- endif -%}
+        <div class="rj-cta__buttons">
+          {%- if section.settings.cta_primary_label != blank -%}
+            <a class="rj-btn rj-btn--light" href="{{ section.settings.cta_primary_link | default: routes.all_products_collection_url }}">
+              {{ section.settings.cta_primary_label | escape }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.cta_secondary_label != blank -%}
+            <a class="rj-btn rj-btn--ghost" href="{{ section.settings.cta_secondary_link }}">
+              {{ section.settings.cta_secondary_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------------- gallery ---------------- {%- endcomment -%}
+  {%- assign rj_gallery = section.blocks | where: 'type', 'gallery' -%}
+  {%- if rj_gallery.size > 0 -%}
+    <section class="rj-asec">
+      <div class="rj-wrap">
+        <div class="rj-asec__head rj-reveal">
+          {%- if section.settings.gallery_eyebrow != blank -%}
+            <span class="rj-eyebrow">{{ section.settings.gallery_eyebrow | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.gallery_heading != blank -%}
+            <h2 class="rj-ah2">{{ section.settings.gallery_heading | escape }}</h2>
+          {%- endif -%}
+        </div>
+        <div class="rj-gal rj-reveal">
+          {%- for block in rj_gallery -%}
+            {%- if block.settings.image != blank -%}
+              {%- assign rj_alt = block.settings.alt | default: section.settings.gallery_heading -%}
+              <a class="rj-gal__item{% if block.settings.size == 'big' %} is-big{% elsif block.settings.size == 'wide' %} is-wide{% endif %}"
+                 href="{{ block.settings.image | image_url: width: 2000 }}"
+                 data-rj-lightbox
+                 data-rj-lightbox-alt="{{ rj_alt | escape }}"
+                 aria-label="{{ section.settings.gallery_heading | default: 'Gallery' | escape }}: {{ rj_alt | escape }}"
+                 {{ block.shopify_attributes }}>
+                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 990px) 24vw, 46vw', class: 'rj-gal__img', alt: rj_alt }}
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  <div class="rj-lb" data-rj-lightbox-modal hidden>
+    <button type="button" class="rj-lb__close" data-rj-lightbox-close aria-label="{{ section.settings.close_label | escape }}">&times;</button>
+    <img class="rj-lb__img" data-rj-lightbox-img src="" alt="">
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RJ About page",
+  "tag": "section",
+  "class": "rj-about-page-section",
+  "max_blocks": 24,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image",
+      "info": "Wide crop, 2400px+. Dark gradient is added automatically."
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "min": 40,
+      "max": 90,
+      "step": 2,
+      "unit": "vh",
+      "label": "Hero height",
+      "default": 74
+    },
+    {
+      "type": "text",
+      "id": "home_label",
+      "label": "Breadcrumb home label",
+      "default": "Home"
+    },
+    {
+      "type": "text",
+      "id": "crumb_current",
+      "label": "Breadcrumb current label (fallback)",
+      "default": "About Us",
+      "info": "Page title maujood ho to wahi dikhta hai."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_heading",
+      "label": "Hero heading",
+      "info": "New line = nayi line (design me 2 lines).",
+      "default": "Our story is\ncarved in wood."
+    },
+    {
+      "type": "richtext",
+      "id": "hero_text",
+      "label": "Hero intro",
+      "default": "<p>Three generations of woodcraft, one belief — furniture should be built to be handed down, not replaced.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Our story"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_story",
+      "label": "Show story block",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Story image",
+      "info": "Portrait crop 4:5."
+    },
+    {
+      "type": "text",
+      "id": "story_tag_heading",
+      "label": "Floating tag heading",
+      "default": "Est. Craft"
+    },
+    {
+      "type": "text",
+      "id": "story_tag_text",
+      "label": "Floating tag caption",
+      "default": "Rajasthan, India"
+    },
+    {
+      "type": "text",
+      "id": "story_eyebrow",
+      "label": "Eyebrow",
+      "default": "Our Story"
+    },
+    {
+      "type": "textarea",
+      "id": "story_heading",
+      "label": "Heading",
+      "default": "Where furniture\nbecomes heirloom."
+    },
+    {
+      "type": "richtext",
+      "id": "story_text",
+      "label": "Copy",
+      "default": "<p>At RJ Arts, we started with a clear vision — to make buying premium furniture online simple, affordable and reliable for everyone. Rooted in generations of skilled artisans who mastered the craft with carefully chosen Sheesham wood, we bring together style, comfort and lasting quality in every piece.</p><p>From sleek modern designs for apartments to timeless pieces for family homes, our collection spans sofas, beds, dining sets, cabinets and more — making us a one-stop destination for a home that feels truly yours.</p>"
+    },
+    {
+      "type": "text",
+      "id": "story_button_label",
+      "label": "Button label",
+      "default": "Explore the Collection"
+    },
+    {
+      "type": "url",
+      "id": "story_button_link",
+      "label": "Button link",
+      "info": "Khali chhodein to /collections/all."
+    },
+    {
+      "type": "header",
+      "content": "Workshop band"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_workshop",
+      "label": "Show workshop band",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "workshop_image",
+      "label": "Band image"
+    },
+    {
+      "type": "range",
+      "id": "workshop_height",
+      "min": 40,
+      "max": 90,
+      "step": 2,
+      "unit": "vh",
+      "label": "Band height",
+      "default": 66
+    },
+    {
+      "type": "text",
+      "id": "workshop_eyebrow",
+      "label": "Eyebrow",
+      "default": "Inside Our Workshop"
+    },
+    {
+      "type": "textarea",
+      "id": "workshop_heading",
+      "label": "Heading",
+      "default": "Handcrafted luxury,\ntimeless living."
+    },
+    {
+      "type": "textarea",
+      "id": "workshop_text",
+      "label": "Text",
+      "default": "Every piece begins on our own factory floor in Rajasthan — where seasoned wood, precision machines and the hands of master artisans come together under one roof."
+    },
+    {
+      "type": "header",
+      "content": "The craft"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_craft",
+      "label": "Show craft + process block",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "craft_image",
+      "label": "Craft image",
+      "info": "Square crop."
+    },
+    {
+      "type": "text",
+      "id": "craft_eyebrow",
+      "label": "Eyebrow",
+      "default": "The Craft"
+    },
+    {
+      "type": "textarea",
+      "id": "craft_heading",
+      "label": "Heading",
+      "default": "Made by hand,\nmeant to last."
+    },
+    {
+      "type": "richtext",
+      "id": "craft_text",
+      "label": "Copy",
+      "default": "<p>We craft using high-quality, responsibly sourced Sheesham — kiln-dried for stability, hand-joined for strength, and finished by artisans who have spent a lifetime perfecting their trade.</p><p>It is this blend of traditional joinery and modern precision that lets every RJ Arts piece look stunning today and stay solid for decades.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Why choose us"
+    },
+    {
+      "type": "text",
+      "id": "why_eyebrow",
+      "label": "Eyebrow",
+      "default": "Why Choose Us"
+    },
+    {
+      "type": "text",
+      "id": "why_heading",
+      "label": "Heading",
+      "default": "A promise in every piece."
+    },
+    {
+      "type": "header",
+      "content": "Visit CTA"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA band",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_eyebrow",
+      "label": "Eyebrow",
+      "default": "Visit Us"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "Heading",
+      "default": "Come see it. Feel the wood."
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "Text",
+      "default": "Explore our full collection online, or visit the RJ Arts showroom to experience the craftsmanship in person."
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary button",
+      "default": "Shop the Collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Secondary button",
+      "default": "Chat on WhatsApp"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_link",
+      "label": "Secondary button link",
+      "info": "e.g. https://wa.me/917014483250"
+    },
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "text",
+      "id": "gallery_eyebrow",
+      "label": "Eyebrow",
+      "default": "Our Spaces"
+    },
+    {
+      "type": "text",
+      "id": "gallery_heading",
+      "label": "Heading",
+      "default": "Step inside RJ Arts."
+    },
+    {
+      "type": "text",
+      "id": "close_label",
+      "label": "Lightbox close label",
+      "default": "Close",
+      "info": "Sirf screen reader ke liye."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "value", "label": "Number", "default": "25+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Years of Craft" }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Process step",
+      "limit": 4,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "number", "label": "Number line", "default": "01 — Shaping" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Precision & Design" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Seasoned Sheesham is cut and carved with precision machinery, translating each design into clean, accurate joinery." }
+      ]
+    },
+    {
+      "type": "why",
+      "name": "Reason card",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "wood", "label": "Wood / block" },
+            { "value": "check", "label": "Check" },
+            { "value": "warranty", "label": "Warranty" },
+            { "value": "truck", "label": "Delivery" },
+            { "value": "star", "label": "Star" },
+            { "value": "chat", "label": "Chat" }
+          ],
+          "default": "wood"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "100% Solid Sheesham" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "No veneers, no shortcuts — only genuine, kiln-dried solid wood built to outlast trends." }
+      ]
+    },
+    {
+      "type": "gallery",
+      "name": "Gallery image",
+      "limit": 8,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Alt text" },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Tile size",
+          "options": [
+            { "value": "normal", "label": "Normal" },
+            { "value": "big", "label": "Big (2×2)" },
+            { "value": "wide", "label": "Wide (2×1)" }
+          ],
+          "default": "normal"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RJ About page"
+    }
+  ]
+}
+{% endschema %}

@@ -9,15 +9,14 @@ Do zip hain, confusion na karein:
 
 > ⚠️ `rj-arts-changes.zip` ko theme upload **na** karein — usme Dawn ki zaroori files nahi hain.
 
-**Total kaam: 15 nayi files + 12 replace. Koi file "patch" nahi karni — har file Ctrl+A → paste → Save.**
+**Total kaam: 17 nayi files + 12 replace. Koi file "patch" nahi karni — har file Ctrl+A → paste → Save.**
 
 > 📋 **Shortcut:** root me `PASTE-CHECKLIST.txt` hai — tik-tik karke paste karne ki
-> poori list (10 files, order ke saath). Ye guide usse zyada detail wala version hai.
+> poori list (5 files, order ke saath). Ye guide usse zyada detail wala version hai.
 
-**Is round me (quick view + price revert) 6 files:** `assets/rj-arts.css`, `assets/rj-arts.js`,
-`snippets/rj-quickview.liquid` (**nayi**), `snippets/rj-quickview-modal.liquid` (**nayi**),
-`sections/rj-collection.liquid`, `sections/rj-best.liquid`, `sections/rj-showroom.liquid`.
-`sections/rj-product.liquid` me sirf price format wapas kiya (`.00` dobara dikhega).
+**Is round me (About page) 4 files:** `assets/rj-arts.css` (About CSS), `assets/rj-arts.js`
+(lightbox JS), `sections/rj-page-about.liquid` (**nayi**), `templates/page.about.json` (**nayi**).
+Round 5 ka quick-view kaam pehle hi ho chuka hai — uske 6 files skip karein.
 
 ---
 
@@ -57,8 +56,8 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 5352 | **⬅ is round me badli (quick view popup CSS)** |
-| 4 | `assets/rj-arts.js` | **NAYI FILE** | 705 | **⬅ is round me badla (quick view JS)** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 6075 | **⬅ is round me badli (About page CSS)** |
+| 4 | `assets/rj-arts.js` | **NAYI FILE** | 788 | **⬅ is round me badla (gallery lightbox JS)** |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
 | 7 | `sections/header.liquid` | REPLACE | 820 | ✅ pichle round me kar liya to skip |
@@ -66,22 +65,24 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 | 9 | `snippets/header-mega-menu.liquid` | REPLACE | 134 | ✅ pehle kar liya to skip |
 | 10 | `sections/rj-hero.liquid` | **NAYI FILE** | 411 | ✅ pehle kar liya to skip |
 | 11 | `sections/rj-usp.liquid` | **NAYI FILE** | 145 | ✅ pehle kar liya to skip |
-| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 382 | **⬅ is round me badla (quick view button)** |
+| 12 | `sections/rj-showroom.liquid` | **NAYI FILE** | 382 | ✅ Round 5 (quick view) — skip |
 | 13 | `sections/rj-categories.liquid` | **NAYI FILE** | 201 | ✅ pehle kar liya to skip |
 | 14 | `sections/rj-band.liquid` | **NAYI FILE** | 188 | ✅ pehle kar liya to skip |
 | 15 | `sections/rj-about.liquid` | **NAYI FILE** | 220 | ✅ pehle kar liya to skip |
-| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 264 | **⬅ is round me badla (quick view button)** |
+| 16 | `sections/rj-best.liquid` | **NAYI FILE** | 264 | ✅ Round 5 (quick view) — skip |
 | 17 | `sections/rj-collections.liquid` | **NAYI FILE** | 219 | ✅ pehle kar liya to skip *(homepage carousel)* |
 | 18 | `sections/rj-reviews.liquid` | **NAYI FILE** | 276 | ✅ pichle round me kar liya to skip |
 | 19 | `sections/footer.liquid` | REPLACE (Dawn ki file) | 447 | ✅ pichle round me kar liya to skip |
 | 20 | `sections/footer-group.json` | REPLACE | 63 | ✅ pichle round me kar liya to skip |
 | 21 | `templates/index.json` | REPLACE | 418 | ✅ pichle round me kar liya to skip |
-| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 595 | **⬅ is round me badli (quick view button)** |
+| 22 | `sections/rj-collection.liquid` | **NAYI FILE** | 595 | ✅ Round 5 (quick view) — skip |
 | 23 | `templates/collection.json` | REPLACE | 35 | ✅ pichle round me kar liya to skip |
-| 24 | `sections/rj-product.liquid` | **NAYI FILE** | 726 | **⬅ is round me badli (.00 wapas)** |
+| 24 | `sections/rj-product.liquid` | **NAYI FILE** | 726 | ✅ Round 5 (price `.00`) — skip |
 | 25 | `templates/product.json` | REPLACE | 104 | ✅ pichle round me kar liya to skip |
-| 26 | `snippets/rj-quickview.liquid` | **NAYI FILE** | 129 | **⬅ is round me bani (popup content)** |
-| 27 | `snippets/rj-quickview-modal.liquid` | **NAYI FILE** | 22 | **⬅ is round me bani (popup shell)** |
+| 26 | `snippets/rj-quickview.liquid` | **NAYI FILE** | 129 | ✅ Round 5 (quick view) — skip |
+| 27 | `snippets/rj-quickview-modal.liquid` | **NAYI FILE** | 22 | ✅ Round 5 (quick view) — skip |
+| 28 | `sections/rj-page-about.liquid` | **NAYI FILE** | 655 | **⬅ is round me bani (About page)** |
+| 29 | `templates/page.about.json` | **NAYI FILE** | 183 | **⬅ is round me bani (About template)** |
 
 Dawn ki baaki **336 files untouched** hain — `assets/base.css`, `assets/global.js` bhi **100% stock** hain, unhe haath nahi lagana.
 
@@ -276,6 +277,35 @@ Render hone par kuch dikhta nahi; sirf popup khulne par aata hai.
 22 lines. Popup ka khaali shell + `product-form.js` ka script tag (isi se popup
 ka Add to Cart AJAX se chalta hai, cart drawer khulta hai).
 
+### Step 29 — `sections/rj-page-about.liquid` → **NAYI FILE** ⬅ is round
+
+`sections` → **New file** → naam `rj-page-about.liquid` → paste → `Ctrl+S`.
+655 lines. **About page ka poora section** — hero (breadcrumb + bada serif title),
+story split with "Est. Craft" tag, 4-stat cream band, workshop band, reversed
+craft split + 3 process cards, 6 "Why Choose Us" cards, ink CTA band, aur 7-image
+gallery with **lightbox** (click par full image).
+
+> ⚠️ Naam me `rj-page-about` hai — homepage wali `rj-about.liquid` se **alag file** hai.
+> Dono rahengi, koi delete na karein.
+
+### Step 30 — `templates/page.about.json` → **NAYI FILE** ⬅ is round
+
+`templates` → **New file** → naam exactly `page.about.json` → paste → `Ctrl+S`.
+183 lines. Isse About page par sirf **RJ About page** section chalta hai (Dawn ka
+purana `main-page` nahi). Sab blocks pehle se bhare hue hain: 4 stats, 3 steps,
+6 why cards, 7 gallery images.
+
+**Paste ke baad 2 kaam (zaroori — warna page khaali dikhega):**
+
+1. Shopify admin → **Online Store → Pages** → **About** page (na ho to *Add page*
+   → title `About Us`, handle `about`) → right side **Theme template** = `page`
+   dropdown me **`about`** chunein → **Save**.
+2. Theme editor → **Pages → About Us** → **RJ About page** section → images add karein:
+   hero, story, workshop, craft, 3 step images, 7 gallery images (§3.18 dekhein).
+
+> Image add na karein to hero ink-colour, story/craft slots placeholder SVG dikhayenge —
+> page tootega nahi, sirf photos missing rahengi.
+
 ### Editable check — kya hardcoded hai aur kya nahi
 
 **Theme editor me sab kuch badal sakte hain** — Collection section me 35 settings:
@@ -444,6 +474,28 @@ Header section → `mega_feature` blocks. Har block me:
    Filter add na karein to Filter button + drawer chhup jayenge (page normal chalega).
 5. **Sort options** — store ki default list hi use hoti hai; kuch karne ki zaroorat nahi.
 
+### 3.18 About page — 12 images + 4 lines (zaroori)
+
+Section: **RJ About page** (templates `page.about.json`).
+
+| Kahan | Kitni images | Suggestion |
+|---|---|---|
+| Hero image | 1 | 2400px wide showroom/factory photo (dark gradient apne aap) |
+| Story image | 1 | 4:5 portrait — showroom ya workshop |
+| Workshop band image | 1 | 2400px wide, dark overlay ke saath |
+| Craft image | 1 | square (1:1) — artisan ke haath |
+| Process steps (3 blocks) | 3 | 4:3 — shaping / assembly / polishing |
+| Gallery (7 blocks) | 7 | 1 badi (2×2) + 2 wide + 4 normal |
+
+Text settings jo badal sakte hain: hero heading (Enter = line break), hero intro,
+story heading + 2 paragraphs + button label, workshop heading + line, craft heading +
+2 paragraphs, why heading, CTA heading + line + 2 button labels, gallery heading,
+`Close` (lightbox ka aria label).
+
+Block text: 4 stats (25+ / 10,000+ / 830+ / 3 Yr), 3 steps, 6 why cards (icon select:
+wood / check / warranty / truck / star / chat), 7 gallery blocks (size: normal /
+big 2×2 / wide 2×1).
+
 ### 3.17a Quick View popup — 3 cheezein
 
 Har card (collection page, Best sellers, Showroom tabs) ke hover button par
@@ -524,6 +576,10 @@ heading, sticky bar — sab **RJ Product** section ke settings/blocks se editabl
 | 9k | Popup me option badlein → price/image badalte hain | Quick view popup |
 | 9l | Popup se Add to Cart → cart drawer khulta hai, popup band hota hai | Quick view popup |
 | 9m | Popup ESC / overlay click / × se band, mobile par bottom sheet | Quick view popup |
+| 9n | About page: hero image + gradient, breadcrumb + bada serif title | About page |
+| 9o | Stats band 4 numbers brass me; workshop band dark overlay ke saath | About page |
+| 9p | Gallery: badi image 2×2 + wide tiles, click par lightbox (ESC/× band) | About page bottom |
+| 9q | Mobile 360/390: story/craft split single column, why cards 1 column | Devtools |
 | 8 | Footer: brand + Shop + Company + Support | Page bottom |
 | 8a | Footer newsletter band + brass Subscribe button | Footer top |
 | 8b | Payment chips + ghost "RJ ARTS" wordmark | Footer bottom |

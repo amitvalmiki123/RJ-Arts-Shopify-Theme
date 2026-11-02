@@ -1,21 +1,23 @@
-RJ ARTS - changed files only (31 files)
+RJ ARTS - changed files only (33 files)
 =======================================
 
->>> IS ROUND ME SIRF YE 8 FILES (quick view popup + .00 wapas):
-      assets/rj-arts.css                  (5352 lines - quick view popup CSS)
-      assets/rj-arts.js                   (705 lines - quick view popup JS)
-      snippets/rj-quickview.liquid        (129 lines - NAYI, popup content)
-      snippets/rj-quickview-modal.liquid   (22 lines - NAYI, popup shell)
-      sections/rj-collection.liquid       (595 lines - card button -> popup)
-      sections/rj-best.liquid             (264 lines - card button -> popup)
-      sections/rj-showroom.liquid         (382 lines - card button -> popup)
-      sections/rj-product.liquid          (726 lines - price par .00 wapas)
+>>> IS ROUND ME SIRF YE 4 FILES (About page):
+      sections/rj-page-about.liquid       (655 lines - NAYI, poora About page)
+      templates/page.about.json           (183 lines - NAYI, About template)
+      assets/rj-arts.css                  (6075 lines - About CSS + lightbox)
+      assets/rj-arts.js                    (788 lines - gallery lightbox JS)
 
       config/settings_data.json           (382 lines - Colours panel, AB TAK PENDING)
 
-    QUICK VIEW: card hover par "Quick View" button ab popup kholta hai
-    (image, price, options, qty, add to cart). Section setting "Card button"
-    se wapas "Go to product page" bhi kar sakte hain.
+    ABOUT PAGE: hero + story split + 4-stat band + workshop band + craft split
+    + 3 process cards + 6 why cards + CTA + 7-image gallery with lightbox.
+    Sab kuch section/block settings se editable; images theme editor me add karein.
+    Paste ke baad: Pages -> About -> Theme template = "about" -> Save.
+
+    ROUND 5 (quick view) ke files - popup chal raha hai to SKIP:
+      snippets/rj-quickview.liquid (129), snippets/rj-quickview-modal.liquid (22),
+      sections/rj-collection.liquid (595), rj-best.liquid (264),
+      rj-showroom.liquid (382), rj-product.liquid (726)
 
     Product page par Dawn ka main-product (vendor/title/price/variant picker/
     buy buttons) hat jayega - sab kuch naye RJ Product section se aata hai.
@@ -69,8 +71,9 @@ Paste karne ka tarika (har file):
   sections/rj-reviews.liquid             276 lines   <- Reviews (Judge.me source)
   sections/rj-collection.liquid          595 lines   <- NAYA (Collection PAGE, singular)
   sections/rj-product.liquid              726 lines   <- NAYA (Product page)
-  assets/rj-arts.css                    5352 lines   <- poora replace
-  assets/rj-arts.js                      705 lines
+  sections/rj-page-about.liquid           655 lines   <- NAYA (About page)
+  assets/rj-arts.css                    6075 lines   <- poora replace
+  assets/rj-arts.js                      788 lines
 
   snippets/rj-quickview.liquid           129 lines   <- NAYA (Quick View content)
   snippets/rj-quickview-modal.liquid      22 lines   <- NAYA (Quick View shell)

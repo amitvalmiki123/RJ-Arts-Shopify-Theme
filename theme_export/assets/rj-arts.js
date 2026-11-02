@@ -703,3 +703,86 @@
     boot();
   }
 })();
+
+/* ==========================================================================
+   RJ ARTS — gallery lightbox (sections/rj-page-about.liquid)
+   Contract:
+     trigger  a[data-rj-lightbox][href="<full image url>"]
+     shell    [data-rj-lightbox-modal] + [data-rj-lightbox-img] + [data-rj-lightbox-close]
+   Closes on Esc, overlay click, close button. Locks body scroll while open.
+   ========================================================================== */
+(function () {
+  if (window.rjLightboxInit) return;
+  window.rjLightboxInit = true;
+
+  var modal = null;
+  var img = null;
+  var lastFocus = null;
+
+  function shell() {
+    if (modal) return modal;
+    modal = document.querySelector('[data-rj-lightbox-modal]');
+    if (modal) img = modal.querySelector('[data-rj-lightbox-img]');
+    return modal;
+  }
+
+  function open(trigger) {
+    if (!shell()) return;
+    var full = trigger.getAttribute('href') || '';
+    if (!full) return;
+
+    lastFocus = trigger;
+    img.setAttribute('src', full);
+    img.setAttribute('alt', trigger.getAttribute('data-rj-lightbox-alt') || trigger.getAttribute('aria-label') || '');
+
+    modal.hidden = false;
+    /* next frame so the opacity transition runs */
+    requestAnimationFrame(function () {
+      modal.classList.add('is-open');
+    });
+    document.body.classList.add('rj-lb-lock');
+
+    var closeBtn = modal.querySelector('[data-rj-lightbox-close]');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function close() {
+    if (!shell()) return;
+    modal.classList.remove('is-open');
+    document.body.classList.remove('rj-lb-lock');
+    window.setTimeout(function () {
+      modal.hidden = true;
+      img.setAttribute('src', '');
+    }, 300);
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    lastFocus = null;
+  }
+
+  function onDocClick(event) {
+    var trigger = event.target.closest('[data-rj-lightbox]');
+    if (trigger) {
+      event.preventDefault();
+      open(trigger);
+      return;
+    }
+
+    if (event.target.closest('[data-rj-lightbox-close]')) {
+      event.preventDefault();
+      close();
+      return;
+    }
+
+    /* clicking the dark overlay (not the image itself) closes */
+    var overlay = event.target.closest('[data-rj-lightbox-modal]');
+    if (overlay && event.target === overlay) close();
+  }
+
+  function onKeydown(event) {
+    if (event.key !== 'Escape') return;
+    if (!modal || modal.hidden) return;
+    close();
+  }
+
+  document.addEventListener('click', onDocClick);
+  document.addEventListener('keydown', onKeydown);
+})();

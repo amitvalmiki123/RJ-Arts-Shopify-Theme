@@ -1,0 +1,183 @@
+{
+  "sections": {
+    "rj-about-page": {
+      "type": "rj-page-about",
+      "blocks": {
+        "stat-years": {
+          "type": "stat",
+          "settings": { "value": "25+", "label": "Years of Craft" }
+        },
+        "stat-homes": {
+          "type": "stat",
+          "settings": { "value": "10,000+", "label": "Happy Homes" }
+        },
+        "stat-reviews": {
+          "type": "stat",
+          "settings": { "value": "830+", "label": "5-Star Reviews" }
+        },
+        "stat-warranty": {
+          "type": "stat",
+          "settings": { "value": "3 Yr", "label": "Warranty" }
+        },
+        "step-shaping": {
+          "type": "step",
+          "settings": {
+            "number": "01 — Shaping",
+            "title": "Precision & Design",
+            "text": "Seasoned Sheesham is cut and carved with precision machinery, translating each design into clean, accurate joinery."
+          }
+        },
+        "step-assembly": {
+          "type": "step",
+          "settings": {
+            "number": "02 — Building",
+            "title": "Hand Assembly",
+            "text": "Master craftsmen join every frame by hand — mortise, tenon and dowel — for furniture that stays rock-steady for generations."
+          }
+        },
+        "step-finishing": {
+          "type": "step",
+          "settings": {
+            "number": "03 — Finishing",
+            "title": "Sanding & Polish",
+            "text": "Each surface is sanded smooth and hand-polished to bring out the natural grain, then quality-checked before it ships."
+          }
+        },
+        "why-sheesham": {
+          "type": "why",
+          "settings": {
+            "icon": "wood",
+            "title": "100% Solid Sheesham",
+            "text": "No veneers, no shortcuts — only genuine, kiln-dried solid wood built to outlast trends."
+          }
+        },
+        "why-price": {
+          "type": "why",
+          "settings": {
+            "icon": "check",
+            "title": "Direct Factory Price",
+            "text": "We own our workshop, so you buy straight from the makers — premium quality without the markup."
+          }
+        },
+        "why-warranty": {
+          "type": "why",
+          "settings": {
+            "icon": "warranty",
+            "title": "3-Year Warranty",
+            "text": "Every piece is backed by a full three-year warranty and after-sales support you can rely on."
+          }
+        },
+        "why-delivery": {
+          "type": "why",
+          "settings": {
+            "icon": "truck",
+            "title": "Pan-India Delivery",
+            "text": "Safe, insured delivery and assembly across India — your furniture arrives ready to enjoy."
+          }
+        },
+        "why-homes": {
+          "type": "why",
+          "settings": {
+            "icon": "star",
+            "title": "10,000+ Happy Homes",
+            "text": "A 4.8-star average across 830+ verified reviews from families who chose RJ Arts."
+          }
+        },
+        "why-support": {
+          "type": "why",
+          "settings": {
+            "icon": "chat",
+            "title": "Real Human Support",
+            "text": "A customer-first team on WhatsApp and call, ready to guide you from browsing to after-care."
+          }
+        },
+        "gallery-1": {
+          "type": "gallery",
+          "settings": { "size": "big", "alt": "RJ Arts factory and showroom" }
+        },
+        "gallery-2": {
+          "type": "gallery",
+          "settings": { "size": "normal", "alt": "Showroom exterior" }
+        },
+        "gallery-3": {
+          "type": "gallery",
+          "settings": { "size": "normal", "alt": "Showroom interior" }
+        },
+        "gallery-4": {
+          "type": "gallery",
+          "settings": { "size": "wide", "alt": "Showroom interior" }
+        },
+        "gallery-5": {
+          "type": "gallery",
+          "settings": { "size": "normal", "alt": "Workshop" }
+        },
+        "gallery-6": {
+          "type": "gallery",
+          "settings": { "size": "normal", "alt": "Storefront" }
+        },
+        "gallery-7": {
+          "type": "gallery",
+          "settings": { "size": "wide", "alt": "RJ Arts building" }
+        }
+      },
+      "block_order": [
+        "stat-years",
+        "stat-homes",
+        "stat-reviews",
+        "stat-warranty",
+        "step-shaping",
+        "step-assembly",
+        "step-finishing",
+        "why-sheesham",
+        "why-price",
+        "why-warranty",
+        "why-delivery",
+        "why-homes",
+        "why-support",
+        "gallery-1",
+        "gallery-2",
+        "gallery-3",
+        "gallery-4",
+        "gallery-5",
+        "gallery-6",
+        "gallery-7"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "hero_height": 74,
+        "home_label": "Home",
+        "crumb_current": "About Us",
+        "hero_heading": "Our story is\ncarved in wood.",
+        "hero_text": "<p>Three generations of woodcraft, one belief — furniture should be built to be handed down, not replaced.</p>",
+        "show_story": true,
+        "story_tag_heading": "Est. Craft",
+        "story_tag_text": "Rajasthan, India",
+        "story_eyebrow": "Our Story",
+        "story_heading": "Where furniture\nbecomes heirloom.",
+        "story_text": "<p>At RJ Arts, we started with a clear vision — to make buying premium furniture online simple, affordable and reliable for everyone. Rooted in generations of skilled artisans who mastered the craft with carefully chosen Sheesham wood, we bring together style, comfort and lasting quality in every piece.</p><p>From sleek modern designs for apartments to timeless pieces for family homes, our collection spans sofas, beds, dining sets, cabinets and more — making us a one-stop destination for a home that feels truly yours.</p>",
+        "story_button_label": "Explore the Collection",
+        "show_workshop": true,
+        "workshop_height": 66,
+        "workshop_eyebrow": "Inside Our Workshop",
+        "workshop_heading": "Handcrafted luxury,\ntimeless living.",
+        "workshop_text": "Every piece begins on our own factory floor in Rajasthan — where seasoned wood, precision machines and the hands of master artisans come together under one roof.",
+        "show_craft": true,
+        "craft_eyebrow": "The Craft",
+        "craft_heading": "Made by hand,\nmeant to last.",
+        "craft_text": "<p>We craft using high-quality, responsibly sourced Sheesham — kiln-dried for stability, hand-joined for strength, and finished by artisans who have spent a lifetime perfecting their trade.</p><p>It is this blend of traditional joinery and modern precision that lets every RJ Arts piece look stunning today and stay solid for decades.</p>",
+        "why_eyebrow": "Why Choose Us",
+        "why_heading": "A promise in every piece.",
+        "show_cta": true,
+        "cta_eyebrow": "Visit Us",
+        "cta_heading": "Come see it. Feel the wood.",
+        "cta_text": "Explore our full collection online, or visit the RJ Arts showroom to experience the craftsmanship in person.",
+        "cta_primary_label": "Shop the Collection",
+        "cta_secondary_label": "Chat on WhatsApp",
+        "gallery_eyebrow": "Our Spaces",
+        "gallery_heading": "Step inside RJ Arts.",
+        "close_label": "Close"
+      }
+    }
+  },
+  "order": ["rj-about-page"]
+}

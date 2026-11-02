@@ -1,86 +1,84 @@
 RJ ARTS — PASTE CHECKLIST (jo abhi baaki hai)
 =============================================
 
-Aapne collection page paste nahi kiya, aur uske baad product page bhi ban gaya.
-Isliye abhi TOTAL **10 files** paste karni hain — 2 nayi + 8 replace.
-Time: ~15 min. Har file: Ctrl+Home → Ctrl+A → Ctrl+V → Ctrl+S.
+Is round me About page bana hai. TOTAL **5 files** paste karni hain:
+4 About page ki + 1 Colours panel ki (settings_data.json).
+Time: ~10 min. Har file: Ctrl+Home → Ctrl+A → Ctrl+V → Ctrl+S.
 
-⚡ IS ROUND ME (quick view popup + .00 wapas) — 6 files:
-     [ ] snippets/rj-quickview.liquid       129 lines  (NAYI — popup content)
-     [ ] snippets/rj-quickview-modal.liquid  22 lines  (NAYI — popup shell)
-     [ ] assets/rj-arts.css                5352 lines  (popup CSS)
-     [ ] assets/rj-arts.js                  705 lines  (popup JS)
-     [ ] sections/rj-collection.liquid      595 lines  (card button -> popup)
-     [ ] sections/rj-best.liquid            264 lines  (card button -> popup)
-     [ ] sections/rj-showroom.liquid        382 lines  (card button -> popup)
-     [ ] sections/rj-product.liquid         726 lines  (.00 wapas)
+⚡ IS ROUND ME (About page) — 4 files:
+     [ ] 1. sections/rj-page-about.liquid     655 lines  (NAYI — poora About page)
+     [ ] 2. templates/page.about.json         183 lines  (NAYI — About template)
+     [ ] 3. assets/rj-arts.css               6075 lines  (About CSS + lightbox)
+     [ ] 4. assets/rj-arts.js                 788 lines  (gallery lightbox JS)
 
-⚠️ ORDER ZAROORI HAI — pehle sections, phir templates, phir assets.
-   (Template JSON pehle paste karne par "Section type does not exist" error aayega.)
+⚠️ ORDER ZAROORI HAI — pehle section, phir template, phir assets.
+   (Template JSON pehle paste karne par "Section type 'rj-page-about' does not
+   exist" error aayega.)
 
 ---------------------------------------------------------------
-STEP 1 — NAYE FILES (sections → "New file" → naam → paste → Save)
+STEP 1 — NAYA SECTION (sections → "New file")
 ---------------------------------------------------------------
-[ ] 1. sections/rj-collection.liquid        595 lines   (Collection page)
-[ ] 2. sections/rj-product.liquid           726 lines   (Product page)
-[ ] 2a. snippets/rj-quickview.liquid        129 lines   (Quick View popup content)
-[ ] 2b. snippets/rj-quickview-modal.liquid  22 lines    (Quick View popup shell)
+[ ] 1. sections/rj-page-about.liquid        655 lines   (About page)
 
-   Naam exactly yahi rakhein:
-     rj-collection.liquid  = collection page   (SINGULAR)
-     rj-collections.liquid = homepage carousel (PLURAL, pehle se maujood — isse chhed-chhad nahi)
+   Naam exactly `rj-page-about.liquid` — aur haan, `rj-about.liquid`
+   (homepage ka chhota Our Story split) alag file hai, usse chhed-chhad nahi.
 
 ---------------------------------------------------------------
-STEP 2 — TEMPLATES (templates → file kholen → Ctrl+A → paste → Save)
+STEP 2 — NAYA TEMPLATE (templates → "New file")
 ---------------------------------------------------------------
-[ ] 3. templates/collection.json             35 lines   (Collection page ka section order)
-[ ] 4. templates/product.json               104 lines   (Product page ka section order)
-[ ] 5. templates/index.json                 418 lines   (homepage — placeholder_note setting)
+[ ] 2. templates/page.about.json            183 lines   (About page ka section order)
+
+   Paste ke baad:
+   Online Store → Pages → About page → Theme template = **about** → Save.
+   (About page na ho to Add page → title "About Us" → handle `about`.)
 
 ---------------------------------------------------------------
-STEP 3 — SECTIONS REPLACE (sections → file kholen → Ctrl+A → paste → Save)
+STEP 3 — ASSETS REPLACE (assets → file kholen → Ctrl+A → paste → Save)
 ---------------------------------------------------------------
-[ ] 6. sections/rj-best.liquid              234 lines   (fake ₹0 / 5-star placeholder hataya)
-[ ] 7. sections/rj-showroom.liquid          352 lines   (fake placeholder hataya)
-[ ] 8. sections/rj-reviews.liquid           276 lines   (editor hint ab setting)
+[ ] 3. assets/rj-arts.css                  6075 lines   (About CSS + lightbox)
+[ ] 4. assets/rj-arts.js                    788 lines   (lightbox JS, purana JS safe)
 
 ---------------------------------------------------------------
-STEP 4 — ASSETS (assets → file kholen → Ctrl+A → paste → Save)
+STEP 4 — AB BHI PENDING (Colours panel) — alag se karna hai
 ---------------------------------------------------------------
-[ ] 9. assets/rj-arts.css                  5352 lines   (Collection + Product + popup CSS)
-[ ] 10. assets/rj-arts.js                   705 lines   (drawer, sort, variant, popup)
-
----------------------------------------------------------------
-STEP 5 — AB BHI PENDING (Colours panel) — alag se karna hai
----------------------------------------------------------------
-[ ] 11. config/settings_data.json           382 lines   (Colours + banner + fonts)
+[ ] 5. config/settings_data.json            382 lines   (Colours + banner + fonts)
 
    ⚠️ Isme sirf Ctrl+A → paste → Save. Delete/Backspace kabhi na dabayein,
       warna "config/settings_data.json could not be deleted" popup aata hai.
       File hi na dikhe to MANUAL-STEPS.md → section 5.1 dekhein.
 
 ---------------------------------------------------------------
+AGAR ROUND 5 (quick view) KA KOI FILE CHHOOT GAYA HO
+---------------------------------------------------------------
+Popup chal raha hai to inhe SKIP karein (zaroorat nahi):
+     snippets/rj-quickview.liquid (129) · snippets/rj-quickview-modal.liquid (22)
+     sections/rj-collection.liquid (595) · rj-best.liquid (264) ·
+     rj-showroom.liquid (382) · rj-product.liquid (726)
+
+---------------------------------------------------------------
 SKIP — inhe haath NAHI lagana
 ---------------------------------------------------------------
-  config/settings_schema.json      (pehle ho chuka)
-  layout/theme.liquid              (pehle ho chuka)
+  config/settings_schema.json       (pehle ho chuka)
+  layout/theme.liquid               (pehle ho chuka)
   sections/announcement-bar.liquid  (aapki already set — intended behaviour)
-  sections/header.liquid           (pehle ho chuka)
-  sections/header-group.json       (pehle ho chuka)
+  sections/header.liquid            (pehle ho chuka)
+  sections/header-group.json        (pehle ho chuka)
   snippets/header-mega-menu.liquid  (pehle ho chuka)
-  sections/footer.liquid           (pehle ho chuka)
-  sections/footer-group.json       (pehle ho chuka)
-  sections/rj-hero / rj-usp / rj-showroom* / rj-categories / rj-band /
-  rj-about / rj-collections — already pasted (rj-showroom ka naya version
-  Step 3 me hai, wahi paste karna hai)
+  sections/footer.liquid            (pehle ho chuka)
+  sections/footer-group.json        (pehle ho chuka)
+  sections/rj-hero / rj-usp / rj-categories / rj-band / rj-about /
+  rj-collections / rj-reviews / rj-collection — already pasted
+  templates/index.json · collection.json · product.json — already pasted
 
 ---------------------------------------------------------------
-PASTE KE BAAD 5-SECOND CHECK (har page par)
+PASTE KE BAAD 5-SECOND CHECK
 ---------------------------------------------------------------
-1. Collection page → hero + filter pill + 4-column grid + Load More
-2. Product page → gallery thumbs + size buttons + Add to Cart (cart drawer khule)
-3. Size button badlein → price + SKU + image badalne chahiye
-4. Homepage → Best sellers / Showroom me "Example best seller" ya ₹0 nahi dikhna chahiye
-5. Reviews/Judge.me abhi khaali rahega — app install ke baad bharega (ye normal hai)
+1. About page khulta hai (Pages → About → template `about`)
+2. Hero par photo + dark gradient + bada serif title, breadcrumb "Home / About Us"
+3. Stats band me 4 brass numbers (25+ / 10,000+ / 830+ / 3 Yr)
+4. Gallery me kisi image par click → lightbox khulta hai, ESC / × se band
+5. Mobile 360/390 par story + craft single column, why cards ek ke neeche ek
+6. Images abhi khaali hain to hero ink-colour + placeholder SVG dikhega —
+   theme editor → RJ About page → images add karein (MANUAL-STEPS §3.18)
 
-Zyada detail chahiye to: MANUAL-STEPS.md (Step 22–26, §3.16–3.17)
+Zyada detail chahiye to: MANUAL-STEPS.md (Step 29–30, §3.18, checks 9n–9q)
