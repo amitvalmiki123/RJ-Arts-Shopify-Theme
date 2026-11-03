@@ -271,17 +271,17 @@
             <h2 class="rj-ah2">{{ section.settings.gallery_heading | escape }}</h2>
           {%- endif -%}
         </div>
-        <div class="rj-gal rj-reveal">
+        <div class="rj-agal rj-reveal">
           {%- for block in rj_gallery -%}
             {%- if block.settings.image != blank -%}
               {%- assign rj_alt = block.settings.alt | default: section.settings.gallery_heading -%}
-              <a class="rj-gal__item{% if block.settings.size == 'big' %} is-big{% elsif block.settings.size == 'wide' %} is-wide{% endif %}"
+              <a class="rj-agal__item{% if block.settings.size == 'big' %} is-big{% elsif block.settings.size == 'wide' %} is-wide{% endif %}"
                  href="{{ block.settings.image | image_url: width: 2000 }}"
                  data-rj-lightbox
                  data-rj-lightbox-alt="{{ rj_alt | escape }}"
                  aria-label="{{ section.settings.gallery_heading | default: 'Gallery' | escape }}: {{ rj_alt | escape }}"
                  {{ block.shopify_attributes }}>
-                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 990px) 24vw, 46vw', class: 'rj-gal__img', alt: rj_alt }}
+                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 990px) 24vw, 46vw', class: 'rj-agal__img', alt: rj_alt }}
               </a>
             {%- endif -%}
           {%- endfor -%}

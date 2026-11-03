@@ -56,7 +56,7 @@ Agar galti ho jaye: page reload karein → file kholein → `Ctrl+Z` (undo) ya d
 |---|------|--------|-------|--------|
 | 1 | `config/settings_schema.json` | REPLACE | 1551 | ✅ pehle kar liya to skip |
 | 2 | `config/settings_data.json` | REPLACE | 382 | **⬅ pending — Colours + banner isi se** |
-| 3 | `assets/rj-arts.css` | **NAYI FILE** | 6075 | **⬅ is round me badli (About page CSS)** |
+| 3 | `assets/rj-arts.css` | **NAYI FILE** | 6569 | **⬅ is round me badli (About page CSS)** |
 | 4 | `assets/rj-arts.js` | **NAYI FILE** | 788 | **⬅ is round me badla (gallery lightbox JS)** |
 | 5 | `layout/theme.liquid` | REPLACE | 641 | ✅ pehle kar liya to skip |
 | 6 | `sections/announcement-bar.liquid` | REPLACE | 180 | ✅ **skip — aapki set hai** |
@@ -287,6 +287,11 @@ gallery with **lightbox** (click par full image).
 
 > ⚠️ Naam me `rj-page-about` hai — homepage wali `rj-about.liquid` se **alag file** hai.
 > Dono rahengi, koi delete na karein.
+
+**Responsive:** 1024 / 989 / 768 / 430 / 360 px ke liye poora layout tune hai —
+tablet par split single column (photo pehle), process cards 2-up (teesra card full
+width), phone par 1-up, gallery 4 → 2 columns, CTA buttons phone par ek ke neeche ek.
+Hero ki height phone par `auto` ho jati hai, isliye lamba title kabhi clip nahi hota.
 
 ### Step 30 — `templates/page.about.json` → **NAYI FILE** ⬅ is round
 
@@ -580,6 +585,9 @@ heading, sticky bar — sab **RJ Product** section ke settings/blocks se editabl
 | 9o | Stats band 4 numbers brass me; workshop band dark overlay ke saath | About page |
 | 9p | Gallery: badi image 2×2 + wide tiles, click par lightbox (ESC/× band) | About page bottom |
 | 9q | Mobile 360/390: story/craft split single column, why cards 1 column | Devtools |
+| 9r | Tablet 768–1024: split single column (photo upar), process 2-up + teesra full width | Devtools |
+| 9s | Gallery: desktop 4 columns, tablet 4, phone 2 (badi image full-width banner) | About page |
+| 9t | 360px par body text 15–16px se chhota nahi, hero ka title clip nahi hota | Devtools |
 | 8 | Footer: brand + Shop + Company + Support | Page bottom |
 | 8a | Footer newsletter band + brass Subscribe button | Footer top |
 | 8b | Payment chips + ghost "RJ ARTS" wordmark | Footer bottom |

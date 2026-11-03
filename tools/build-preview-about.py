@@ -129,14 +129,14 @@ for i, (title, text) in enumerate(whys):
 
 GAL = ""
 for g in gallery:
-    cls = "rj-gal__item"
+    cls = "rj-agal__item"
     if g["size"] == "big":
         cls += " is-big"
     elif g["size"] == "wide":
         cls += " is-wide"
     GAL += f"""
           <a class="{cls}" href="{g['full']}" data-rj-lightbox data-rj-lightbox-alt="{g['alt']}" aria-label="Open image: {g['alt']}">
-            <img class="rj-gal__img" src="{g['img']}" alt="{g['alt']}" loading="lazy">
+            <img class="rj-agal__img" src="{g['img']}" alt="{g['alt']}" loading="lazy">
           </a>"""
 
 PAGE = """<!DOCTYPE html>
@@ -274,7 +274,7 @@ main {{ display: block; }}
         <span class="rj-eyebrow">Our Spaces</span>
         <h2 class="rj-ah2">Step inside RJ Arts.</h2>
       </div>
-      <div class="rj-gal rj-reveal is-in">{GAL}
+      <div class="rj-agal rj-reveal is-in">{GAL}
       </div>
     </div>
   </section>

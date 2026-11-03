@@ -4,7 +4,7 @@ RJ ARTS - changed files only (33 files)
 >>> IS ROUND ME SIRF YE 4 FILES (About page):
       sections/rj-page-about.liquid       (655 lines - NAYI, poora About page)
       templates/page.about.json           (183 lines - NAYI, About template)
-      assets/rj-arts.css                  (6075 lines - About CSS + lightbox)
+      assets/rj-arts.css                  (6569 lines - About CSS + lightbox)
       assets/rj-arts.js                    (788 lines - gallery lightbox JS)
 
       config/settings_data.json           (382 lines - Colours panel, AB TAK PENDING)
@@ -13,6 +13,11 @@ RJ ARTS - changed files only (33 files)
     + 3 process cards + 6 why cards + CTA + 7-image gallery with lightbox.
     Sab kuch section/block settings se editable; images theme editor me add karein.
     Paste ke baad: Pages -> About -> Theme template = "about" -> Save.
+
+    RESPONSIVE: 1024 / 989 / 768 / 430 / 360 px ke liye poora layout tune hai.
+    Tablet par split single column (photo pehle), process cards 2-up + teesra
+    full width, phone par 1-up; gallery desktop 4 -> phone 2 columns; CTA buttons
+    phone par ek ke neeche ek; hero ki height phone par auto (title clip nahi).
 
     ROUND 5 (quick view) ke files - popup chal raha hai to SKIP:
       snippets/rj-quickview.liquid (129), snippets/rj-quickview-modal.liquid (22),
@@ -72,7 +77,7 @@ Paste karne ka tarika (har file):
   sections/rj-collection.liquid          595 lines   <- NAYA (Collection PAGE, singular)
   sections/rj-product.liquid              726 lines   <- NAYA (Product page)
   sections/rj-page-about.liquid           655 lines   <- NAYA (About page)
-  assets/rj-arts.css                    6075 lines   <- poora replace
+  assets/rj-arts.css                    6569 lines   <- poora replace
   assets/rj-arts.js                      788 lines
 
   snippets/rj-quickview.liquid           129 lines   <- NAYA (Quick View content)

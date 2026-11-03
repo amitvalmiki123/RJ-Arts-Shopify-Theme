@@ -8,7 +8,7 @@ Time: ~10 min. Har file: Ctrl+Home → Ctrl+A → Ctrl+V → Ctrl+S.
 ⚡ IS ROUND ME (About page) — 4 files:
      [ ] 1. sections/rj-page-about.liquid     655 lines  (NAYI — poora About page)
      [ ] 2. templates/page.about.json         183 lines  (NAYI — About template)
-     [ ] 3. assets/rj-arts.css               6075 lines  (About CSS + lightbox)
+     [ ] 3. assets/rj-arts.css               6569 lines  (About CSS + lightbox)
      [ ] 4. assets/rj-arts.js                 788 lines  (gallery lightbox JS)
 
 ⚠️ ORDER ZAROORI HAI — pehle section, phir template, phir assets.
@@ -35,7 +35,7 @@ STEP 2 — NAYA TEMPLATE (templates → "New file")
 ---------------------------------------------------------------
 STEP 3 — ASSETS REPLACE (assets → file kholen → Ctrl+A → paste → Save)
 ---------------------------------------------------------------
-[ ] 3. assets/rj-arts.css                  6075 lines   (About CSS + lightbox)
+[ ] 3. assets/rj-arts.css                  6569 lines   (About CSS + lightbox)
 [ ] 4. assets/rj-arts.js                    788 lines   (lightbox JS, purana JS safe)
 
 ---------------------------------------------------------------
@@ -77,8 +77,10 @@ PASTE KE BAAD 5-SECOND CHECK
 2. Hero par photo + dark gradient + bada serif title, breadcrumb "Home / About Us"
 3. Stats band me 4 brass numbers (25+ / 10,000+ / 830+ / 3 Yr)
 4. Gallery me kisi image par click → lightbox khulta hai, ESC / × se band
-5. Mobile 360/390 par story + craft single column, why cards ek ke neeche ek
-6. Images abhi khaali hain to hero ink-colour + placeholder SVG dikhega —
+5. Mobile 360/390/430 par story + craft single column, why cards ek ke neeche ek,
+   gallery 2 columns, CTA buttons ek ke neeche ek
+6. Tablet 768–1024 par process cards 2-up (teesra full width), stats 2x2
+7. Images abhi khaali hain to hero ink-colour + placeholder SVG dikhega —
    theme editor → RJ About page → images add karein (MANUAL-STEPS §3.18)
 
-Zyada detail chahiye to: MANUAL-STEPS.md (Step 29–30, §3.18, checks 9n–9q)
+Zyada detail chahiye to: MANUAL-STEPS.md (Step 29–30, §3.18, checks 9n–9t)

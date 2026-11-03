@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RJ Arts — About page responsive check</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 28px 24px 60px;
+    background: #211c17;
+    color: #f7f4ef;
+    font-family: Jost, system-ui, sans-serif;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    font-size: 30px;
+    margin: 0 0 6px;
+    color: #fff;
+  }
+  .sub {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: #a9865b;
+    text-transform: uppercase;
+    margin-bottom: 26px;
+  }
+  .row {
+    display: flex;
+    gap: 26px;
+    align-items: flex-start;
+    overflow-x: auto;
+    padding-bottom: 24px;
+  }
+  .col { flex: 0 0 auto; }
+  .col__head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #cfc6b8;
+  }
+  .col__head b { color: #fff; }
+  .col__head span { color: #8a8178; text-transform: none; letter-spacing: 0; }
+  .col__head a { margin-left: auto; color: #a9865b; text-decoration: none; }
+  .col__head a:hover { text-decoration: underline; }
+  .frame {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+  }
+  iframe { display: block; border: 0; }
+</style>
+</head>
+<body>
+  <h1>About page — responsive check</h1>
+  <p class="sub">360 · 390 · 430 · 768 · 989 · 1024 · 1440 — real iframes, real CSS</p>
+  <div class="row">
+    <section class="col">
+      <header class="col__head">
+        <b>360 px</b>
+        <span>small phone</span>
+        <a href="preview-about-01.html" target="_blank" rel="noopener">open raw</a>
+      </header>
+      <div class="frame" style="width: 360px">
+        <iframe src="preview-about-01.html" title="About page at 360px" width="360" height="1400" loading="lazy"></iframe>
+      </div>
+    </section>
+    <section class="col">
+      <header class="col__head">
+        <b>390 px</b>
+        <span>iPhone 14</span>
+        <a href="preview-about-01.html" target="_blank" rel="noopener">open raw</a>
+      </header>
+      <div class="frame" style="width: 390px">
+        <iframe src="preview-about-01.html" title="About page at 390px" width="390" height="1400" loading="lazy"></iframe>
+      </div>
+    </section>
+    <section class="col">
+      <header class="col__head">
+        <b>430 px</b>
+        <span>phone XL</span>
+        <a href="preview-about-01.html" target="_blank" rel="noopener">open raw</a>
+      </header>
+      <div class="frame" style="width: 430px">
+        <iframe src="preview-about-01.html" title="About page at 430px" width="430" height="1400" loading="lazy"></iframe>
+      </div>
+    </section>
+    <section class="col">
+      <header class="col__head">
+        <b>768 px</b>
+        <span>tablet portrait</span>
+        <a href="preview-about-01.html" target="_blank" rel="noopener">open raw</a>
+      </header>
+      <div class="frame" style="width: 768px">
+        <iframe src="preview-about-01.html" title="About page at 768px" width="768" height="1400" loading="lazy"></iframe>
+      </div>
+    </section>
+    <section class="col">
+      <header class="col__head">
+        <b>989 px</b>
+        <span>Dawn tablet breakpoint</span>
+        <a href="preview-about-01.html" target="_blank" rel="noopener">open raw</a>
+      </header>
+      <div class="frame" style="width: 989px">
+        <iframe src="preview-about-01.html" title="About page at 989px" width="989" height="1400" loading="lazy"></iframe>
+      </div>
+    </section>
+    <section class="col">
+      <header class="col__head">
+        <b>1024 px</b>
+        <span>tablet landscape</span>
+        <a href="preview-about-01.html" target="_blank" rel="noopener">open raw</a>
+      </header>
+      <div class="frame" style="width: 1024px">
+        <iframe src="preview-about-01.html" title="About page at 1024px" width="1024" height="1400" loading="lazy"></iframe>
+      </div>
+    </section>
+    <section class="col">
+      <header class="col__head">
+        <b>1440 px</b>
+        <span>desktop</span>
+        <a href="preview-about-01.html" target="_blank" rel="noopener">open raw</a>
+      </header>
+      <div class="frame" style="width: 1440px">
+        <iframe src="preview-about-01.html" title="About page at 1440px" width="1440" height="1400" loading="lazy"></iframe>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
